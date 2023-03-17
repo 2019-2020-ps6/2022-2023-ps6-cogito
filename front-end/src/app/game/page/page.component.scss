@@ -1,0 +1,31 @@
+@import "../../../styles/variables.scss";
+
+section {
+    height: 100%;
+}
+
+h1 {
+    font-size: $h1-size;
+    font-weight: bold;
+    height: 20%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: $blue;
+}
+
+div {
+    display: flex;
+    justify-content: space-between;
+    align-content: space-evenly;
+    height: 10%;
+    padding: 0 5%;
+}
+
+button {
+    font-size: $normal-size;
+    background-color: $orange;
+    padding: 5px;
+    height: 90%;
+    width: 15%;
+}
