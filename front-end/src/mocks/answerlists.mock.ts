@@ -2,9 +2,9 @@ import { AnswerList } from "src/models/answerList.modele";
 
 export const ANSWER_INS3: AnswerList = {
     answers:[
-        {value: 'guitarre', isCorrect: false},
+        {value: 'guitarre', isCorrect: true},
         {value: 'violoncel', isCorrect: false},
-        {value: 'contrebasse', isCorrect: true},
+        {value: 'contrebasse', isCorrect: false},
         {value: 'alto', isCorrect: false}
     ]
 };
