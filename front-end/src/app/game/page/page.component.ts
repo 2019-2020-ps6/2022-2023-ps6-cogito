@@ -7,6 +7,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class GamePageComponent implements OnInit {
 
+    quiztheme='Instruments'
+    currentQuestion=4
+    nbquestions=10
     constructor() {}
 
     ngOnInit(): void {}

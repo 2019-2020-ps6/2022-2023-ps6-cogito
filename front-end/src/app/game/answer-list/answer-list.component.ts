@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { AnswerList } from 'src/models/answerList.modele';
 
 @Component({
     selector: 'app-game-answer-list',
@@ -6,8 +7,10 @@ import { Component, OnInit } from '@angular/core';
     styleUrls: ['./answer-list.component.scss']
 })
 export class GameAnswerListComponent implements OnInit {
-
-    constructor() {}
+    @Input()
+    answers: AnswerList = { answers: [] };
+    constructor() {
+    }
 
     ngOnInit(): void {}
 }

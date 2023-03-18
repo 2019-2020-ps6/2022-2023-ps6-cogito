@@ -1,8 +1,9 @@
-import { Answer } from './answer.modele';
+import { AnswerList } from './answerList.modele';
 
 
 export interface Question {
     id: string;
     label: string;
-    answers: Answer[];
+    type? :string;
+    answerList: AnswerList;
 }
