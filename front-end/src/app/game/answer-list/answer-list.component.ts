@@ -13,4 +13,8 @@ export class GameAnswerListComponent implements OnInit {
     }
 
     ngOnInit(): void {}
+
+    isCorrect(value: boolean){
+        console.log(value)
+      }
 }

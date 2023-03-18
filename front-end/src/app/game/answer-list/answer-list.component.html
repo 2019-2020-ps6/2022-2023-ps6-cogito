@@ -1,14 +1,5 @@
 <div class="answer-list">
-    <div class="answer">
-        {{answers.answers[0].value}}
-    </div>
-    <div class="answer">
-        {{answers.answers[1].value}}
-    </div>
-    <div class="answer">
-        {{answers.answers[2].value}}
-    </div>
-    <div class="answer">
-        {{answers.answers[3].value}}
-    </div>
+    <button class="answer" *ngFor="let answer of answers.answers" (click)="isCorrect(answer.isCorrect)">
+        {{ answer.value }}
+    </button>
 </div>
