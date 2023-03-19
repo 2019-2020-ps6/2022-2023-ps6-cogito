@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, NgModule, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Quiz } from 'src/models/quiz.model';
 import { QuizService } from 'src/services/quiz.service';
+import { BrowserModule } from '@angular/platform-browser';
+import { QuizFormComponent } from '../quiz-form/quiz-form.component';
 
 @Component({
   selector: 'app-edit-quiz',
@@ -22,8 +24,12 @@ export class EditQuizComponent implements OnInit {
     if(id != null)
       this.quiz = this.quizService.getQuizById(parseInt(id));
     
-    console.log(this.quiz);
+    console.log("quizzzzz",this.quiz);
     //this.quizService.setSelectedQuiz(id);
+  }
+
+  updateQuiz(quiz : Quiz) {
+    this.quizService.updateQuiz(quiz);
   }
 
 }

@@ -3,7 +3,7 @@
   <form class="quiz-form" [formGroup]="quizForm">
     <label for="title">
       Title <br>
-      <input class="input-name" type="text" id="name" [formControlName]="'name'">
+      <input class="input-name" type="text" id="name" [formControlName]="'name'" [placeholder]="this.updatableQuiz?.name">
     </label>
     <br>
     <label for="theme">
