@@ -1,10 +1,8 @@
-<div class="card" *ngIf="quiz">
-    <h2>
-        
-        <i class="fa-solid fa-volleyball"></i>
-        {{quiz.name }}
-        <!-- <span> Nombre de questions: {{quiz.questions.length}} </span> -->
-    </h2>
-    <button class="button-card-select" (click)="selectQuiz()">Select</button>
-    <button class="button-card-suppr" (click)="deleteQuiz()">Supprimer</button>
-</div>
+<div class="quiz-card" *ngIf="quiz">
+    <button class="quiz-card__name" (click)="selectQuiz()">{{ quiz.name }}</button>
+    <div class="quiz-card__buttons">
+      <button class="quiz-card__button quiz-card__button--select" (click)="editQuiz()"><i class="fa-solid fa-pen"></i></button>
+      <button class="quiz-card__button quiz-card__button--delete" (click)="deleteQuiz()"><i class="fa-solid fa-trash"></i></button>
+    </div>
+  </div>
+  

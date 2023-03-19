@@ -1,14 +1,78 @@
-@import '../../../styles/card.scss';
-
-h2 {
-    // Add some CSS here! What if you try to change the background?
-    background-color: orange;
-    border: 4px simple #000000;
-    text-align: center;
-}
-
-button {
-    background-color: yellow;
-    border: 4px simple #000000;
-    margin-right: 10px;
-}
+.quiz-card {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 75%;
+    margin: 10px auto;
+  
+    &__name {
+      background-color: orange;
+      border: 2px solid white;
+      border-radius: 25px;
+      color: white;
+      cursor: pointer;
+      font-size: 1.5rem;
+      padding: 10px 20px;
+      transition: all 0.3s ease-in-out;
+      flex: 3;
+  
+      &:hover {
+        background-color: white;
+        border-color: orange;
+        color: orange;
+      }
+    }
+  
+    &__buttons {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      flex: 1;
+      margin-left: -20px;
+  
+      &__button {
+        width: 50px;
+        height: 50px;
+        margin-top: 5px;
+        border-radius: 50%;
+        cursor: pointer;
+        transition: all 0.3s ease-in-out;
+  
+        &--delete, &--select {
+          background-color: white;
+          border: 2px solid #555;
+          border-radius: 50%;
+          color: #555;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          font-size: 1.5rem;
+          transition: all 0.3s ease-in-out;
+  
+          &:hover {
+            background-color: #555;
+            color: white;
+            border-color: #555;
+          }
+        }
+  
+        &--delete {
+          background-color: red;
+  
+          &:hover {
+            background-color: darkred;
+          }
+        }
+  
+        &--select {
+          background-color: green;
+  
+          &:hover {
+            background-color: darkgreen;
+          }
+        }
+      }
+    }
+  }
+  
