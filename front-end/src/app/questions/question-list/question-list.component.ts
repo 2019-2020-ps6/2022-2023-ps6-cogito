@@ -11,15 +11,23 @@ import { Question } from 'src/models/question.model';
 export class QuestionListComponent implements OnInit {
 
   @Input()
-  quiz: Quiz;
+  quiz: Quiz | undefined;
 
-  constructor(private quizService: QuizService) { }
+  constructor(private quizService: QuizService) {
+
+   }
 
   ngOnInit(): void {
   }
 
+  addQuestion(question : Question): void{
+    if(this.quiz != undefined)
+      this.quizService.addQuestion(this.quiz, question);
+  }
+
   deleteQuestion(question: Question): void {
-    this.quizService.deleteQuestion(this.quiz, question);
+    if(this.quiz != undefined)
+      this.quizService.deleteQuestion(this.quiz, question);
   }
 
 }

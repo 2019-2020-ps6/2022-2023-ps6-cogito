@@ -1,7 +1,7 @@
 <div class="quiz-card" *ngIf="quiz">
     <button class="quiz-card__name" (click)="selectQuiz()">{{ quiz.name }}</button>
     <div class="quiz-card__buttons">
-      <button class="quiz-card__button quiz-card__button--select" (click)="editQuiz()"><i class="fa-solid fa-pen"></i></button>
+      <button class="quiz-card__button quiz-card__button--select" [routerLink]="['/edit-quiz/', this.quiz.id]"><i class="fa-solid fa-pen"></i></button>
       <button class="quiz-card__button quiz-card__button--delete" (click)="deleteQuiz()"><i class="fa-solid fa-trash"></i></button>
     </div>
   </div>

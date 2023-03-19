@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { Quiz } from '../models/quiz.model';
-import { QUIZ_LIST } from '../mocks/quiz-list.mock';
+import { Question } from '../models/question.model';
+import { QUIZ_LIST } from '../mocks/quiz-list-with-id.mock';
 
 @Injectable({
   providedIn: 'root'
@@ -39,9 +40,28 @@ export class QuizService {
   deleteQuiz(quiz: Quiz) {
     this.quizzes.forEach((value,index)=>{
       if(value.name == quiz.name) this.quizzes.splice(index,1);
-  });
-  this.quizzes$.next(this.quizzes);
-  console.log("QuizService DELETE");
+    });
+
+    this.quizzes$.next(this.quizzes);
+    console.log("QuizService DELETE");
+  }
+
+  addQuestion(quiz: Quiz, question: Question) {
+    this.quizzes.forEach((value,index)=>{
+      if(value.name == quiz.name) this.quizzes[index].questions.push(question);
+    });
+  }
+
+  deleteQuestion(quiz: Quiz, question: Question) {
+    this.quizzes.forEach((value,index)=>{
+      if(value.name == quiz.name) this.quizzes[index].questions.forEach((value,index)=>{
+        if(value.label == question.label) this.quizzes[index].questions.splice(index,1);
+      });
+    });
+  }
+
+  getQuizById(id: number): Quiz | undefined {
+    return this.quizzes.find((quiz) => quiz.id === id);
   }
 }
 
