@@ -34,6 +34,7 @@ export class QuizComponent implements OnInit {
   }
 
   deleteQuiz() {
+    console.log("this.deleteQuiz");
     this.quizDeleted.emit(this.quiz);
   }
 }

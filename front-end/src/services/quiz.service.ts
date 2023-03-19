@@ -41,6 +41,7 @@ export class QuizService {
       if(value.name == quiz.name) this.quizzes.splice(index,1);
   });
   this.quizzes$.next(this.quizzes);
+  console.log("QuizService DELETE");
   }
 }
 
