@@ -1,6 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import { QUESTION_INS4 } from 'src/mocks/questioninstru.mock';
-import { QUESTION_INS3 } from 'src/mocks/questioninstru.mock';
+import { Component, Input, OnInit } from '@angular/core';
 import { Question } from 'src/models/question.modele';
 
 @Component({
@@ -9,7 +7,9 @@ import { Question } from 'src/models/question.modele';
     styleUrls: ['./question.component.scss']
 })
 export class GameQuestionComponent implements OnInit {
-    question: Question = QUESTION_INS3;
+
+    @Input()
+    question!: Question;
 
     constructor() { }
 

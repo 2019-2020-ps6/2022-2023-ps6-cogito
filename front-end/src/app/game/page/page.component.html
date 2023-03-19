@@ -1,8 +1,8 @@
 <section>
-    <h1>Quiz {{quiztheme}} | Question {{currentQuestion}}/{{nbquestions}}</h1>
-    <app-game-question></app-game-question>
+    <h1>Quiz {{quizTheme}} | Question {{currentQuestion}}/{{numberQuestions}}</h1>
+    <app-game-question [question]="selectedQuestion"></app-game-question>
     <div>
         <button>QUITTER</button>
-        <button>SUIVANTE</button>
+        <button (click)="nextQuestion()">SUIVANTE</button>
     </div>
 </section>

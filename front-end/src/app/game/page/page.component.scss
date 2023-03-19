@@ -29,3 +29,7 @@ button {
     height: 90%;
     width: 15%;
 }
+
+button:hover {
+    background-color: $light_orange;
+}

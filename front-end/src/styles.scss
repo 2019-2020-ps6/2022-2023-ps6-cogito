@@ -15,3 +15,7 @@ body {
     height: 100%;
     background-color: $app-background-color;
 }
+
+button:hover {
+    cursor: pointer;
+}
