@@ -4,6 +4,6 @@ export interface GameInstance {
     id: string;
     quizId: string;
     gameQuestionList: GameQuestion[];
-    startTime: Date;
-    endTime: Date;
+    startTime: Date | undefined;
+    endTime: Date | undefined;
 }
