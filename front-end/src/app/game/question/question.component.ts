@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { GameQuestion } from 'src/models/gameQuestion.modele';
 import { GameService } from 'src/services/game.service';
 
@@ -11,8 +11,8 @@ export class GameQuestionComponent implements OnInit {
     public question: GameQuestion | undefined;
 
     constructor(public gameService: GameService) {
-        this.gameService.selectedQuestion$.subscribe((question : GameQuestion)=> {
-            this.question=question;
+        this.gameService.selectedQuestion$.subscribe((question: GameQuestion) => {
+            this.question = question;
         });
     }
 

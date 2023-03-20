@@ -1,9 +1,9 @@
-import { Answer } from './gameAnswer.modele';
+import { GameAnswer } from './gameAnswer.modele';
 
 export interface GameQuestion {
     id: string;
     title: string;
-    answerList: Answer[];
+    answerList: GameAnswer[];
     startTime: Date | undefined;
     endTime: Date | undefined;
 }
