@@ -1,20 +1,21 @@
 @import '../../../styles/card.scss';
 
 
-section {
-  height: 100%;
-}
-
-h1 {
+head {
+  height: 20vh;
   font-size: 35pt;
   font-weight: bold;
-  height: 10vw;
   display: flex;
   justify-content: center;
   align-items: center;
   background-color: $blue;
   position: relative;
 }
+
+body {
+  height : 80vh;
+}
+
 
 .card {
     border: 2px solid black;

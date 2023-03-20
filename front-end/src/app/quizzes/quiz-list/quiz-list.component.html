@@ -1,5 +1,8 @@
-<section>
-<h1>Liste des quiz</h1>
+<head>
+    Liste des quiz
+</head>
+
+<body>
 <div class="quiz-list">
     <div class="quiz" *ngFor="let quiz of quizList">
         <!--Inputs & Output allow communication between parent & child components.-->
@@ -11,4 +14,4 @@
 <div class="button-quiz-form">
     <button type="submit" class="button-card" [routerLink]="['/quiz-form']">Créer un nouveau quiz</button>
 </div>
-</section>
+</body>
