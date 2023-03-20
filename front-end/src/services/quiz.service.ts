@@ -26,6 +26,8 @@ export class QuizService {
    */
   public quizzes$: BehaviorSubject<Quiz[]> = new BehaviorSubject(QUIZ_LIST);
 
+  public quizSelected$: Subject<Quiz> = new Subject();
+
   constructor() {
   }
 
@@ -71,6 +73,13 @@ export class QuizService {
     this.quizzes[index] = quiz;
     console.log(this.quizzes)
     this.quizzes$.next(this.quizzes);
+  }
+
+  setSelected(id: number) {
+  
+    let q ={...this.quizzes.find((quiz) => quiz.id === id)} as Quiz;
+    if(q != undefined)
+      this.quizSelected$.next(q);
   }
 }
 
