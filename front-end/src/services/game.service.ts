@@ -1,6 +1,7 @@
 import { Injectable } from "@angular/core";
 import { BehaviorSubject, Subject } from "rxjs";
 import { QUESTIONS_INS } from "src/mocks/question.mock";
+import { Answer } from "src/models/answer.modele";
 import { Question } from "src/models/question.modele";
 
 @Injectable({
@@ -22,5 +23,9 @@ export class GameService {
 
     selectQuestion(question: Question) {
         this.questionSelected$.next(question);
+    }
+
+    checkAnswer(answer: Answer) {
+        console.log("Answer checked: " + answer.isCorrect);
     }
 }

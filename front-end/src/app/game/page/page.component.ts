@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Answer } from 'src/models/answer.modele';
 import { Question } from 'src/models/question.modele';
 import { GameService } from 'src/services/game.service';
 
@@ -29,5 +30,10 @@ export class GamePageComponent implements OnInit {
         this.selectedQuestion = this.questions[this.currentQuestion];
         this.gameService.selectQuestion(this.selectedQuestion);
         this.currentQuestion++;
+        console.log("Question selectionnée");
+    }
+
+    checkAnswer(answer: Answer) {
+        this.gameService.checkAnswer(answer);
     }
 }

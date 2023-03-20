@@ -1,4 +1,4 @@
 <div>
     <h2>{{question.label}}</h2>
-    <app-game-answer-list [answers]="question.answerList"></app-game-answer-list>
+    <app-game-answer-list [answers]="question.answerList" (selectedAnswer)="selectAnswer($event)"></app-game-answer-list>
 </div>

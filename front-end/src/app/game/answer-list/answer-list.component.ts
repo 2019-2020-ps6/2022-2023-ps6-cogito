@@ -1,4 +1,5 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Answer } from 'src/models/answer.modele';
 import { AnswerList } from 'src/models/answerList.modele';
 
 @Component({
@@ -8,13 +9,17 @@ import { AnswerList } from 'src/models/answerList.modele';
 })
 export class GameAnswerListComponent implements OnInit {
     @Input()
-    answers: AnswerList = { answers: [] };
-    constructor() {
+    answers!: AnswerList;
+
+    @Output()
+    selectedAnswer: EventEmitter<Answer> = new EventEmitter<Answer>();
+
+    constructor() { }
+
+    ngOnInit(): void { }
+
+    selectAnswer(answer: Answer) {
+        console.log("Sending answer");
+        this.selectedAnswer.emit(answer);
     }
-
-    ngOnInit(): void {}
-
-    isCorrect(value: boolean){
-        console.log(value)
-      }
 }
