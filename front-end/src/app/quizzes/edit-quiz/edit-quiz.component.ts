@@ -16,15 +16,23 @@ export class EditQuizComponent implements OnInit {
 
   constructor(private route: ActivatedRoute, private quizService: QuizService) {
     //this.quizService.quizSelected$.subscribe((quiz) => this.quiz = quiz);
+    console.log("new quiz",this.quiz);
   }
 
   ngOnInit(): void {
-    const id = this.route.snapshot.paramMap.get('id');
-    console.log(id);
-    if(id != null)
-      this.quiz = this.quizService.getQuizById(parseInt(id));
     
-    console.log("quizzzzz",this.quiz);
+    this.route.paramMap.subscribe(
+      (params) => {
+        const id = this.route.snapshot.paramMap.get('id');
+        console.log(id);
+        if(id != null)
+          this.quiz = this.quizService.getQuizById(parseInt(id));
+        
+        console.log("quizzzzz",this.quiz);
+        console.log(this.route);
+        // call your api etc to get the record against new id
+      }
+    );
     //this.quizService.setSelectedQuiz(id);
   }
 

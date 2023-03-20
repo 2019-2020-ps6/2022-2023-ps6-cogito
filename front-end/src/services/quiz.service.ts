@@ -67,6 +67,7 @@ export class QuizService {
   updateQuiz(quiz: Quiz) {
     console.log(quiz)
     let index = this.quizzes.findIndex((q) => q.id === quiz.id);
+    console.log("index",index);
     this.quizzes[index] = quiz;
     console.log(this.quizzes)
     this.quizzes$.next(this.quizzes);
