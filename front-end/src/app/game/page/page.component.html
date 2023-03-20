@@ -1,8 +1,8 @@
 <section>
-    <h1>Quiz {{quizTheme}} | Question {{currentQuestion}}/{{numberQuestions}}</h1>
-    <app-game-question [question]="selectedQuestion" (selectedAnswer)="checkAnswer($event)"></app-game-question>
+    <h1 *ngIf="quizName">{{quizName}} | {{currentQuestion}}/{{numberQuestions}}</h1>
+    <app-game-question></app-game-question>
     <div>
         <button>QUITTER</button>
-        <button *ngIf="currentQuestion < numberQuestions" (click)="nextQuestion()">SUIVANTE</button>
+        <button>SUIVANTE</button>
     </div>
 </section>

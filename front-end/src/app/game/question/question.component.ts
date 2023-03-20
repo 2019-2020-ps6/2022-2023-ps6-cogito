@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Answer } from 'src/models/answer.modele';
-import { Question } from 'src/models/question.modele';
+import { GameQuestion } from 'src/models/gameQuestion.modele';
+import { GameService } from 'src/services/game.service';
 
 @Component({
     selector: 'app-game-question',
@@ -8,18 +8,13 @@ import { Question } from 'src/models/question.modele';
     styleUrls: ['./question.component.scss']
 })
 export class GameQuestionComponent implements OnInit {
+    public question: GameQuestion | undefined;
 
-    @Input()
-    question!: Question;
-
-    @Output()
-    selectedAnswer: EventEmitter<Answer> = new EventEmitter<Answer>();
-
-    constructor() { }
+    constructor(public gameService: GameService) {
+        this.gameService.selectedQuestion$.subscribe((question : GameQuestion)=> {
+            this.question=question;
+        });
+    }
 
     ngOnInit(): void { }
-
-    selectAnswer(answer: Answer) {
-        this.selectedAnswer.emit(answer);
-    }
 }
