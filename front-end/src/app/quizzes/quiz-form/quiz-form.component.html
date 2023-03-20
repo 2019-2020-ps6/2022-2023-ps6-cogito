@@ -1,14 +1,25 @@
+<section>
+
+<h1> Création de quiz </h1>
+
 <div class="card">
-  <h3>Créer un nouveau quiz</h3>
+  
   <form class="quiz-form" [formGroup]="quizForm">
     <label for="title">
-      Title <br>
+      Titre <br>
       <input class="input-name" type="text" id="name" [formControlName]="'name'" [placeholder]="this.updatableQuiz?.name">
     </label>
     <br>
     <label for="theme">
       Thème <br>
       <input class="input-theme" type="text" id="theme" [formControlName]="'theme'">
+    </label>
+    <br>
+    <label for="image">
+      Rajouter une image <br>
+      <button type="submit" class="button-card-image" (click)="addQuiz()">Parcourir les dossiers</button>
+      <!-- Pour le moment, on n'a pas mis en place la sélection d'image dans les dossiers perso
+      Ce sera à faire, mais plus tard -->
     </label>
     <br>
     <button type="submit" class="button-card" (click)="addQuiz()">Créer</button>
@@ -18,3 +29,4 @@
 
 <!-- Uncomment below to see your form structure and how it changes-->
 <!-- <br><br>{{quizForm.getRawValue() | json}} --> 
+</section>

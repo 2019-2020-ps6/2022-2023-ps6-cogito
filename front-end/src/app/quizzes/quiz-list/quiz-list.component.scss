@@ -1,3 +1,16 @@
+@import '../../../styles/card.scss';
+
+h1 {
+  font-size: 35pt;
+  font-weight: bold;
+  height: 10vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: $blue;
+  position: relative;
+}
+
 .quiz-list {
   margin-top: 10px;
   display: flex;
