@@ -63,5 +63,13 @@ export class QuizService {
   getQuizById(id: number): Quiz | undefined {
     return this.quizzes.find((quiz) => quiz.id === id);
   }
+
+  updateQuiz(quiz: Quiz) {
+    console.log(quiz)
+    let index = this.quizzes.findIndex((q) => q.id === quiz.id);
+    this.quizzes[index] = quiz;
+    console.log(this.quizzes)
+    this.quizzes$.next(this.quizzes);
+  }
 }
 

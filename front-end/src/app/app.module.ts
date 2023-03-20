@@ -10,6 +10,8 @@ import { QuizFormComponent } from './quizzes/quiz-form/quiz-form.component';
 import { QuestionListComponent } from './questions/question-list/question-list.component';
 import { QuestionComponent } from './questions/question/question.component';
 import { AppRoutingModule } from './app-routing.module';
+import { EditQuizComponent } from './quizzes/edit-quiz/edit-quiz.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -19,12 +21,14 @@ import { AppRoutingModule } from './app-routing.module';
     HeaderComponent,
     QuizFormComponent,
     QuestionListComponent,
-    QuestionComponent
+    QuestionComponent,
+    EditQuizComponent
   ],
   imports: [
     BrowserModule,
     ReactiveFormsModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
