@@ -1,17 +1,17 @@
 <div class="card">
-  <h3>Créer un nouveau quiz</h3>
+  <h3>{{this.updatableQuiz == undefined ? "Créer un nouveau quiz" : "Modifier le quiz"}}</h3>
   <form class="quiz-form" [formGroup]="quizForm">
     <label for="title">
-      Title <br>
-      <input class="input-name" type="text" id="name" [formControlName]="'name'" [placeholder]="this.updatableQuiz?.name">
+      Titre <br>
+      <input class="input-name" type="text" id="name" [formControlName]="'name'" placeholder="Entrer titre du quiz" [(ngModel)]="this.updatableQuiz === undefined ? '' : this.updatableQuiz.name">
     </label>
     <br>
     <label for="theme">
       Thème <br>
-      <input class="input-theme" type="text" id="theme" [formControlName]="'theme'">
+      <input class="input-theme" type="text" id="theme" [formControlName]="'theme'" placeholder="Entrer thème du quiz" [(ngModel)]="this.updatableQuiz === undefined ? '' : this.updatableQuiz.theme">
     </label>
     <br>
-    <button type="submit" class="button-card" (click)="addQuiz()">Créer</button>
+    <button type="submit" class="button-card" (click)="addQuiz()">{{this.updatableQuiz == undefined ? "Créer" : "Modifier"}}</button>
   </form>
 </div>
 <div class="button-quiz-list"> <button type="submit" class="button-card" [routerLink]="['/quiz-list']">Aller à la liste des quiz</button> </div>
