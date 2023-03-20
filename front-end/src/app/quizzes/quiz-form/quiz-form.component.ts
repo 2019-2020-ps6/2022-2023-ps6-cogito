@@ -48,4 +48,6 @@ export class QuizFormComponent implements OnInit {
     QUIZ_LIST.push(quizToCreate);
   }
 
+  
+
 }

@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 import { Quiz } from '../../../models/quiz.model';
+import {RouterLink} from '@angular/router';
 
 @Component({
   selector: 'app-quiz',
@@ -23,6 +24,9 @@ export class QuizComponent implements OnInit {
   @Output()
   quizDeleted: EventEmitter<Quiz> = new EventEmitter<Quiz>();
 
+  @Output()
+  quizEdited: EventEmitter<Quiz> = new EventEmitter<Quiz>();
+
   constructor() {
   }
 
@@ -36,5 +40,10 @@ export class QuizComponent implements OnInit {
   deleteQuiz() {
     console.log("this.deleteQuiz");
     this.quizDeleted.emit(this.quiz);
+  }
+
+  editQuiz(){
+    console.log("this.editQuiz");
+    this.quizEdited.emit(this.quiz);
   }
 }

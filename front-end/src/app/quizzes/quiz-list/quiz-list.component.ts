@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { QuizService } from '../../../services/quiz.service';
 import { Quiz } from '../../../models/quiz.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-quiz-list',
@@ -26,6 +27,6 @@ export class QuizListComponent implements OnInit {
 
   deleteQuiz(quiz: Quiz){
     this.quizService.deleteQuiz(quiz);
-    console.log('AAAAAAAAA : ', this.quizList);
+    console.log("The quiz ", quiz.name, " has been deleted");
   }
 }

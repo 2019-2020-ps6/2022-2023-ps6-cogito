@@ -9,7 +9,7 @@ import { Question } from '../../../models/question.model';
 export class QuestionComponent implements OnInit {
 
   @Input()
-  question: Question;
+  question: Question | undefined;
 
   @Output()
   deleteQuestion: EventEmitter<Question> = new EventEmitter<Question>();

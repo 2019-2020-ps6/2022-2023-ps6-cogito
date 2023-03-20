@@ -10,15 +10,20 @@ import { QuizService } from 'src/services/quiz.service';
 })
 export class EditQuizComponent implements OnInit {
 
-  public quiz: Quiz;
+  public quiz: Quiz | undefined;
 
   constructor(private route: ActivatedRoute, private quizService: QuizService) {
-    this.quizService.quizSelected$.subscribe((quiz) => this.quiz = quiz);
+    //this.quizService.quizSelected$.subscribe((quiz) => this.quiz = quiz);
   }
 
   ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('id');
-    this.quizService.setSelectedQuiz(id);
+    console.log(id);
+    if(id != null)
+      this.quiz = this.quizService.getQuizById(parseInt(id));
+    
+    console.log(this.quiz);
+    //this.quizService.setSelectedQuiz(id);
   }
 
 }

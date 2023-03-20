@@ -14,5 +14,7 @@
     <button type="submit" class="button-card" (click)="addQuiz()">Créer</button>
   </form>
 </div>
+<div class="button-quiz-list"> <button type="submit" class="button-card" [routerLink]="['/quiz-list']">Aller à la liste des quiz</button> </div>
+
 <!-- Uncomment below to see your form structure and how it changes-->
- <br><br>{{quizForm.getRawValue() | json}}
+<!-- <br><br>{{quizForm.getRawValue() | json}} --> 
