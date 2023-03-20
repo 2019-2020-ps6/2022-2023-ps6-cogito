@@ -5,6 +5,6 @@ export const GAME_INSTRUMENTS : GameInstance = {
     quizId: "Instruments",
     gameQuestionList: [
     ],
-    startTime: new Date(),
+    startTime: undefined,
     endTime: undefined
 }

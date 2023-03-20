@@ -16,4 +16,4 @@ export const QUESTION_INS2: GameQuestion = {
     endTime: undefined
 };
 
-export const QUESTIONS_INS: GameQuestion[] = [QUESTION_INS1, QUESTION_INS2, QUESTION_INS3, QUESTION_INS4];
+export const QUESTIONS_INS: GameQuestion[] = [QUESTION_INS1, QUESTION_INS2];
