@@ -1,31 +1,22 @@
 import { Injectable } from "@angular/core";
 import { BehaviorSubject, Subject } from "rxjs";
-import { QUESTIONS_INS } from "src/mocks/question.mock";
-import { Answer } from "src/models/answer.modele";
-import { Question } from "src/models/question.modele";
+import { GAME_INSTRUMENTS } from "src/mocks/gameInstance.mock";
+import { GameInstance } from "src/models/gameInstance.modele";
+import { GameQuestion } from "src/models/gameQuestion.modele";
 
 @Injectable({
     providedIn: 'root'
 })
 export class GameService {
-    private questions: Question[] = QUESTIONS_INS;
-    public questions$: BehaviorSubject<Question[]> = new BehaviorSubject(this.questions);
-    public questionSelected$: Subject<Question> = new Subject();
+    private gameInstance: GameInstance = GAME_INSTRUMENTS;
+    public gameInstance$: BehaviorSubject<GameInstance> = new BehaviorSubject(this.gameInstance);
+    public selectedQuestion$: Subject<GameQuestion> = new Subject();
 
 
-    constructor() {
-        if (this.questions.length > 0) {
-            this.questionSelected$.next(this.questions[0]);
-        } else {
-            throw new ErrorEvent("No questions found");
-        }
-    }
+    constructor() { }
 
-    selectQuestion(question: Question) {
-        this.questionSelected$.next(question);
-    }
 
-    checkAnswer(answer: Answer) {
-        console.log("Answer checked: " + answer.isCorrect);
+    selectQuestion(question: GameQuestion) {
+        this.selectedQuestion$.next(question);
     }
 }

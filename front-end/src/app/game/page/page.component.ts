@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Answer } from 'src/models/answer.modele';
-import { Question } from 'src/models/question.modele';
+import { GameInstance } from 'src/models/gameInstance.modele';
+import { GameQuestion } from 'src/models/gameQuestion.modele';
 import { GameService } from 'src/services/game.service';
 
 @Component({
@@ -9,20 +9,22 @@ import { GameService } from 'src/services/game.service';
     styleUrls: ['./page.component.scss']
 })
 export class GamePageComponent implements OnInit {
-    public quizTheme: string = "Instruments";
-    public questions: Question[] = [];
+    public quizName: string = "";
+    public questions: GameQuestion[] = [];
     public currentQuestion: number = 0;
-    public selectedQuestion!: Question;
+    public selectedQuestion!: GameQuestion;
     public numberQuestions: number;
 
 
     constructor(public gameService: GameService) {
-        this.gameService.questions$.subscribe((questions: Question[]) => {
-            this.questions = questions;
-        })
+        this.gameService.gameInstance$.subscribe((gameInstance: GameInstance) => {
+            this.quizName = gameInstance.quizId;
+            this.questions = gameInstance.gameQuestionList;
+        });
         this.numberQuestions = this.questions.length;
         this.nextQuestion();
     }
+
 
     ngOnInit(): void { }
 
@@ -30,10 +32,6 @@ export class GamePageComponent implements OnInit {
         this.selectedQuestion = this.questions[this.currentQuestion];
         this.gameService.selectQuestion(this.selectedQuestion);
         this.currentQuestion++;
-        console.log("Question selectionnée");
-    }
-
-    checkAnswer(answer: Answer) {
-        this.gameService.checkAnswer(answer);
+        console.log("Selected question");
     }
 }

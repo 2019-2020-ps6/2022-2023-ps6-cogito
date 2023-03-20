@@ -1,4 +1,4 @@
-import { Answer } from "src/models/answer.modele";
+import { Answer } from "src/models/gameAnswer.modele";
 
 export const INS_Q1_1 : Answer = {
     id: 1,
