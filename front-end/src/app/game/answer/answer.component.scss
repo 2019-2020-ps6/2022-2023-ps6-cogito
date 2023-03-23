@@ -1,0 +1,14 @@
+@import "../../../styles/variables.scss";
+
+.game-answer {
+    height: 13vh;
+    min-height: 70px;
+    width: 30vw;
+    min-width: 125px;
+    font-size: $normal-size;
+    background-color: $yellow;
+}
+
+.game-answer:hover {
+    background-color: $light-yellow;
+}
