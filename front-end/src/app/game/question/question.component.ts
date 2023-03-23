@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { GameAnswer } from 'src/models/gameAnswer.modele';
 import { GameQuestion } from 'src/models/gameQuestion.modele';
 import { GameService } from 'src/services/game.service';
 
@@ -8,7 +9,8 @@ import { GameService } from 'src/services/game.service';
     styleUrls: ['./question.component.scss']
 })
 export class GameQuestionComponent implements OnInit {
-    public question: GameQuestion | undefined;
+    public question!: GameQuestion;
+
 
     constructor(public gameService: GameService) {
         this.gameService.selectedQuestion$.subscribe((question: GameQuestion) => {
@@ -16,5 +18,10 @@ export class GameQuestionComponent implements OnInit {
         });
     }
 
+
     ngOnInit(): void { }
+
+    selectAnswer(answer: GameAnswer): void {
+        this.gameService.checkAnswer(answer);
+    }
 }

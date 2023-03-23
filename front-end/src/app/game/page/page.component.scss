@@ -1,35 +1,42 @@
 @import "../../../styles/variables.scss";
 
-section {
-    height: 100%;
+.game-page {
+    height: 100vh;
+    min-height: $min-page-height;
+    min-width: $min-page-width;
 }
 
-h1 {
+.game-page h1 {
     font-size: $h1-size;
     font-weight: bold;
-    height: 20%;
+    height: 20vh;
+    min-height: 100px;
+    min-width: $min-page-width;
     display: flex;
     justify-content: center;
     align-items: center;
     background-color: $blue;
 }
 
-div {
+.game-page > div {
     display: flex;
-    justify-content: space-between;
-    align-content: space-evenly;
-    height: 10%;
-    padding: 0 5%;
+    justify-content: space-evenly;
+    align-content: center;
+    height: 10vh;
+    min-height: 50px;
+    min-width: $min-page-width;
 }
 
-button {
+.game-page-buttons button {
     font-size: $normal-size;
     background-color: $orange;
     padding: 5px;
-    height: 90%;
-    width: 15%;
+    height: 9vh;
+    min-height: 45px;
+    width: 15vw;
+    min-width: 140px;
 }
 
-button:hover {
+.game-page-buttons button:hover {
     background-color: $light_orange;
 }

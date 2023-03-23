@@ -11,8 +11,7 @@ import { GameService } from 'src/services/game.service';
 export class GamePageComponent implements OnInit {
     public quizName: string = "";
     public questions: GameQuestion[] = [];
-    public currentQuestion: number = 0;
-    public selectedQuestion!: GameQuestion;
+    public currentQuestion: number = 1;
     public numberQuestions: number;
 
 
@@ -22,15 +21,13 @@ export class GamePageComponent implements OnInit {
             this.questions = gameInstance.gameQuestionList;
         });
         this.numberQuestions = this.questions.length;
-        this.nextQuestion();
     }
 
 
     ngOnInit(): void { }
 
     nextQuestion() {
-        this.selectedQuestion = this.questions[this.currentQuestion];
-        this.gameService.selectQuestion(this.selectedQuestion);
+        this.gameService.selectQuestion(this.questions[this.currentQuestion]);
         this.currentQuestion++;
         console.log("Selected question");
     }
