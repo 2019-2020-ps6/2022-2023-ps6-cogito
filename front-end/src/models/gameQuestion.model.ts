@@ -3,7 +3,7 @@ import { GameAnswer } from './gameAnswer.model';
 export interface GameQuestion {
     id: string;
     title: string;
-    answerList: GameAnswer[];
+    gameAnswerList: GameAnswer[];
     startTime: Date | undefined;
     endTime: Date | undefined;
 }

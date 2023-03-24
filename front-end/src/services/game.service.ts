@@ -1,9 +1,9 @@
 import { Injectable } from "@angular/core";
 import { BehaviorSubject, Subject } from "rxjs";
 import { GAME_INSTRUMENTS } from "src/mocks/gameInstance.mock";
-import { GameAnswer } from "src/models/gameAnswer.modele";
-import { GameInstance } from "src/models/gameInstance.modele";
-import { GameQuestion } from "src/models/gameQuestion.modele";
+import { GameAnswer } from "src/models/gameAnswer.model";
+import { GameInstance } from "src/models/gameInstance.model";
+import { GameQuestion } from "src/models/gameQuestion.model";
 
 @Injectable({
     providedIn: 'root'
