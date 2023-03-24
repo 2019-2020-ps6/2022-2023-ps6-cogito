@@ -1,4 +1,4 @@
-import { GameInstance } from "src/models/gameInstance.modele";
+import { GameInstance } from "src/models/gameInstance.model";
 import { QUESTIONS_INS } from "./gameQuestion.mock";
 
 export const GAME_INSTRUMENTS : GameInstance = {

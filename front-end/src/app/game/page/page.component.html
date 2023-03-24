@@ -3,7 +3,7 @@
     <app-game-question></app-game-question>
     <div class="game-page-buttons">
         <button>QUITTER</button>
-        <button *ngIf="currentQuestion != numberQuestions; else terminerButton" (click)="nextQuestion()">SUIVANTE</button>
+        <button *ngIf="currentQuestion < numberQuestions; else terminerButton" (click)="nextQuestion()">SUIVANTE</button>
         <ng-template #terminerButton>
             <button #terminerButton>TERMINER</button>
         </ng-template>

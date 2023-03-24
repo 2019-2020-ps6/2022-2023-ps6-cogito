@@ -16,6 +16,10 @@ body {
     background-color: $app-background-color;
 }
 
+button {
+    border: solid 2px black;
+}
+
 button:hover {
     cursor: pointer;
 }
