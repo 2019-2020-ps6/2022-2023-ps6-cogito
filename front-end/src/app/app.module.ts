@@ -12,7 +12,9 @@ import { QuestionComponent } from './questions/question/question.component';
 import { AppRoutingModule } from './app-routing.module';
 import { EditQuizComponent } from './quizzes/edit-quiz/edit-quiz.component';
 import { FormsModule } from '@angular/forms';
-
+import { GamePageComponent } from './game/page/page.component';
+import { GameQuestionComponent } from './game/question/question.component';
+import { GameAnswerComponent } from './game/answer/answer.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -23,6 +25,9 @@ import { FormsModule } from '@angular/forms';
     QuestionListComponent,
     QuestionComponent,
     EditQuizComponent
+    GamePageComponent,
+    GameQuestionComponent,
+    GameAnswerComponent
   ],
   imports: [
     BrowserModule,

@@ -18,3 +18,7 @@ body {
   width: 100vw;
   background-color: $app-background-color;
 }
+
+button:hover {
+    cursor: pointer;
+}
