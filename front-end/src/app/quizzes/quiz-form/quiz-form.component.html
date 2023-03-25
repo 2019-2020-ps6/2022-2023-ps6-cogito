@@ -1,0 +1,33 @@
+<head>
+    {{this.updatableQuiz == undefined ? "Création d'un quiz" : "Modification d'un quiz"}}
+</head>
+
+<body>
+<div class="card">
+  <!-- <h3>{{this.updatableQuiz == undefined ? "Créer un nouveau quiz" : "Modifier le quiz"}}</h3> -->
+  <form class="quiz-form" [formGroup]="quizForm">
+    <label for="title">
+      Titre <br>
+      <input class="input-name" type="text" id="name" [formControlName]="'name'" placeholder="Entrer titre du quiz" [(ngModel)]="this.updatableQuiz === undefined ? '' : this.updatableQuiz.name">
+    </label>
+    <br>
+    <label for="theme">
+      Thème <br>
+      <input class="input-theme" type="text" id="theme" [formControlName]="'theme'" placeholder="Entrer thème du quiz" [(ngModel)]="this.updatableQuiz === undefined ? '' : this.updatableQuiz.theme">
+    </label>
+    <br>
+    <label for="image">
+      Rajouter une image <br>
+      <button type="submit" class="button-card-image" (click)="addQuiz()">Parcourir les dossiers</button>
+      <!-- Pour le moment, on n'a pas mis en place la sélection d'image dans les dossiers perso
+      Ce sera à faire, mais plus tard -->
+    </label>
+    <br>
+    <button type="submit" class="button-card" (click)="addQuiz()">{{this.updatableQuiz == undefined ? "Créer" : "Modifier"}}</button>
+  </form>
+</div>
+<div class="button-quiz-list"> <button type="submit" class="button-card" [routerLink]="['/quiz-list']">Aller à la liste des quiz</button> </div>
+
+<!-- Uncomment below to see your form structure and how it changes-->
+<!-- <br><br>{{quizForm.getRawValue() | json}} --> 
+</body>

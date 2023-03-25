@@ -1,19 +1,22 @@
-@import "./styles/variables.scss";
+@import './styles/variables.scss';
 
-/* You can add global styles to this file, and also import other style files */
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font: 500 20px/32px Roboto, "Helvetica Neue", sans-serif;
 }
 
+/* You can add global styles to this file, and also import other style files */
 html {
-    height: 100vh;
+  height: 100vh;
+  width: 100vw;
 }
 
 body {
-    height: 100vh;
-    background-color: $app-background-color;
+  height: 100vh;
+  width: 100vw;
+  background-color: $app-background-color;
 }
 
 button:hover {
