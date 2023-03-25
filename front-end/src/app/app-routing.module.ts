@@ -12,6 +12,7 @@ const routes: Routes = [
     {path: 'edit-quiz/:id', component: EditQuizComponent},
     { path: 'game-page', component: GamePageComponent },
     { path: '', redirectTo: '/quiz-list', pathMatch: 'full' },
+]
 
 @NgModule({
     imports: [RouterModule.forRoot(routes)],

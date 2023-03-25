@@ -24,7 +24,7 @@ import { GameAnswerComponent } from './game/answer/answer.component';
     QuizFormComponent,
     QuestionListComponent,
     QuestionComponent,
-    EditQuizComponent
+    EditQuizComponent,
     GamePageComponent,
     GameQuestionComponent,
     GameAnswerComponent
