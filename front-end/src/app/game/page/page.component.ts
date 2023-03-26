@@ -13,6 +13,7 @@ export class GamePageComponent implements OnInit {
     public questions: GameQuestion[] = [];
     public currentQuestion: number = 1;
     public numberQuestions: number;
+    public questionChanged: boolean = false;
 
 
     constructor(public gameService: GameService) {
@@ -21,14 +22,26 @@ export class GamePageComponent implements OnInit {
             this.questions = gameInstance.gameQuestionList;
         });
         this.numberQuestions = this.questions.length;
+        this.currentQuestion=this.gameService.currentQuestionIndex+1;
+        console.log(this.gameService.currentQuestionIndex);
     }
 
 
     ngOnInit(): void { }
 
     nextQuestion() {
-        this.gameService.selectQuestion(this.questions[this.currentQuestion]);
+        if (this.currentQuestion<this.numberQuestions){
+            this.gameService.selectQuestion(this.questions[this.currentQuestion]);
         this.currentQuestion++;
-        console.log("Selected question");
+        console.log("Skip question");
+        }
+    }
+
+    onAnswerQuestion(isAnwsered: boolean) {
+        if (this.currentQuestion<this.numberQuestions){
+        this.currentQuestion++;
+        this.questionChanged=isAnwsered;
+        this.questionChanged=false;
+      }
     }
 }

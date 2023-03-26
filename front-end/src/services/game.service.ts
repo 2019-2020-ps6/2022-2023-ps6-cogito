@@ -13,6 +13,7 @@ export class GameService {
     public gameInstance$: BehaviorSubject<GameInstance>;
     private selectedQuestion: GameQuestion;
     public selectedQuestion$: BehaviorSubject<GameQuestion>;
+    public currentQuestionIndex: number;
 
 
     constructor() {
@@ -20,6 +21,7 @@ export class GameService {
         this.gameInstance$ = new BehaviorSubject(this.gameInstance);
         this.selectedQuestion = this.gameInstance.gameQuestionList[0];
         this.selectedQuestion$ = new BehaviorSubject(this.selectedQuestion);
+        this.currentQuestionIndex=0;
     }
 
 
@@ -30,5 +32,11 @@ export class GameService {
 
     checkAnswer(answer: GameAnswer): void {
         console.log(answer.isCorrect);
+        this.currentQuestionIndex = this.gameInstance.gameQuestionList.indexOf(this.selectedQuestion);
+        if (this.currentQuestionIndex < this.gameInstance.gameQuestionList.length - 1) {
+                this.selectQuestion(this.gameInstance.gameQuestionList[this.currentQuestionIndex + 1]);
+        } else {
+                console.log("End of quiz");
+            }
     }
 }

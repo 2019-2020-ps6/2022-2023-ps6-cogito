@@ -1,6 +1,6 @@
 <section class="game-page">
     <h1>{{quizName}} | {{currentQuestion}}/{{numberQuestions}}</h1>
-    <app-game-question></app-game-question>
+    <app-game-question *ngIf="!questionChanged" (isAnwsered)="onAnswerQuestion($event)"></app-game-question>
     <div class="game-page-buttons">
         <button>QUITTER</button>
         <button *ngIf="currentQuestion != numberQuestions; else terminerButton" (click)="nextQuestion()">SUIVANTE</button>
