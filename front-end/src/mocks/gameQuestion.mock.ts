@@ -1,28 +1,25 @@
 import { GameQuestion } from "src/models/gameQuestion.model";
-import { INS_Q1_1, INS_Q1_2, INS_Q2_1, INS_Q2_2, INS_Q2_3, INS_Q3_1, INS_Q3_2, INS_Q3_3, INS_Q3_4 } from "src/mocks/gameAnswer.mock";
+import { INS_Q1, INS_Q2, INS_Q3 } from "src/mocks/gameAnswer.mock";
 
 export const QUESTION_INS1: GameQuestion = {
-    id: "Ins1",
+    id: "Q_Ins1",
     title: "Le carillon est composé de cloches",
-    gameAnswerList: [INS_Q1_1, INS_Q1_2],
+    gameAnswerList: INS_Q1,
     startTime: undefined,
     endTime: undefined
 };
-
 export const QUESTION_INS2: GameQuestion = {
-    id: "Ins2",
+    id: "Q_Ins2",
     title: "Le violon possède ...",
-    gameAnswerList: [INS_Q2_1, INS_Q2_2, INS_Q2_3],
+    gameAnswerList: INS_Q2,
     startTime: undefined,
     endTime: undefined
 };
-
 export const QUESTION_INS3: GameQuestion = {
-    id: "Ins3",
+    id: "Q_Ins3",
     title: "La guitare est un instrument à ...",
-    gameAnswerList: [INS_Q3_1, INS_Q3_2, INS_Q3_3, INS_Q3_4],
+    gameAnswerList: INS_Q3,
     startTime: undefined,
     endTime: undefined
 };
-
 export const QUESTIONS_INS: GameQuestion[] = [QUESTION_INS1, QUESTION_INS2, QUESTION_INS3];

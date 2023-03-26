@@ -17,7 +17,7 @@ export class GamePageComponent implements OnInit {
 
     constructor(public gameService: GameService) {
         this.gameService.gameInstance$.subscribe((gameInstance: GameInstance) => {
-            this.quizName = gameInstance.quizId;
+            this.quizName = gameInstance.quizTitle;
             this.questions = gameInstance.gameQuestionList;
         });
         this.numberQuestions = this.questions.length;
