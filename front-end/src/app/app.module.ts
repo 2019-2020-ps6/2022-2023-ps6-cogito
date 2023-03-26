@@ -7,6 +7,7 @@ import { GamePageComponent } from './game/page/page.component';
 import { GameQuestionComponent } from './game/question/question.component';
 import { GameAnswerComponent } from './game/answer/answer.component';
 import { GameResultComponent } from './game/result/gameResult.component';
+import { GameQuestionResultComponent } from './game/questionResult/gameResult/questionResult.component';
 
 @NgModule({
   declarations: [
@@ -14,7 +15,8 @@ import { GameResultComponent } from './game/result/gameResult.component';
     GamePageComponent,
     GameQuestionComponent,
     GameAnswerComponent,
-    GameResultComponent
+    GameResultComponent,
+    GameQuestionResultComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,44 @@
+@import "../../../../styles/variables.scss";
+
+.question-result {
+    min-height: $min-page-height;
+    min-width: $min-page-width;
+    height: 100vh;
+    padding-top: 10vh;
+    padding-left: 10vh;
+    padding-right: 10vh;
+  }
+  
+  .question-result-content {
+    background-color: $red;
+    min-height: $min-page-height;
+    min-width: $min-page-width;
+    height: 90vh;
+  }
+
+  .question-result-content h1{
+    font-size: $h1-size;
+    font-weight: bold;
+    min-width: $min-page-width;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .question-result-content button {
+    display: block;
+    margin-top: 60vh;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: $normal-size;
+    background-color: $orange;
+    padding: 5px;
+    height: 9vh;
+    min-height: 45px;
+    width: 15vw;
+    min-width: 140px;
+  }
+
+  .question-result-content button:hover {
+    background-color: $light_orange;
+  }

@@ -9,4 +9,5 @@
         </ng-template>
     </div>
 </section>
-<app-game-result *ngIf="gameFinished" (clickOnQuitt)="OnClickQuit($event)"></app-game-result>
+<app-game-result *ngIf="gameFinished" (clickOnQuitt)="onClickQuit($event)"></app-game-result>
+<app-game-question-result class="popup" *ngIf="resultDisplayed" (clickOnContinue)="onClickContinue($event)"></app-game-question-result>
