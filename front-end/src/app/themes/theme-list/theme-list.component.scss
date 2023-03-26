@@ -5,9 +5,11 @@
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: space-evenly;
-    align-items: space-evenly;
-    height: 70vh;
-    min-height: 350px;
-    width: 80vw;
+    align-content: space-evenly;
+    max-height: 60vh;
+    height: 60vh;
+    min-height: 300px;
+    width: 50vw;
     min-width: 290px;
+    padding: 2vh 0;
 }
