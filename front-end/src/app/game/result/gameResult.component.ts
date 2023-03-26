@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { GameInstance } from 'src/models/gameInstance.modele';
 import { GameService } from 'src/services/game.service';
 
@@ -9,6 +9,8 @@ import { GameService } from 'src/services/game.service';
 })
 export class GameResultComponent implements OnInit {
     public quizName: string = "";
+    @Output()
+    clickOnQuitt: EventEmitter<boolean> = new EventEmitter<boolean>();
 
 
     constructor(public gameService: GameService) {
@@ -19,4 +21,8 @@ export class GameResultComponent implements OnInit {
 
 
     ngOnInit(): void { }
+
+    quitClicked(){
+        this.clickOnQuitt.emit(true);
+    }
 }

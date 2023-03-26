@@ -14,6 +14,7 @@ export class GamePageComponent implements OnInit {
     public currentQuestion: number = 1;
     public numberQuestions: number;
     public questionChanged: boolean = false;
+    public gameFinished: boolean = false;
 
 
     constructor(public gameService: GameService) {
@@ -38,10 +39,27 @@ export class GamePageComponent implements OnInit {
     }
 
     onAnswerQuestion(isAnwsered: boolean) {
+        console.log(this.currentQuestion,this.numberQuestions);
         if (this.currentQuestion<this.numberQuestions){
         this.currentQuestion++;
         this.questionChanged=isAnwsered;
         this.questionChanged=false;
       }
+      else{
+        this.endGame();
+      }
+
+    }
+
+    endGame(){
+        this.gameFinished=true;
+        console.log(this.gameService.answers);
+    }
+
+    OnClickQuit(clickOnQuitt: boolean){
+        this.gameFinished=false;
+        this.gameService.reinitQuiz();
+        this.numberQuestions = this.questions.length;
+        this.currentQuestion=this.gameService.currentQuestionIndex+1;
     }
 }
