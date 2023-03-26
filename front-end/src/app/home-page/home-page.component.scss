@@ -1,19 +1,20 @@
 @import "../../styles/variables.scss";
 
-header h1 {
-    font-size: $h1-size;
-    font-weight: bold;
-    height: $header-height;
-    min-height: $min-header-height;
-    min-width: $min-page-width;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: $blue;
-}
+// header h1 {
+//     font-size: $h1-size;
+//     font-weight: bold;
+//     height: $header-height;
+//     min-height: $min-header-height;
+//     min-width: $min-page-width;
+//     display: flex;
+//     justify-content: center;
+//     align-items: center;
+//     background-color: $blue;
+// }
 
 .home-page {
     height: 80vh;
+    min-height: $min-section-height;
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
@@ -26,9 +27,9 @@ header h1 {
     justify-content: center;
     align-items: center;
     height: 16vh;
-    min-height: 100px;
+    min-height: 90px;
     width: 80vw;
-    min-width: 290px;
+    min-width: 420px;
     background-color: $light-blue;
     border: $h2-border;
 }
@@ -37,5 +38,7 @@ header h1 {
     font-size: $normal-size;
     background-color: $orange;
     height: 9vh;
+    min-height: 45px;
     width: 18vw;
+    min-width: 180px;
 }

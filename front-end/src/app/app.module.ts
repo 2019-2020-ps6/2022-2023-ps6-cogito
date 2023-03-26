@@ -4,6 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomePageComponent } from './home-page/home-page.component';
+import { ThemePageComponent } from './themes/page/page.component';
 import { GamePageComponent } from './game/page/page.component';
 import { GameQuestionComponent } from './game/question/question.component';
 import { GameAnswerComponent } from './game/answer/answer.component';
@@ -12,6 +13,7 @@ import { GameAnswerComponent } from './game/answer/answer.component';
   declarations: [
     AppComponent,
     HomePageComponent,
+    ThemePageComponent,
     GamePageComponent,
     GameQuestionComponent,
     GameAnswerComponent
