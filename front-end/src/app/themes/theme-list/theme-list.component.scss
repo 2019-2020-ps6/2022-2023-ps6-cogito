@@ -1,0 +1,13 @@
+@import "../../../styles/variables.scss";
+
+.theme-list {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    align-items: space-evenly;
+    height: 70vh;
+    min-height: 350px;
+    width: 80vw;
+    min-width: 290px;
+}
