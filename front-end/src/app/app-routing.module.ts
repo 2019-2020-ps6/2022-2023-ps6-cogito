@@ -5,6 +5,7 @@ import { ProfileListComponent } from './profiles/profile-list/profile-list.compo
 import { EditQuizComponent } from './quizzes/edit-quiz/edit-quiz.component';
 import { QuizFormComponent } from './quizzes/quiz-form/quiz-form.component';
 import { GamePageComponent } from './game/page/page.component';
+import { QuestionFormComponent } from './questions/question-form/question-form.component';
 
 
 const routes: Routes = [
@@ -13,6 +14,7 @@ const routes: Routes = [
     {path: 'profile-list', component: ProfileListComponent},
     {path: 'edit-quiz/:id', component: EditQuizComponent},
     { path: 'game-page', component: GamePageComponent },
+    { path: 'question-form', component: QuestionFormComponent},
     { path: '', redirectTo: '/quiz-list', pathMatch: 'full' },
 ]
 

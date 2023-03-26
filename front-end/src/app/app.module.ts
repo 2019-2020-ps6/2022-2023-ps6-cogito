@@ -1,3 +1,4 @@
+import { QuestionFormComponent } from './questions/question-form/question-form.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -31,7 +32,8 @@ import { GameAnswerComponent } from './game/answer/answer.component';
     EditQuizComponent,
     GamePageComponent,
     GameQuestionComponent,
-    GameAnswerComponent
+    GameAnswerComponent,
+    QuestionFormComponent
   ],
   imports: [
     BrowserModule,

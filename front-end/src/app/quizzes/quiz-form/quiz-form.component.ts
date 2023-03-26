@@ -17,6 +17,8 @@ export class QuizFormComponent implements OnInit {
 
   public quizForm: FormGroup;
 
+  public state: string = 'general';
+
   constructor(public formBuilder: FormBuilder, public quizService: QuizService) {
     // Form creation
     this.quizForm = this.formBuilder.group({
@@ -27,6 +29,10 @@ export class QuizFormComponent implements OnInit {
 
   ngOnInit() {
     console.log("updatableQuiz",this.updatableQuiz)
+  }
+
+  changeState(state: string) {
+    this.state = state;
   }
 
   addQuiz() {

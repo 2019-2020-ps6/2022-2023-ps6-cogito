@@ -12,11 +12,11 @@ import { Question } from 'src/models/question.model';
 export class QuestionFormComponent implements OnInit {
 
   @Input()
-  quiz: Quiz;
+  quiz: Quiz | undefined;
 
-  public questionForm: FormGroup;
+  public questionForm: FormGroup = new FormGroup({});
 
-  constructor(public formBuilder: FormBuilder, private quizService: QuizService) {
+  constructor(public formBuilder: FormBuilder) {
     // Form creation
     this.initializeQuestionForm();
   }
@@ -32,7 +32,10 @@ export class QuestionFormComponent implements OnInit {
   }
 
   get answers(): FormArray {
-    return this.questionForm.get('answers') as FormArray;
+    if(this.questionForm)
+      return this.questionForm.get('answers') as FormArray;
+    else 
+      return this.formBuilder.array([]);
   }
 
   private createAnswer(): FormGroup {
@@ -47,10 +50,13 @@ export class QuestionFormComponent implements OnInit {
   }
 
   addQuestion(): void {
+    if(this.questionForm){
     if (this.questionForm.valid) {
       const question = this.questionForm.getRawValue() as Question;
-      this.quizService.addQuestion(this.quiz, question);
+      if(this.quiz)
+        this.quiz.questions.push(question);
       this.initializeQuestionForm();
     }
+  }
   }
 }

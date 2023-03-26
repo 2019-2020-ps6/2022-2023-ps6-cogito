@@ -3,7 +3,9 @@
 </head>
 
 <body>
+  <div *ngIf="state === 'general'">
 <div class="card">
+  <button (click)="changeState('questions')">Questions</button>
   <!-- <h3>{{this.updatableQuiz == undefined ? "Créer un nouveau quiz" : "Modifier le quiz"}}</h3> -->
   <form class="quiz-form" [formGroup]="quizForm">
     <label for="title">
@@ -27,7 +29,14 @@
   </form>
 </div>
 <div class="button-quiz-list"> <button type="submit" class="button-card" [routerLink]="['/quiz-list']">Aller à la liste des quiz</button> </div>
-
+</div>
+<div *ngIf="state === 'questions'">
+  <button (click)="changeState('general')"> Général</button>
+  <p>Ajout/suppression de questions au quiz {{updatableQuiz == undefined ? "" : updatableQuiz.name}}</p>
+  <app-question-form [quiz]="updatableQuiz"></app-question-form>
+  <app-question-list [quiz]="updatableQuiz"></app-question-list>
+  <button type="submit" class="button-card" (click)="addQuiz()" [routerLink]="['/quiz-list']">{{this.updatableQuiz == undefined ? "Créer" : "Modifier"}}</button>
+</div>
 <!-- Uncomment below to see your form structure and how it changes-->
 <!-- <br><br>{{quizForm.getRawValue() | json}} --> 
 </body>
