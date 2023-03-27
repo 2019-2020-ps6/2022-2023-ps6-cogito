@@ -18,6 +18,19 @@ export class ProfileListComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.sortProfileList();
+  }
+
+  sortProfileList() {
+    this.profileList = this.profileList.sort((a, b) => {
+      if (a.name < b.name) {
+        return -1;
+      } else if (a.name > b.name) {
+        return 1;
+      } else {
+        return 0;
+      }
+    });
   }
 
   profileSelected(selected: boolean) {

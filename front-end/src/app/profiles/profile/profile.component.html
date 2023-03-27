@@ -1,16 +1,8 @@
 <div class="profile-card" *ngIf="profile">
   <div class="profile-card__image">
     <div class="profile-card__image-container">
-      <img src="../profile-pics/{{profile.picture}}" alt="Profile Picture de {{ profile.name }}">
+      <img src="{{profile.picture}}" alt="Profile Picture de {{ profile.name }}">
     </div>
     <div class="profile-card__name">{{ profile.name }}</div>
-  </div>
-  <div class="profile-card__buttons">
-    <button class="profile-card__button profile-card__button--select" [routerLink]="['/edit-profile/', this.profile.id]">
-      <i class="fa-solid fa-pen"></i>
-    </button>
-    <button class="profile-card__button profile-card__button--delete" (click)="deleteProfile()">
-      <i class="fa-solid fa-trash"></i>
-    </button>
   </div>
 </div> 

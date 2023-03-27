@@ -1,6 +1,6 @@
 @import '../../../styles/card.scss';
 
-head {
+header {
   font-size: 35pt;
   font-weight: bold;
   height: 20vh;
@@ -11,18 +11,16 @@ head {
   position: relative;
 }
 
-body {
+section {
   height: 80vh;
 }
 
 .profile-list {
   margin-top: 10px;
   display: flex;
-  flex-direction: column;
-  
-  .quiz {
-    margin-bottom: 10px;
-  }
+  flex-direction: row;
+  justify-content: center;
+  flex-wrap: wrap;
 }
 
 .button-card {
