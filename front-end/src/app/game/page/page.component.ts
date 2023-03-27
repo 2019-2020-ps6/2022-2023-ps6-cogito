@@ -40,8 +40,9 @@ export class GamePageComponent implements OnInit {
         else {
             if (this.currentQuestion<this.numberQuestions){
                 this.gameService.selectQuestion(this.questions[this.currentQuestion]);
-            this.currentQuestion++;
-            console.log("Skip question");
+                this.currentQuestion++;
+                console.log("Skip question");
+                this.nextquestion=false;
             }
         }
     }
@@ -56,10 +57,11 @@ export class GamePageComponent implements OnInit {
                 this.currentQuestion++;
                 this.questionChanged=isAnwsered;
                 this.questionChanged=false;
-              }
-              else{
+                this.clickanswer=false;
+            }
+            else{
                 this.endGame();
-              }
+            }
 
         }
 
@@ -83,7 +85,7 @@ export class GamePageComponent implements OnInit {
         if (this.nextquestion){
             this.nextQuestion();
         }
-        if (this.clickanswer){
+        else if (this.clickanswer){
             this.onAnswerQuestion(true);
         }
         this.resultDisplayed=false;
