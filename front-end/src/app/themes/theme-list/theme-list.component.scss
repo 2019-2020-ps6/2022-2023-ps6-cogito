@@ -3,13 +3,15 @@
 .theme-list {
     display: flex;
     flex-direction: row;
-    flex-wrap: wrap;
     justify-content: space-evenly;
-    align-content: space-evenly;
-    max-height: 60vh;
     height: 60vh;
-    min-height: 300px;
-    width: 50vw;
-    min-width: 290px;
-    padding: 2vh 0;
+    min-height: 150px;
+    width: 90vw;
+    min-width: 200px;
+}
+
+@media screen and (max-height: 400px) {
+    .theme-list {
+        overflow-y: scroll;
+    }
 }
