@@ -1,6 +1,6 @@
 <section class="game-page" *ngIf="!gameFinished">
     <h1>{{quizName}} | {{currentQuestion}}/{{numberQuestions}}</h1>
-    <app-game-question *ngIf="!questionChanged" (isAnwsered)="onAnswerQuestion($event)"></app-game-question>
+    <app-game-question *ngIf="!questionChanged" (isAnwsered)="onAnswerQuestion($event)" (stateAnswered)="stateAnswer($event)"></app-game-question>
     <div class="game-page-buttons">
         <button>QUITTER</button>
         <button *ngIf="currentQuestion != numberQuestions; else terminerButton" (click)="nextQuestion()">SUIVANTE</button>
@@ -10,4 +10,4 @@
     </div>
 </section>
 <app-game-result *ngIf="gameFinished" (clickOnQuitt)="onClickQuit($event)"></app-game-result>
-<app-game-question-result class="popup" *ngIf="resultDisplayed" (clickOnContinue)="onClickContinue($event)"></app-game-question-result>
+<app-game-question-result class="popup" *ngIf="resultDisplayed" (clickOnContinue)="onClickContinue($event)" [isCorrect]="currAnswer"></app-game-question-result>

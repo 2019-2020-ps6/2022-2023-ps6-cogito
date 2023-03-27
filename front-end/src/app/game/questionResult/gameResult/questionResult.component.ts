@@ -1,5 +1,5 @@
-import { Component, EventEmitter, OnInit, Output} from '@angular/core';
-import { GameInstance } from 'src/models/gameInstance.modele';
+import { Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import { GameInstance } from 'src/models/gameInstance.model';
 import { GameService } from 'src/services/game.service';
 
 @Component({
@@ -9,6 +9,9 @@ import { GameService } from 'src/services/game.service';
 })
 export class GameQuestionResultComponent implements OnInit {
     public questionName: string="";
+
+    @Input()
+    public isCorrect: boolean=false;
     @Output()
     clickOnContinue: EventEmitter<boolean> = new EventEmitter<boolean>();
 

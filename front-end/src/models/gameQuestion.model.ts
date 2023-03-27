@@ -1,4 +1,4 @@
-import { GameAnswer } from './gameAnswer.modele';
+import { GameAnswer } from './gameAnswer.model';
 
 export interface GameQuestion {
     id: string;

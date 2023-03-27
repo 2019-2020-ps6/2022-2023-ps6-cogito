@@ -1,4 +1,4 @@
-import { GameQuestion } from "src/models/gameQuestion.modele";
+import { GameQuestion } from "src/models/gameQuestion.model";
 import { INS_Q1_1, INS_Q1_2, INS_Q2_1, INS_Q2_2, INS_Q2_3, INS_Q3_1, INS_Q3_2, INS_Q3_3, INS_Q3_4 } from "src/mocks/gameAnswer.mock";
 
 export const QUESTION_INS1: GameQuestion = {

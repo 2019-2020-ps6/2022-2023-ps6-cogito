@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { GameInstance } from 'src/models/gameInstance.modele';
-import { GameQuestion } from 'src/models/gameQuestion.modele';
+import { Component, Input, OnInit } from '@angular/core';
+import { GameInstance } from 'src/models/gameInstance.model';
+import { GameQuestion } from 'src/models/gameQuestion.model';
 import { GameService } from 'src/services/game.service';
 
 @Component({
@@ -18,6 +18,8 @@ export class GamePageComponent implements OnInit {
     public resultDisplayed: boolean = false;
     public nextquestion: boolean = false;
     public clickanswer: boolean =false;
+    
+    public currAnswer: boolean = false;
 
     constructor(public gameService: GameService) {
         this.gameService.gameInstance$.subscribe((gameInstance: GameInstance) => {
@@ -26,7 +28,10 @@ export class GamePageComponent implements OnInit {
         });
         this.numberQuestions = this.questions.length;
         this.currentQuestion=this.gameService.currentQuestionIndex+1;
-        console.log(this.gameService.currentQuestionIndex);
+    }
+
+    stateAnswer(stateAnswered : boolean){
+        this.currAnswer=stateAnswered;
     }
 
 

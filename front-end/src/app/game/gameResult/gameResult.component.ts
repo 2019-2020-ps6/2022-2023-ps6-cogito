@@ -1,5 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { GameInstance } from 'src/models/gameInstance.modele';
+import { GameInstance } from 'src/models/gameInstance.model';
 import { GameService } from 'src/services/game.service';
 
 @Component({

@@ -10,7 +10,6 @@
   }
   
   .question-result-content {
-    background-color: $red;
     min-height: $min-page-height;
     min-width: $min-page-width;
     height: 90vh;
@@ -41,4 +40,12 @@
 
   .question-result-content button:hover {
     background-color: $light_orange;
+  }
+
+  .green-background {
+    background-color: $light-green;
+  }
+  
+  .red-background {
+    background-color: $red;
   }

@@ -1,4 +1,4 @@
-import { GameAnswer } from "src/models/gameAnswer.modele";
+import { GameAnswer } from "src/models/gameAnswer.model";
 
 export const INS_Q1_1: GameAnswer = {
     id: 1,
