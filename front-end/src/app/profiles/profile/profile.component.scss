@@ -1,15 +1,18 @@
 @import '../../../styles/card.scss';
 
 
+
 .profile-card__image-container { 
-  width: 150px;
-  height: 150px;
+  width: 130px;
+  height: 130px;
   border-radius: 50%;
   overflow: hidden;
   display: flex;
   justify-content: center;
   align-items: center;
   background-color: #fff;
+  transition: all 0.1s ease-in-out;
+
 }
 
 .profile-card__image-container:hover { 
@@ -19,8 +22,8 @@
 
 .profile-card__image-container img {
   max-height: 100%;
-  width: 150px;
-  height: 150px;
+  width: 110px;
+  height: 110px;
   border-radius: 50%;
   object-fit: cover;
 }
@@ -36,8 +39,7 @@
   cursor: pointer;
   font-size: 1.2rem;
   transition: all 0.3s ease-in-out;
-  flex: 3;
-  
+  flex: 3;  
 }
 
 .profile-card__name:hover{
@@ -48,13 +50,14 @@
 
 
 .profile-card {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    margin-left: 5vw;
-    margin-right: 5vw; 
-    margin-top: 1vw;
-    width: 10vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 25vh;
+  min-height: 190px;
+  width: 20vh;
+  min-width: 200px;
+  margin: 1vh;
+  font-size: $normal-size;
 }
   
