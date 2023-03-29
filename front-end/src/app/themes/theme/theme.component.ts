@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Theme } from 'src/models/theme.model';
 
 @Component({
@@ -8,11 +8,18 @@ import { Theme } from 'src/models/theme.model';
 })
 export class ThemeComponent implements OnInit {
     @Input()
-    theme!: Theme;
+    theme: Theme | undefined;
+
+    @Output()
+    themeSelected: EventEmitter<boolean> = new EventEmitter<boolean>();
 
 
     constructor() { }
 
 
     ngOnInit(): void { }
+
+    selectProfile() {
+        this.themeSelected.emit(true);
+      }
 }

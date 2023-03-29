@@ -12,11 +12,37 @@ export class ThemeListComponent implements OnInit {
 
     
     constructor(public themeService: ThemeService) {
-        this.themeService.themeList$.subscribe((themes: Theme[]) => {
-            this.themeList = themes;
+        this.themeService.themes$.subscribe((themeList) => {
+          this.themeList = themeList;
         });
+      }
+
+
+      ngOnInit() {
+        this.sortThemeList();
+        this.themeList = this.themeList.slice(0,6);
+      }
+
+
+      getThe6() {
+        this.themeService.getThe6();
+      }
+    
+      showNextThemes() {
+        this.themeService.showNextThemes();
     }
-
-
-    ngOnInit(): void { }
-}
+    
+    showPreviousThemes() {
+      this.themeService.showPreviousThemes();
+    }
+    
+    
+      sortThemeList() {
+        this.themeService.sortThemeList();
+      }
+    
+      themeSelected(selected: boolean) {
+        console.log('event received from child:', selected);
+      }
+    
+    }

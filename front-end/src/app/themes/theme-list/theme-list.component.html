@@ -1,8 +1,13 @@
-<div class="theme-list">
-    <app-themes-theme *ngFor="let theme of themeList" routerLink="/quiz-page" [theme]="theme"></app-themes-theme>
-    <app-themes-theme *ngFor="let theme of themeList" routerLink="/quiz-page" [theme]="theme"></app-themes-theme>
-    <app-themes-theme *ngFor="let theme of themeList" routerLink="/quiz-page" [theme]="theme"></app-themes-theme>
-    <app-themes-theme *ngFor="let theme of themeList" routerLink="/quiz-page" [theme]="theme"></app-themes-theme>
-    <app-themes-theme *ngFor="let theme of themeList" routerLink="/quiz-page" [theme]="theme"></app-themes-theme>
-    <app-themes-theme *ngFor="let theme of themeList" routerLink="/quiz-page" [theme]="theme"></app-themes-theme>
-</div>
+<section>
+
+    <div class="theme-list-selection">   
+        <!--   <button type="submit" class="button-selection" (click)="showPreviousProfiles()">Précédent</button>-->
+        <div class="theme-list">
+            <div class="theme" *ngFor="let theme of themeList">
+                <app-themes-theme [theme]="theme" (themeSelected)="themeSelected($event)"> </app-themes-theme>
+            </div> 
+        </div> 
+        <!--<button type="submit" class="button-selection" (click)="showNextProfiles()">Suivant</button>-->
+    </div>
+
+</section>

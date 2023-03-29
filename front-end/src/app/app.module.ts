@@ -14,6 +14,9 @@ import { QuizComponent } from './quizzes/quiz/quiz.component';
 import { GamePageComponent } from './game/page/page.component';
 import { GameQuestionComponent } from './game/question/question.component';
 import { GameAnswerComponent } from './game/answer/answer.component';
+import { ProfileListComponent } from './profiles/profile-list/profile-list.component';
+import { ProfileComponent } from './profiles/profile/profile.component';
+
 
 @NgModule({
   declarations: [
@@ -28,6 +31,9 @@ import { GameAnswerComponent } from './game/answer/answer.component';
     QuizComponent,
     GamePageComponent,
     GameQuestionComponent,
+    ProfileComponent,
+    ProfileListComponent,
+
     GameAnswerComponent
   ],
   imports: [

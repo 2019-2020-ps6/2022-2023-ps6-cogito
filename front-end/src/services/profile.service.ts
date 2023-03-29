@@ -7,27 +7,11 @@ import { PROFILE_LIST } from '../mocks/profile-list-with-id.mock';
   providedIn: 'root'
 })
 export class ProfileService {
-  /**
-   * Services Documentation:
-   * https://angular.io/docs/ts/latest/tutorial/toh-pt4.html
-   */
-
-   /**
-    * The list of quiz.
-    * The list is retrieved from the mock.
-    */
   private profiles: Profile[] = PROFILE_LIST;
   private profilesCopy: Profile[] = PROFILE_LIST;
   public startIndex: number = 0;
   public endIndex: number = this.profilesCopy.length;
-
-
-  /**
-   * Observable which contains the list of the quiz.
-   * Naming convention: Add '$' at the end of the variable name to highlight it as an Observable.
-   */
   public profiles$: BehaviorSubject<Profile[]> = new BehaviorSubject(PROFILE_LIST);
-
   public profileSelected$: Subject<Profile> = new Subject();
 
   constructor() {
@@ -71,16 +55,6 @@ showPreviousProfiles() {
   if(this.startIndex < 0) this.startIndex = 0;
   this.getThe6();
 }
-
-
-  deleteProfile(quiz: Profile) {
-    this.profiles.forEach((value,index)=>{
-      if(value.name == quiz.name) this.profiles.splice(index,1);
-    });
-
-    this.profiles$.next(this.profiles);
-    console.log("ProfileService DELETE");
-  }
 
   getProfileById(id: number): Profile | undefined {
     return this.profiles.find((profile) => profile.id === id);
