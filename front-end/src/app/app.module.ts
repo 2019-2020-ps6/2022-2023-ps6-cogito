@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { HeaderComponent } from './header/header.component';
 import { HomePageComponent } from './home-page/home-page.component';
 import { ThemePageComponent } from './themes/page/page.component';
 import { ThemeListComponent } from './themes/theme-list/theme-list.component';
@@ -17,6 +18,7 @@ import { GameAnswerComponent } from './game/answer/answer.component';
 @NgModule({
   declarations: [
     AppComponent,
+    HeaderComponent,
     HomePageComponent,
     ThemePageComponent,
     ThemeListComponent,
