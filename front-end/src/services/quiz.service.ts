@@ -1,7 +1,7 @@
+import { Question } from 'src/models/question.model';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { Quiz } from '../models/quiz.model';
-import { Question } from '../models/question.model';
 import { QUIZ_LIST } from '../mocks/quiz-list-with-id.mock';
 
 @Injectable({
@@ -32,9 +32,9 @@ export class QuizService {
   }
 
   addQuiz(quiz: Quiz) {
-    
-    // You need here to update the list of quiz and then update our observable (Subject) with the new list
-    // More info: https://angular.io/tutorial/toh-pt6#the-searchterms-rxjs-subjecta nouvelle valeur de la liste des quiz
+    if(quiz.id === undefined){
+      quiz.id = this.quizzes.length + 1;
+    }
     this.quizzes.push(quiz);
     this.quizzes$.next(this.quizzes);
   }
@@ -49,9 +49,9 @@ export class QuizService {
   }
 
   addQuestion(quiz: Quiz, question: Question) {
-    this.quizzes.forEach((value,index)=>{
+    /*this.quizSelected$.forEach((value,index)=>{
       if(value.name == quiz.name) this.quizzes[index].questions.push(question);
-    });
+    });*/
   }
 
   deleteQuestion(quiz: Quiz, question: Question) {
@@ -75,8 +75,11 @@ export class QuizService {
     this.quizzes$.next(this.quizzes);
   }
 
-  setSelected(id: number) {
-  
+  setSelected(id: number | null) {
+    if(id === null){
+      this.quizSelected$.next({} as Quiz);
+      return;
+    }
     let q ={...this.quizzes.find((quiz) => quiz.id === id)} as Quiz;
     if(q != undefined)
       this.quizSelected$.next(q);

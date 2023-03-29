@@ -1,11 +1,13 @@
 <head>
-    {{this.updatableQuiz == undefined ? "Création d'un quiz" : "Modification d'un quiz"}}
+    {{this.updatableQuiz === undefined ? "Création d'un quiz" : "Modification d'un quiz"}}
 </head>
 
-<body>
   <div *ngIf="state === 'general'">
 <div class="card">
-  <button (click)="changeState('questions')">Questions</button>
+  <div class="buttons-container">
+    <button [class.active]="state === 'general'" (click)="changeState('general')">Général</button>
+    <button (click)="changeState('questions')">Questions</button>
+  </div>
   <!-- <h3>{{this.updatableQuiz == undefined ? "Créer un nouveau quiz" : "Modifier le quiz"}}</h3> -->
   <form class="quiz-form" [formGroup]="quizForm">
     <label for="title">
@@ -31,12 +33,14 @@
 <div class="button-quiz-list"> <button type="submit" class="button-card" [routerLink]="['/quiz-list']">Aller à la liste des quiz</button> </div>
 </div>
 <div *ngIf="state === 'questions'">
-  <button (click)="changeState('general')"> Général</button>
-  <p>Ajout/suppression de questions au quiz {{updatableQuiz == undefined ? "" : updatableQuiz.name}}</p>
-  <app-question-form [quiz]="updatableQuiz"></app-question-form>
-  <app-question-list [quiz]="updatableQuiz"></app-question-list>
-  <button type="submit" class="button-card" (click)="addQuiz()" [routerLink]="['/quiz-list']">{{this.updatableQuiz == undefined ? "Créer" : "Modifier"}}</button>
+  <div class="card">
+    <button (click)="changeState('general')"> Général</button>
+    <button [class.active]="state === 'questions'" > Questions</button>
+    <p>Ajout/suppression de questions au quiz {{updatableQuiz == undefined ? "" : updatableQuiz.name}}</p>
+    <app-question-form [quiz]="updatableQuiz"></app-question-form>
+    <app-question-list [quiz]="updatableQuiz"></app-question-list>
+    <button type="submit" class="button-card" (click)="addQuiz()" [routerLink]="['/quiz-list']">{{this.updatableQuiz == undefined ? "Créer" : "Modifier"}}</button>
+  </div>
 </div>
 <!-- Uncomment below to see your form structure and how it changes-->
 <!-- <br><br>{{quizForm.getRawValue() | json}} --> 
-</body>

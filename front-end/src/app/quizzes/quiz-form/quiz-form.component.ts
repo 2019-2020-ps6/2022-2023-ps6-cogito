@@ -25,10 +25,19 @@ export class QuizFormComponent implements OnInit {
       name: [''],
       theme:['']
     });
+    if(this.updatableQuiz === undefined){
+      this.quizService.quizSelected$.subscribe((quiz: Quiz) => { 
+        this.updatableQuiz = quiz;
+      });
+      console.log("quizSelected",this.updatableQuiz);
+    }
   }
 
   ngOnInit() {
-    console.log("updatableQuiz",this.updatableQuiz)
+    if(this.updatableQuiz === undefined){
+      this.quizService.setSelected(null);
+    }
+    console.log("quizSelected",this.updatableQuiz);
   }
 
   changeState(state: string) {

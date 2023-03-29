@@ -8,8 +8,9 @@ import { GamePageComponent } from './game/page/page.component';
 import { QuestionFormComponent } from './questions/question-form/question-form.component';
 
 
+
 const routes: Routes = [
-    {path: 'quiz-form', component: QuizFormComponent},
+    {path: 'quiz-form', component: QuizFormComponent, data: {title: 'Create Quiz'}},
     {path: 'quiz-list', component: QuizListComponent},
     {path: 'profile-list', component: ProfileListComponent},
     {path: 'edit-quiz/:id', component: EditQuizComponent},

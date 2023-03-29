@@ -53,8 +53,12 @@ export class QuestionFormComponent implements OnInit {
     if(this.questionForm){
     if (this.questionForm.valid) {
       const question = this.questionForm.getRawValue() as Question;
-      if(this.quiz)
+      if(this.quiz !== undefined){
+        if(this.quiz.questions === undefined){
+          this.quiz.questions = [];
+        }
         this.quiz.questions.push(question);
+      }
       this.initializeQuestionForm();
     }
   }
