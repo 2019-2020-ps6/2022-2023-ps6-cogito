@@ -11,6 +11,7 @@ export class ProfileListComponent implements OnInit {
 
   public profileList: Profile[] = [];
 
+
   constructor(public profileService: ProfileService) {
     this.profileService.profiles$.subscribe((profileList) => {
       this.profileList = profileList;
@@ -19,26 +20,28 @@ export class ProfileListComponent implements OnInit {
 
   ngOnInit() {
     this.sortProfileList();
+    this.profileList = this.profileList.slice(0,6);
   }
 
+  getThe6() {
+    this.profileService.getThe6();
+  }
+
+  showNextProfiles() {
+    this.profileService.showNextProfiles();
+}
+
+showPreviousProfiles() {
+  this.profileService.showPreviousProfiles();
+}
+
+
   sortProfileList() {
-    this.profileList = this.profileList.sort((a, b) => {
-      if (a.name < b.name) {
-        return -1;
-      } else if (a.name > b.name) {
-        return 1;
-      } else {
-        return 0;
-      }
-    });
+    this.profileService.sortProfileList();
   }
 
   profileSelected(selected: boolean) {
     console.log('event received from child:', selected);
   }
 
-  deleteProfile(profile: Profile){
-    this.profileService.deleteProfile(profile);
-    console.log("The profile ", profile.name, " has been deleted");
-  }
 }

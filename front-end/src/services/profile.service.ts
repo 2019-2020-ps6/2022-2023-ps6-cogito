@@ -17,7 +17,10 @@ export class ProfileService {
     * The list is retrieved from the mock.
     */
   private profiles: Profile[] = PROFILE_LIST;
-  private searchTerms = new Subject<string>();
+  private profilesCopy: Profile[] = PROFILE_LIST;
+  public startIndex: number = 0;
+  public endIndex: number = this.profilesCopy.length;
+
 
   /**
    * Observable which contains the list of the quiz.
@@ -30,13 +33,40 @@ export class ProfileService {
   constructor() {
   }
 
-  addProfile(profile: Profile) {
-    
-    // You need here to update the list of quiz and then update our observable (Subject) with the new list
-    // More info: https://angular.io/tutorial/toh-pt6#the-searchterms-rxjs-subjecta nouvelle valeur de la liste des quiz
-    this.profiles.push(profile);
+  sortProfileList() {
+    this.profiles = this.profiles.sort((a, b) => {
+      if (a.name < b.name) {
+        return -1;
+      } else if (a.name > b.name) {
+        return 1;
+      } else {
+        return 0;
+      }
+    });
     this.profiles$.next(this.profiles);
   }
+
+  getThe6() {
+    if(this.startIndex > this.endIndex) this.startIndex = 0;
+    if(this.startIndex+6 > this.endIndex){
+      this.profiles = this.profilesCopy.slice(this.startIndex, this.endIndex);
+    }else{
+      this.profiles = this.profilesCopy.slice(this.startIndex, this.startIndex + 6);
+    }
+    this.profiles$.next(this.profiles);
+}
+
+showNextProfiles() {
+    this.startIndex += 6;
+    this.getThe6();
+}
+
+showPreviousProfiles() {
+  this.startIndex -= 6;
+  if(this.startIndex < 0) this.startIndex = 0;
+  this.getThe6();
+}
+
 
   deleteProfile(quiz: Profile) {
     this.profiles.forEach((value,index)=>{

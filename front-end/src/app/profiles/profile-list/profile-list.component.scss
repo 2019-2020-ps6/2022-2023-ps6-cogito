@@ -11,16 +11,22 @@ header {
   position: relative;
 }
 
+.profile-list-selection{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
 section {
   height: 80vh;
 }
 
 .profile-list {
-  margin-top: 10px;
   display: flex;
   flex-direction: row;
   justify-content: center;
   flex-wrap: wrap;
+
 }
 
 .button-card {
@@ -30,6 +36,20 @@ section {
   padding: 10px 20px;
   border-radius: 5px;
   font-weight: bold;
+}
+
+.button-selection {
+  width: 15vW;
+    background-color: yellow;
+    color: black;
+    border: 1px solid black;
+    border-radius: 5px;
+    font-weight: bold;
+    height: 10vh;
+    margin-top: 15vw;
+    margin-left: 5%;
+    margin-right: 5%;
+
 }
 
 .button-profile-form {
