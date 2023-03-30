@@ -1,48 +1,44 @@
-import { Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
-import { AdminQuiz } from '../../../models/admin-quiz.model';
+import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
+
+import { Quiz } from "src/models/quiz.model";
 
 @Component({
-  selector: 'app-quizzes-admin-quiz',
-  templateUrl: './admin-quiz.component.html',
-  styleUrls: ['./admin-quiz.component.scss']
+    selector: "app-quizzes-admin-quiz",
+    templateUrl: "./admin-quiz.component.html",
+    styleUrls: ["./admin-quiz.component.scss"]
 })
 export class AdminQuizComponent implements OnInit {
+    @Input()
+    quiz: Quiz | undefined;
 
-  /**
-   * Input here could be undefined, if the parent component doesn't give any quiz.
-   * If you remove `undefined`, you will have an error saying:
-   * "Property 'quiz' has no initializer and is not definitely assigned in the constructor."
-   * We can also defined the initial value of the quiz in the constructor.
-   */
-  @Input()
-  quiz: AdminQuiz | undefined;
+    @Output()
+    quizSelected: EventEmitter<boolean> = new EventEmitter<boolean>();
 
-  @Output()
-  quizSelected: EventEmitter<boolean> = new EventEmitter<boolean>();
+    @Output()
+    quizDeleted: EventEmitter<Quiz> = new EventEmitter<Quiz>();
 
-  @Output()
-  quizDeleted: EventEmitter<AdminQuiz> = new EventEmitter<AdminQuiz>();
+    @Output()
+    quizEdited: EventEmitter<Quiz> = new EventEmitter<Quiz>();
 
-  @Output()
-  quizEdited: EventEmitter<AdminQuiz> = new EventEmitter<AdminQuiz>();
 
-  constructor() {
-  }
+    constructor() {
+    }
 
-  ngOnInit() {
-  }
 
-  selectQuiz() {
-    this.quizSelected.emit(true);
-  }
+    ngOnInit(): void {
+    }
 
-  deleteQuiz() {
-    console.log("this.deleteQuiz");
-    this.quizDeleted.emit(this.quiz);
-  }
+    selectQuiz(): void {
+        this.quizSelected.emit(true);
+    }
 
-  editQuiz(){
-    console.log("this.editQuiz");
-    this.quizEdited.emit(this.quiz);
-  }
+    deleteQuiz(): void {
+        console.log("this.deleteQuiz");
+        this.quizDeleted.emit(this.quiz);
+    }
+
+    editQuiz(): void {
+        console.log("this.editQuiz");
+        this.quizEdited.emit(this.quiz);
+    }
 }

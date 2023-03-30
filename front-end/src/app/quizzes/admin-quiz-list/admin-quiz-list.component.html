@@ -1,28 +1,13 @@
-<<<<<<< HEAD
-<head>
-    Liste des quiz
-</head>
+<section>
+    <div class="quiz-list">
+        <div class="quiz" *ngFor="let quiz of quizList">
+            <app-quizzes-admin-quiz [quiz]="quiz" (quizSelected)="quizSelected($event)"
+                                    (quizDeleted)="deleteQuiz($event)">
+            </app-quizzes-admin-quiz>
+        </div>
+    </div>
 
-<body>
-<div class="quiz-list">
-    <div class="quiz" *ngFor="let quiz of quizList">
-        <!--Inputs & Output allow communication between parent & child components.-->
-        <!--More information: https://angular.io/guide/component-interaction-->
-        <app-quiz [quiz]="quiz" (quizSelected)="quizSelected($event)" (quizDeleted)="deleteQuiz($event)"> </app-quiz>
-    </div>  
-</div>
-
-<div class="button-quiz-form">
-    <button type="submit" class="button-card" [routerLink]="['/quiz-form']">Créer un nouveau quiz</button>
-</div>
-</body>
-=======
-<div class="quiz-list">
-    <app-quizzes-quiz routerLink="/game-page"></app-quizzes-quiz>
-    <app-quizzes-quiz routerLink="/game-page"></app-quizzes-quiz>
-    <app-quizzes-quiz routerLink="/game-page"></app-quizzes-quiz>
-    <app-quizzes-quiz routerLink="/game-page"></app-quizzes-quiz>
-    <app-quizzes-quiz routerLink="/game-page"></app-quizzes-quiz>
-    <app-quizzes-quiz routerLink="/game-page"></app-quizzes-quiz>
-</div>
->>>>>>> display_quizzes
+    <div class="button-quiz-form">
+        <button type="submit" class="button-card" [routerLink]="['/quiz-form']">Créer un nouveau quiz</button>
+    </div>
+</section>

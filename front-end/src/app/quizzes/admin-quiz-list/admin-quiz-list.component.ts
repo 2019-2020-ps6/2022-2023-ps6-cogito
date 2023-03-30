@@ -1,31 +1,33 @@
-import { Component, OnInit } from '@angular/core';
-import { AdminQuizService } from '../../../services/admin-quiz.service';
-import { AdminQuiz } from '../../../models/admin-quiz.model';
+import { Component, OnInit } from "@angular/core";
+
+import { AdminQuizService } from "src/services/admin-quiz.service";
+import { Quiz } from "src/models/quiz.model";
 
 @Component({
-  selector: 'app-quiz-list',
-  templateUrl: './admin-quiz-list.component.html',
-  styleUrls: ['./admin-quiz-list.component.scss']
+    selector: "app-quizzes-admin-quiz-list",
+    templateUrl: "./admin-quiz-list.component.html",
+    styleUrls: ["./admin-quiz-list.component.scss"]
 })
 export class AdminQuizListComponent implements OnInit {
+    public quizList: Quiz[] = [];
 
-  public quizList: AdminQuiz[] = [];
 
-  constructor(public quizService: AdminQuizService) {
-    this.quizService.quizzes$.subscribe((quizList) => {
-      this.quizList = quizList;
-    });
-  }
+    constructor(public quizService: AdminQuizService) {
+        this.quizService.quizzes$.subscribe((quizList: Quiz[]): void => {
+            this.quizList = quizList;
+        });
+    }
 
-  ngOnInit() {
-  }
 
-  quizSelected(selected: boolean) {
-    console.log('event received from child:', selected);
-  }
+    ngOnInit(): void {
+    }
 
-  deleteQuiz(quiz: AdminQuiz){
-    this.quizService.deleteQuiz(quiz);
-    console.log("The quiz ", quiz.name, " has been deleted");
-  }
+    quizSelected(selected: boolean): void {
+        console.log("event received from child:", selected);
+    }
+
+    deleteQuiz(quiz: Quiz): void {
+        this.quizService.deleteQuiz(quiz);
+        console.log("The quiz ", quiz.title, " has been deleted");
+    }
 }
