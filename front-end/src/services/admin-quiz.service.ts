@@ -1,85 +1,73 @@
-import { Injectable } from '@angular/core';
-import { BehaviorSubject, Subject } from 'rxjs';
-import { AdminQuiz } from '../models/admin-quiz.model';
-import { Question } from '../models/question.model';
-import { QUIZ_LIST } from '../mocks/quiz-list-with-id.mock';
+import { Injectable } from "@angular/core";
+import { BehaviorSubject, Subject } from "rxjs";
+import { Quiz } from "../models/quiz.model";
+import { QUIZ_LIST } from "../mocks/quiz.mock";
+import { QuizQuestion } from "../models/quizQuestion.model";
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: "root"
 })
 export class AdminQuizService {
-  /**
-   * Services Documentation:
-   * https://angular.io/docs/ts/latest/tutorial/toh-pt4.html
-   */
+    private quizzes: Quiz[];
+    public quizzes$: BehaviorSubject<Quiz[]>;
+    public selectedQuiz$: Subject<Quiz>;
 
-   /**
-    * The list of quiz.
-    * The list is retrieved from the mock.
-    */
-  private quizzes: AdminQuiz[] = QUIZ_LIST;
-  private searchTerms = new Subject<string>();
 
-  /**
-   * Observable which contains the list of the quiz.
-   * Naming convention: Add '$' at the end of the variable name to highlight it as an Observable.
-   */
-  public quizzes$: BehaviorSubject<AdminQuiz[]> = new BehaviorSubject(QUIZ_LIST);
+    constructor() {
+        this.quizzes = QUIZ_LIST;
+        this.quizzes$ = new BehaviorSubject(this.quizzes);
+        this.selectedQuiz$ = new Subject();
+    }
 
-  public quizSelected$: Subject<AdminQuiz> = new Subject();
 
-  constructor() {
-  }
+    addQuiz(quiz: Quiz): void {
+        this.quizzes.push(quiz);
+        this.quizzes$.next(this.quizzes);
+    }
 
-  addQuiz(quiz: AdminQuiz) {
-    
-    // You need here to update the list of quiz and then update our observable (Subject) with the new list
-    // More info: https://angular.io/tutorial/toh-pt6#the-searchterms-rxjs-subjecta nouvelle valeur de la liste des quiz
-    this.quizzes.push(quiz);
-    this.quizzes$.next(this.quizzes);
-  }
+    deleteQuiz(quiz: Quiz): void {
+        this.quizzes.forEach((value: Quiz, index: number): void => {
+            if (value.title == quiz.title) {
+                this.quizzes.splice(index, 1);
+            }
+        });
 
-  deleteQuiz(quiz: AdminQuiz) {
-    this.quizzes.forEach((value,index)=>{
-      if(value.name == quiz.name) this.quizzes.splice(index,1);
-    });
+        this.quizzes$.next(this.quizzes);
+    }
 
-    this.quizzes$.next(this.quizzes);
-    console.log("AdminQuizService DELETE");
-  }
+    addQuestion(quiz: Quiz, question: QuizQuestion): void {
+        this.quizzes.forEach((value: Quiz, index: number): void => {
+            if (value.title == quiz.title) {
+                this.quizzes[index].quizQuestionList.push(question);
+            }
+        });
+    }
 
-  addQuestion(quiz: AdminQuiz, question: Question) {
-    this.quizzes.forEach((value,index)=>{
-      if(value.name == quiz.name) this.quizzes[index].questions.push(question);
-    });
-  }
+    deleteQuestion(quiz: Quiz, question: QuizQuestion): void {
+        this.quizzes.forEach((value: Quiz, index: number): void => {
+            if (value.title == quiz.title) {
+                this.quizzes[index].quizQuestionList.forEach((value: QuizQuestion, index: number): void => {
+                    if (value.title == question.title) {
+                        this.quizzes[index].quizQuestionList.splice(index, 1);
+                    }
+                });
+            }
+        });
+    }
 
-  deleteQuestion(quiz: AdminQuiz, question: Question) {
-    this.quizzes.forEach((value,index)=>{
-      if(value.name == quiz.name) this.quizzes[index].questions.forEach((value,index)=>{
-        if(value.label == question.label) this.quizzes[index].questions.splice(index,1);
-      });
-    });
-  }
+    updateQuiz(quiz: Quiz): void {
+        console.log(quiz);
+        let index: number = this.quizzes.findIndex((q: Quiz) => q.id === quiz.id);
+        this.quizzes[index] = quiz;
+        console.log(this.quizzes);
+        this.quizzes$.next(this.quizzes);
+    }
 
-  getQuizById(id: number): AdminQuiz | undefined {
-    return this.quizzes.find((quiz) => quiz.id === id);
-  }
-
-  updateQuiz(quiz: AdminQuiz) {
-    console.log(quiz)
-    let index = this.quizzes.findIndex((q) => q.id === quiz.id);
-    console.log("index",index);
-    this.quizzes[index] = quiz;
-    console.log(this.quizzes)
-    this.quizzes$.next(this.quizzes);
-  }
-
-  setSelected(id: number) {
-  
-    let q ={...this.quizzes.find((quiz) => quiz.id === id)} as AdminQuiz;
-    if(q != undefined)
-      this.quizSelected$.next(q);
-  }
+    setSelected(id: number): void {
+        let q: Quiz = { ...this.quizzes.find((quiz: Quiz) => quiz.id === id) } as Quiz;
+        if (q != undefined) {
+            this.selectedQuiz$.next(q);
+        }
+    }
 }
 

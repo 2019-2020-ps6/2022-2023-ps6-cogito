@@ -5,7 +5,7 @@ import { Theme } from "src/models/theme.model";
 
 
 @Injectable({
-    providedIn: 'root'
+    providedIn: "root"
 })
 export class ThemeService {
     private themeList: Theme[];
