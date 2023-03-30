@@ -4,7 +4,7 @@
         <button routerLink="/quiz-page">QUITTER</button>
         <button *ngIf="currentQuestion < numberQuestions; else terminerButton" (click)="nextQuestion()">SUIVANTE</button>
         <ng-template #terminerButton>
-            <button #terminerButton>TERMINER</button>
+            <button>TERMINER</button>
         </ng-template>
     </div>
 </section>

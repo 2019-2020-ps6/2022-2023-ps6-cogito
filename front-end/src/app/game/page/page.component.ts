@@ -1,23 +1,24 @@
-import { Component, OnInit } from '@angular/core';
-import { GameInstance } from 'src/models/gameInstance.model';
-import { GameQuestion } from 'src/models/gameQuestion.model';
-import { GameService } from 'src/services/game.service';
+import { Component, OnInit } from "@angular/core";
+
+import { GameInstance } from "src/models/gameInstance.model";
+import { GameQuestion } from "src/models/gameQuestion.model";
+import { GameService } from "src/services/game.service";
 
 @Component({
-    selector: 'app-game-page',
-    templateUrl: './page.component.html',
-    styleUrls: ['./page.component.scss']
+    selector: "app-game-page",
+    templateUrl: "./page.component.html",
+    styleUrls: ["./page.component.scss"]
 })
 export class GamePageComponent implements OnInit {
-    public quizName: string = "";
+    public quizId: number | undefined;
     public questions: GameQuestion[] = [];
     public currentQuestion: number = 1;
     public numberQuestions: number;
 
 
     constructor(public gameService: GameService) {
-        this.gameService.gameInstance$.subscribe((gameInstance: GameInstance) => {
-            this.quizName = gameInstance.quizTitle;
+        this.gameService.gameInstance$.subscribe((gameInstance: GameInstance): void => {
+            this.quizId = gameInstance.quizId;
             this.questions = gameInstance.gameQuestionList;
         });
         this.numberQuestions = this.questions.length;
