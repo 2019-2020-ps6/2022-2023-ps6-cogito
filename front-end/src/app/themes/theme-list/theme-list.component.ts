@@ -1,18 +1,18 @@
-import { Component, OnInit } from '@angular/core';
-import { Theme } from 'src/models/theme.model';
-import { ThemeService } from 'src/services/theme.service';
+import { Component, OnInit } from "@angular/core";
+import { Theme } from "src/models/theme.model";
+import { ThemeService } from "src/services/theme.service";
 
 @Component({
-    selector: 'app-themes-theme-list',
-    templateUrl: './theme-list.component.html',
-    styleUrls: ['./theme-list.component.scss']
+    selector: "app-themes-theme-list",
+    templateUrl: "./theme-list.component.html",
+    styleUrls: ["./theme-list.component.scss"]
 })
 export class ThemeListComponent implements OnInit {
-    public themeList: Theme[] = [];
+    public themeList!: Theme[];
 
-    
+
     constructor(public themeService: ThemeService) {
-        this.themeService.themeList$.subscribe((themes: Theme[]) => {
+        this.themeService.themeList$.subscribe((themes: Theme[]): void => {
             this.themeList = themes;
         });
     }
