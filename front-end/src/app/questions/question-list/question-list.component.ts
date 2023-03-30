@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Quiz } from 'src/models/quiz.model';
-import { QuizService } from 'src/services/quiz.service';
+import { AdminQuizService } from 'src/services/admin-quiz.service';
 import { Question } from 'src/models/question.model';
 
 @Component({
@@ -13,7 +13,7 @@ export class QuestionListComponent implements OnInit {
   @Input()
   quiz: Quiz | undefined;
 
-  constructor(private quizService: QuizService) {
+  constructor(private quizService: AdminQuizService) {
 
    }
 

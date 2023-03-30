@@ -1,17 +1,8 @@
-<head>
-    Liste des quiz
-</head>
-
-<body>
 <div class="quiz-list">
-    <div class="quiz" *ngFor="let quiz of quizList">
-        <!--Inputs & Output allow communication between parent & child components.-->
-        <!--More information: https://angular.io/guide/component-interaction-->
-        <app-quiz [quiz]="quiz" (quizSelected)="quizSelected($event)" (quizDeleted)="deleteQuiz($event)"> </app-quiz>
-    </div>  
+    <app-quizzes-quiz routerLink="/game-page"></app-quizzes-quiz>
+    <app-quizzes-quiz routerLink="/game-page"></app-quizzes-quiz>
+    <app-quizzes-quiz routerLink="/game-page"></app-quizzes-quiz>
+    <app-quizzes-quiz routerLink="/game-page"></app-quizzes-quiz>
+    <app-quizzes-quiz routerLink="/game-page"></app-quizzes-quiz>
+    <app-quizzes-quiz routerLink="/game-page"></app-quizzes-quiz>
 </div>
-
-<div class="button-quiz-form">
-    <button type="submit" class="button-card" [routerLink]="['/quiz-form']">Créer un nouveau quiz</button>
-</div>
-</body>

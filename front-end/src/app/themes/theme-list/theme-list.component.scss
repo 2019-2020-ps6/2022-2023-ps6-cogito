@@ -1,0 +1,17 @@
+@import "../../../styles/variables.scss";
+
+.theme-list {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    height: 60vh;
+    min-height: 150px;
+    width: 90vw;
+    min-width: 200px;
+}
+
+@media screen and (max-height: 400px) {
+    .theme-list {
+        overflow-y: scroll;
+    }
+}

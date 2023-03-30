@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { GameInstance } from 'src/models/gameInstance.modele';
-import { GameQuestion } from 'src/models/gameQuestion.modele';
+import { GameInstance } from 'src/models/gameInstance.model';
+import { GameQuestion } from 'src/models/gameQuestion.model';
 import { GameService } from 'src/services/game.service';
 
 @Component({
@@ -17,7 +17,7 @@ export class GamePageComponent implements OnInit {
 
     constructor(public gameService: GameService) {
         this.gameService.gameInstance$.subscribe((gameInstance: GameInstance) => {
-            this.quizName = gameInstance.quizId;
+            this.quizName = gameInstance.quizTitle;
             this.questions = gameInstance.gameQuestionList;
         });
         this.numberQuestions = this.questions.length;
@@ -29,6 +29,5 @@ export class GamePageComponent implements OnInit {
     nextQuestion() {
         this.gameService.selectQuestion(this.questions[this.currentQuestion]);
         this.currentQuestion++;
-        console.log("Selected question");
     }
 }

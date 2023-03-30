@@ -7,20 +7,19 @@
     height: 70vh;
     min-height: 350px;
     padding: 1.5vh 0;
-    position: relative;
 }
 
 .game-question h2 {
     font-size: $h2-size;
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-content: center;
     height: 14vh;
     min-height: 100px;
     width: 70vw;
     min-width: 290px;
     background-color: $light-blue;
-    border: solid 2px black;
+    border: $h2-border;
 }
 
 .game-answer-list {

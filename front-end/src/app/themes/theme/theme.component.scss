@@ -1,0 +1,28 @@
+@import "../../../styles/variables.scss";
+
+.theme {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 25vh;
+    min-height: 250px;
+    width: 20vh;
+    min-width: 200px;
+    margin: 1vh;
+    font-size: $normal-size;
+}
+
+.theme img {
+    max-height: 80%;
+    max-width: 80%;
+    color: white;
+    background-color: black;
+}
+
+.theme figcaption {
+    text-align: center;
+}
+
+.theme:hover {
+    cursor: pointer;
+}

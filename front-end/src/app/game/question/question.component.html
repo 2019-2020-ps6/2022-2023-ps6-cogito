@@ -1,6 +1,6 @@
 <div class="game-question" *ngIf="question">
     <h2>{{question.title}}</h2>
     <div class="game-answer-list">
-        <app-game-answer *ngFor="let answer of question.answerList" [answer]="answer" (selectedAnswer)="selectAnswer($event)"></app-game-answer>
+        <app-game-answer *ngFor="let answer of question.gameAnswerList" [answer]="answer" (selectedAnswer)="selectAnswer($event)"></app-game-answer>
     </div>
 </div>

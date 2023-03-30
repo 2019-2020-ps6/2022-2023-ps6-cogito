@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FormGroup, FormBuilder, FormArray, Validators } from '@angular/forms';
-import { QuizService } from '../../../services/quiz.service';
-import { Quiz } from 'src/models/quiz.model';
+import { AdminQuizService } from '../../../services/admin-quiz.service';
+import { AdminQuiz } from 'src/models/admin-quiz.model';
 import { Question } from 'src/models/question.model';
 
 @Component({
@@ -12,11 +12,11 @@ import { Question } from 'src/models/question.model';
 export class QuestionFormComponent implements OnInit {
 
   @Input()
-  quiz: Quiz;
+  quiz: AdminQuiz;
 
   public questionForm: FormGroup;
 
-  constructor(public formBuilder: FormBuilder, private quizService: QuizService) {
+  constructor(public formBuilder: FormBuilder, private quizService: AdminQuizService) {
     // Form creation
     this.initializeQuestionForm();
   }

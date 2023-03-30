@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
-import { QuizService } from '../../../services/quiz.service';
+import { AdminQuizService } from '../../../services/admin-quiz.service';
 import { Quiz } from '../../../models/quiz.model';
 import { QUIZ_LIST } from 'src/mocks/quiz-list.mock';
 
@@ -17,7 +17,7 @@ export class QuizFormComponent implements OnInit {
 
   public quizForm: FormGroup;
 
-  constructor(public formBuilder: FormBuilder, public quizService: QuizService) {
+  constructor(public formBuilder: FormBuilder, public quizService: AdminQuizService) {
     // Form creation
     this.quizForm = this.formBuilder.group({
       name: [''],
