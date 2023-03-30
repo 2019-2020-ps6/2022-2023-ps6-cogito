@@ -1,6 +1,6 @@
 import { QuizAnswer } from "./quizAnswer.model";
 
-export enum Difficulty {facile, moyen, difficile}
+export enum Difficulty {facile = 1, moyenne, difficile}
 
 export interface QuizQuestion {
     id: number;

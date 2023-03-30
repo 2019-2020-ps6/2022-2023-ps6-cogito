@@ -3,5 +3,5 @@ export interface Profile {
     name: string;
     age: number;
     stage: number;
-    picture?: string;
+    picture: string;
 }

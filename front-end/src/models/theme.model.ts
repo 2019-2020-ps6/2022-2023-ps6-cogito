@@ -3,6 +3,6 @@ import { Quiz } from "./quiz.model";
 export interface Theme {
     id: number;
     title: string;
-    image: string;
+    picture: string;
     quizList: Quiz[];
 }
