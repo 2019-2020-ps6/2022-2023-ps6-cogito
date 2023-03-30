@@ -1,7 +1,10 @@
 import { QuizAnswer } from "./quizAnswer.model";
 
+export enum Difficulty {facile, moyen, difficile}
+
 export interface QuizQuestion {
-    id: string;
+    id: number;
     title: string;
+    difficulty: Difficulty;
     quizAnswerList: QuizAnswer[];
 }
