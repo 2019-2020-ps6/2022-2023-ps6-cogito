@@ -33,7 +33,6 @@ import { ProfileComponent } from './profiles/profile/profile.component';
     GameQuestionComponent,
     ProfileComponent,
     ProfileListComponent,
-
     GameAnswerComponent
   ],
   imports: [

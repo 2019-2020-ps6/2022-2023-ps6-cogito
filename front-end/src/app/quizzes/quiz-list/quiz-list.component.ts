@@ -1,13 +1,47 @@
 import { Component, OnInit } from '@angular/core';
+import { QuizService } from '../../../services/quiz.service';
+import { Quiz } from '../../../models/quiz.model';
 
 @Component({
-    selector: 'app-quizzes-quiz-list',
-    templateUrl: './quiz-list.component.html',
-    styleUrls: ['./quiz-list.component.scss']
+  selector: 'app-quiz-list',
+  templateUrl: './quiz-list.component.html',
+  styleUrls: ['./quiz-list.component.scss']
 })
 export class QuizListComponent implements OnInit {
-    constructor() { }
+
+  public quizList: Quiz[] = [];
 
 
-    ngOnInit(): void { }
+  constructor(public quizService: QuizService) {
+    this.quizService.quizzes$.subscribe((quizList) => {
+      this.quizList = quizList;
+    });
+  }
+
+  ngOnInit() {
+    this.sortQuizList();
+    this.quizList = this.quizList.slice(0,6);
+  }
+
+  getThe6() {
+    this.quizService.getThe6();
+  }
+
+  showNextQuizzes() {
+    this.quizService.showNextQuizzes();
 }
+
+showPreviousQuizzes() {
+  this.quizService.showPreviousQuizzes();
+}
+
+
+  sortQuizList() {
+    this.quizService.sortQuizList();
+  }
+
+  quizSelected(selected: boolean) {
+    console.log('event received from child:', selected);
+  }
+
+} 

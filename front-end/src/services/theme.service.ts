@@ -39,6 +39,7 @@ export class ThemeService {
     
       getThe6() {
         if(this.startIndex > this.endIndex) this.startIndex = 0;
+        if(this.startIndex <0) this.startIndex = this.endIndex - (((this.endIndex/6) -Math.floor(this.endIndex/6))*6);
         if(this.startIndex+6 > this.endIndex){
           this.themes = this.themesCopy.slice(this.startIndex, this.endIndex);
         }else{
@@ -54,7 +55,7 @@ export class ThemeService {
     
     showPreviousThemes() {
       this.startIndex -= 6;
-      if(this.startIndex < 0) this.startIndex = 0;
+      //if(this.startIndex < 0) this.startIndex = 0;
       this.getThe6();
     }
     

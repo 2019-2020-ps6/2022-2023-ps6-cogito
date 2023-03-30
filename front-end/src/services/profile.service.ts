@@ -32,6 +32,7 @@ export class ProfileService {
 
   getThe6() {
     if(this.startIndex > this.endIndex) this.startIndex = 0;
+    if(this.startIndex <0) this.startIndex = this.endIndex - (((this.endIndex/6) -Math.floor(this.endIndex/6))*6);
     if(this.startIndex+6 > this.endIndex){
       this.profiles = this.profilesCopy.slice(this.startIndex, this.endIndex);
     }else{
@@ -47,7 +48,7 @@ showNextProfiles() {
 
 showPreviousProfiles() {
   this.startIndex -= 6;
-  if(this.startIndex < 0) this.startIndex = 0;
+  //if(this.startIndex < 0) this.startIndex = 0;
   this.getThe6();
 }
 
@@ -65,7 +66,6 @@ showPreviousProfiles() {
   }
 
   setSelected(id: number) {
-  
     let p ={...this.profiles.find((profile) => profile.id === id)} as Profile;
     if(p != undefined)
       this.profileSelected$.next(p);

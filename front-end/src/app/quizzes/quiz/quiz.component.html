@@ -1,6 +1,4 @@
 <figure class="quiz">
-    <img src="" alt="Image du quiz ">
-    <figcaption>
-        Titre quiz
-    </figcaption>
+  <img  routerLink="/game-page" quiz-page src="{{this.quiz?.image}}" alt="Image du quiz {{this.quiz?.title}}">
+  <div class="quiz-card__title" routerLink="/quiz-page">{{this.quiz?.title}} </div>
 </figure>
