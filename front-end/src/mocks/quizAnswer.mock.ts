@@ -98,3 +98,26 @@ export const CHA_Q2_4: QuizAnswer = {
     isCorrect: false
 };
 export const CHA_Q2: QuizAnswer[] = [CHA_Q2_1, CHA_Q2_2, CHA_Q2_3, CHA_Q2_4];
+
+
+export const ECH_Q1_1: QuizAnswer = {
+    id: 18,
+    value: "2013",
+    isCorrect: true
+};
+export const ECH_Q1_2: QuizAnswer = {
+    id: 19,
+    value: "2015",
+    isCorrect: false
+};
+export const ECH_Q1_3: QuizAnswer = {
+    id: 20,
+    value: "2017",
+    isCorrect: false
+};
+export const ECH_Q1_4: QuizAnswer = {
+    id: 21,
+    value: "2019",
+    isCorrect: false
+};
+export const ECH_Q1: QuizAnswer[] = [ECH_Q1_1, ECH_Q1_2, ECH_Q1_3, ECH_Q1_4];
