@@ -1,7 +1,7 @@
-@import "./variables";
+@import "./variables.scss";
 
 .card {
-  background: $white;
+  background: white;
   border-radius: 2px;
   display: inline-block;
   margin: 1rem;
@@ -11,9 +11,9 @@
 }
 
 .button-card {
-  background-color: $white;
-  border: solid 1px $blue;
-  color: $blue;
+  background-color: white;
+  border: solid 1px blue;
+  color: blue;
   font-weight: bold;
   padding: 0.5em 1em;
 }
