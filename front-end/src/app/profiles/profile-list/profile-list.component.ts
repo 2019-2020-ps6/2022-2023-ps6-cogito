@@ -1,47 +1,48 @@
-import { Component, OnInit } from '@angular/core';
-import { ProfileService } from '../../../services/profile.service';
-import { Profile } from '../../../models/profile.model';
+import { Component, OnInit } from "@angular/core";
+
+import { ProfileService } from "src/services/profile.service";
+import { Profile } from "src/models/profile.model";
 
 @Component({
-  selector: 'app-profile-list',
-  templateUrl: './profile-list.component.html',
-  styleUrls: ['./profile-list.component.scss']
+    selector: "app-profiles-profile-list",
+    templateUrl: "./profile-list.component.html",
+    styleUrls: ["./profile-list.component.scss"]
 })
 export class ProfileListComponent implements OnInit {
-
-  public profileList: Profile[] = [];
-
-
-  constructor(public profileService: ProfileService) {
-    this.profileService.profiles$.subscribe((profileList) => {
-      this.profileList = profileList;
-    });
-  }
-
-  ngOnInit() {
-    this.sortProfileList();
-    this.profileList = this.profileList.slice(0,6);
-  }
-
-  getThe6() {
-    this.profileService.getThe6();
-  }
-
-  showNextProfiles() {
-    this.profileService.showNextProfiles();
-}
-
-showPreviousProfiles() {
-  this.profileService.showPreviousProfiles();
-}
+    public profileList: Profile[] = [];
 
 
-  sortProfileList() {
-    this.profileService.sortProfileList();
-  }
+    constructor(public profileService: ProfileService) {
+        this.profileService.profiles$.subscribe((profileList: Profile[]): void => {
+            this.profileList = profileList;
+        });
+    }
 
-  profileSelected(selected: boolean) {
-    console.log('event received from child:', selected);
-  }
+
+    ngOnInit(): void {
+        this.sortProfileList();
+        this.profileList = this.profileList.slice(0, 6);
+    }
+
+    getThe6(): void {
+        this.profileService.getThe6();
+    }
+
+    showNextProfiles(): void {
+        this.profileService.showNextProfiles();
+    }
+
+    showPreviousProfiles(): void {
+        this.profileService.showPreviousProfiles();
+    }
+
+
+    sortProfileList(): void {
+        this.profileService.sortProfileList();
+    }
+
+    profileSelected(selected: boolean): void {
+        console.log("event received from child:", selected);
+    }
 
 }

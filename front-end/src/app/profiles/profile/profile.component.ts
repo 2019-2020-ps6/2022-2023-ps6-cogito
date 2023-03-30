@@ -1,20 +1,13 @@
 import { Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
-import { Profile } from '../../../models/profile.model';
-import {RouterLink} from '@angular/router';
+
+import { Profile } from 'src/models/profile.model';
 
 @Component({
-  selector: 'app-profile',
+  selector: 'app-profiles-profile',
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent implements OnInit {
-
-  /**
-   * Input here could be undefined, if the parent component doesn't give any quiz.
-   * If you remove `undefined`, you will have an error saying:
-   * "Property 'quiz' has no initializer and is not definitely assigned in the constructor."
-   * We can also defined the initial value of the quiz in the constructor.
-   */
   @Input()
   profile: Profile | undefined;
 
@@ -27,22 +20,22 @@ export class ProfileComponent implements OnInit {
   @Output()
   profileEdited: EventEmitter<Profile> = new EventEmitter<Profile>();
 
-  constructor() {
-  }
 
-  ngOnInit() {
-  }
+  constructor() { }
 
-  selectProfile() {
+
+  ngOnInit() { }
+
+  selectProfile():void {
     this.profileSelected.emit(true);
   }
 
-  deleteProfile() {
+  deleteProfile():void {
     console.log("this.deleteProfile");
     this.profileDeleted.emit(this.profile);
   }
 
-  editProfile(){
+  editProfile():void{
     console.log("this.editProfile");
     this.profileEdited.emit(this.profile);
   }
