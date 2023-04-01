@@ -11,7 +11,7 @@ import { GameService } from 'src/services/game.service';
 export class GamePageComponent implements OnInit {
     public quizName: string = "";
     public questions: GameQuestion[] = [];
-    public currentQuestion: number = 1;
+    public currentQuestion: number = 0;
     public numberQuestions: number;
     public questionChanged: boolean = false;
     public gameFinished: boolean = false;
@@ -59,10 +59,11 @@ export class GamePageComponent implements OnInit {
         }
         else {
             if (this.currentQuestion<this.numberQuestions){
-                this.currentQuestion++;
                 this.questionChanged=isAnwsered;
                 this.questionChanged=false;
                 this.clickanswer=false;
+                this.currentQuestion++;
+                this.gameService.currentQuestionIndex++;
             }
             else{
                 this.endGame();
@@ -86,7 +87,6 @@ export class GamePageComponent implements OnInit {
     }
 
     onClickContinue(clickOnQuitt: boolean){
-        console.log("hello");
         if (this.nextquestion){
             this.nextQuestion();
         }
