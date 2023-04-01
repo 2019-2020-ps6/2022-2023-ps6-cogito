@@ -23,6 +23,18 @@
     border: solid 2px black;
 }
 
+.game-question h2 span.picture-present {
+    margin-right: 15vh;
+}
+.game-question img{
+    max-width: 22vh;
+}
+
+.game-question .sound:hover{
+    opacity: 0.5;
+    cursor: pointer;
+}
+
 .game-answer-list {
     height: 56vh;
     min-height: 235px;
@@ -32,4 +44,12 @@
     flex-wrap: wrap;
     justify-content: space-evenly;
     align-content: space-evenly;
+}
+
+.game-question h2 {
+    height: 14vh;
+}
+    
+.game-question h2.picture-present {
+    height: 30vh;
 }

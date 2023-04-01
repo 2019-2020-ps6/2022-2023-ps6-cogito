@@ -41,12 +41,12 @@ export class GamePageComponent implements OnInit {
         if (!this.resultDisplayed){
             this.resultDisplayed=true;
             this.nextquestion=true;
+            this.currAnswer=false;
         }
         else {
             if (this.currentQuestion<this.numberQuestions){
                 this.gameService.selectQuestion(this.questions[this.currentQuestion]);
                 this.currentQuestion++;
-                console.log("Skip question");
                 this.nextquestion=false;
             }
         }
@@ -74,6 +74,9 @@ export class GamePageComponent implements OnInit {
     }
 
     endGame(){
+        if (!this.clickanswer){
+            this.currAnswer=false;
+        }
         this.gameFinished=true;
         this.resultDisplayed=true;
         console.log(this.gameService.answers);
