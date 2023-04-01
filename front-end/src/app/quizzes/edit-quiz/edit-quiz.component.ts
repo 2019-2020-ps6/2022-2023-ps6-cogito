@@ -25,6 +25,7 @@ export class EditQuizComponent implements OnInit {
     {
       this.quizService.setSelected(parseInt(id));
     }
+    console.log(this.quiz);
   }
 
   updateQuiz(quiz : Quiz) {

@@ -26,13 +26,17 @@ export class QuizService {
    */
   public quizzes$: BehaviorSubject<Quiz[]> = new BehaviorSubject(QUIZ_LIST);
 
-  public quizSelected$: Subject<Quiz> = new Subject();
+  public quizSelected$: BehaviorSubject<Quiz> = new BehaviorSubject<Quiz>({} as Quiz);
+
+
+  public quizSelectedSubject: Subject<Quiz> = new Subject<Quiz>();
 
   constructor() {
+    this.quizSelected$.subscribe(this.quizSelectedSubject);
   }
 
   addQuiz(quiz: Quiz) {
-    if(quiz.id === undefined){
+    if(quiz.id === undefined || quiz.id === -1){
       quiz.id = this.quizzes.length + 1;
     }
     this.quizzes.push(quiz);
@@ -45,13 +49,9 @@ export class QuizService {
     });
 
     this.quizzes$.next(this.quizzes);
-    console.log("QuizService DELETE");
   }
 
   addQuestion(quiz: Quiz, question: Question) {
-    /*this.quizSelected$.forEach((value,index)=>{
-      if(value.name == quiz.name) this.quizzes[index].questions.push(question);
-    });*/
   }
 
   deleteQuestion(quiz: Quiz, question: Question) {
@@ -67,22 +67,27 @@ export class QuizService {
   }
 
   updateQuiz(quiz: Quiz) {
-    console.log(quiz)
     let index = this.quizzes.findIndex((q) => q.id === quiz.id);
-    console.log("index",index);
     this.quizzes[index] = quiz;
-    console.log(this.quizzes)
     this.quizzes$.next(this.quizzes);
   }
 
-  setSelected(id: number | null) {
-    if(id === null){
-      this.quizSelected$.next({} as Quiz);
-      return;
+  setSelected(idOrQuiz?: number | Quiz | null) {
+      if (idOrQuiz === null) {
+        this.quizSelected$.next({} as Quiz);
+        return;
+      }
+      let q:  Quiz | undefined;
+      if (typeof idOrQuiz === 'number') {
+        q = this.getQuizById(idOrQuiz);
+      } else {
+        q = idOrQuiz;
+      }
+      if (q !== undefined) {
+        this.quizSelected$.next(q);
+        this.quizSelectedSubject.next(q);
+      }
     }
-    let q ={...this.quizzes.find((quiz) => quiz.id === id)} as Quiz;
-    if(q != undefined)
-      this.quizSelected$.next(q);
-  }
+
 }
 

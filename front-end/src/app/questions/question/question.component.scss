@@ -1,1 +1,24 @@
-@import '../../../styles/card.scss';
+.question-card{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.question{
+    background-color: white;
+    border: solid 1px black;
+    border-radius: 5px;
+    padding: 2% 20% 2% 20%;
+}
+
+button{
+    // when clicking change color of icon 
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+
+    // when hovering change color of icon
+    &:hover{
+        color: #ff0000;
+    }
+}

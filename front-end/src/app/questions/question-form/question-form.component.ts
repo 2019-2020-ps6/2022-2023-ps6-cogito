@@ -11,14 +11,19 @@ import { Question } from 'src/models/question.model';
 })
 export class QuestionFormComponent implements OnInit {
 
-  @Input()
-  quiz: Quiz | undefined;
+  public quiz: Quiz = {} as Quiz;
 
   public questionForm: FormGroup = new FormGroup({});
 
-  constructor(public formBuilder: FormBuilder) {
-    // Form creation
+
+  constructor(public quizService: QuizService, public formBuilder: FormBuilder) {
     this.initializeQuestionForm();
+  }
+
+  ngOnInit() {
+    this.quizService.quizSelected$.subscribe((quiz: Quiz) => {
+      this.quiz = quiz;
+    });
   }
 
   private initializeQuestionForm(): void {
@@ -28,21 +33,18 @@ export class QuestionFormComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {
-  }
-
-  get answers(): FormArray {
-    if(this.questionForm)
-      return this.questionForm.get('answers') as FormArray;
-    else 
-      return this.formBuilder.array([]);
-  }
-
-  private createAnswer(): FormGroup {
+  createAnswer(): FormGroup {
     return this.formBuilder.group({
       value: '',
       isCorrect: false,
     });
+  }
+
+  get answers(): FormArray {
+    if (this.questionForm)
+      return this.questionForm.get('answers') as FormArray;
+    else
+      return this.formBuilder.array([]);
   }
 
   addAnswer(): void {
@@ -50,17 +52,18 @@ export class QuestionFormComponent implements OnInit {
   }
 
   addQuestion(): void {
-    if(this.questionForm){
-    if (this.questionForm.valid) {
-      const question = this.questionForm.getRawValue() as Question;
-      if(this.quiz !== undefined){
-        if(this.quiz.questions === undefined){
-          this.quiz.questions = [];
+    if (this.questionForm) {
+      if (this.questionForm.valid) {
+        const question = this.questionForm.getRawValue() as Question;
+        if (this.quiz !== undefined) {
+          if (this.quiz.questions === undefined) {
+            this.quiz.questions = [];
+          }
+          this.quiz.questions.push(question);
         }
-        this.quiz.questions.push(question);
+        this.initializeQuestionForm();
+        this.quizService.setSelected(this.quiz);
       }
-      this.initializeQuestionForm();
     }
-  }
   }
 }

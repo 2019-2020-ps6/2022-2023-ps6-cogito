@@ -2,6 +2,7 @@ import { Quiz } from '../models/quiz.model';
 import { Question } from '../models/question.model';
 
 export const QUESTION_ACTOR: Question = {
+    id: 1,
     label: 'Jean Gabin a joué dans...',
     answers: [
         {
@@ -16,6 +17,7 @@ export const QUESTION_ACTOR: Question = {
 };
 
 export const QUESTION_SPORT: Question = {
+    id: 2,
     label: 'Le sport le plus populaire au monde est...',
     answers: [
         {
