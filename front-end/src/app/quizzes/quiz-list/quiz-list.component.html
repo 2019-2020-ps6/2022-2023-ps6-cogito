@@ -1,13 +1,13 @@
 <section>
 
     <div class="quiz-list-selection">   
-        <button type="submit" class="button-selection" (click)="showPreviousQuizzes()">Précédent</button>
-        <div class="quiz-list">
+        <button *ngIf="!start" type="submit" class="button-selection" (click)="showPreviousQuizzes()">Précédent</button>
+        <div [ngStyle]="{'margin-left': start ? '22vw' : '0', 'margin-right': end ? '22vw' : '0'}" class="quiz-list">
             <div class="quiz" *ngFor="let quiz of quizList">
                 <app-quiz [quiz]="quiz" (quizSelected)="quizSelected($event)"> </app-quiz>
             </div>
         </div> 
-        <button type="submit" class="button-selection" (click)="showNextQuizzes()">Suivant</button>
+        <button *ngIf="!end" type="submit" class="button-selection" (click)="showNextQuizzes()">Suivant</button>
     </div>
 
 

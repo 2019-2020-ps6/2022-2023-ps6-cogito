@@ -13,8 +13,12 @@ export class ProfileService {
   public endIndex: number = this.profilesCopy.length;
   public profiles$: BehaviorSubject<Profile[]> = new BehaviorSubject(PROFILE_LIST);
   public profileSelected$: Subject<Profile> = new Subject();
+  public start = true;
+  public start$: BehaviorSubject<boolean> = new BehaviorSubject(true);
+  public end = false;
+  public end$: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
-  constructor() {
+  constructor() { 
   }
 
   sortProfileList() {
@@ -31,14 +35,21 @@ export class ProfileService {
   }
 
   getThe6() {
-    if(this.startIndex > this.endIndex) this.startIndex = 0;
+    this.end$.next(false);
+    if(this.startIndex > this.endIndex){
+      this.startIndex = 0;
+    }
     if(this.startIndex <0) this.startIndex = this.endIndex - (((this.endIndex/6) -Math.floor(this.endIndex/6))*6);
     if(this.startIndex+6 > this.endIndex){
+      this.end$.next(true);
       this.profiles = this.profilesCopy.slice(this.startIndex, this.endIndex);
     }else{
       this.profiles = this.profilesCopy.slice(this.startIndex, this.startIndex + 6);
     }
     this.profiles$.next(this.profiles);
+    if(this.startIndex == 0) this.start$.next(true);
+    else this.start$.next(false);
+    
 }
 
 showNextProfiles() {

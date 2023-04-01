@@ -14,6 +14,10 @@ export class QuizService {
     public endIndex: number;
     public quizzes$: BehaviorSubject<Quiz[]>;
     public quizSelected$: Subject<Quiz> = new Subject<Quiz>();
+    public start = true;
+    public start$: BehaviorSubject<boolean> = new BehaviorSubject(true);
+    public end = false;
+    public end$: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
 
     constructor() {
@@ -38,14 +42,20 @@ export class QuizService {
       }
     
       getThe6() {
+        this.end$.next(false);
+
         if(this.startIndex > this.endIndex) this.startIndex = 0;
         if(this.startIndex <0) this.startIndex = this.endIndex - (((this.endIndex/6) -Math.floor(this.endIndex/6))*6);
         if(this.startIndex+6 > this.endIndex){
+          this.end$.next(true);
+
           this.quizzes = this.quizzesCopy.slice(this.startIndex, this.endIndex);
         }else{
           this.quizzes = this.quizzesCopy.slice(this.startIndex, this.startIndex + 6);
         }
         this.quizzes$.next(this.quizzes);
+        if(this.startIndex == 0) this.start$.next(true);
+        else this.start$.next(false);
     }
     
     showNextQuizzes() {

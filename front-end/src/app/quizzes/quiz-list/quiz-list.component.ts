@@ -11,10 +11,19 @@ export class QuizListComponent implements OnInit {
 
   public quizList: Quiz[] = [];
 
+  public start = true;
+    public end = false;
+
 
   constructor(public quizService: QuizService) {
     this.quizService.quizzes$.subscribe((quizList) => {
       this.quizList = quizList;
+    });
+    this.quizService.start$.subscribe((start) => {
+      this.start = start;
+    });
+    this.quizService.end$.subscribe((end) => {
+      this.end = end;
     });
   }
 

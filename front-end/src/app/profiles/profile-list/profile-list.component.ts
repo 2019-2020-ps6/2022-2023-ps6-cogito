@@ -11,10 +11,19 @@ export class ProfileListComponent implements OnInit {
 
   public profileList: Profile[] = [];
 
+  public start = true;
+  public end = false;
+
 
   constructor(public profileService: ProfileService) {
     this.profileService.profiles$.subscribe((profileList) => {
       this.profileList = profileList;
+    });
+    this.profileService.start$.subscribe((start) => {
+      this.start = start;
+    });
+    this.profileService.end$.subscribe((end) => {
+      this.end = end;
     });
   }
 
@@ -29,10 +38,12 @@ export class ProfileListComponent implements OnInit {
 
   showNextProfiles() {
     this.profileService.showNextProfiles();
+    console.log(this.start);
 }
 
 showPreviousProfiles() {
   this.profileService.showPreviousProfiles();
+  console.log(this.start);
 }
 
 

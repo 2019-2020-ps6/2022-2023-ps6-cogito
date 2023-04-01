@@ -10,10 +10,19 @@ import { ThemeService } from 'src/services/theme.service';
 export class ThemeListComponent implements OnInit {
     public themeList: Theme[] = [];
 
+    public start = true;
+    public end = false;
+
     
     constructor(public themeService: ThemeService) {
         this.themeService.themes$.subscribe((themeList) => {
           this.themeList = themeList;
+        });
+        this.themeService.start$.subscribe((start) => {
+          this.start = start;
+        });
+        this.themeService.end$.subscribe((end) => {
+          this.end = end;
         });
       }
 
