@@ -1,12 +1,12 @@
-<div class="page">
+<div class="page-form">
   <div class="left-part">
     <div class="nav-buttons">
       <button class="button {{this.state === enumState.GENERAL ? 'active' : ''}}" (click)="changeState(enumState.GENERAL)">General</button>
       <button class="button {{this.state === enumState.QUESTIONS ? 'active' : ''}}" (click)="changeState(enumState.QUESTIONS)">Questions</button>
     </div>
     <div class="exit-buttons">
-      <button class="button-save" (click)="addQuiz()" [routerLink]="['/quiz-list']">{{this.type === enumType.CREATE ? 'Créer le quiz' : 'Modifier le quiz'}}</button>
-      <button class="button-back" [routerLink]="['/quiz-list']">Annuler</button>
+      <button class="button-save" (click)="addQuiz()" [routerLink]="['/admin-quiz-list']">{{this.type === enumType.CREATE ? 'Créer le quiz' : 'Modifier le quiz'}}</button>
+      <button class="button-back" [routerLink]="['/admin-quiz-list']">Annuler</button>
     </div>
   </div>
   <div *ngIf="state===enumState.GENERAL" class="center-div">

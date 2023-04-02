@@ -1,71 +1,75 @@
-.page{
-    display: flex;
-    justify-content: flex-start;
-  }
-  
-  .left-part{
-    height: 100vh;
-    width: 15%;
-    display: flex;
-    justify-content: space-between;
-    flex-direction: column;
-    margin-left: 10px;
-  }
-  
-  .button-add{
-    background-color: yellow;
+.page-form {
+  display: flex;
+  justify-content: flex-start;
+  height: 80vh;
+}
+
+.left-part {
+  height: 80vh;
+  width: 15%;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  margin-left: 10px;
+}
+
+.button-add {
+  background-color: yellow;
+}
+
+.button-cancel {
+  background-color: orange;
+}
+
+label.title {
+  display: flex;
+  flex-direction: column;
+
+  .question-title {
+    width: 100vh;
+    padding: 2%;
   }
 
-  .button-cancel{
-    background-color: orange;
-  }
+  margin-bottom: 10px;
+}
 
-  label.title{
-    display: flex;
-    flex-direction: column;
-    .question-title{
-        width: 100vh;
-        padding: 2%;
+button {
+  width: 100%;
+  height: 50px;
+  margin-top: 5px;
+  cursor: pointer;
+}
+
+.center-div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin: 0 auto;
+}
+
+
+.answer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+
+  label {
+    input {
+      margin-left: 10px;
     }
-
-    margin-bottom: 10px;
   }
-  button{
-    width: 100%;
-    height: 50px;
-    margin-top: 5px;
+
+  button {
+    background-color: transparent;
+    border: none;
+    width: 10%;
     cursor: pointer;
-  }
-  .center-div{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    margin: 0 auto;
-  }
 
-
-
-  .answer{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    label{
-      input{
-        margin-left : 10px;
-      }
+    &:hover {
+      color: #FF0000;
     }
-    
-    button{
-      background-color: transparent;
-      border: none;
-      width: 10%;
-      cursor: pointer;
-  
-      &:hover{
-          color: #ff0000;
-      }
-    }
-
   }
+
+}
