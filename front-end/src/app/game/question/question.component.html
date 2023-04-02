@@ -1,5 +1,9 @@
 <div class="game-question" *ngIf="question">
-    <h2>{{question.title}}</h2>
+    <h2 [ngClass]="{'picture-present': question.picture || question.sound}">
+        <span [ngClass]="{'picture-present': question.picture || question.sound}">{{question.title}}</span>
+        <img class="picture" *ngIf="question.picture" src="{{question.picture}}" alt="image de la question">
+        <img class="sound" *ngIf="question.sound" [src]="imageUrl" alt="Bouton" (click)="clickOnSpeaker()">
+    </h2>
     <div class="game-answer-list">
         <app-game-answer *ngFor="let answer of question.gameAnswerList" [answer]="answer" (selectedAnswer)="selectAnswer($event)"></app-game-answer>
     </div>

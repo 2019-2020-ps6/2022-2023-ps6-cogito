@@ -1,10 +1,14 @@
-<section class="game-page">
-    <app-game-question></app-game-question>
+<section class="game-page" *ngIf="!gameFinished">
+    <!-- <h1>{{quizId}} | {{currentQuestion}}/{{numberQuestions}}</h1> -->
+    <app-game-question *ngIf="!questionChanged" (isAnwsered)="onAnswerQuestion($event)" (stateAnswered)="stateAnswer($event)"></app-game-question>
     <div class="game-page-buttons">
         <button routerLink="/quiz-page">QUITTER</button>
         <button *ngIf="currentQuestion < numberQuestions; else terminerButton" (click)="nextQuestion()">SUIVANTE</button>
         <ng-template #terminerButton>
-            <button>TERMINER</button>
+            <button (click)="endGame()">TERMINER</button>
         </ng-template>
     </div>
 </section>
+<app-game-gameResult *ngIf="gameFinished" (clickOnQuitt)="onClickQuit($event)"></app-game-gameResult>
+<app-game-questionResult class="popup" *ngIf="resultDisplayed" (clickOnContinue)="onClickContinue($event)"
+                   [isCorrect]="currAnswer"></app-game-questionResult>

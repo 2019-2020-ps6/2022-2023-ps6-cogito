@@ -10,6 +10,7 @@ import { QuizFormComponent } from "./quizzes/quiz-form/quiz-form.component";
 import { ThemePageComponent } from "./themes/page/page.component";
 import { QuizPageComponent } from "./quizzes/page/page.component";
 import { GamePageComponent } from "./game/page/page.component";
+import { GameResultComponent } from './game/gameResult/gameResult.component';
 import { QuestionFormComponent } from './questions/question-form/question-form.component';
 
 const routes: Routes = [
@@ -18,6 +19,7 @@ const routes: Routes = [
     { path: "theme-page", component: ThemePageComponent, data: { title: "Liste des thèmes" } },
     { path: "quiz-page", component: QuizPageComponent, data: { title: "Liste des quiz" } },
     { path: "game-page", component: GamePageComponent, data: { title: "Question" } },
+    { path: "game-gameResult", component: GameResultComponent },
     { path: "admin-quiz-list", component: AdminQuizListComponent, data: { title: "Liste des quiz" } },
     { path: "quiz-form", component: QuizFormComponent, data: { title: "Formulaire de création des quiz" } },
     { path: "edit-quiz/:id", component: EditQuizComponent, data: { title: "Formulaire de modification des quiz" } },

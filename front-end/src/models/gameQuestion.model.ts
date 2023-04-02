@@ -6,4 +6,6 @@ export interface GameQuestion {
     gameAnswerList: GameAnswer[];
     startTime: Date | undefined;
     endTime: Date | undefined;
+    picture:string|undefined;
+    sound:string|undefined;
 }

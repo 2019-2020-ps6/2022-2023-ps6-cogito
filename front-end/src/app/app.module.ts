@@ -18,6 +18,8 @@ import { QuizComponent } from "./quizzes/quiz/quiz.component";
 import { GamePageComponent } from "./game/page/page.component";
 import { GameQuestionComponent } from "./game/question/question.component";
 import { GameAnswerComponent } from "./game/answer/answer.component";
+import { GameResultComponent } from './game/gameResult/gameResult.component';
+import { GameQuestionResultComponent } from './game/questionResult/questionResult.component';
 import { EditQuizComponent } from "./quizzes/edit-quiz/edit-quiz.component";
 import { QuizFormComponent } from "./quizzes/quiz-form/quiz-form.component";
 import { AdminQuizListComponent } from "./quizzes/admin-quiz-list/admin-quiz-list.component";
@@ -42,6 +44,8 @@ import { QuestionComponent } from "./questions/question/question.component";
         GamePageComponent,
         GameQuestionComponent,
         GameAnswerComponent,
+        GameResultComponent,
+        GameQuestionResultComponent,
         EditQuizComponent,
         QuizFormComponent,
         AdminQuizListComponent,
