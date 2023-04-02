@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 
 import { Quiz } from "src/models/quiz.model";
+import { QuizFormComponent } from '../quiz-form/quiz-form.component';
 import { AdminQuizService } from "src/services/admin-quiz.service";
 
 @Component({

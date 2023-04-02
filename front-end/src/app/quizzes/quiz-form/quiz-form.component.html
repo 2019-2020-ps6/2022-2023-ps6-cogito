@@ -1,29 +1,34 @@
-<section>
-    <div class="card">
-        <!-- <h3>{{this.updatableQuiz == undefined ? "Créer un nouveau quiz" : "Modifier le quiz"}}</h3> -->
-        <form class="quiz-form" [formGroup]="quizForm">
-            <label for="title">
-                Titre <br>
-                <input class="input-title" type="text" id="title" [formControlName]="'title'"
-                       placeholder="Entrer titre du quiz"
-                       [(ngModel)]="this.updatableQuiz === undefined ? '' : this.updatableQuiz.title">
-            </label>
-            <br>
-            <label for="picture">
-                Image <br>
-                <input class="input-picture" type="text" id="picture" [formControlName]="'picture'"
-                       placeholder="Entrer le lien image du quiz" [(ngModel)]="this.updatableQuiz === undefined ? '' :
-             this.updatableQuiz.picture">
-            </label>
-            <br>
-            <button type="submit" class="button-card" (click)="addQuiz()"
-                    [routerLink]="['/admin-quiz-list']">{{this.updatableQuiz == undefined ? "Créer" : "Modifier"}}</button>
-        </form>
+<div class="page">
+  <div class="left-part">
+    <div class="nav-buttons">
+      <button class="button {{this.state === enumState.GENERAL ? 'active' : ''}}" (click)="changeState(enumState.GENERAL)">General</button>
+      <button class="button {{this.state === enumState.QUESTIONS ? 'active' : ''}}" (click)="changeState(enumState.QUESTIONS)">Questions</button>
     </div>
-    <div class="button-quiz-list">
-        <button type="submit" class="button-card" [routerLink]="['/admin-quiz-list']">Aller à la liste des quiz</button>
+    <div class="exit-buttons">
+      <button class="button-save" (click)="addQuiz()" [routerLink]="['/quiz-list']">{{this.type === enumType.CREATE ? 'Créer le quiz' : 'Modifier le quiz'}}</button>
+      <button class="button-back" [routerLink]="['/quiz-list']">Annuler</button>
     </div>
+  </div>
+  <div *ngIf="state===enumState.GENERAL" class="center-div">
+    <form [formGroup]="quizForm">
+      <div class="input">
+        Nom :
+        <input type="text" placeholder="Entrer nom du quiz" value = "{{this.quiz?.name}}" formControlName="name">
+      </div>
+      <div class="input">
+        Thème :
+        <input type="text" placeholder="Entrer theme du quiz" value = "{{this.quiz?.theme}}" formControlName="theme">
+      </div>
+    </form>
+  </div>
+  <div *ngIf="state===enumState.QUESTIONS" class="center-div">
+    <h2>Ajout / suppression de question pour le quiz : {{this.quiz?.name}}</h2>
+    <app-question-list [quiz]="quiz"></app-question-list>
+    <button *ngIf="type==='update'" [routerLink]="['/add-question/', this.quiz?.id]">Ajouter une nouvelle question</button>
+    <button *ngIf="type==='create'" [routerLink]="['/add-question']">Ajouter une nouvelle question</button>
+  </div>
+</div>
 
-    <!-- Uncomment below to see your form structure and how it changes-->
-    <!-- <br><br>{{quizForm.getRawValue() | json}} -->
-</section>
+<!-- Uncomment below to see your form structure and how it changes-->
+<!-- <br><br>{{quizForm.getRawValue() | json}} --> 
+</body>

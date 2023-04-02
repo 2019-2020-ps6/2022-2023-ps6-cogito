@@ -1,28 +1,30 @@
-<div class="card">
-    <h2>Create a new question</h2>
-    <form class="quiz-form" [formGroup]="questionForm">
-        <label for="title">
-            Title <br>
-            <input class="input-custom" type="text" id="title" [formControlName]="'title'">
-        </label>
-        <br>
-        <button class="button-card" (click)="addAnswer()">Add Answer</button>
-        <div class="answer" formArrayName="answers">
-            <div *ngFor="let address of answers.controls; let i=index">
-                <div class="answer-form" [formGroupName]="i">
-                    <label>
-                        Answer
-                        <input type="text" [formControlName]="'value'">
-                        <br>
-                        Correct
-                        <input type="checkbox" [formControlName]="'isCorrect'">
-                    </label>
-                </div>
-            </div>
+<div class="page">
+  <div class="left-part">
+    <button type="button" class="button-add" (click)="addQuestion()" [routerLink]="[ '/edit-quiz/', this.quiz.id]" [disabled]="!questionForm.valid">Create Question</button>
+    <button class="button-cancel" [routerLink]="['/edit-quiz/', this.quiz.id]">Retour</button>
+  </div>
+  <div class="center-div">
+    <form [formGroup]="questionForm" (ngSubmit)="addQuestion()">
+      <label class="title">
+        Intitulé de la question :
+        <textarea class="question-title" formControlName="label" ></textarea>
+      </label>
+      
+      <div formArrayName="answers">
+        <div *ngFor="let answer of answers.controls; let i=index" [formGroupName]="i" class="answer">
+          <label>
+            Réponse {{ i + 1 }}:
+            <input type="text" formControlName="value" />
+          </label>
+          
+          <label>
+            Réponse correcte ?
+            <input type="checkbox" formControlName="isCorrect" />
+          </label>
+          <button (click)="deleteAnswer(i)"><i class="fa-solid fa-trash-can"></i></button>
         </div>
-        <button type="submit" class="button-card" (click)="addQuestion()">Create</button>
+      </div>
+      <button type="button" (click)="addAnswer()">Ajouter une réponse</button>
     </form>
+  </div>
 </div>
-
-<!-- Uncomment below to see your form structure and how it changes-->
-<!-- <br><br>{{quizForm.getRawValue() | json}} -->

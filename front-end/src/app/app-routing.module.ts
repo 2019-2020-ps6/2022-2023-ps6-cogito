@@ -10,6 +10,7 @@ import { QuizFormComponent } from "./quizzes/quiz-form/quiz-form.component";
 import { ThemePageComponent } from "./themes/page/page.component";
 import { QuizPageComponent } from "./quizzes/page/page.component";
 import { GamePageComponent } from "./game/page/page.component";
+import { QuestionFormComponent } from './questions/question-form/question-form.component';
 
 const routes: Routes = [
     { path: "home-page", component: HomePageComponent, data: { title: "Accueil" } },
@@ -21,6 +22,9 @@ const routes: Routes = [
     { path: "quiz-form", component: QuizFormComponent, data: { title: "Formulaire de création des quiz" } },
     { path: "edit-quiz/:id", component: EditQuizComponent, data: { title: "Formulaire de modification des quiz" } },
     { path: "question-list", component: QuestionListComponent, data: { title: "Liste des questions" } },
+    { path: 'question-form/:id', component: QuestionFormComponent },
+    { path: 'add-question/:quizId', component: QuestionFormComponent },
+    { path: 'add-question', component: QuestionFormComponent },
     { path: "", redirectTo: "home-page", pathMatch: "full" }
 ];
 
@@ -28,5 +32,4 @@ const routes: Routes = [
     imports: [RouterModule.forRoot(routes)],
     exports: [RouterModule]
 })
-export class AppRoutingModule {
-}
+export class AppRoutingModule { }

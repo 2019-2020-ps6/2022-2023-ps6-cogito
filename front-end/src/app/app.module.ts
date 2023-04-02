@@ -59,5 +59,4 @@ import { QuestionComponent } from "./questions/question/question.component";
     providers: [],
     bootstrap: [AppComponent]
 })
-export class AppModule {
-}
+export class AppModule { }

@@ -10,38 +10,88 @@ import { Quiz } from "src/models/quiz.model";
     styleUrls: ["./quiz-form.component.scss"]
 })
 export class QuizFormComponent implements OnInit {
-    @Input()
-    public updatableQuiz: Quiz | undefined;
 
-    public quizForm: FormGroup;
+  public enumState = {
+    GENERAL: 'general',
+    QUESTIONS: 'questions'
+  };
+
+  public enumType ={
+    CREATE: 'create',
+    UPDATE: 'update'
+  }
+
+  @Input()
+  public type : string | undefined;
+
+  @Input()
+  public updatableQuiz : Quiz | undefined;
+
+  public quiz : Quiz | undefined;
+
+  public state = this.enumState.GENERAL;
+
+  public quizForm: FormGroup = new FormGroup({});
 
 
-    constructor(public formBuilder: FormBuilder, public quizService: AdminQuizService) {
-        // Form creation
+  constructor(public quizService: AdminQuizService, public formBuilder: FormBuilder) {
+      this.quizForm = this.formBuilder.group({
+          title: [""],
+          picture: [""]
+      });
+
+  }
+
+
+  ngOnInit() {
+    if(this.type === undefined){
+      this.type = this.enumType.CREATE;
+    }
+
+    if(this.type === this.enumType.CREATE){
+      this.quizService.setSelected({} as Quiz);
+    }
+
+    if(this.type === this.enumType.UPDATE){
+      this.quiz = this.updatableQuiz;
+      this.quizService.setSelected(this.updatableQuiz?.id);
         this.quizForm = this.formBuilder.group({
             title: [""],
             picture: [""]
         });
     }
 
+    this.quizService.selectedQuiz$.subscribe((quiz: Quiz) => {
+      this.quiz = quiz;
+    });
+  }
 
-    ngOnInit(): void {
-        console.log("updatableQuiz", this.updatableQuiz);
+  addQuiz(){
+    let questions = this.quiz?.quizQuestionList || [];
+    let id = this.quiz?.id || -1;
+    this.quiz = this.quizForm.getRawValue() as Quiz;
+    this.quiz.quizQuestionList = questions;
+    this.quiz.id = id;
+    if(this.quiz){
+      if(this.type === this.enumType.CREATE)
+        this.quizService.addQuiz(this.quiz);
+      if(this.type === this.enumType.UPDATE)
+        this.quizService.updateQuiz(this.quiz);
     }
+  }
 
-    addQuiz(): void {
-        // We retrieve here the quiz object from the quizForm and we cast the type "as Quiz".
-        const quizToCreate: Quiz = this.quizForm.getRawValue() as Quiz;
+  changeState(state: string){
+    if(this.state === this.enumState.GENERAL){
+      let questions = this.quiz?.quizQuestionList || [];
+      let id = this.quiz?.id || -1;
 
-        // Now, we add the quiz in the list
-        if (this.updatableQuiz === undefined) {
-            this.quizService.addQuiz(quizToCreate);
-        }
-        else {
-            this.updatableQuiz.title = quizToCreate.title;
-            this.updatableQuiz.picture = quizToCreate.picture;
-            console.log("update quiz");
-            this.quizService.updateQuiz(this.updatableQuiz);
-        }
+      this.quiz = this.quizForm.getRawValue() as Quiz;
+      this.quiz.quizQuestionList = questions;
+      this.quiz.id = id;
+      this.quizService.setSelected(this.quiz);
     }
+    this.quiz = this.quizService.selectedQuiz$.value;
+    console.log(this.quiz);
+    this.state = state;
+  }
 }
