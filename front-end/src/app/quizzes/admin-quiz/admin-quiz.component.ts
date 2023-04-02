@@ -26,6 +26,7 @@ export class AdminQuizComponent implements OnInit {
 
 
     ngOnInit(): void {
+        console.log(this.quiz);
     }
 
     selectQuiz(): void {

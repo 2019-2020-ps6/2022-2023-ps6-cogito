@@ -23,11 +23,11 @@ export class AdminQuizService {
 
     addQuiz(quiz: Quiz): void {
         if (quiz.id === undefined || quiz.id === -1) {
-            console.log(quiz);
             quiz.id = this.quizzes.length + 1;
         }
         this.quizzes.push(quiz);
         this.quizzes$.next(this.quizzes);
+        console.log(this.quizzes);
     }
 
     deleteQuiz(quiz: Quiz): void {
