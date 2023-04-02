@@ -7,19 +7,22 @@ import { PROFILE_LIST } from "../mocks/profile.mock";
     providedIn: "root"
 })
 export class ProfileService {
-    private profiles: Profile[];
+    private profiles: Profile[] = PROFILE_LIST;
     private profilesCopy: Profile[] = PROFILE_LIST;
     public startIndex: number = 0;
     public endIndex: number = this.profilesCopy.length;
     public profiles$: BehaviorSubject<Profile[]> = new BehaviorSubject(PROFILE_LIST);
     public profileSelected$: Subject<Profile> = new Subject();
+    public start = true;
+    public start$: BehaviorSubject<boolean> = new BehaviorSubject(true);
+    public end = false;
+    public end$: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
     constructor() {
-        this.profiles = PROFILE_LIST;
     }
 
-    sortProfileList(): void {
-        this.profiles = this.profiles.sort((a: Profile, b: Profile): number => {
+    sortProfileList() {
+        this.profiles = this.profiles.sort((a, b) => {
             if (a.name < b.name) {
                 return -1;
             }
@@ -33,53 +36,58 @@ export class ProfileService {
         this.profiles$.next(this.profiles);
     }
 
-    getThe6(): void {
-        if (this.startIndex > this.endIndex) this.startIndex = 0;
+    getThe6() {
+        this.end$.next(false);
+        if (this.startIndex > this.endIndex) {
+            this.startIndex = 0;
+        }
+        if (this.startIndex < 0) {
+            this.startIndex = this.endIndex - (((this.endIndex / 6) - Math.floor(
+                this.endIndex / 6)) * 6);
+        }
         if (this.startIndex + 6 > this.endIndex) {
+            this.end$.next(true);
             this.profiles = this.profilesCopy.slice(this.startIndex, this.endIndex);
         }
         else {
             this.profiles = this.profilesCopy.slice(this.startIndex, this.startIndex + 6);
         }
         this.profiles$.next(this.profiles);
+        if (this.startIndex == 0) {
+            this.start$.next(true);
+        }
+        else {
+            this.start$.next(false);
+        }
+
     }
 
-    showNextProfiles(): void {
+    showNextProfiles() {
         this.startIndex += 6;
         this.getThe6();
     }
 
-    showPreviousProfiles(): void {
+    showPreviousProfiles() {
         this.startIndex -= 6;
-        if (this.startIndex < 0) this.startIndex = 0;
+        //if(this.startIndex < 0) this.startIndex = 0;
         this.getThe6();
     }
 
-
-    deleteProfile(quiz: Profile): void {
-        this.profiles.forEach((value: Profile, index: number): void => {
-            if (value.name == quiz.name) this.profiles.splice(index, 1);
-        });
-
-        this.profiles$.next(this.profiles);
-        console.log("ProfileService DELETE");
-    }
-
     getProfileById(id: number): Profile | undefined {
-        return this.profiles.find((profile: Profile): boolean => profile.id === id);
+        return this.profiles.find((profile) => profile.id === id);
     }
 
-    updateProfile(profile: Profile): void {
+    updateProfile(profile: Profile) {
         console.log(profile);
-        let index: number = this.profiles.findIndex((p: Profile): boolean => p.id === profile.id);
+        let index = this.profiles.findIndex((p) => p.id === profile.id);
         console.log("index", index);
         this.profiles[index] = profile;
         console.log(this.profiles);
         this.profiles$.next(this.profiles);
     }
 
-    setSelected(id: number): void {
-        let p: Profile = { ...this.profiles.find((profile: Profile): boolean => profile.id === id) } as Profile;
+    setSelected(id: number) {
+        let p = { ...this.profiles.find((profile) => profile.id === id) } as Profile;
         if (p != undefined) {
             this.profileSelected$.next(p);
         }

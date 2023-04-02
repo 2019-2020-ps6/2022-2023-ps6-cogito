@@ -1,19 +1,18 @@
 import { Injectable } from "@angular/core";
 import { BehaviorSubject, Subject } from "rxjs";
-import { THEME_MUSIQUE } from "src/mocks/theme.mock";
-import { Theme } from "src/models/theme.model";
-
+import { QUIZZES_MUSIQUE } from "src/mocks/quiz.mock";
+import { Quiz } from "src/models/quiz.model";
 
 @Injectable({
     providedIn: "root"
 })
-export class ThemeService {
-    private themes: Theme[];
-    private themesCopy: Theme[];
+export class QuizService {
+    private quizzes: Quiz[];
+    private quizzesCopy: Quiz[];
     public startIndex: number = 0;
     public endIndex: number;
-    public themes$: BehaviorSubject<Theme[]>;
-    public themeSelected$: Subject<Theme> = new Subject<Theme>();
+    public quizzes$: BehaviorSubject<Quiz[]>;
+    public quizSelected$: Subject<Quiz> = new Subject<Quiz>();
     public start = true;
     public start$: BehaviorSubject<boolean> = new BehaviorSubject(true);
     public end = false;
@@ -21,15 +20,15 @@ export class ThemeService {
 
 
     constructor() {
-        this.themes = THEME_MUSIQUE;
-        this.themesCopy = THEME_MUSIQUE;
-        this.themes$ = new BehaviorSubject(this.themes);
-        this.endIndex = this.themesCopy.length;
+        this.quizzes = QUIZZES_MUSIQUE;
+        this.quizzesCopy = QUIZZES_MUSIQUE;
+        this.quizzes$ = new BehaviorSubject(this.quizzes);
+        this.endIndex = this.quizzesCopy.length;
     }
 
 
-    sortThemeList() {
-        this.themes = this.themes.sort((a, b) => {
+    sortQuizList() {
+        this.quizzes = this.quizzes.sort((a, b) => {
             if (a.title < b.title) {
                 return -1;
             }
@@ -40,11 +39,12 @@ export class ThemeService {
                 return 0;
             }
         });
-        this.themes$.next(this.themes);
+        this.quizzes$.next(this.quizzes);
     }
 
     getThe6() {
         this.end$.next(false);
+
         if (this.startIndex > this.endIndex) this.startIndex = 0;
         if (this.startIndex < 0) {
             this.startIndex = this.endIndex - (((this.endIndex / 6) - Math.floor(
@@ -53,12 +53,12 @@ export class ThemeService {
         if (this.startIndex + 6 > this.endIndex) {
             this.end$.next(true);
 
-            this.themes = this.themesCopy.slice(this.startIndex, this.endIndex);
+            this.quizzes = this.quizzesCopy.slice(this.startIndex, this.endIndex);
         }
         else {
-            this.themes = this.themesCopy.slice(this.startIndex, this.startIndex + 6);
+            this.quizzes = this.quizzesCopy.slice(this.startIndex, this.startIndex + 6);
         }
-        this.themes$.next(this.themes);
+        this.quizzes$.next(this.quizzes);
         if (this.startIndex == 0) {
             this.start$.next(true);
         }
@@ -67,35 +67,34 @@ export class ThemeService {
         }
     }
 
-    showNextThemes() {
+    showNextQuizzes() {
         this.startIndex += 6;
         this.getThe6();
     }
 
-    showPreviousThemes() {
+    showPreviousQuizzes() {
         this.startIndex -= 6;
         //if(this.startIndex < 0) this.startIndex = 0;
         this.getThe6();
     }
 
-    getThemeById(id: number): Theme | undefined {
-        return this.themes.find((theme) => theme.id === id);
+    getQuizById(id: number): Quiz | undefined {
+        return this.quizzes.find((quiz) => quiz.id === id);
     }
 
-    updateTheme(theme: Theme) {
-        console.log(theme);
-        let index = this.themes.findIndex((t) => t.id === theme.id);
+    updateQuiz(quiz: Quiz) {
+        console.log(quiz);
+        let index = this.quizzes.findIndex((q) => q.id === quiz.id);
         console.log("index", index);
-        this.themes[index] = theme;
-        console.log(this.themes);
-        this.themes$.next(this.themes);
+        this.quizzes[index] = quiz;
+        console.log(this.quizzes);
+        this.quizzes$.next(this.quizzes);
     }
 
     setSelected(id: number) {
-
-        let t = { ...this.themes.find((theme) => theme.id === id) } as Theme;
-        if (t != undefined) {
-            this.themeSelected$.next(t);
+        let q = { ...this.quizzes.find((quiz) => quiz.id === id) } as Quiz;
+        if (q != undefined) {
+            this.quizSelected$.next(q);
         }
     }
 }

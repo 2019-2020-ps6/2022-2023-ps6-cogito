@@ -10,38 +10,46 @@ import { Profile } from "src/models/profile.model";
 })
 export class ProfileListComponent implements OnInit {
     public profileList: Profile[] = [];
+    public start = true;
+    public end = false;
 
 
     constructor(public profileService: ProfileService) {
-        this.profileService.profiles$.subscribe((profileList: Profile[]): void => {
+        this.profileService.profiles$.subscribe((profileList) => {
             this.profileList = profileList;
+        });
+        this.profileService.start$.subscribe((start) => {
+            this.start = start;
+        });
+        this.profileService.end$.subscribe((end) => {
+            this.end = end;
         });
     }
 
-
-    ngOnInit(): void {
+    ngOnInit() {
         this.sortProfileList();
         this.profileList = this.profileList.slice(0, 6);
     }
 
-    getThe6(): void {
+    getThe6() {
         this.profileService.getThe6();
     }
 
-    showNextProfiles(): void {
+    showNextProfiles() {
         this.profileService.showNextProfiles();
+        console.log(this.start);
     }
 
-    showPreviousProfiles(): void {
+    showPreviousProfiles() {
         this.profileService.showPreviousProfiles();
+        console.log(this.start);
     }
 
-
-    sortProfileList(): void {
+    sortProfileList() {
         this.profileService.sortProfileList();
     }
 
-    profileSelected(selected: boolean): void {
+    profileSelected(selected: boolean) {
         console.log("event received from child:", selected);
     }
 
