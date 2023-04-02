@@ -1,7 +1,7 @@
+import { Question } from 'src/models/question.model';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { Quiz } from '../models/quiz.model';
-import { Question } from '../models/question.model';
 import { QUIZ_LIST } from '../mocks/quiz-list-with-id.mock';
 
 @Injectable({
@@ -26,15 +26,20 @@ export class QuizService {
    */
   public quizzes$: BehaviorSubject<Quiz[]> = new BehaviorSubject(QUIZ_LIST);
 
-  public quizSelected$: Subject<Quiz> = new Subject();
+  public quizSelected$: BehaviorSubject<Quiz> = new BehaviorSubject<Quiz>({} as Quiz);
+
+
+  public quizSelectedSubject: Subject<Quiz> = new Subject<Quiz>();
 
   constructor() {
+    this.quizSelected$.subscribe(this.quizSelectedSubject);
   }
 
   addQuiz(quiz: Quiz) {
-    
-    // You need here to update the list of quiz and then update our observable (Subject) with the new list
-    // More info: https://angular.io/tutorial/toh-pt6#the-searchterms-rxjs-subjecta nouvelle valeur de la liste des quiz
+    if(quiz.id === undefined || quiz.id === -1){
+      console.log(quiz);
+      quiz.id = this.quizzes.length + 1;
+    }
     this.quizzes.push(quiz);
     this.quizzes$.next(this.quizzes);
   }
@@ -45,13 +50,9 @@ export class QuizService {
     });
 
     this.quizzes$.next(this.quizzes);
-    console.log("QuizService DELETE");
   }
 
   addQuestion(quiz: Quiz, question: Question) {
-    this.quizzes.forEach((value,index)=>{
-      if(value.name == quiz.name) this.quizzes[index].questions.push(question);
-    });
   }
 
   deleteQuestion(quiz: Quiz, question: Question) {
@@ -66,20 +67,34 @@ export class QuizService {
     return this.quizzes.find((quiz) => quiz.id === id);
   }
 
+  getQuestionById(quiz: Quiz, id: number): Question | undefined {
+    return this.quizzes.find((quiz) => quiz === quiz)?.questions.find((question) => question.id === id);
+  }
   updateQuiz(quiz: Quiz) {
-    console.log(quiz)
+    if(quiz.id === undefined || quiz.id === -1){
+      this.addQuiz(quiz);
+    }
     let index = this.quizzes.findIndex((q) => q.id === quiz.id);
-    console.log("index",index);
     this.quizzes[index] = quiz;
-    console.log(this.quizzes)
     this.quizzes$.next(this.quizzes);
   }
 
-  setSelected(id: number) {
-  
-    let q ={...this.quizzes.find((quiz) => quiz.id === id)} as Quiz;
-    if(q != undefined)
-      this.quizSelected$.next(q);
-  }
+  setSelected(idOrQuiz?: number | Quiz | null) {
+      if (idOrQuiz === null) {
+        this.quizSelected$.next({} as Quiz);
+        return;
+      }
+      let q:  Quiz | undefined;
+      if (typeof idOrQuiz === 'number') {
+        q = this.getQuizById(idOrQuiz);
+      } else {
+        q = idOrQuiz;
+      }
+      if (q !== undefined) {
+        this.quizSelected$.next(q);
+        this.quizSelectedSubject.next(q);
+      }
+    }
+
 }
 

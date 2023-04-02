@@ -1,5 +1,12 @@
-@import '../../../styles/card.scss';
-
-.question-list {
+.question-list{
     display: flex;
+    flex-direction: column;
+    width: 100vh;
+    justify-content: space-around;
+}
+
+.question{
+    margin-top: 1%;
+    box-sizing: border-box;
+    width: 100%;
 }

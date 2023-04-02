@@ -6,6 +6,7 @@ export const QUIZ_LIST: Quiz[] =[
         "id": 1,
         "questions": [
             {
+                "id": 1,
                 "label": "Jean Gabin a joué dans...",
                 "answers": [
                     {
@@ -26,6 +27,7 @@ export const QUIZ_LIST: Quiz[] =[
         "id": 2,
         "questions": [
             {
+                "id": 2,
                 "label": "Aux echecs, Magnus Carlsen est champion du monde depuis...",
                 "answers": [
                     {
@@ -54,6 +56,51 @@ export const QUIZ_LIST: Quiz[] =[
         "id": 3,
         "questions": [
             {
+                "id": 3,
+                "label": "Completez cette phrase: Hide the Pain...",
+                "answers": [
+                    {
+                        "value": "Hugo",
+                        "isCorrect": false
+                    },
+                    {
+                        "value": "Joe",
+                        "isCorrect": false
+                    },
+                    {
+                        "value": "Bernard",
+                        "isCorrect": false
+                    },
+                    {
+                        "value": "Harold",
+                        "isCorrect": true
+                    }
+                ]
+            },
+            {
+                "id": 4,
+                "label": "bbb",
+                "answers": [
+                    {
+                        "value": "Hugo",
+                        "isCorrect": false
+                    },
+                    {
+                        "value": "Joe",
+                        "isCorrect": false
+                    },
+                    {
+                        "value": "Bernard",
+                        "isCorrect": false
+                    },
+                    {
+                        "value": "Harold",
+                        "isCorrect": true
+                    }
+                ]
+            },
+            {
+                "id": 5,
                 "label": "Completez cette phrase: Hide the Pain...",
                 "answers": [
                     {

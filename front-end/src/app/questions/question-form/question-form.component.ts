@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, FormArray, Validators } from '@angular/forms';
 import { QuizService } from '../../../services/quiz.service';
 import { Quiz } from 'src/models/quiz.model';
 import { Question } from 'src/models/question.model';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-question-form',
@@ -11,14 +12,43 @@ import { Question } from 'src/models/question.model';
 })
 export class QuestionFormComponent implements OnInit {
 
-  @Input()
-  quiz: Quiz;
+  public quiz: Quiz = {} as Quiz;
 
-  public questionForm: FormGroup;
+  public questionForm: FormGroup = new FormGroup({});
 
-  constructor(public formBuilder: FormBuilder, private quizService: QuizService) {
-    // Form creation
+  public question: Question = {} as Question;
+
+  public type: string = 'create';
+
+
+  constructor(private route: ActivatedRoute,public quizService: QuizService, public formBuilder: FormBuilder) {
     this.initializeQuestionForm();
+  }
+
+  ngOnInit() {
+    this.quizService.quizSelected$.subscribe((quiz: Quiz) => {
+      this.quiz = quiz;
+    });
+    const id = this.route.snapshot.paramMap.get('id');
+    if (id != null) {
+      this.type = 'edit';
+    }
+    const quizId = this.route.snapshot.paramMap.get('quizId');
+    if (quizId != null) {
+      this.type = 'create';
+    }
+    this.question = this.quiz.questions.find(q => q.id == parseInt(id as string)) as Question;
+    this.questionForm = this.formBuilder.group({
+      label: [this.question.label, Validators.required],
+      answers: this.formBuilder.array([])
+    });
+    this.question.answers.forEach(a => {
+      this.answers.push(this.formBuilder.group({
+        value: a.value,
+        isCorrect: a.isCorrect,
+      }));
+    }
+    );
   }
 
   private initializeQuestionForm(): void {
@@ -28,18 +58,18 @@ export class QuestionFormComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {
-  }
-
-  get answers(): FormArray {
-    return this.questionForm.get('answers') as FormArray;
-  }
-
-  private createAnswer(): FormGroup {
+  createAnswer(): FormGroup {
     return this.formBuilder.group({
       value: '',
       isCorrect: false,
     });
+  }
+
+  get answers(): FormArray {
+    if (this.questionForm)
+      return this.questionForm.get('answers') as FormArray;
+    else
+      return this.formBuilder.array([]);
   }
 
   addAnswer(): void {
@@ -47,10 +77,42 @@ export class QuestionFormComponent implements OnInit {
   }
 
   addQuestion(): void {
-    if (this.questionForm.valid) {
-      const question = this.questionForm.getRawValue() as Question;
-      this.quizService.addQuestion(this.quiz, question);
-      this.initializeQuestionForm();
+    if(this.type==='create'){
+      if (this.questionForm) {
+        if (this.questionForm.valid) {
+          const question = this.questionForm.getRawValue() as Question;
+          question.id = this.quiz.questions.length + 1;
+          if (this.quiz !== undefined) {
+            if (this.quiz.questions === undefined) {
+              this.quiz.questions = [];
+            }
+            this.quiz.questions.push(question);
+          }
+          this.initializeQuestionForm();
+          this.quizService.setSelected(this.quiz);
+        }
+      }
     }
+    else{
+      if (this.questionForm) {
+        if (this.questionForm.valid) {
+          let id = this.route.snapshot.paramMap.get('id');
+          const question = this.questionForm.getRawValue() as Question;
+          question.id = parseInt(id as string);
+          if (this.quiz !== undefined) {
+            if (this.quiz.questions === undefined) {
+              this.quiz.questions = [];
+            }
+            this.quiz.questions[this.quiz.questions.findIndex(q => q.id == this.question.id)] = question;
+          }
+          this.initializeQuestionForm();
+          this.quizService.setSelected(this.quiz);
+        }
+      }
+    }
+  }
+
+  deleteAnswer(index : number): void {
+    this.answers.removeAt(index);
   }
 }

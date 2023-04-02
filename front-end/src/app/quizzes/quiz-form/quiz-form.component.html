@@ -1,33 +1,30 @@
-<head>
-    {{this.updatableQuiz == undefined ? "Création d'un quiz" : "Modification d'un quiz"}}
-</head>
-
-<body>
-<div class="card">
-  <!-- <h3>{{this.updatableQuiz == undefined ? "Créer un nouveau quiz" : "Modifier le quiz"}}</h3> -->
-  <form class="quiz-form" [formGroup]="quizForm">
-    <label for="title">
-      Titre <br>
-      <input class="input-name" type="text" id="name" [formControlName]="'name'" placeholder="Entrer titre du quiz" [(ngModel)]="this.updatableQuiz === undefined ? '' : this.updatableQuiz.name">
-    </label>
-    <br>
-    <label for="theme">
-      Thème <br>
-      <input class="input-theme" type="text" id="theme" [formControlName]="'theme'" placeholder="Entrer thème du quiz" [(ngModel)]="this.updatableQuiz === undefined ? '' : this.updatableQuiz.theme">
-    </label>
-    <br>
-    <label for="image">
-      Rajouter une image <br>
-      <button type="submit" class="button-card-image" (click)="addQuiz()">Parcourir les dossiers</button>
-      <!-- Pour le moment, on n'a pas mis en place la sélection d'image dans les dossiers perso
-      Ce sera à faire, mais plus tard -->
-    </label>
-    <br>
-    <button type="submit" class="button-card" (click)="addQuiz()" [routerLink]="['/quiz-list']">{{this.updatableQuiz == undefined ? "Créer" : "Modifier"}}</button>
-  </form>
+<div class="page">
+  <div class="left-part">
+    <div class="nav-buttons">
+      <button class="button {{this.state === enumState.GENERAL ? 'active' : ''}}" (click)="changeState(enumState.GENERAL)">General</button>
+      <button class="button {{this.state === enumState.QUESTIONS ? 'active' : ''}}" (click)="changeState(enumState.QUESTIONS)">Questions</button>
+    </div>
+    <div class="exit-buttons">
+      <button class="button-save" (click)="addQuiz()" [routerLink]="['/quiz-list']">{{this.type === enumType.CREATE ? 'Créer le quiz' : 'Modifier le quiz'}}</button>
+      <button class="button-back" [routerLink]="['/quiz-list']">Annuler</button>
+    </div>
+  </div>
+  <div *ngIf="state===enumState.GENERAL" class="center-div">
+    <form [formGroup]="quizForm">
+      <div class="input">
+        Nom : 
+        <input type="text" placeholder="Entrer nom du quiz" value = "{{this.quiz?.name}}" formControlName="name">
+      </div>
+      <div class="input">
+        Thème : 
+        <input type="text" placeholder="Entrer theme du quiz" value = "{{this.quiz?.theme}}" formControlName="theme">
+      </div>
+    </form>
+  </div>
+  <div *ngIf="state===enumState.QUESTIONS" class="center-div">
+    <h2>Ajout / suppression de question pour le quiz : {{this.quiz?.name}}</h2>
+    <app-question-list [quiz]="quiz"></app-question-list>
+    <button *ngIf="type==='update'" [routerLink]="['/add-question/', this.quiz?.id]">Ajouter une nouvelle question</button>
+    <button *ngIf="type==='create'" [routerLink]="['/add-question']">Ajouter une nouvelle question</button>
+  </div>
 </div>
-<div class="button-quiz-list"> <button type="submit" class="button-card" [routerLink]="['/quiz-list']">Aller à la liste des quiz</button> </div>
-
-<!-- Uncomment below to see your form structure and how it changes-->
-<!-- <br><br>{{quizForm.getRawValue() | json}} --> 
-</body>

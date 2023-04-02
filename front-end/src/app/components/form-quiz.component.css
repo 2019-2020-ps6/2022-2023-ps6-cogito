@@ -1,0 +1,16 @@
+.form-group {
+    margin-bottom: 20px;
+  }
+  
+  label {
+    font-weight: bold;
+  }
+  
+  textarea.form-control {
+    height: 150px;
+  }
+  
+  button.btn-primary {
+    margin-top: 20px;
+  }
+  

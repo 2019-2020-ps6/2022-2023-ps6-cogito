@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
+
 import { QuizService } from '../../../services/quiz.service';
 import { Quiz } from '../../../models/quiz.model';
 import { QUIZ_LIST } from 'src/mocks/quiz-list.mock';
@@ -12,45 +13,93 @@ import { QUIZ_LIST } from 'src/mocks/quiz-list.mock';
 })
 export class QuizFormComponent implements OnInit {
 
+  public enumState = {
+    GENERAL: 'general',
+    QUESTIONS: 'questions'
+  };
+
+  public enumType ={
+    CREATE: 'create',
+    UPDATE: 'update'
+  } 
+
+  @Input()
+  public type : string | undefined;
+
   @Input()
   public updatableQuiz : Quiz | undefined;
 
-  public quizForm: FormGroup;
+  public quiz : Quiz | undefined;
 
-  constructor(public formBuilder: FormBuilder, public quizService: QuizService) {
-    // Form creation
+  public state = this.enumState.GENERAL;
+
+  public quizForm: FormGroup = new FormGroup({});
+
+
+  constructor(public quizService: QuizService, public formBuilder: FormBuilder) { 
     this.quizForm = this.formBuilder.group({
       name: [''],
       theme:['']
     });
+
   }
+
 
   ngOnInit() {
-    console.log("updatableQuiz",this.updatableQuiz)
+    if(this.type === undefined){
+      this.type = this.enumType.CREATE;
+    }
+
+    if(this.type === this.enumType.CREATE){
+      this.quizService.setSelected({} as Quiz);
+    }
+
+    if(this.type === this.enumType.UPDATE){
+      this.quiz = this.updatableQuiz;
+      this.quizService.setSelected(this.updatableQuiz?.id);
+      this.quizForm = this.formBuilder.group({
+        name: [this.quiz?.name],
+        theme:[this.quiz?.theme]
+      });
+    }
+
+    this.quizService.quizSelected$.subscribe((quiz: Quiz) => {
+      this.quiz = quiz;
+    });
   }
 
-  addQuiz() {
-    // We retrieve here the quiz object from the quizForm and we cast the type "as Quiz".
-      const quizToCreate: Quiz = this.quizForm.getRawValue() as Quiz;
-      
-      // Do you need to log your object here in your class? Uncomment the code below
-      // and open your console in your browser by pressing F12 and choose the tab "Console".
-      // You will see your quiz object when you click on the create button.
-      console.log('Add quiz: ', quizToCreate);
-      
-      // Now, add your quiz in the list!
-      if(this.updatableQuiz === undefined){
-        this.quizService.addQuiz(quizToCreate);
-        
-      }else {
-      this.updatableQuiz.name = quizToCreate.name;
-      this.updatableQuiz.theme = quizToCreate.theme;
-      console.log("update quiz");
-      this.quizService.updateQuiz(this.updatableQuiz);
+  addQuiz(){
+    let questions = this.quiz?.questions || [];
+    let id = this.quiz?.id || -1;
+    this.quiz = this.quizForm.getRawValue() as Quiz;
+    this.quiz.questions = questions;
+    this.quiz.id = id;
+    if(this.quiz){
+      if(this.type === this.enumType.CREATE)
+        this.quizService.addQuiz(this.quiz);
+      if(this.type === this.enumType.UPDATE)
+        this.quizService.updateQuiz(this.quiz);
+    }
+  }
 
+  changeState(state: string){
+    if(this.state === this.enumState.GENERAL){
+      let questions = this.quiz?.questions || [];
+      let id = this.quiz?.id || -1;
+
+      this.quiz = this.quizForm.getRawValue() as Quiz; 
+      this.quiz.questions = questions;
+      this.quiz.id = id;
+      this.quizService.setSelected(this.quiz);
+    }
+    this.quiz = this.quizService.quizSelected$.value;
+    console.log(this.quiz);
+    this.state = state;
   }
-    
-  }
+
+
+
+
 
   
 
