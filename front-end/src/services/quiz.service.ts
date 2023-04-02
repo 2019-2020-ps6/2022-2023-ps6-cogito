@@ -66,6 +66,9 @@ export class QuizService {
     return this.quizzes.find((quiz) => quiz.id === id);
   }
 
+  getQuestionById(quiz: Quiz, id: number): Question | undefined {
+    return this.quizzes.find((quiz) => quiz === quiz)?.questions.find((question) => question.id === id);
+  }
   updateQuiz(quiz: Quiz) {
     let index = this.quizzes.findIndex((q) => q.id === quiz.id);
     this.quizzes[index] = quiz;

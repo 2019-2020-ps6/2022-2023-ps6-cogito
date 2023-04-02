@@ -79,7 +79,7 @@ export const QUIZ_LIST: Quiz[] =[
             },
             {
                 "id": 4,
-                "label": "Completez cette phrase: Hide the Pain...",
+                "label": "bbb",
                 "answers": [
                     {
                         "value": "Hugo",

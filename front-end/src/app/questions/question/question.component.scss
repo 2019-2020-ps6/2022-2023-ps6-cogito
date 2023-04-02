@@ -9,15 +9,16 @@
     border: solid 1px black;
     border-radius: 5px;
     padding: 2% 20% 2% 20%;
+    width: 90%;
+    justify-content: center;
+    text-align: center;
 }
 
 button{
-    // when clicking change color of icon 
     background-color: transparent;
     border: none;
     cursor: pointer;
 
-    // when hovering change color of icon
     &:hover{
         color: #ff0000;
     }
