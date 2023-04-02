@@ -10,17 +10,22 @@ import { QuizQuestion } from "../models/quizQuestion.model";
 export class AdminQuizService {
     private quizzes: Quiz[];
     public quizzes$: BehaviorSubject<Quiz[]>;
-    public selectedQuiz$: Subject<Quiz>;
+    public selectedQuiz$: BehaviorSubject<Quiz> = new BehaviorSubject<Quiz>({} as Quiz);
+    public selectedQuizSubject$: Subject<Quiz> = new Subject<Quiz>();
 
 
     constructor() {
         this.quizzes = QUIZ_LIST;
         this.quizzes$ = new BehaviorSubject(this.quizzes);
-        this.selectedQuiz$ = new Subject();
+        this.selectedQuiz$.subscribe(this.selectedQuizSubject$);
     }
 
 
     addQuiz(quiz: Quiz): void {
+        if (quiz.id === undefined || quiz.id === -1) {
+            console.log(quiz);
+            quiz.id = this.quizzes.length + 1;
+        }
         this.quizzes.push(quiz);
         this.quizzes$.next(this.quizzes);
     }
@@ -55,18 +60,37 @@ export class AdminQuizService {
         });
     }
 
+    getQuizById(id: number): Quiz | undefined {
+        return this.quizzes.find((quiz) => quiz.id === id);
+    }
+
+    getQuestionById(quiz: Quiz, id: number): QuizQuestion | undefined {
+        return this.quizzes.find((quiz) => quiz === quiz)?.quizQuestionList.find((question) => question.id === id);
+    }
+
     updateQuiz(quiz: Quiz): void {
-        console.log(quiz);
-        let index: number = this.quizzes.findIndex((q: Quiz) => q.id === quiz.id);
+        if (quiz.id === undefined || quiz.id === -1) {
+            this.addQuiz(quiz);
+        }
+        let index = this.quizzes.findIndex((q) => q.id === quiz.id);
         this.quizzes[index] = quiz;
-        console.log(this.quizzes);
         this.quizzes$.next(this.quizzes);
     }
 
-    setSelected(id: number): void {
-        let q: Quiz = { ...this.quizzes.find((quiz: Quiz) => quiz.id === id) } as Quiz;
-        if (q != undefined) {
+    setSelected(idOrQuiz?: number | Quiz | null) {
+        if (idOrQuiz === null) {
+            this.selectedQuiz$.next({} as Quiz);
+            return;
+        }
+        let q:  Quiz | undefined;
+        if (typeof idOrQuiz === 'number') {
+            q = this.getQuizById(idOrQuiz);
+        } else {
+            q = idOrQuiz;
+        }
+        if (q !== undefined) {
             this.selectedQuiz$.next(q);
+            this.selectedQuizSubject$.next(q);
         }
     }
 }

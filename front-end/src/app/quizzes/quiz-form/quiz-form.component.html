@@ -13,22 +13,18 @@
     <form [formGroup]="quizForm">
       <div class="input">
         Nom :
-        <input type="text" placeholder="Entrer nom du quiz" value = "{{this.quiz?.name}}" formControlName="name">
+        <input type="text" placeholder="Entrer nom du quiz" value = "{{this.quiz?.title}}" formControlName="name">
       </div>
       <div class="input">
         Thème :
-        <input type="text" placeholder="Entrer theme du quiz" value = "{{this.quiz?.theme}}" formControlName="theme">
+        <input type="text" placeholder="Entrer theme du quiz" value = "{{this.quiz?.title}}" formControlName="theme">
       </div>
     </form>
   </div>
   <div *ngIf="state===enumState.QUESTIONS" class="center-div">
-    <h2>Ajout / suppression de question pour le quiz : {{this.quiz?.name}}</h2>
-    <app-question-list [quiz]="quiz"></app-question-list>
+    <h2>Ajout / suppression de question pour le quiz : {{this.quiz?.title}}</h2>
+    <app-questions-question-list [quiz]="quiz"></app-questions-question-list>
     <button *ngIf="type==='update'" [routerLink]="['/add-question/', this.quiz?.id]">Ajouter une nouvelle question</button>
     <button *ngIf="type==='create'" [routerLink]="['/add-question']">Ajouter une nouvelle question</button>
   </div>
 </div>
-
-<!-- Uncomment below to see your form structure and how it changes-->
-<!-- <br><br>{{quizForm.getRawValue() | json}} --> 
-</body>

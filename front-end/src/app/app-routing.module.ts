@@ -22,9 +22,9 @@ const routes: Routes = [
     { path: "quiz-form", component: QuizFormComponent, data: { title: "Formulaire de création des quiz" } },
     { path: "edit-quiz/:id", component: EditQuizComponent, data: { title: "Formulaire de modification des quiz" } },
     { path: "question-list", component: QuestionListComponent, data: { title: "Liste des questions" } },
-    { path: 'question-form/:id', component: QuestionFormComponent },
-    { path: 'add-question/:quizId', component: QuestionFormComponent },
-    { path: 'add-question', component: QuestionFormComponent },
+    { path: 'question-form/:id', component: QuestionFormComponent, data: { title: "Formulaire de création de question" } },
+    { path: 'add-question/:quizId', component: QuestionFormComponent, data: { title: "Formulaire d'ajout de question" } },
+    { path: 'add-question', component: QuestionFormComponent, data: { title: "Formulaire d'ajout de question" } },
     { path: "", redirectTo: "home-page", pathMatch: "full" }
 ];
 
