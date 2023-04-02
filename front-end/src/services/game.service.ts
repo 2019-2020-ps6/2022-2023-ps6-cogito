@@ -12,6 +12,7 @@ export class GameService {
     private gameInstance: GameInstance;
     public gameInstance$: BehaviorSubject<GameInstance>;
     private selectedQuestion: GameQuestion;
+    private originalLenght: number;
     public selectedQuestion$: BehaviorSubject<GameQuestion>;
     public currentQuestionIndex: number;
     public answers: Map<GameQuestion,boolean>;
@@ -19,6 +20,7 @@ export class GameService {
 
     constructor() {
         this.gameInstance = GAME_INSTRUMENTS;
+        this.originalLenght = GAME_INSTRUMENTS.gameQuestionList.length;
         this.gameInstance$ = new BehaviorSubject(this.gameInstance);
         this.selectedQuestion = this.gameInstance.gameQuestionList[0];
         this.selectedQuestion$ = new BehaviorSubject(this.selectedQuestion);
@@ -40,7 +42,6 @@ export class GameService {
         this.currentQuestionIndex = this.gameInstance.gameQuestionList.indexOf(this.selectedQuestion);
         if (this.currentQuestionIndex < this.gameInstance.gameQuestionList.length - 1) {
             this.answers.set(this.gameInstance.gameQuestionList[this.currentQuestionIndex],answer.isCorrect)
-            console.log(this.currentQuestionIndex);
             this.selectQuestion(this.gameInstance.gameQuestionList[this.currentQuestionIndex + 1]);
             this.currentQuestionIndex--;
         } else {
@@ -49,7 +50,7 @@ export class GameService {
     }
 
     reinitQuiz(){
-        this.gameInstance = GAME_INSTRUMENTS;
+        this.gameInstance.gameQuestionList.splice(this.originalLenght,  this.gameInstance.gameQuestionList.length - this.originalLenght);
         this.gameInstance$ = new BehaviorSubject(this.gameInstance);
         this.selectedQuestion = this.gameInstance.gameQuestionList[0];
         this.selectedQuestion$ = new BehaviorSubject(this.selectedQuestion);
@@ -57,6 +58,18 @@ export class GameService {
         this.answers=new Map();
         for (let i=0; i<this.gameInstance.gameQuestionList.length; i++){
             this.answers.set(this.gameInstance.gameQuestionList[i],false)
+        }
+        console.log(this.gameInstance.gameQuestionList.length)
+    }
+
+    wrongAnswers(n:number){
+        for (let i=0;i<n;i++){
+            const q = this.gameInstance.gameQuestionList[i];
+            const n = this.gameInstance.gameQuestionList.filter(element => element === q).length;
+            console.log(!this.answers.get(q)&&n<2)
+            if (!this.answers.get(q)&&n<2){
+                this.gameInstance.gameQuestionList[this.gameInstance.gameQuestionList.length]=q;
+            }
         }
     }
 }

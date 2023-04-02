@@ -46,6 +46,8 @@ export class GamePageComponent implements OnInit {
         else {
             if (this.currentQuestion<this.numberQuestions){
                 this.gameService.selectQuestion(this.questions[this.currentQuestion]);
+                this.gameService.wrongAnswers(this.currentQuestion);
+                this.numberQuestions = this.questions.length;
                 this.currentQuestion++;
                 this.nextquestion=false;
             }
@@ -53,15 +55,18 @@ export class GamePageComponent implements OnInit {
     }
 
     onAnswerQuestion(isAnwsered: boolean) {
+        this.numberQuestions = this.questions.length;
         if (!this.resultDisplayed){
             this.resultDisplayed=true;
             this.clickanswer=true;
         }
         else {
+            this.gameService.wrongAnswers(this.currentQuestion);
             if (this.currentQuestion<this.numberQuestions){
                 this.questionChanged=isAnwsered;
                 this.questionChanged=false;
                 this.clickanswer=false;
+                this.numberQuestions = this.questions.length;
                 this.currentQuestion++;
                 this.gameService.currentQuestionIndex++;
             }
