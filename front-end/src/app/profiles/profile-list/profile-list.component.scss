@@ -1,6 +1,6 @@
-@import '../../../styles/card.scss';
+@import "../../../styles/card.scss";
 
-.profile-list-selection{
+.profile-list-selection {
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -29,15 +29,15 @@ section {
 
 .button-selection {
   width: 15vW;
-    background-color: yellow;
-    color: black;
-    border: 1px solid black;
-    border-radius: 5px;
-    font-weight: bold;
-    height: 10vh;
-    margin-top: 15vw;
-    margin-left: 5%;
-    margin-right: 5%;
+  background-color: yellow;
+  color: black;
+  border: 1px solid black;
+  border-radius: 5px;
+  font-weight: bold;
+  height: 10vh;
+  margin-top: 15vw;
+  margin-left: 5%;
+  margin-right: 5%;
 
 }
 
@@ -48,4 +48,36 @@ section {
   align-items: center;
   padding-top: 10px;
   padding-bottom: 10px;
+}
+
+#adminAccount {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 1vh;
+  right: 2vw;
+  height: 18vh;
+  min-height: 55px;
+}
+
+#adminAccount:hover {
+  cursor: pointer;
+}
+
+#adminAccount img {
+  height: 13vh;
+  min-height: 39px;
+  width: 13vh;
+  min-width: 39px;
+  background-color: black;
+  border-radius: 50%;
+}
+
+#adminAccount figcaption {
+  height: 5vh;
+  min-height: 16px;
+  font-size: max(13px, 4vh);
+  font-weight: bold;
 }

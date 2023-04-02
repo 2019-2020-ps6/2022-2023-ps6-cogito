@@ -3,7 +3,8 @@
         <button type="submit" class="button-selection" (click)="showPreviousProfiles()">Précédent</button>
         <div class="profile-list">
             <div class="profile" *ngFor="let profile of profileList">
-                <app-profiles-profile [profile]="profile" (profileSelected)="profileSelected($event)"></app-profiles-profile>
+                <app-profiles-profile [profile]="profile"
+                                      (profileSelected)="profileSelected($event)"></app-profiles-profile>
             </div>
         </div>
         <button type="submit" class="button-selection" (click)="showNextProfiles()">Suivant</button>
@@ -13,3 +14,7 @@
         <button type="submit" class="button-card" [routerLink]="['/home-page']">Retour</button>
     </div>
 </section>
+<figure id="adminAccount" [routerLink]="['/admin-quiz-list']">
+    <img src="assets/Logo_admin.png" alt="Logo compte administrateur">
+    <figcaption>Compte</figcaption>
+</figure>
