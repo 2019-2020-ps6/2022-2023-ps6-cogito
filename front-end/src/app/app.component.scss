@@ -1,8 +1,9 @@
 @import "../styles/variables.scss";
 
-
 .main-content {
-    padding: 0 1em 0 1em;
+    height: 100vh;
+    min-height: $min-page-height;
+    min-width: $min-page-width;
 }
 
 #presentation {
@@ -17,10 +18,4 @@
 
 h2 {
     color: black;
-}
-
-.main-content {
-    height: 100vh;
-    min-height: $min-page-height;
-    min-width: $min-page-width;
 }
