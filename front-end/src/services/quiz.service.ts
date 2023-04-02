@@ -37,6 +37,7 @@ export class QuizService {
 
   addQuiz(quiz: Quiz) {
     if(quiz.id === undefined || quiz.id === -1){
+      console.log(quiz);
       quiz.id = this.quizzes.length + 1;
     }
     this.quizzes.push(quiz);
@@ -70,6 +71,9 @@ export class QuizService {
     return this.quizzes.find((quiz) => quiz === quiz)?.questions.find((question) => question.id === id);
   }
   updateQuiz(quiz: Quiz) {
+    if(quiz.id === undefined || quiz.id === -1){
+      this.addQuiz(quiz);
+    }
     let index = this.quizzes.findIndex((q) => q.id === quiz.id);
     this.quizzes[index] = quiz;
     this.quizzes$.next(this.quizzes);

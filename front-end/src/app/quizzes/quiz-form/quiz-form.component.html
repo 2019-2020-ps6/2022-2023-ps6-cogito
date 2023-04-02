@@ -24,6 +24,7 @@
   <div *ngIf="state===enumState.QUESTIONS" class="center-div">
     <h2>Ajout / suppression de question pour le quiz : {{this.quiz?.name}}</h2>
     <app-question-list [quiz]="quiz"></app-question-list>
-    <button [routerLink]="['/add-question/', this.quiz?.id]">Ajouter une nouvelle question</button>
+    <button *ngIf="type==='update'" [routerLink]="['/add-question/', this.quiz?.id]">Ajouter une nouvelle question</button>
+    <button *ngIf="type==='create'" [routerLink]="['/add-question']">Ajouter une nouvelle question</button>
   </div>
 </div>

@@ -90,9 +90,10 @@ export class QuizFormComponent implements OnInit {
       this.quiz = this.quizForm.getRawValue() as Quiz; 
       this.quiz.questions = questions;
       this.quiz.id = id;
-      //this.quizService.setSelected(this.quiz);
+      this.quizService.setSelected(this.quiz);
     }
     this.quiz = this.quizService.quizSelected$.value;
+    console.log(this.quiz);
     this.state = state;
   }
 

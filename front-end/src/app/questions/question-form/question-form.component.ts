@@ -30,7 +30,6 @@ export class QuestionFormComponent implements OnInit {
       this.quiz = quiz;
     });
     const id = this.route.snapshot.paramMap.get('id');
-    console.log(id);
     if (id != null) {
       this.type = 'edit';
     }
@@ -38,7 +37,6 @@ export class QuestionFormComponent implements OnInit {
     if (quizId != null) {
       this.type = 'create';
     }
-    console.log(this.quiz)
     this.question = this.quiz.questions.find(q => q.id == parseInt(id as string)) as Question;
     this.questionForm = this.formBuilder.group({
       label: [this.question.label, Validators.required],
@@ -115,8 +113,6 @@ export class QuestionFormComponent implements OnInit {
   }
 
   deleteAnswer(index : number): void {
-    console.log('delete answer', index);
     this.answers.removeAt(index);
-    console.log(this.answers);
   }
 }
