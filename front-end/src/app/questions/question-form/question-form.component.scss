@@ -2,15 +2,17 @@
   display: flex;
   justify-content: flex-start;
   height: 80vh;
+  margin-bottom: 10px;
 }
 
 .left-part {
   height: 80vh;
   width: 15%;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   flex-direction: column;
   margin-left: 10px;
+  margin-bottom: 10px;
 }
 
 .button-add {
