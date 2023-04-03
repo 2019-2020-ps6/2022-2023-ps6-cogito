@@ -20,6 +20,7 @@ export class AdminQuizListComponent implements OnInit {
 
 
     ngOnInit(): void {
+        console.log(this.quizList);
     }
 
     quizSelected(selected: boolean): void {

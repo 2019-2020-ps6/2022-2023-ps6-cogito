@@ -28,8 +28,8 @@ export class QuestionFormComponent implements OnInit {
 
     private initializeQuestionForm(): void {
         this.questionForm = this.formBuilder.group({
-            label: ["", Validators.required],
-            answers: this.formBuilder.array([])
+            title: ["", Validators.required],
+            quizAnswerList: this.formBuilder.array([])
         });
     }
 
@@ -48,11 +48,11 @@ export class QuestionFormComponent implements OnInit {
     }
     this.question = this.quiz.quizQuestionList.find(q => q.id == parseInt(id as string)) as QuizQuestion;
     this.questionForm = this.formBuilder.group({
-      label: [this.question.title, Validators.required],
-      answers: this.formBuilder.array([])
+      title: [this.question.title, Validators.required],
+      quizAnswerList: this.formBuilder.array([])
     });
     this.question.quizAnswerList.forEach(a => {
-          this.answers.push(this.formBuilder.group({
+          this.quizAnswerList.push(this.formBuilder.group({
             value: a.value,
             isCorrect: a.isCorrect,
           }));
@@ -60,9 +60,9 @@ export class QuestionFormComponent implements OnInit {
     );
   }
 
-  get answers(): FormArray {
+  get quizAnswerList(): FormArray {
     if (this.questionForm)
-      return this.questionForm.get('answers') as FormArray;
+      return this.questionForm.get('quizAnswerList') as FormArray;
     else
       return this.formBuilder.array([]);
   }
@@ -75,7 +75,7 @@ export class QuestionFormComponent implements OnInit {
     }
 
     addAnswer(): void {
-        this.answers.push(this.createAnswer());
+        this.quizAnswerList.push(this.createAnswer());
     }
 
   addQuestion(): void {
@@ -103,6 +103,7 @@ export class QuestionFormComponent implements OnInit {
             this.quiz.quizQuestionList[this.quiz.quizQuestionList.findIndex(q => q.id == this.question.id)] = question;
           }
           this.initializeQuestionForm();
+          console.log(this.quiz);
           this.quizService.setSelected(this.quiz.id);
         }
       }
@@ -110,6 +111,6 @@ export class QuestionFormComponent implements OnInit {
   }
 
   deleteAnswer(index : number): void {
-    this.answers.removeAt(index);
+    this.quizAnswerList.removeAt(index);
   }
 }
