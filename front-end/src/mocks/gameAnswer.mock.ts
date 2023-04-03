@@ -75,7 +75,7 @@ export const INS_Q4_2: GameAnswer = {
 }
 export const INS_Q4_3: GameAnswer = {
     id: 12,
-    value: "ACORDEON",
+    value: "ACCORDEON",
     isCorrect: true,
     picture: undefined
 }
