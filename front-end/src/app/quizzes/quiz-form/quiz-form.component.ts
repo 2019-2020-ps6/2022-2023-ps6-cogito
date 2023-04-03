@@ -57,7 +57,8 @@ export class QuizFormComponent implements OnInit {
       this.quiz = this.updatableQuiz;
       this.quizService.setSelected(this.updatableQuiz?.id);
       this.quizForm = this.formBuilder.group({
-        title: [this.quiz?.title]
+        title: [this.quiz?.title],
+        picture: [this.quiz?.picture]
       });
     }
 
