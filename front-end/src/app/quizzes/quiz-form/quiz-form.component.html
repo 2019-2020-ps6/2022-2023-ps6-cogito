@@ -19,6 +19,7 @@
         Picture :
         <input type="text" placeholder="Entrer lien d'une photo pour le quiz " value = "{{this.quiz?.picture}}" formControlName="picture">
       </div>
+      <img class="picture" src="{{this.quiz?.picture}}" alt="">
     </form>
   </div>
   <div *ngIf="state===enumState.QUESTIONS" class="center-div">
