@@ -75,3 +75,13 @@
       }
     }
   }
+
+  .quiz-card__button{
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+
+    &:hover{
+        color: #ff0000;
+    }
+  }

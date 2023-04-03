@@ -9,10 +9,12 @@
         {{i}} - {{answer.value}} <ng-container *ngIf="answer.isCorrect"><i class="far fa-check-square"></i></ng-container> <br>
     </div>
     -->
-    <button class="button-card" [routerLink]="['/question-form/', this.question === undefined ? '' : this.question.id]">
-        <i class="fa-solid fa-pen"></i>
-    </button>
-    <button class="button-card" (click)="delete()">
-        <i class="fas fa-trash-alt"></i>
-    </button>
+    <div class="buttons">
+        <button class="button-card" [routerLink]="['/question-form/', this.question === undefined ? '' : this.question.id]">
+            <i class="fa-solid fa-pen"></i>
+        </button>
+        <button class="button-card" (click)="delete()">
+            <i class="fas fa-trash-alt"></i>
+        </button>
+    </div>
 </div>
