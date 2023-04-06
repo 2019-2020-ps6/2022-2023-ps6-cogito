@@ -1,49 +1,42 @@
-import { Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
-import { Profile } from '../../../models/profile.model';
-import {RouterLink} from '@angular/router';
+import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
+
+import { Profile } from "src/models/profile.model";
 
 @Component({
-  selector: 'app-profile',
-  templateUrl: './profile.component.html',
-  styleUrls: ['./profile.component.scss']
+    selector: "app-profiles-profile",
+    templateUrl: "./profile.component.html",
+    styleUrls: ["./profile.component.scss"]
 })
 export class ProfileComponent implements OnInit {
+    @Input()
+    profile: Profile | undefined;
 
-  /**
-   * Input here could be undefined, if the parent component doesn't give any quiz.
-   * If you remove `undefined`, you will have an error saying:
-   * "Property 'quiz' has no initializer and is not definitely assigned in the constructor."
-   * We can also defined the initial value of the quiz in the constructor.
-   */
-  @Input()
-  profile: Profile | undefined;
+    @Output()
+    profileSelected: EventEmitter<boolean> = new EventEmitter<boolean>();
 
-  @Output()
-  profileSelected: EventEmitter<boolean> = new EventEmitter<boolean>();
+    @Output()
+    profileDeleted: EventEmitter<Profile> = new EventEmitter<Profile>();
 
-  @Output()
-  profileDeleted: EventEmitter<Profile> = new EventEmitter<Profile>();
+    @Output()
+    profileEdited: EventEmitter<Profile> = new EventEmitter<Profile>();
 
-  @Output()
-  profileEdited: EventEmitter<Profile> = new EventEmitter<Profile>();
 
-  constructor() {
-  }
+    constructor() { }
 
-  ngOnInit() {
-  }
 
-  selectProfile() {
-    this.profileSelected.emit(true);
-  }
+    ngOnInit() { }
 
-  deleteProfile() {
-    console.log("this.deleteProfile");
-    this.profileDeleted.emit(this.profile);
-  }
+    selectProfile(): void {
+        this.profileSelected.emit(true);
+    }
 
-  editProfile(){
-    console.log("this.editProfile");
-    this.profileEdited.emit(this.profile);
-  }
+    deleteProfile(): void {
+        console.log("this.deleteProfile");
+        this.profileDeleted.emit(this.profile);
+    }
+
+    editProfile(): void {
+        console.log("this.editProfile");
+        this.profileEdited.emit(this.profile);
+    }
 }

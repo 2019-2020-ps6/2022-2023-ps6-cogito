@@ -1,49 +1,40 @@
-import { Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
-import { Quiz } from '../../../models/quiz.model';
-import {RouterLink} from '@angular/router';
+import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
+
+import { Quiz } from "../../../models/quiz.model";
 
 @Component({
-  selector: 'app-quiz',
-  templateUrl: './quiz.component.html',
-  styleUrls: ['./quiz.component.scss']
+    selector: "app-quizzes-quiz",
+    templateUrl: "./quiz.component.html",
+    styleUrls: ["./quiz.component.scss"]
 })
 export class QuizComponent implements OnInit {
+    @Input()
+    quiz: Quiz | undefined;
 
-  /**
-   * Input here could be undefined, if the parent component doesn't give any quiz.
-   * If you remove `undefined`, you will have an error saying:
-   * "Property 'quiz' has no initializer and is not definitely assigned in the constructor."
-   * We can also defined the initial value of the quiz in the constructor.
-   */
-  @Input()
-  quiz: Quiz | undefined;
+    @Output()
+    quizSelected: EventEmitter<boolean> = new EventEmitter<boolean>();
 
-  @Output()
-  quizSelected: EventEmitter<boolean> = new EventEmitter<boolean>();
+    @Output()
+    quizDeleted: EventEmitter<Quiz> = new EventEmitter<Quiz>();
 
-  @Output()
-  quizDeleted: EventEmitter<Quiz> = new EventEmitter<Quiz>();
+    @Output()
+    quizEdited: EventEmitter<Quiz> = new EventEmitter<Quiz>();
 
-  @Output()
-  quizEdited: EventEmitter<Quiz> = new EventEmitter<Quiz>();
+    constructor() { }
 
-  constructor() {
-  }
+    ngOnInit() { }
 
-  ngOnInit() {
-  }
+    selectQuiz() {
+        this.quizSelected.emit(true);
+    }
 
-  selectQuiz() {
-    this.quizSelected.emit(true);
-  }
+    deleteQuiz() {
+        console.log("this.deleteQuiz");
+        this.quizDeleted.emit(this.quiz);
+    }
 
-  deleteQuiz() {
-    console.log("this.deleteQuiz");
-    this.quizDeleted.emit(this.quiz);
-  }
-
-  editQuiz(){
-    console.log("this.editQuiz");
-    this.quizEdited.emit(this.quiz);
-  }
+    editProfile() {
+        console.log("this.editProfile");
+        this.quizEdited.emit(this.quiz);
+    }
 }

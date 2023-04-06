@@ -1,78 +1,33 @@
-.quiz-card {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    width: 75%;
-    margin: 10px auto;
-  
-    &__name {
-      background-color: orange;
-      border: 2px solid black;
-      border-radius: 25px;
-      color: black;
-      cursor: pointer;
-      font-size: 1.5rem;
-      padding: 10px 20px;
-      transition: all 0.3s ease-in-out;
-      flex: 3;
-  
-      &:hover {
-        background-color: orangered;
-        border-color: black;
-        color: black;
-      }
-    }
-  
-    &__buttons {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      flex: 1;
-      margin-left: -20px;
-  
-      &__button {
-        width: 50px;
-        height: 50px;
-        margin-top: 5px;
-        border-radius: 50%;
-        cursor: pointer;
-        transition: all 0.3s ease-in-out;
-  
-        &--delete, &--select {
-          background-color: white;
-          border: 2px solid #555;
-          border-radius: 50%;
-          color: #555;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          font-size: 1.5rem;
-          transition: all 0.3s ease-in-out;
-  
-          &:hover {
-            background-color: #555;
-            color: white;
-            border-color: #555;
-          }
-        }
-  
-        &--delete {
-          background-color: red;
-  
-          &:hover {
-            background-color: darkred;
-          }
-        }
-  
-        &--select {
-          background-color: green;
-  
-          &:hover {
-            background-color: darkgreen;
-          }
-        }
-      }
-    }
-  }
-  
+@import "../../../styles/variables.scss";
+
+.quiz {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 25vh;
+  min-height: 190px;
+  width: 20vh;
+  min-width: 200px;
+  margin: 1vh;
+  font-size: $normal-size;
+}
+
+.quiz img {
+  max-height: 80%;
+  max-width: 80%;
+  color: white;
+  background-color: black;
+  transition: all 0.1s ease-in-out;
+}
+
+.quiz img:hover {
+  border: 4px solid black;
+}
+
+.quiz figcaption {
+  text-align: center;
+}
+
+.quiz:hover {
+  cursor: pointer;
+}

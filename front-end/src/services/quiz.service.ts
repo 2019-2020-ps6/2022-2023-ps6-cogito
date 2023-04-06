@@ -1,100 +1,100 @@
-import { Question } from 'src/models/question.model';
-import { Injectable } from '@angular/core';
-import { BehaviorSubject, Subject } from 'rxjs';
-import { Quiz } from '../models/quiz.model';
-import { QUIZ_LIST } from '../mocks/quiz-list-with-id.mock';
+import { Injectable } from "@angular/core";
+import { BehaviorSubject, Subject } from "rxjs";
+import { QUIZZES_MUSIQUE } from "src/mocks/quiz.mock";
+import { Quiz } from "src/models/quiz.model";
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: "root"
 })
 export class QuizService {
-  /**
-   * Services Documentation:
-   * https://angular.io/docs/ts/latest/tutorial/toh-pt4.html
-   */
-
-   /**
-    * The list of quiz.
-    * The list is retrieved from the mock.
-    */
-  private quizzes: Quiz[] = QUIZ_LIST;
-  private searchTerms = new Subject<string>();
-
-  /**
-   * Observable which contains the list of the quiz.
-   * Naming convention: Add '$' at the end of the variable name to highlight it as an Observable.
-   */
-  public quizzes$: BehaviorSubject<Quiz[]> = new BehaviorSubject(QUIZ_LIST);
-
-  public quizSelected$: BehaviorSubject<Quiz> = new BehaviorSubject<Quiz>({} as Quiz);
+    private quizzes: Quiz[];
+    private quizzesCopy: Quiz[];
+    public startIndex: number = 0;
+    public endIndex: number;
+    public quizzes$: BehaviorSubject<Quiz[]>;
+    public quizSelected$: Subject<Quiz> = new Subject<Quiz>();
+    public start = true;
+    public start$: BehaviorSubject<boolean> = new BehaviorSubject(true);
+    public end = false;
+    public end$: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
 
-  public quizSelectedSubject: Subject<Quiz> = new Subject<Quiz>();
-
-  constructor() {
-    this.quizSelected$.subscribe(this.quizSelectedSubject);
-  }
-
-  addQuiz(quiz: Quiz) {
-    if(quiz.id === undefined || quiz.id === -1){
-      console.log(quiz);
-      quiz.id = this.quizzes.length + 1;
-    }
-    this.quizzes.push(quiz);
-    this.quizzes$.next(this.quizzes);
-  }
-
-  deleteQuiz(quiz: Quiz) {
-    this.quizzes.forEach((value,index)=>{
-      if(value.name == quiz.name) this.quizzes.splice(index,1);
-    });
-
-    this.quizzes$.next(this.quizzes);
-  }
-
-  addQuestion(quiz: Quiz, question: Question) {
-  }
-
-  deleteQuestion(quiz: Quiz, question: Question) {
-    this.quizzes.forEach((value,index)=>{
-      if(value.name == quiz.name) this.quizzes[index].questions.forEach((value,index)=>{
-        if(value.label == question.label) this.quizzes[index].questions.splice(index,1);
-      });
-    });
-  }
-
-  getQuizById(id: number): Quiz | undefined {
-    return this.quizzes.find((quiz) => quiz.id === id);
-  }
-
-  getQuestionById(quiz: Quiz, id: number): Question | undefined {
-    return this.quizzes.find((quiz) => quiz === quiz)?.questions.find((question) => question.id === id);
-  }
-  updateQuiz(quiz: Quiz) {
-    if(quiz.id === undefined || quiz.id === -1){
-      this.addQuiz(quiz);
-    }
-    let index = this.quizzes.findIndex((q) => q.id === quiz.id);
-    this.quizzes[index] = quiz;
-    this.quizzes$.next(this.quizzes);
-  }
-
-  setSelected(idOrQuiz?: number | Quiz | null) {
-      if (idOrQuiz === null) {
-        this.quizSelected$.next({} as Quiz);
-        return;
-      }
-      let q:  Quiz | undefined;
-      if (typeof idOrQuiz === 'number') {
-        q = this.getQuizById(idOrQuiz);
-      } else {
-        q = idOrQuiz;
-      }
-      if (q !== undefined) {
-        this.quizSelected$.next(q);
-        this.quizSelectedSubject.next(q);
-      }
+    constructor() {
+        this.quizzes = QUIZZES_MUSIQUE;
+        this.quizzesCopy = QUIZZES_MUSIQUE;
+        this.quizzes$ = new BehaviorSubject(this.quizzes);
+        this.endIndex = this.quizzesCopy.length;
     }
 
+
+    sortQuizList() {
+        this.quizzes = this.quizzes.sort((a, b) => {
+            if (a.title < b.title) {
+                return -1;
+            }
+            else if (a.title > b.title) {
+                return 1;
+            }
+            else {
+                return 0;
+            }
+        });
+        this.quizzes$.next(this.quizzes);
+    }
+
+    getThe6() {
+        this.end$.next(false);
+
+        if (this.startIndex > this.endIndex) this.startIndex = 0;
+        if (this.startIndex < 0) {
+            this.startIndex = this.endIndex - (((this.endIndex / 6) - Math.floor(
+                this.endIndex / 6)) * 6);
+        }
+        if (this.startIndex + 6 > this.endIndex) {
+            this.end$.next(true);
+
+            this.quizzes = this.quizzesCopy.slice(this.startIndex, this.endIndex);
+        }
+        else {
+            this.quizzes = this.quizzesCopy.slice(this.startIndex, this.startIndex + 6);
+        }
+        this.quizzes$.next(this.quizzes);
+        if (this.startIndex == 0) {
+            this.start$.next(true);
+        }
+        else {
+            this.start$.next(false);
+        }
+    }
+
+    showNextQuizzes() {
+        this.startIndex += 6;
+        this.getThe6();
+    }
+
+    showPreviousQuizzes() {
+        this.startIndex -= 6;
+        //if(this.startIndex < 0) this.startIndex = 0;
+        this.getThe6();
+    }
+
+    getQuizById(id: number): Quiz | undefined {
+        return this.quizzes.find((quiz) => quiz.id === id);
+    }
+
+    updateQuiz(quiz: Quiz) {
+        console.log(quiz);
+        let index = this.quizzes.findIndex((q) => q.id === quiz.id);
+        console.log("index", index);
+        this.quizzes[index] = quiz;
+        console.log(this.quizzes);
+        this.quizzes$.next(this.quizzes);
+    }
+
+    setSelected(id: number) {
+        let q = { ...this.quizzes.find((quiz) => quiz.id === id) } as Quiz;
+        if (q != undefined) {
+            this.quizSelected$.next(q);
+        }
+    }
 }
-

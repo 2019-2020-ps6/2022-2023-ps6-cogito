@@ -1,5 +1,5 @@
 <div class="question-list">
-    <div class="question" *ngFor="let question of this.quiz?.questions">
-        <app-question [question]="question" (deleteQuestion)="deleteQuestion($event)"></app-question>
+    <div class="question" *ngFor="let question of this.quiz?.quizQuestionList">
+        <app-questions-question [question]="question" (deleteQuestion)="deleteQuestion($event)"></app-questions-question>
     </div>
-  </div>
+</div>

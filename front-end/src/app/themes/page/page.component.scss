@@ -1,0 +1,33 @@
+@import "../../../styles/variables.scss";
+
+.theme-page {
+  min-height: $min-section-height;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.theme-page-buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-content: center;
+  height: 10vh;
+  width: 10vw;
+  min-height: 50px;
+}
+
+.theme-page-buttons button {
+  font-size: $normal-size;
+  background-color: $orange;
+  padding: 5px;
+  height: $button-height;
+  min-height: $min-button-height;
+  width: $button-width;
+  min-width: $min-button-width;
+}
+
+.theme-page-buttons button:hover {
+  background-color: $light_orange;
+}

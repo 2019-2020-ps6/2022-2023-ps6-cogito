@@ -2,9 +2,8 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
 
-import { QuizService } from '../../../services/quiz.service';
+import { AdminQuizService as QuizService } from '../../../services/admin-quiz.service';
 import { Quiz } from '../../../models/quiz.model';
-import { QUIZ_LIST } from 'src/mocks/quiz-list.mock';
 
 @Component({
   selector: 'app-quiz-form',
@@ -38,8 +37,8 @@ export class QuizFormComponent implements OnInit {
 
   constructor(public quizService: QuizService, public formBuilder: FormBuilder) { 
     this.quizForm = this.formBuilder.group({
-      name: [''],
-      theme:['']
+      title: [''],
+      picture:['']
     });
 
   }
@@ -58,21 +57,21 @@ export class QuizFormComponent implements OnInit {
       this.quiz = this.updatableQuiz;
       this.quizService.setSelected(this.updatableQuiz?.id);
       this.quizForm = this.formBuilder.group({
-        name: [this.quiz?.name],
-        theme:[this.quiz?.theme]
+        title: [this.quiz?.title],
+        picture: [this.quiz?.picture]
       });
     }
 
-    this.quizService.quizSelected$.subscribe((quiz: Quiz) => {
+    this.quizService.selectedQuiz$.subscribe((quiz: Quiz) => {
       this.quiz = quiz;
     });
   }
 
   addQuiz(){
-    let questions = this.quiz?.questions || [];
+    let questions = this.quiz?.quizQuestionList || [];
     let id = this.quiz?.id || -1;
     this.quiz = this.quizForm.getRawValue() as Quiz;
-    this.quiz.questions = questions;
+    this.quiz.quizQuestionList = questions;
     this.quiz.id = id;
     if(this.quiz){
       if(this.type === this.enumType.CREATE)
@@ -80,19 +79,20 @@ export class QuizFormComponent implements OnInit {
       if(this.type === this.enumType.UPDATE)
         this.quizService.updateQuiz(this.quiz);
     }
+    console.log(this.quiz);
   }
 
   changeState(state: string){
     if(this.state === this.enumState.GENERAL){
-      let questions = this.quiz?.questions || [];
+      let questions = this.quiz?.quizQuestionList || [];
       let id = this.quiz?.id || -1;
 
       this.quiz = this.quizForm.getRawValue() as Quiz; 
-      this.quiz.questions = questions;
+      this.quiz.quizQuestionList = questions;
       this.quiz.id = id;
       this.quizService.setSelected(this.quiz);
     }
-    this.quiz = this.quizService.quizSelected$.value;
+    this.quiz = this.quizService.selectedQuiz$.value;
     console.log(this.quiz);
     this.state = state;
   }

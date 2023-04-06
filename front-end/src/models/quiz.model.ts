@@ -1,8 +1,8 @@
-import { Question } from './question.model';
+import { QuizQuestion } from "./quizQuestion.model";
 
 export interface Quiz {
     id: number;
-    name: string;
-    theme?: string;
-    questions: Question[];
+    title: string;
+    picture: string;
+    quizQuestionList: QuizQuestion[];
 }

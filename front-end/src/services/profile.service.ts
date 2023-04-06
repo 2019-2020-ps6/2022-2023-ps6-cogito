@@ -1,100 +1,96 @@
-import { Injectable } from '@angular/core';
-import { BehaviorSubject, Subject } from 'rxjs';
-import { Profile } from '../models/profile.model';
-import { PROFILE_LIST } from '../mocks/profile-list-with-id.mock';
+import { Injectable } from "@angular/core";
+import { BehaviorSubject, Subject } from "rxjs";
+import { Profile } from "../models/profile.model";
+import { PROFILE_LIST } from "../mocks/profile.mock";
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: "root"
 })
 export class ProfileService {
-  /**
-   * Services Documentation:
-   * https://angular.io/docs/ts/latest/tutorial/toh-pt4.html
-   */
+    private profiles: Profile[] = PROFILE_LIST;
+    private profilesCopy: Profile[] = PROFILE_LIST;
+    public startIndex: number = 0;
+    public endIndex: number = this.profilesCopy.length;
+    public profiles$: BehaviorSubject<Profile[]> = new BehaviorSubject(PROFILE_LIST);
+    public profileSelected$: Subject<Profile> = new Subject();
+    public start = true;
+    public start$: BehaviorSubject<boolean> = new BehaviorSubject(true);
+    public end = false;
+    public end$: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
-   /**
-    * The list of quiz.
-    * The list is retrieved from the mock.
-    */
-  private profiles: Profile[] = PROFILE_LIST;
-  private profilesCopy: Profile[] = PROFILE_LIST;
-  public startIndex: number = 0;
-  public endIndex: number = this.profilesCopy.length;
-
-
-  /**
-   * Observable which contains the list of the quiz.
-   * Naming convention: Add '$' at the end of the variable name to highlight it as an Observable.
-   */
-  public profiles$: BehaviorSubject<Profile[]> = new BehaviorSubject(PROFILE_LIST);
-
-  public profileSelected$: Subject<Profile> = new Subject();
-
-  constructor() {
-  }
-
-  sortProfileList() {
-    this.profiles = this.profiles.sort((a, b) => {
-      if (a.name < b.name) {
-        return -1;
-      } else if (a.name > b.name) {
-        return 1;
-      } else {
-        return 0;
-      }
-    });
-    this.profiles$.next(this.profiles);
-  }
-
-  getThe6() {
-    if(this.startIndex > this.endIndex) this.startIndex = 0;
-    if(this.startIndex+6 > this.endIndex){
-      this.profiles = this.profilesCopy.slice(this.startIndex, this.endIndex);
-    }else{
-      this.profiles = this.profilesCopy.slice(this.startIndex, this.startIndex + 6);
+    constructor() {
     }
-    this.profiles$.next(this.profiles);
-}
 
-showNextProfiles() {
-    this.startIndex += 6;
-    this.getThe6();
-}
+    sortProfileList() {
+        this.profiles = this.profiles.sort((a, b) => {
+            if (a.name < b.name) {
+                return -1;
+            }
+            else if (a.name > b.name) {
+                return 1;
+            }
+            else {
+                return 0;
+            }
+        });
+        this.profiles$.next(this.profiles);
+    }
 
-showPreviousProfiles() {
-  this.startIndex -= 6;
-  if(this.startIndex < 0) this.startIndex = 0;
-  this.getThe6();
-}
+    getThe6() {
+        this.end$.next(false);
+        if (this.startIndex > this.endIndex) {
+            this.startIndex = 0;
+        }
+        if (this.startIndex < 0) {
+            this.startIndex = this.endIndex - (((this.endIndex / 6) - Math.floor(
+                this.endIndex / 6)) * 6);
+        }
+        if (this.startIndex + 6 > this.endIndex) {
+            this.end$.next(true);
+            this.profiles = this.profilesCopy.slice(this.startIndex, this.endIndex);
+        }
+        else {
+            this.profiles = this.profilesCopy.slice(this.startIndex, this.startIndex + 6);
+        }
+        this.profiles$.next(this.profiles);
+        if (this.startIndex == 0) {
+            this.start$.next(true);
+        }
+        else {
+            this.start$.next(false);
+        }
 
+    }
 
-  deleteProfile(quiz: Profile) {
-    this.profiles.forEach((value,index)=>{
-      if(value.name == quiz.name) this.profiles.splice(index,1);
-    });
+    showNextProfiles() {
+        this.startIndex += 6;
+        this.getThe6();
+    }
 
-    this.profiles$.next(this.profiles);
-    console.log("ProfileService DELETE");
-  }
+    showPreviousProfiles() {
+        this.startIndex -= 6;
+        //if(this.startIndex < 0) this.startIndex = 0;
+        this.getThe6();
+    }
 
-  getProfileById(id: number): Profile | undefined {
-    return this.profiles.find((profile) => profile.id === id);
-  }
+    getProfileById(id: number): Profile | undefined {
+        return this.profiles.find((profile) => profile.id === id);
+    }
 
-  updateProfile(profile: Profile) {
-    console.log(profile)
-    let index = this.profiles.findIndex((p) => p.id === profile.id);
-    console.log("index",index);
-    this.profiles[index] = profile;
-    console.log(this.profiles)
-    this.profiles$.next(this.profiles);
-  }
+    updateProfile(profile: Profile) {
+        console.log(profile);
+        let index = this.profiles.findIndex((p) => p.id === profile.id);
+        console.log("index", index);
+        this.profiles[index] = profile;
+        console.log(this.profiles);
+        this.profiles$.next(this.profiles);
+    }
 
-  setSelected(id: number) {
-  
-    let p ={...this.profiles.find((profile) => profile.id === id)} as Profile;
-    if(p != undefined)
-      this.profileSelected$.next(p);
-  }
+    setSelected(id: number) {
+        let p = { ...this.profiles.find((profile) => profile.id === id) } as Profile;
+        if (p != undefined) {
+            this.profileSelected$.next(p);
+        }
+    }
 }
 

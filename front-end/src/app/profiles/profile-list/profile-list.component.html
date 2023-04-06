@@ -1,20 +1,22 @@
-<header>
-    Liste des profils
-</header>
-
 <section>
-
-<div class="profile-list-selection">   
-    <button type="submit" class="button-selection" (click)="showPreviousProfiles()">Précédent</button>
-    <div class="profile-list">
-        <div class="profile" *ngFor="let profile of profileList">
-            <app-profile [profile]="profile" (profileSelected)="profileSelected($event)"> </app-profile>
+    <div class="profile-list-selection">
+        <button *ngIf="!start" type="submit" class="button-selection" (click)="showPreviousProfiles()">Précédent</button>
+        <div [ngStyle]="{'margin-left': start ? '22vw' : '0', 'margin-right': end ? '22vw' : '0'}" class="profile-list">
+            <div class="profile" *ngFor="let profile of profileList">
+                <app-profiles-profile [profile]="profile" (profileSelected)="profileSelected($event)"></app-profiles-profile>
+            </div>
         </div>
-    </div> 
-    <button type="submit" class="button-selection" (click)="showNextProfiles()">Suivant</button>
+        <button *ngIf="!end" type="submit" class="button-selection" (click)="showNextProfiles()">Suivant</button>
+    </div>
+</section>
+
+<div [ngStyle]="{'margin-top': profileList.length < 4 ? '26.6vh' : '0'}" class="theme-page-buttons">
+    <div class="button-profile-form">
+        <button type="submit" class="button-card" [routerLink]="['/home-page']">Retour</button>
+    </div>
 </div>
 
-<div class="button-profile-form">
-    <button type="submit" class="button-card" [routerLink]="['/quiz-list']">Retour</button>
-</div>
-</section>
+<figure id="adminAccount" [routerLink]="['/admin-quiz-list']">
+    <img src="assets/Logo_admin.png" alt="Logo compte administrateur">
+    <figcaption>Compte</figcaption>
+</figure>

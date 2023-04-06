@@ -1,13 +1,12 @@
-
-$white: white;
+// Colors
 $app-background-color: #E7ECF1;
 $blue: #88AED0;
 $light-blue: #C4E8F6;
 $yellow: #FFED00;
-$light-yellow: #fefbce;
+$light-yellow: #FEFBCE;
 $dark-yellow: #FFD700;
 $orange: #FF7800;
-$light-orange: #ffccaa;
+$light-orange: #FFCCAA;
 $light-green: #B0F2B6;
 $flash-green: #00FF19;
 $flash-red: #FF2323;
@@ -24,5 +23,15 @@ $normal-size: 20pt;
 $small-size: 15pt;
 
 // Sizes
-$min-page-height: 500px;
+$header-height: 20vh;
+$min-header-height: 60px;
+$min-page-height: 300px;
 $min-page-width: 300px;
+$min-section-height: 240px;
+$button-height: 9vh;
+$button-width: 15vw;
+$min-button-height: 45px;
+$min-button-width: 140px;
+
+// Properties
+$h2-border: solid 3px black;

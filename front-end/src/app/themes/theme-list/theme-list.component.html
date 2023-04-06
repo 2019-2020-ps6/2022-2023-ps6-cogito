@@ -1,0 +1,12 @@
+<section>
+    <div class="theme-list-selection">
+        <button *ngIf="!start" type="submit" class="button-selection" (click)="showPreviousThemes()">Précédent</button>
+        <div [ngStyle]="{'margin-left': start ? '25.3vw' : '0', 'margin-right': end ? '22.8vw' : '0'}"
+             class="theme-list">
+            <div class="theme" *ngFor="let theme of themeList">
+                <app-themes-theme [theme]="theme" (themeSelected)="themeSelected($event)"></app-themes-theme>
+            </div>
+        </div>
+        <button *ngIf="!end" type="submit" class="button-selection" (click)="showNextThemes()">Suivant</button>
+    </div>
+</section>

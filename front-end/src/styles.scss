@@ -7,7 +7,6 @@
   font: 500 20px/32px Roboto, "Helvetica Neue", sans-serif;
 }
 
-/* You can add global styles to this file, and also import other style files */
 html {
   height: 100vh;
   width: 100vw;
@@ -19,6 +18,22 @@ body {
   background-color: $app-background-color;
 }
 
+header h1 {
+  font-size: $h1-size;
+  font-weight: bold;
+  height: $header-height;
+  min-height: $min-header-height;
+  min-width: $min-page-width;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: $blue;
+}
+
+button {
+  border: solid 2px black;
+}
+
 button:hover {
-    cursor: pointer;
+  cursor: pointer;
 }
