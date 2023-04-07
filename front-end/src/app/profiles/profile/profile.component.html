@@ -1,0 +1,8 @@
+<div class="profile-card" *ngIf="profile">
+    <div class="profile-card__image">
+        <div class="profile-card__image-container">
+            <img routerLink="/theme-page" src="{{profile.picture}}" alt="Profile Picture de {{profile.name}}">
+        </div>
+        <div class="profile-card__name" routerLink="/theme-page">{{profile.name}}</div>
+    </div>
+</div> 

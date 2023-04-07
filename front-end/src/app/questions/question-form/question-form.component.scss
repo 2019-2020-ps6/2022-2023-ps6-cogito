@@ -1,0 +1,77 @@
+.page-form {
+  display: flex;
+  justify-content: flex-start;
+  height: 80vh;
+  margin-bottom: 10px;
+}
+
+.left-part {
+  height: 80vh;
+  width: 15%;
+  display: flex;
+  justify-content: flex-end;
+  flex-direction: column;
+  margin-left: 10px;
+  margin-bottom: 10px;
+}
+
+.button-add {
+  background-color: yellow;
+}
+
+.button-cancel {
+  background-color: orange;
+}
+
+label.title {
+  display: flex;
+  flex-direction: column;
+
+  .question-title {
+    width: 100vh;
+    padding: 2%;
+  }
+
+  margin-bottom: 10px;
+}
+
+button {
+  width: 100%;
+  height: 50px;
+  margin-top: 5px;
+  cursor: pointer;
+}
+
+.center-div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin: 0 auto;
+}
+
+
+.answer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+
+  label {
+    input {
+      margin-left: 10px;
+    }
+  }
+
+  button {
+    background-color: transparent;
+    border: none;
+    width: 10%;
+    cursor: pointer;
+
+    &:hover {
+      color: #FF0000;
+    }
+  }
+
+}

@@ -1,0 +1,44 @@
+@import '../../../styles/card.scss';
+
+head {
+  font-size: 35pt;
+  font-weight: bold;
+  height: 20vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: $blue;
+  position: relative;
+}
+
+body {
+  height: 80vh;
+}
+
+.quiz-list {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  
+  .quiz {
+    margin-bottom: 10px;
+  }
+}
+
+.button-card {
+  background-color: yellow;
+  color: black;
+  border: 1px solid black;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-weight: bold;
+}
+
+.button-quiz-form {
+  margin-top: 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}

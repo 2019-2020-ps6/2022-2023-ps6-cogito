@@ -1,0 +1,31 @@
+<div class="page-form">
+  <div class="left-part">
+    <div class="nav-buttons">
+      <button class="button {{this.state === enumState.GENERAL ? 'active' : ''}}" (click)="changeState(enumState.GENERAL)">General</button>
+      <button class="button {{this.state === enumState.QUESTIONS ? 'active' : ''}}" (click)="changeState(enumState.QUESTIONS)">Questions</button>
+    </div>
+    <div class="exit-buttons">
+      <button class="button-save" (click)="addQuiz()" [routerLink]="['/admin-quiz-list']">{{this.type === enumType.CREATE ? 'Créer le quiz' : 'Modifier le quiz'}}</button>
+      <button class="button-back" [routerLink]="['/admin-quiz-list']">Annuler</button>
+    </div>
+  </div>
+  <div *ngIf="state===enumState.GENERAL" class="center-div">
+    <form [formGroup]="quizForm">
+      <div class="input">
+        Nom :
+        <input type="text" placeholder="Entrer nom du quiz" value = "{{this.quiz?.title}}" formControlName="title">
+      </div>
+      <div class="input">
+        Image du quiz :
+        <input type="text" placeholder="Entrer lien d'une photo pour le quiz " value = "{{this.quiz?.picture}}" formControlName="picture">
+      </div>
+      <img class="picture" src="{{this.quiz?.picture}}" alt="">
+    </form>
+  </div>
+  <div *ngIf="state===enumState.QUESTIONS" class="center-div">
+    <h2>Ajout / suppression de question pour le quiz : {{this.quiz?.title}}</h2>
+    <app-questions-question-list [quiz]="quiz"></app-questions-question-list>
+    <button *ngIf="type==='update'" [routerLink]="['/add-question/', this.quiz?.id]">Ajouter une nouvelle question</button>
+    <button *ngIf="type==='create'" [routerLink]="['/add-question']">Ajouter une nouvelle question</button>
+  </div>
+</div>

@@ -1,0 +1,2 @@
+<button [ngClass]="{'ans-picture-present': answer.picture}" class="game-answer" (click)="selectAnswer()"
+        [style.background-image]="'url(' + answer.picture + ')'"> {{answer.value}} </button>
