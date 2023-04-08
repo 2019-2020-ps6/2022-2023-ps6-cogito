@@ -1,0 +1,13 @@
+@import "/src/styles/variables";
+
+header {
+    height: $header-height;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: $header-blue;
+}
+
+h1 {
+    font-size: $h1-size;
+}
