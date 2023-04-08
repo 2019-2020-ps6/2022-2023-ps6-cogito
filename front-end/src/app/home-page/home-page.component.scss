@@ -1,0 +1,5 @@
+@import "/src/styles/variables";
+
+button#begin {
+    width: calc($button_width + 3vw);
+}

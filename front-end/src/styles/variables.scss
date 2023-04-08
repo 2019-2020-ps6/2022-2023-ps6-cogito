@@ -1,9 +1,23 @@
 // Colors
-$app-background-color: #E7ECF1;
-$header-blue: #88AED0;
+$app_background_color: #E7ECF1;
+$header_blue: #88AED0;
+$h2_light_blue: #C4E8F6;
+$orange: #FF7800;
+$hover_light-orange: #FFCCAA;
 
 // Font-sizes
-$h1-size: 35pt;
+$h1_size: 35pt;
+$h2_size: 25pt;
+$normal_size: 20pt;
 
 // Sizes
-$header-height: 20vh;
+$header_height: 20vh;
+$page_height: 80vh;
+$h2_height: 16vh;
+$h2_width: 80vw;
+$button_height: 9vh;
+$button_width: 15vw;
+
+// Properties
+$h2_border: solid 3px black;
+$button_border: solid 2px black;
