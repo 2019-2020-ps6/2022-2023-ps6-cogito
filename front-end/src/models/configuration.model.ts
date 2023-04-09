@@ -5,7 +5,7 @@ export interface Configuration {
     name: string;
     description: string;
 
-    fontStyle: string;
+    fontFamily: string;
     fontSize: number;
     theme: string;
 
@@ -13,6 +13,7 @@ export interface Configuration {
     sounds: boolean;
     multipleAnswers: boolean;
     hints: boolean;
+    timeDisplayHint?: number;
     difficulty: Difficulty;
     againFalseQuestion: boolean;
 
