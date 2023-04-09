@@ -1,6 +1,10 @@
 <section class="question-result">
     <section class="question-result-content" [ngClass]="{'green-background': isCorrect, 'red-background': !isCorrect}">
         <h1>{{questionName}}</h1>
+        <span *ngIf="description">{{description}}</span>
+        <div class="desabs" *ngIf="!description"></div>
+        <img class="picture" *ngIf="despic" src="{{despic}}" alt="image de la question">
+        <div class="picabs" *ngIf="!despic"></div>
         <button (click)="continueClicked()">CONTINUER</button>
     </section>
 </section>

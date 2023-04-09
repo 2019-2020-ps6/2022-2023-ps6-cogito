@@ -1,18 +1,10 @@
 @import "../../../styles/variables";
-
-.question-result {
-  min-height: $min-page-height;
-  min-width: $min-page-width;
-  height: 100vh;
-  padding-top: 10vh;
-  padding-left: 10vh;
-  padding-right: 10vh;
-}
-
 .question-result-content {
+  padding: 2% 20% 2% 20%;
+  height: 100%;
+  width: 100%;
   min-height: $min-page-height;
   min-width: $min-page-width;
-  height: 90vh;
 }
 
 .question-result-content h1 {
@@ -24,19 +16,21 @@
   align-items: center;
 }
 
-.question-result-content button {
+.question-result-content span, .question-result-content img, .question-result-content button {
   display: block;
-  margin-top: 60vh;
-  margin-left: auto;
-  margin-right: auto;
-  font-size: $normal-size;
-  background-color: $orange;
-  padding: 5px;
-  height: 9vh;
-  min-height: 45px;
-  width: 15vw;
-  min-width: 140px;
-}
+  margin-bottom: 10px;
+  }
+
+  span {
+    display: block;
+    text-align: center;
+    padding: 5% 10% 2% 10%;
+    font-size: $h1-size - 10pt;
+    font-weight: bold;
+    min-width: $min-page-width;
+    display: flex;
+    justify-content: center;
+  }
 
 .question-result-content button:hover {
   background-color: $light_orange;
@@ -48,4 +42,37 @@
 
 .red-background {
   background-color: $red;
+}
+
+.picture {
+  height: 40vh;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.picabs {
+  margin-top: 42vh;
+  height: 0;
+  overflow: hidden;
+}
+
+.desabs {
+  margin-top: 13vh;
+  height: 0;
+  overflow: hidden;
+}
+
+.question-result-content button {
+  margin-top: 2vh;
+  font-size: $normal-size;
+  background-color: $orange;
+  padding: 10px;
+  height: $button-height;
+  min-height: $min-button-height;
+  width: $button-width;
+  min-width: $min-button-width;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }

@@ -8,4 +8,6 @@ export interface GameQuestion {
     endTime: Date | undefined;
     picture:string|undefined;
     sound:string|undefined;
+    corDescription: string|undefined;
+    picDescription: string|undefined;
 }

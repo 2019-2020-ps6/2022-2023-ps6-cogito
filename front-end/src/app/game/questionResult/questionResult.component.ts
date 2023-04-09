@@ -10,6 +10,8 @@ import { GameService } from "src/services/game.service";
 })
 export class GameQuestionResultComponent implements OnInit {
     public questionName: string = "";
+    public description:string|undefined;
+    public despic:string|undefined;
 
     @Input()
     public isCorrect: boolean = false;
@@ -20,6 +22,8 @@ export class GameQuestionResultComponent implements OnInit {
     constructor(public gameService: GameService) {
         this.gameService.gameInstance$.subscribe((gameInstance: GameInstance) => {
             this.questionName = gameInstance.gameQuestionList[this.gameService.currentQuestionIndex].title;
+            this.description = gameInstance.gameQuestionList[this.gameService.currentQuestionIndex].corDescription;
+            this.despic= gameInstance.gameQuestionList[this.gameService.currentQuestionIndex].picDescription;
         });
     }
 
