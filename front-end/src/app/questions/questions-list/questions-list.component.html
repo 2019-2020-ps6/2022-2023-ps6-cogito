@@ -1,0 +1,7 @@
+<ul>
+    <li *ngFor="let question of quiz?.questionList">
+        <a [routerLink]="['/questions', question.id]">
+        {{question.title}}
+        </a>
+    </li>
+</ul>
