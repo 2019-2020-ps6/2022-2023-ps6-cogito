@@ -1,5 +1,9 @@
 @import "/src/styles/variables";
 
+section#homePage {
+    justify-content: space-evenly;
+}
+
 button#begin {
     width: calc($button_width + 3vw);
 }
