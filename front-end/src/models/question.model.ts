@@ -11,6 +11,7 @@ export interface Question {
     difficulty: Difficulty;
     answerList: Answer[];
     defaultMediaType: MediaType;
+    defaultAnswersMediaType: MediaType;
     correcting: Correcting;
     hint?: string;
     picture?: string;
