@@ -1,8 +1,17 @@
 <section class="page">
-    <div class="divPrinc">
-        <p>Représente le carousel</p>
+    <div class="rowListContainer">
+        <button class="buttonPrev" (click)="prevDisplayPatients()">Précedent</button>
+        <div class="rowList">
+            <app-patient-patient [patient]="patient" *ngFor="let patient of displayPatientList"></app-patient-patient>
+        </div>
+        <button class="buttonNext" (click)="nextDisplayPatients()">Suivant</button>
     </div>
     <div class="divButtons">
         <button class="backButton" routerLink="/home-page">RETOUR</button>
     </div>
 </section>
+
+<figure id="adminAccount">
+    <img src="assets/pictures/logo_admin.png" alt="Logo compte administrateur">
+    <figcaption>Compte</figcaption>
+</figure>

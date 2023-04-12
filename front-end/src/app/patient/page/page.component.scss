@@ -1,2 +1,50 @@
 @import "/src/styles/variables";
 
+.rowListContainer {
+    height: 65vh;
+    min-height: 190px;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-wrap: wrap;
+    position: relative;
+}
+
+.buttonPrev, .buttonNext {
+    min-height: 35px;
+    min-width: 130px;
+}
+
+.rowList {
+    max-height: 90%;
+    width: 60vw;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    align-content: space-evenly;
+    flex-wrap: wrap;
+}
+
+#adminAccount {
+    position: absolute;
+    top: max(1vh, 1px);
+    right: max(1vh, 2px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#adminAccount img {
+    max-height: max(13vh, 13px);
+    max-width: max(13vh, 13px);
+}
+
+#adminAccount figcaption {
+    font-size: $normal_size;
+}
+
+#adminAccount:hover figcaption {
+    cursor: pointer;
+    font-weight: bold;
+}

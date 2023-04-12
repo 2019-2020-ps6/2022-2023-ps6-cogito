@@ -37,15 +37,6 @@ h2 {
     border: $h2_border;
 }
 
-.divPrinc {
-    height: 65vh;
-    width: 90vw;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-
 .divButtons {
     height: 15vh;
     width: 90vw;
@@ -57,6 +48,8 @@ button {
     font-size: $normal_size;
     height: $button_height;
     width: $button_width;
+    min-height: 40px;
+    min-width: 120px;
     background-color: $orange;
     border: $button_border;
 }
