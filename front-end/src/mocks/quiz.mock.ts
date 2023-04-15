@@ -7,7 +7,7 @@ export const QUIZ_INSTRUMENTS: Quiz = {
     questionList: [
         {
             id: 1,
-            title: "Quel est le nom de cet instrument ?",
+            title: "Question 2",
             difficulty: 1,
             answerList: [
                 {

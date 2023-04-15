@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { QuestionsListComponent} from './questions/questions-list/questions-list.component';
 import { Quiz } from '../models/quiz.model';
 import { QUIZZES_MUSIQUE } from '../mocks/quiz.mock';
+import { QuizService } from 'src/services/quiz.service';
 
 @Component({
     selector: 'app-root',
@@ -12,7 +13,8 @@ export class AppComponent {
 
     quiz : Quiz | undefined;
 
-    constructor() { 
+    constructor(private QuizService : QuizService) { 
         this.quiz = QUIZZES_MUSIQUE[0];
+        this.QuizService.selectQuiz(this.quiz);
     }
  }
