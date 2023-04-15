@@ -39,24 +39,17 @@ export class QuizService {
     return this.selectionQuestionSubject.asObservable();
   }
 
-  resetQuestion(): void {
-    this.selectedQuestion = this.oldSelectedQuestion;
-    this.selectionQuestionSubject?.next(this.selectedQuestion as Question);
-    const quiz = this.selectedQuiz;
-    if (!quiz || !quiz.questionList) {
-      return;
+  updateQuestion(question: Question): void {
+    const index = this.selectedQuiz?.questionList?.findIndex(q => q.id === question.id);
+    if (index !== undefined && index >= 0) {
+      const updatedQuestionList = [...this.selectedQuiz?.questionList as Question[]];
+      updatedQuestionList[index] = question;
+      this.selectedQuiz = {...this.selectedQuiz, questionList: updatedQuestionList} as Quiz;
+      this.selectionQuizSubject.next(this.selectedQuiz as Quiz);
     }
-    const questionIndex = quiz.questionList.findIndex(q => q.id === this.selectedQuestion?.id);
-    if (questionIndex === -1) {
-      return;
-    }
-    const updatedQuestion = quiz.questionList[questionIndex];
-    updatedQuestion.title = this.selectedQuestion?.title || '';
-    updatedQuestion.difficulty = this.selectedQuestion?.difficulty || 1;
-    updatedQuestion.hint = this.selectedQuestion?.hint || '';
-    updatedQuestion.defaultMediaType = this.selectedQuestion?.defaultMediaType || 0;
-    updatedQuestion.answerList = this.selectedQuestion?.answerList || [];
-    this.selectionQuizSubject.next(quiz);
-  } 
+  }
+  
+
+  
 
 }

@@ -19,7 +19,7 @@ export class QuestionFormComponent implements OnInit{
 
   ngOnInit(): void {
     this.quizService.getSelectedQuestion().subscribe(question => {
-      this.question = question;
+      this.question = {...question};
       if(Object.keys(this.question).length === 0) {
         this.type = "creation";
       }
@@ -35,13 +35,14 @@ export class QuestionFormComponent implements OnInit{
   }
 
   saveQuestion(): void {
+    if(this.type === "edition") {
+      this.quizService.updateQuestion(this.question as Question);
+    }
     this.quizService.selectQuestion(undefined);
   }
 
   cancelQuestion(): void {
-    if(this.type === "edition") {
-      this.quizService.resetQuestion();
-    }
+    this.quizService.selectQuestion(undefined);
   }
 
 }
