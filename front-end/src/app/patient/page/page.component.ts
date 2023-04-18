@@ -72,6 +72,10 @@ export class PatientPageComponent implements OnInit {
         this.nextDisplayPatients();
     }
 
+    hasNextOrPrevButtons(): boolean {
+        return this.nbDisplayPatients < this.patientList.length;
+    }
+
     nextDisplayPatients(): void {
         if (this.startDisplayInd == -1 || (this.startDisplayInd + this.nbDisplayPatients > this.patientList.length)) {
             this.startDisplayInd = 0;
