@@ -1,0 +1,12 @@
+<section class="page">
+    <div class="rowListContainer">
+        <button class="buttonPrev" *ngIf="hasNextOrPrevButtons()" (click)="prevDisplayThemes()">Précédent</button>
+        <div class="rowList">
+            <app-theme-theme [theme]="theme" *ngFor="let theme of displayThemeList"></app-theme-theme>
+        </div>
+        <button class="buttonNext" *ngIf="hasNextOrPrevButtons()" (click)="nextDisplayThemes()">Suivant</button>
+    </div>
+    <div class="divButtons">
+        <button class="backButton" routerLink="/patient-page">RETOUR</button>
+    </div>
+</section>
