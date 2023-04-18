@@ -6,7 +6,9 @@ import { AppComponent } from "./app.component";
 import { HeaderComponent } from "./header/header.component";
 import { HomePageComponent } from "./home-page/home-page.component";
 import { PatientPageComponent } from "./patient/page/page.component";
-import { PatientComponent } from './patient/patient/patient.component';
+import { PatientComponent } from "./patient/patient/patient.component";
+import { ThemeComponent } from "./theme/theme/theme.component";
+import { ThemePageComponent } from "./theme/page/page.component";
 
 @NgModule({
     declarations: [
@@ -14,7 +16,9 @@ import { PatientComponent } from './patient/patient/patient.component';
         HeaderComponent,
         HomePageComponent,
         PatientPageComponent,
-        PatientComponent
+        PatientComponent,
+        ThemePageComponent,
+        ThemeComponent
     ],
     imports: [
         BrowserModule,
