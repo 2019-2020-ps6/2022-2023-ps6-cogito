@@ -1,0 +1,12 @@
+<section class="page">
+    <div class="rowListContainer">
+        <button class="buttonPrev" *ngIf="hasNextOrPrevButtons()" (click)="prevDisplayQuizzes()">Précédent</button>
+        <div class="rowList">
+            <app-quiz-quiz [quiz]="quiz" *ngFor="let quiz of displayQuizList"></app-quiz-quiz>
+        </div>
+        <button class="buttonNext" *ngIf="hasNextOrPrevButtons()" (click)="nextDisplayQuizzes()">Suivant</button>
+    </div>
+    <div class="divButtons">
+        <button class="backButton" routerLink="/theme-page">RETOUR</button>
+    </div>
+</section>
