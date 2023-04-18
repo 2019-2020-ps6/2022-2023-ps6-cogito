@@ -7,8 +7,10 @@ import { HeaderComponent } from "./header/header.component";
 import { HomePageComponent } from "./home-page/home-page.component";
 import { PatientPageComponent } from "./patient/page/page.component";
 import { PatientComponent } from "./patient/patient/patient.component";
-import { ThemeComponent } from "./theme/theme/theme.component";
 import { ThemePageComponent } from "./theme/page/page.component";
+import { ThemeComponent } from "./theme/theme/theme.component";
+import { QuizPageComponent } from "./quiz/page/page.component";
+import { QuizComponent } from "./quiz/quiz/quiz.component";
 
 @NgModule({
     declarations: [
@@ -18,7 +20,9 @@ import { ThemePageComponent } from "./theme/page/page.component";
         PatientPageComponent,
         PatientComponent,
         ThemePageComponent,
-        ThemeComponent
+        ThemeComponent,
+        QuizPageComponent,
+        QuizComponent
     ],
     imports: [
         BrowserModule,
