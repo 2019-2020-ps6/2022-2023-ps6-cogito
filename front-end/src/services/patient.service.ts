@@ -10,7 +10,8 @@ import { Patient } from "../models/patient.model";
 export class PatientService {
     private patientList: Patient[] = PATIENT_LIST.sort((a, b) => a.name.localeCompare(b.name));
     public patientList$: BehaviorSubject<Patient[]> = new BehaviorSubject<Patient[]>(this.patientList);
-    public selectedPatient$: Subject<Patient> = new Subject<Patient>();
+    public selectedPatient$: BehaviorSubject<Patient | undefined>
+        = new BehaviorSubject<Patient | undefined>(undefined);
 
     constructor() {}
 
