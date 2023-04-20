@@ -8,7 +8,7 @@ import { Router, ActivationStart } from "@angular/router";
 })
 export class HeaderComponent implements OnInit {
     public noHeader: boolean = true;
-    private noHeaderRoutes: string[] = [];
+    private noHeaderRoutes: string[] = ["game-page"];
     public title: string = "";
 
     constructor(private router: Router) {}

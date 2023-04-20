@@ -11,6 +11,7 @@ import { ThemePageComponent } from "./theme/page/page.component";
 import { ThemeComponent } from "./theme/theme/theme.component";
 import { QuizPageComponent } from "./quiz/page/page.component";
 import { QuizComponent } from "./quiz/quiz/quiz.component";
+import { GamePageComponent } from "./game/page/page.component";
 
 @NgModule({
     declarations: [
@@ -22,7 +23,8 @@ import { QuizComponent } from "./quiz/quiz/quiz.component";
         ThemePageComponent,
         ThemeComponent,
         QuizPageComponent,
-        QuizComponent
+        QuizComponent,
+        GamePageComponent
     ],
     imports: [
         BrowserModule,
