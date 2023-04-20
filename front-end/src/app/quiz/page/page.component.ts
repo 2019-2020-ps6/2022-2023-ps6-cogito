@@ -1,7 +1,9 @@
 import { Component, HostListener, OnInit } from "@angular/core";
+import { Router } from "@angular/router";
 
 import { Quiz } from "src/models/quiz.model";
 import { QuizService } from "src/services/quiz.service";
+import { Theme } from "../../../models/theme.model";
 
 @Component({
     selector: "app-quiz-page",
@@ -16,7 +18,7 @@ export class QuizPageComponent implements OnInit {
     private margin!: number;
     private size!: number;
 
-    constructor(private quizService: QuizService) {
+    constructor(private quizService: QuizService, private router: Router) {
         this.quizService.quizList$.subscribe((quizList: Quiz[]): void => {
             this.quizList = quizList;
         });
@@ -91,5 +93,10 @@ export class QuizPageComponent implements OnInit {
         }
         this.displayQuizList = this.quizList
                                    .slice(this.startDisplayInd, this.startDisplayInd + remLenght);
+    }
+
+    selectQuiz(quiz: Quiz): void {
+        this.quizService.selectQuiz(quiz);
+        // this.router.navigateByUrl("/game-page");
     }
 }

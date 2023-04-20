@@ -15,7 +15,7 @@ export class QuizService {
     public quizList$: BehaviorSubject<Quiz[]> = new BehaviorSubject<Quiz[]>([]);
     private selectedPatient?: Patient;
     private selectedTheme?: Theme;
-    public selectedQuiz$: Subject<Quiz> = new Subject<Quiz>();
+    public selectedQuiz$: BehaviorSubject<Quiz | undefined> = new BehaviorSubject<Quiz | undefined>(undefined);
 
     constructor(private patientService: PatientService, private themeService: ThemeService) {
         this.patientService.selectedPatient$.subscribe((patient?: Patient): void => {
@@ -42,8 +42,12 @@ export class QuizService {
 
             this.quizList = (this.selectedPatient == undefined || theme == undefined)
                             ? [] : patientQuizList(this.selectedPatient, theme);
-            console.log(this.quizList);
             this.quizList$.next(this.quizList);
         });
+    }
+
+    selectQuiz(quiz: Quiz): void {
+        this.selectedQuiz$.next(quiz);
+        console.log("Quiz selected : ", quiz.title);
     }
 }

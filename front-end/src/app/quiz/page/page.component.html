@@ -2,7 +2,8 @@
     <div class="rowListContainer">
         <button class="buttonPrev" *ngIf="hasNextOrPrevButtons()" (click)="prevDisplayQuizzes()">Précédent</button>
         <div class="rowList">
-            <app-quiz-quiz [quiz]="quiz" *ngFor="let quiz of displayQuizList"></app-quiz-quiz>
+            <app-quiz-quiz *ngFor="let quiz of displayQuizList" [quiz]="quiz"
+                           (selectedQuiz)="selectQuiz($event)"></app-quiz-quiz>
         </div>
         <button class="buttonNext" *ngIf="hasNextOrPrevButtons()" (click)="nextDisplayQuizzes()">Suivant</button>
     </div>
