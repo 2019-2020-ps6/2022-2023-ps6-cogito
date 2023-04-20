@@ -1,4 +1,5 @@
 import { Component, HostListener, OnInit } from "@angular/core";
+import { Router } from "@angular/router";
 
 import { PatientService } from "src/services/patient.service";
 import { Patient } from "src/models/patient.model";
@@ -16,7 +17,7 @@ export class PatientPageComponent implements OnInit {
     private margin!: number;
     private size!: number;
 
-    constructor(private patientService: PatientService) {
+    constructor(private patientService: PatientService, private router: Router) {
         this.patientService.patientList$.subscribe((patientList: Patient[]): void => {
             this.patientList = patientList;
         });
@@ -28,7 +29,6 @@ export class PatientPageComponent implements OnInit {
 
     maxMargin(): void {
         this.margin = Math.max(window.innerWidth * 0.04, window.innerHeight * 0.04, 20);
-        console.log("marge: " + this.margin);
     }
 
     currentSize(): void {
@@ -41,10 +41,6 @@ export class PatientPageComponent implements OnInit {
         if (window.innerWidth < 700) {
             return 1;
         }
-        console.log("taille: " + this.size);
-        console.log("largeur: " + window.innerWidth);
-        console.log("conteneur: " + (window.innerWidth * 0.6));
-        console.log("nbRow: " + (window.innerWidth * 0.6) / this.size);
         return Math.max(1, Math.floor((window.innerWidth * 0.6) / this.size));
     }
 
@@ -52,10 +48,6 @@ export class PatientPageComponent implements OnInit {
         if (window.innerWidth < 700) {
             return 1;
         }
-        console.log("taille: " + (this.size + 32));
-        console.log("hauteur: " + window.innerHeight);
-        console.log("conteneur: " + (window.innerHeight * (0.65*0.9)));
-        console.log("nbCol: " + (window.innerHeight * (0.65*0.9)) / (this.size + 32));
         return Math.max(1, Math.floor((window.innerHeight * (0.65*0.9)) / (this.size + 32)));
     }
 
@@ -100,5 +92,10 @@ export class PatientPageComponent implements OnInit {
         }
         this.displayPatientList = this.patientList
                                       .slice(this.startDisplayInd, this.startDisplayInd + remLenght);
+    }
+
+    selectPatient(patient: Patient): void {
+        this.patientService.selectPatient(patient);
+        this.router.navigateByUrl("/theme-page");
     }
 }

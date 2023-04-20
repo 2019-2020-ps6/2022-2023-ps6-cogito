@@ -2,7 +2,6 @@ import { Injectable } from "@angular/core";
 import { BehaviorSubject, Subject } from "rxjs";
 
 import { PATIENT_LIST } from "../mocks/patient.mock";
-
 import { Patient } from "../models/patient.model";
 
 @Injectable({
@@ -15,5 +14,8 @@ export class PatientService {
 
     constructor() {}
 
-
+    selectPatient(patient: Patient): void {
+        this.selectedPatient$.next(patient);
+        console.log("Patient selected : ", patient.name);
+    }
 }

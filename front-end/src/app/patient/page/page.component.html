@@ -2,7 +2,8 @@
     <div class="rowListContainer">
         <button class="buttonPrev" *ngIf="hasNextOrPrevButtons()" (click)="prevDisplayPatients()">Précédent</button>
         <div class="rowList">
-            <app-patient-patient [patient]="patient" *ngFor="let patient of displayPatientList"></app-patient-patient>
+            <app-patient-patient *ngFor="let patient of displayPatientList" [patient]="patient"
+                                 (selectedPatient)="selectPatient($event)"></app-patient-patient>
         </div>
         <button class="buttonNext" *ngIf="hasNextOrPrevButtons()" (click)="nextDisplayPatients()">Suivant</button>
     </div>
