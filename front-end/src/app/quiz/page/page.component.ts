@@ -28,7 +28,6 @@ export class QuizPageComponent implements OnInit {
 
     maxMargin(): void {
         this.margin = Math.max(window.innerWidth * 0.04, window.innerHeight * 0.04, 20);
-        console.log("marge: " + this.margin);
     }
 
     currentSize(): void {
@@ -41,10 +40,6 @@ export class QuizPageComponent implements OnInit {
         if (window.innerWidth < 700) {
             return 1;
         }
-        console.log("taille: " + this.size);
-        console.log("largeur: " + window.innerWidth);
-        console.log("conteneur: " + (window.innerWidth * 0.6));
-        console.log("nbRow: " + (window.innerWidth * 0.6) / this.size);
         return Math.max(1, Math.floor((window.innerWidth * 0.6) / this.size));
     }
 
@@ -52,10 +47,6 @@ export class QuizPageComponent implements OnInit {
         if (window.innerWidth < 700) {
             return 1;
         }
-        console.log("taille: " + (this.size + 32));
-        console.log("hauteur: " + window.innerHeight);
-        console.log("conteneur: " + (window.innerHeight * (0.65*0.9)));
-        console.log("nbCol: " + (window.innerHeight * (0.65*0.9)) / (this.size + 32));
         return Math.max(1, Math.floor((window.innerHeight * (0.65*0.9)) / (this.size + 32)));
     }
 

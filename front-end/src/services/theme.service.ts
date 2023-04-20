@@ -10,13 +10,13 @@ import { PatientService } from "./patient.service";
     providedIn: "root"
 })
 export class ThemeService {
-    private themeList!: Theme[];
+    private themeList: Theme[] = [];
     public themeList$: BehaviorSubject<Theme[]> = new BehaviorSubject<Theme[]>([]);
-    private selectedPatient: Patient | undefined;
-    public selectedTheme$: Subject<Theme> = new Subject<Theme>();
+    private selectedPatient?: Patient;
+    public selectedTheme$: BehaviorSubject<Theme | undefined> = new BehaviorSubject<Theme | undefined>(undefined);
 
     constructor(private patientService: PatientService) {
-        this.patientService.selectedPatient$.subscribe((patient: Patient): void => {
+        this.patientService.selectedPatient$.subscribe((patient: Patient | undefined): void => {
             this.selectedPatient = patient;
 
             function patientThemeList(patient: Patient): Theme[] {
@@ -31,8 +31,13 @@ export class ThemeService {
                 return themeList;
             }
 
-            this.themeList = patientThemeList(patient);
+            this.themeList = (patient == undefined) ? [] : patientThemeList(patient);
             this.themeList$.next(this.themeList);
         });
+    }
+
+    selectTheme(theme: Theme): void {
+        this.selectedTheme$.next(theme);
+        console.log("Theme selected : ", theme.title);
     }
 }

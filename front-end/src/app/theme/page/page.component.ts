@@ -1,7 +1,9 @@
 import { Component, HostListener, OnInit } from "@angular/core";
+import { Router } from "@angular/router";
 
+import { ThemeService } from "src/services/theme.service";
 import { Theme } from "src/models/theme.model";
-import { ThemeService } from "../../../services/theme.service";
+import { Patient } from "../../../models/patient.model";
 
 @Component({
     selector: "app-theme-page",
@@ -16,7 +18,7 @@ export class ThemePageComponent implements OnInit {
     private margin!: number;
     private size!: number;
 
-    constructor(private themeService: ThemeService) {
+    constructor(private themeService: ThemeService, private router: Router) {
         this.themeService.themeList$.subscribe((themeList: Theme[]): void => {
             this.themeList = themeList;
         });
@@ -91,5 +93,10 @@ export class ThemePageComponent implements OnInit {
         }
         this.displayThemeList = this.themeList
                                     .slice(this.startDisplayInd, this.startDisplayInd + remLenght);
+    }
+
+    selectTheme(theme: Theme): void {
+        this.themeService.selectTheme(theme);
+        this.router.navigateByUrl("/quiz-page");
     }
 }
