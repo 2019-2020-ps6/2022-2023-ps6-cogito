@@ -44,17 +44,25 @@ export class GameService {
                 if (this.gameQuiz == undefined || this.gameQuiz.quizId !== quiz.id) {
                     this.currentInd = -1;
                     this.gameQuiz = gameQuizInit(quiz.id);
-                    this.currentQuestion$.next(this.nextQuestion());
+                    this.nextQuestion();
                 }
             }
         });
     }
 
-    nextQuestion(): GameQuestion | undefined {
+    emptyGame(): void {
+        this.gameQuiz = undefined;
+        this.currentQuestion$.next(undefined);
+        this.currentInd = -1;
+    }
+
+    nextQuestion(): void {
+        let questionFound: boolean = false;
+
         if (this.selectedPatient != undefined && this.selectedQuiz != undefined && this.gameQuiz != undefined) {
             let nbQuestions: number = this.selectedQuiz.questionList.length;
 
-            while (this.currentInd < nbQuestions - 1) {
+            while (!questionFound && this.currentInd < nbQuestions - 1) {
                 let question: Question = this.selectedQuiz.questionList[++this.currentInd];
                 let configuration: Configuration = this.selectedPatient.configuration;
 
@@ -62,7 +70,7 @@ export class GameService {
                     let questionMedia: MediaType = this.getQuestionMedia(configuration, question);
                     let answerMedia: MediaType = this.getAnswerMedia(configuration, question);
 
-                    return {
+                    let gameQuestion: GameQuestion = {
                         id: -1,
                         questionId: question.id,
                         title: question.title,
@@ -75,10 +83,15 @@ export class GameService {
                         startTime: new Date(),
                         displayedHint: false
                     };
+                    questionFound = true;
+                    this.currentQuestion$.next(gameQuestion);
+                    this.gameQuiz.questionList.push(gameQuestion);
                 }
             }
         }
-        return undefined;
+        if (!questionFound) {
+            this.currentQuestion$.next(undefined);
+        }
     }
 
     getQuestionMedia(patientConfig: Configuration, question: Question): MediaType {
@@ -122,9 +135,20 @@ export class GameService {
         return MediaType.text;
     }
 
-    emptyGame(): void {
-        this.gameQuiz = undefined;
-        this.currentQuestion$.next(undefined);
-        this.currentInd = -1;
+    islastQuestion(): boolean {
+        if (this.selectedPatient != undefined && this.selectedQuiz != undefined && this.gameQuiz != undefined) {
+            let nbQuestions: number = this.selectedQuiz.questionList.length;
+            let questionInd: number = this.currentInd;
+
+            while (this.currentInd < nbQuestions - 1) {
+                let question: Question = this.selectedQuiz.questionList[++questionInd];
+                let configuration: Configuration = this.selectedPatient.configuration;
+
+                if (question.difficulty <= configuration.difficulty) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 }
