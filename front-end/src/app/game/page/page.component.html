@@ -1,1 +1,12 @@
-<p>page works!</p>
+<section class="questionPage">
+    <div *ngIf="question" class="questionTitle">
+        <h2>{{question.title}}</h2>
+    </div>
+    <div *ngIf="question" class="questionContent">
+        <div class="anwser" *ngFor="let answer of question.answerList">{{answer.value}}</div>
+    </div>
+    <div class="divButtons">
+        <button class="leaveButton" routerLink="/theme-page">QUITTER</button>
+        <button class="nextButton">SUIVANT</button>
+    </div>
+</section>

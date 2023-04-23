@@ -1,0 +1,23 @@
+@import "/src/styles/variables";
+
+.questionPage {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.questionTitle {
+    width: 100vw;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.questionContent {
+    height: 40vh;
+    width: 90vw;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: space-evenly;
+}
