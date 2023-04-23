@@ -3,7 +3,6 @@ import { Router } from "@angular/router";
 
 import { Quiz } from "src/models/quiz.model";
 import { QuizService } from "src/services/quiz.service";
-import { Theme } from "../../../models/theme.model";
 
 @Component({
     selector: "app-quiz-page",
