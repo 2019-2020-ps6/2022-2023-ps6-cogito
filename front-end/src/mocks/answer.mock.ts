@@ -142,3 +142,24 @@ export const ECH_Q1_4: Answer = {
 };
 
 export const ECH_Q1: Answer[] = [ECH_Q1_1, ECH_Q1_2, ECH_Q1_3, ECH_Q1_4];
+
+
+export const ECH_Q2_1: Answer = {
+    id: 22,
+    value: "6",
+    isCorrect: false
+};
+
+export const ECH_Q2_2: Answer = {
+    id: 23,
+    value: "8",
+    isCorrect: true
+};
+
+export const ECH_Q2_3: Answer = {
+    id: 24,
+    value: "10",
+    isCorrect: false
+};
+
+export const ECH_Q2: Answer[] = [ECH_Q2_1, ECH_Q2_2, ECH_Q2_3];

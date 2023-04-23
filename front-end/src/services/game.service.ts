@@ -25,6 +25,7 @@ export class GameService {
     constructor(private patientService: PatientService, private quizService: QuizService) {
         this.patientService.selectedPatient$.subscribe((patient?: Patient): void => {
             this.selectedPatient = patient;
+            this.emptyGame();
         });
 
         this.quizService.selectedQuiz$.subscribe((quiz?: Quiz): void => {
@@ -40,15 +41,20 @@ export class GameService {
             }
 
             if (quiz != undefined) {
-                this.gameQuiz = gameQuizInit(quiz.id);
-                this.currentQuestion$.next(this.nextQuestion());
+                if (this.gameQuiz == undefined || this.gameQuiz.quizId !== quiz.id) {
+                    this.currentInd = -1;
+                    this.gameQuiz = gameQuizInit(quiz.id);
+                    this.currentQuestion$.next(this.nextQuestion());
+                }
             }
         });
     }
 
     nextQuestion(): GameQuestion | undefined {
         if (this.selectedPatient != undefined && this.selectedQuiz != undefined && this.gameQuiz != undefined) {
-            if (this.currentInd < this.selectedQuiz.questionList.length - 1) {
+            let nbQuestions: number = this.selectedQuiz.questionList.length;
+
+            while (this.currentInd < nbQuestions - 1) {
                 let question: Question = this.selectedQuiz.questionList[++this.currentInd];
                 let configuration: Configuration = this.selectedPatient.configuration;
 
@@ -114,5 +120,11 @@ export class GameService {
             }
         }
         return MediaType.text;
+    }
+
+    emptyGame(): void {
+        this.gameQuiz = undefined;
+        this.currentQuestion$.next(undefined);
+        this.currentInd = -1;
     }
 }

@@ -1,5 +1,5 @@
 import { Difficulty, MediaType, Question } from "../models/question.model";
-import { CHA_Q1, CHA_Q2, ECH_Q1, INS_Q1, INS_Q2, INS_Q3 } from "./answer.mock";
+import { CHA_Q1, CHA_Q2, ECH_Q1, ECH_Q2, INS_Q1, INS_Q2, INS_Q3 } from "./answer.mock";
 
 export const QUESTION_INS1: Question = {
     id: 1,
@@ -61,4 +61,13 @@ export const QUESTION_ECH1: Question = {
     defaultAnswersMediaType: MediaType.text
 };
 
-export const QUESTIONS_ECH: Question[] = [QUESTION_ECH1];
+export const QUESTION_ECH2: Question = {
+    id: 7,
+    title: "Combien y a-t-il de pionts pour une seule couleur ?",
+    difficulty: Difficulty.moyenne,
+    answerList: ECH_Q2,
+    defaultMediaType: MediaType.text,
+    defaultAnswersMediaType: MediaType.text
+}
+
+export const QUESTIONS_ECH: Question[] = [QUESTION_ECH1, QUESTION_ECH2];
