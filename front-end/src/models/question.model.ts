@@ -12,7 +12,7 @@ export interface Question {
     answerList: Answer[];
     defaultMediaType: MediaType;
     defaultAnswersMediaType: MediaType;
-    correcting: Correcting;
+    correcting?: Correcting;
     hint?: string;
     picture?: string;
     sound?: string;

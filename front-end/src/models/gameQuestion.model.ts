@@ -6,15 +6,15 @@ export interface GameQuestion {
     id: number;
     questionId: number;
     title: string;
-    defaultAnswersMediaType: MediaType;
+    answersMediaType: MediaType;
     answerList: Answer[];
     correcting?: Correcting;
     hint?: string;
     picture?: string;
     sound?: string;
 
-    startTime: Date | undefined;
-    endTime: Date | undefined;
-    displayedHint?: boolean | false;
-    selectedAnswer: Answer | undefined;
+    startTime?: Date;
+    endTime?: Date;
+    displayedHint: boolean;
+    selectedAnswer?: Answer;
 }
