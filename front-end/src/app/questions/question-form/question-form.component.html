@@ -1,0 +1,43 @@
+<form>
+    <label>
+        Intitulé de la question
+        <input type="text" name="title" [(ngModel)]="question === undefined ? '' : question.title">
+    </label>
+    <label>
+        Difficulté
+        <select name="difficulty" [(ngModel)]="question === undefined ? '' : question.difficulty">
+            <option value="1">Facile</option>
+            <option value="2">Moyen</option>
+            <option value="3">Difficile</option>
+        </select>
+    </label>
+    <label>
+        Type de question
+        <select name="type" [(ngModel)]="question === undefined ? '' : question.defaultMediaType">
+            <option value="1">Texte</option>
+            <option value="2">Son</option>
+            <option value="3">Image</option>
+        </select>
+    </label>
+    <label>
+        Indice
+        <input type="text" name="hint" [(ngModel)]="question === undefined ? '' : question.hint">
+    </label>
+
+    <div>
+        Réponses :
+        <ul>
+            <li *ngFor="let answer of question?.answerList">
+                <input type="text" name="{{answer.id}}" [(ngModel)]="answer === undefined ? '' : answer.value">
+                <input type="checkbox" name="isCorrect" [checked]="answer.isCorrect"
+                       (change)="answer.isCorrect = !answer.isCorrect">
+            </li>
+        </ul>
+        <button (click)="addAnswerToForm()">Ajouter une réponse</button>
+    </div>
+
+    <div>
+        <button (click)="saveQuestion()">Enregistrer</button>
+        <button (click)="cancelQuestion()">Annuler</button>
+    </div>
+</form>

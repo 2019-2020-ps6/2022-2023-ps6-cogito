@@ -1,0 +1,17 @@
+<ul>
+    <li *ngFor="let question of quiz?.questionList" style="height: 100px;">
+        <div class="card">
+            <h2>
+                {{question.title}}
+            </h2>
+            <div class="buttons">
+                <button (click)="editQuestion(question)" class="button-card">
+                    <i class="fa-solid fa-pen"></i>
+                </button>
+                <button class="button-card">
+                    <i class="fas fa-trash-alt"></i>
+                </button>
+            </div>
+        </div>
+    </li>
+</ul>

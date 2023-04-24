@@ -1,5 +1,6 @@
 import { NgModule } from "@angular/core";
 import { BrowserModule } from "@angular/platform-browser";
+import { FormsModule } from "@angular/forms";
 
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
@@ -12,6 +13,8 @@ import { ThemeComponent } from "./theme/theme/theme.component";
 import { QuizPageComponent } from "./quiz/page/page.component";
 import { QuizComponent } from "./quiz/quiz/quiz.component";
 import { GamePageComponent } from "./game/page/page.component";
+import { QuestionsListComponent } from './questions/questions-list/questions-list.component';
+import { QuestionFormComponent } from './questions/question-form/question-form.component';
 
 @NgModule({
     declarations: [
@@ -24,11 +27,14 @@ import { GamePageComponent } from "./game/page/page.component";
         ThemeComponent,
         QuizPageComponent,
         QuizComponent,
-        GamePageComponent
+        GamePageComponent,
+        QuestionsListComponent,
+        QuestionFormComponent
     ],
     imports: [
         BrowserModule,
-        AppRoutingModule
+        AppRoutingModule,
+        FormsModule
     ],
     providers: [],
     bootstrap: [AppComponent]
