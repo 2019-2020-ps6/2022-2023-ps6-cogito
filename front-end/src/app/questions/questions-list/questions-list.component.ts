@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Quiz } from '../../../models/quiz.model';
 import { Question } from '../../../models/question.model';
-import { QuizService } from '../../../services/quiz.service';
+import { QuizService } from '../../../services/adminQuiz.service';
 
 @Component({
   selector: 'app-questions-list',
