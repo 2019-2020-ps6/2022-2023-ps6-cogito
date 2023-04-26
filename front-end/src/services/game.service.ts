@@ -18,8 +18,10 @@ export class GameService {
     private gameQuiz?: GameQuiz;
     private selectedPatient?: Patient;
     private selectedQuiz?: Quiz;
+    private questionList: GameQuestion[] = [];
     public currentQuestion$: BehaviorSubject<GameQuestion | undefined>
         = new BehaviorSubject<GameQuestion | undefined>(undefined);
+    private currentQuestion?: GameQuestion;
     private currentInd: number = -1;
 
     constructor(private patientService: PatientService, private quizService: QuizService) {
@@ -40,9 +42,10 @@ export class GameService {
                 };
             }
 
-            if (quiz != undefined) {
+            if (quiz != undefined && this.selectedPatient != undefined) {
                 if (this.gameQuiz == undefined || this.gameQuiz.quizId !== quiz.id) {
-                    this.currentInd = -1;
+                    this.emptyGame();
+                    this.getQuestionsList(this.selectedPatient.configuration, quiz);
                     this.gameQuiz = gameQuizInit(quiz.id);
                     this.nextQuestion();
                 }
@@ -52,46 +55,61 @@ export class GameService {
 
     emptyGame(): void {
         this.gameQuiz = undefined;
+        this.questionList = [];
         this.currentQuestion$.next(undefined);
         this.currentInd = -1;
     }
 
-    nextQuestion(): void {
-        let questionFound: boolean = false;
+    getQuestionsList(configuration: Configuration, quiz: Quiz): void {
+        let questionMedia: MediaType;
+        let answerMedia: MediaType;
+        let gameQuestion: GameQuestion;
+        for (let question of quiz.questionList) {
+            questionMedia = this.getQuestionMedia(configuration, question);
+            answerMedia = this.getAnswerMedia(configuration, question);
 
-        if (this.selectedPatient != undefined && this.selectedQuiz != undefined && this.gameQuiz != undefined) {
-            let nbQuestions: number = this.selectedQuiz.questionList.length;
-
-            while (!questionFound && this.currentInd < nbQuestions - 1) {
-                let question: Question = this.selectedQuiz.questionList[++this.currentInd];
-                let configuration: Configuration = this.selectedPatient.configuration;
-
-                if (question.difficulty <= configuration.difficulty) {
-                    let questionMedia: MediaType = this.getQuestionMedia(configuration, question);
-                    let answerMedia: MediaType = this.getAnswerMedia(configuration, question);
-
-                    let gameQuestion: GameQuestion = {
-                        id: -1,
-                        questionId: question.id,
-                        title: question.title,
-                        answersMediaType: answerMedia,
-                        answerList: question.answerList,
-                        correcting: question.correcting,
-                        hint: (configuration.hints) ? question.hint : undefined,
-                        picture: (questionMedia === MediaType.picture) ? question.picture : undefined,
-                        sound: (questionMedia === MediaType.sound) ? question.sound : undefined,
-                        startTime: new Date(),
-                        displayedHint: false
-                    };
-                    questionFound = true;
-                    this.currentQuestion$.next(gameQuestion);
-                    this.gameQuiz.questionList.push(gameQuestion);
-                }
+            if (question.difficulty <= configuration.difficulty) {
+                gameQuestion = {
+                    id: -1,
+                    questionId: question.id,
+                    title: question.title,
+                    answersMediaType: answerMedia,
+                    answerList: this.getAnswerList(configuration.multipleAnswers, question), // faire fonction pour mettre les réponses acceptées par le patient
+                    correcting: question.correcting,
+                    hint: (configuration.hints) ? question.hint : undefined,
+                    picture: (questionMedia === MediaType.picture) ? question.picture : undefined,
+                    sound: (questionMedia === MediaType.sound) ? question.sound : undefined,
+                    displayedHint: false
+                };
+                this.questionList.push(gameQuestion);
+                this.fisherYatesShuffle(this.questionList);
             }
         }
-        if (!questionFound) {
-            this.currentQuestion$.next(undefined);
+    }
+
+    getAnswerList(multipleAnswers: boolean, question: Question): Answer[] {
+        let answerList: Answer[] = question.answerList;
+        if (multipleAnswers || answerList.length == 2) {
+            return question.answerList;
         }
+
+        let resList: Answer[] = [];
+        let array: number[] = [];
+        for (let i = 0; i < answerList.length; i++) { // take the correct answer
+            if (answerList[i].isCorrect) {
+                resList.push(answerList[i]);
+            }
+            else {
+                array.push(i);
+            }
+        }
+        resList.push(answerList[this.randomAnswer(array)]); // Take the other answer randomly
+        return resList;
+    }
+
+    randomAnswer(array: number[]): number {
+        let rand: number = Math.random() * array.length | 0;
+        return array[rand];
     }
 
     getQuestionMedia(patientConfig: Configuration, question: Question): MediaType {
@@ -135,20 +153,29 @@ export class GameService {
         return MediaType.text;
     }
 
-    islastQuestion(): boolean {
-        if (this.selectedPatient != undefined && this.selectedQuiz != undefined && this.gameQuiz != undefined) {
-            let nbQuestions: number = this.selectedQuiz.questionList.length;
-            let questionInd: number = this.currentInd;
-
-            while (this.currentInd < nbQuestions - 1) {
-                let question: Question = this.selectedQuiz.questionList[++questionInd];
-                let configuration: Configuration = this.selectedPatient.configuration;
-
-                if (question.difficulty <= configuration.difficulty) {
-                    return false;
-                }
-            }
+    fisherYatesShuffle(array: any[]): void {
+        for (let i = array.length - 1; i > 0; i--) {
+            let j = Math.floor(Math.random() * (i + 1)); // random index
+            let tmp: GameQuestion = array[i];
+            array[i] = array[j];
+            array[j] = tmp;
         }
-        return true;
+    }
+
+    nextQuestion(): void {
+        if (!this.islastQuestion() && this.gameQuiz != undefined) {
+            if (this.currentQuestion != undefined) {
+                this.currentQuestion.endTime = new Date();
+                this.gameQuiz.questionList.push(this.currentQuestion);
+            }
+            this.currentQuestion = this.questionList[++this.currentInd];
+            this.fisherYatesShuffle(this.currentQuestion.answerList);
+            this.currentQuestion.startTime = new Date();
+            this.currentQuestion$.next(this.currentQuestion);
+        }
+    }
+
+    islastQuestion(): boolean {
+        return !(this.currentInd < this.questionList.length - 1);
     }
 }
