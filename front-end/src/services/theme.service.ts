@@ -1,5 +1,6 @@
 import { Injectable } from "@angular/core";
-import { BehaviorSubject, Subject } from "rxjs";
+import { Router } from "@angular/router";
+import { BehaviorSubject } from "rxjs";
 
 import { THEME_LIST } from "../mocks/theme.mock";
 import { Patient } from "../models/patient.model";
@@ -15,8 +16,12 @@ export class ThemeService {
     private selectedPatient?: Patient;
     public selectedTheme$: BehaviorSubject<Theme | undefined> = new BehaviorSubject<Theme | undefined>(undefined);
 
-    constructor(private patientService: PatientService) {
+    constructor(private patientService: PatientService, private router: Router) {
         this.patientService.selectedPatient$.subscribe((patient: Patient | undefined): void => {
+            if (this.router.url.includes("/theme-page") && patient === undefined) {
+                this.router.navigateByUrl("/patient-page");
+            }
+
             this.selectedPatient = patient;
 
             function patientThemeList(patient: Patient): Theme[] {

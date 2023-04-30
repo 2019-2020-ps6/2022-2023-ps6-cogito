@@ -98,4 +98,8 @@ export class QuizPageComponent implements OnInit {
         this.quizService.selectQuiz(quiz);
         this.router.navigateByUrl("/game-page");
     }
+
+    leavePage(): void {
+        this.quizService.leaveQuiz();
+    }
 }

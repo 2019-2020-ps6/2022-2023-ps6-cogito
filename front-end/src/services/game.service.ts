@@ -1,6 +1,8 @@
 import { Injectable } from "@angular/core";
+import { Router } from "@angular/router";
 import { BehaviorSubject } from "rxjs";
 
+import { QUIZZES_ALL } from "../mocks/quiz.mock";
 import { Answer } from "../models/answer.model";
 import { Configuration } from "../models/configuration.model";
 import { GameQuestion } from "../models/gameQuestion.model";
@@ -8,13 +10,14 @@ import { GameQuiz } from "../models/gameQuiz.model";
 import { Patient } from "../models/patient.model";
 import { MediaType, Question } from "../models/question.model";
 import { Quiz } from "../models/quiz.model";
+import { Statistics } from "../models/statistics.model";
 import { PatientService } from "./patient.service";
 import { QuizService } from "./quiz.service";
 
 @Injectable({
     providedIn: "root"
 })
-export class GameService {
+export class idList {
     private gameQuiz?: GameQuiz;
     private selectedPatient?: Patient;
     private selectedQuiz?: Quiz;
@@ -24,43 +27,70 @@ export class GameService {
     private currentQuestion?: GameQuestion;
     private currentInd: number = -1;
 
-    constructor(private patientService: PatientService, private quizService: QuizService) {
+    constructor(private patientService: PatientService, private quizService: QuizService, private router: Router) {
         this.patientService.selectedPatient$.subscribe((patient?: Patient): void => {
+            if (this.router.url.includes("/game-page") && patient === undefined) {
+                this.router.navigateByUrl("/patient-page");
+            }
+
             this.selectedPatient = patient;
+
             this.emptyGame();
+            if (this.selectedPatient != undefined && this.selectedPatient.stage >= 5) {
+                if (this.selectedPatient.quizToPlayList.length === 0) {
+                    // Add list of possible quizId from the patient
+                    this.selectedPatient.quizToPlayList = this.selectedPatient.quizIdList.slice();
+                }
+                this.chooseQuiz();
+            }
         });
 
         this.quizService.selectedQuiz$.subscribe((quiz?: Quiz): void => {
             this.selectedQuiz = quiz;
 
-            function gameQuizInit(quizId: number): GameQuiz {
-                return {
-                    id: -1,
-                    quizId: quizId,
-                    questionList: [],
-                    startTime: new Date()
-                };
-            }
-
             if (quiz != undefined && this.selectedPatient != undefined) {
                 if (this.gameQuiz == undefined || this.gameQuiz.quizId !== quiz.id) {
                     this.emptyGame();
                     this.getQuestionsList(this.selectedPatient.configuration, quiz);
-                    this.gameQuiz = gameQuizInit(quiz.id);
+                    this.gameQuizInit(quiz.id);
                     this.nextQuestion();
                 }
             }
         });
     }
 
-    emptyGame(): void {
+    private chooseQuiz(): void {
+        if (this.selectedPatient != undefined) {
+            let idList: number[] = this.selectedPatient.quizToPlayList;
+            if (this.gameQuiz == undefined || this.gameQuiz.endTime != undefined) {
+                let ind: number = Math.floor(Math.random() * idList.length);
+                this.quizService.selectQuiz(this.findQuizFromAll(idList[ind]));
+            }
+        }
+    }
+
+    private findQuizFromAll(quizId: number): Quiz {
+        let ind: number = QUIZZES_ALL.findIndex((quiz: Quiz): boolean => quiz.id === quizId);
+        return QUIZZES_ALL[ind];
+    }
+
+    private gameQuizInit(quizId: number): void {
+        this.gameQuiz = {
+            id: -1,
+            quizId: quizId,
+            questionList: [],
+            startTime: new Date()
+        };
+    }
+
+    private emptyGame(): void {
         this.gameQuiz = undefined;
         this.questionList = [];
         this.currentQuestion$.next(undefined);
         this.currentInd = -1;
     }
 
-    getQuestionsList(configuration: Configuration, quiz: Quiz): void {
+    private getQuestionsList(configuration: Configuration, quiz: Quiz): void {
         let questionMedia: MediaType;
         let answerMedia: MediaType;
         let gameQuestion: GameQuestion;
@@ -87,7 +117,7 @@ export class GameService {
         }
     }
 
-    getAnswerList(multipleAnswers: boolean, question: Question): Answer[] {
+    private getAnswerList(multipleAnswers: boolean, question: Question): Answer[] {
         let answerList: Answer[] = question.answerList;
         if (multipleAnswers || answerList.length == 2) {
             return question.answerList;
@@ -107,12 +137,12 @@ export class GameService {
         return resList;
     }
 
-    randomAnswer(array: number[]): number {
+    private randomAnswer(array: number[]): number {
         let rand: number = Math.random() * array.length | 0;
         return array[rand];
     }
 
-    getQuestionMedia(patientConfig: Configuration, question: Question): MediaType {
+    private getQuestionMedia(patientConfig: Configuration, question: Question): MediaType {
         if (question.defaultMediaType === MediaType.picture) {
             if (patientConfig.pictures) {
                 return MediaType.picture;
@@ -132,7 +162,7 @@ export class GameService {
         return MediaType.text;
     }
 
-    getAnswerMedia(patientConfig: Configuration, question: Question): MediaType {
+    private getAnswerMedia(patientConfig: Configuration, question: Question): MediaType {
         let answer: Answer = question.answerList[0];
         if (question.defaultAnswersMediaType === MediaType.picture) {
             if (patientConfig.pictures) {
@@ -153,7 +183,7 @@ export class GameService {
         return MediaType.text;
     }
 
-    fisherYatesShuffle(array: any[]): void {
+    private fisherYatesShuffle(array: any[]): void {
         for (let i = array.length - 1; i > 0; i--) {
             let j = Math.floor(Math.random() * (i + 1)); // random index
             let tmp: GameQuestion = array[i];
@@ -177,5 +207,54 @@ export class GameService {
 
     islastQuestion(): boolean {
         return !(this.currentInd < this.questionList.length - 1);
+    }
+
+    finishGame(): void {
+        if (this.currentQuestion != undefined && this.gameQuiz != undefined && this.selectedPatient != undefined) {
+            this.currentQuestion.endTime = new Date();
+            this.gameQuiz.questionList.push(this.currentQuestion);
+
+            let stats: Statistics = this.selectedPatient.statistics;
+            if (stats.playedQuizList.has(this.gameQuiz.quizId)) {
+                // @ts-ignore
+                stats.playedQuizList.get(this.gameQuiz.quizId).push(this.gameQuiz);
+            }
+            else {
+                stats.playedQuizList.set(this.gameQuiz.quizId, [this.gameQuiz]);
+            }
+
+            if (this.selectedPatient.quizToPlayList.length > 0) {
+                this.removeQuizToPlay(this.gameQuiz.quizId, this.selectedPatient);
+            }
+            this.emptyGame();
+            console.log("Game finished");
+            this.router.navigateByUrl("/patient-page");
+        }
+    }
+
+    private removeQuizToPlay(quizId: number, patient: Patient): void {
+        let idList: number[] = patient.quizToPlayList;
+        if (idList.length <= 1) {
+            idList = patient.quizIdList.slice(); // List of possible quizId from the patient
+        }
+        else {
+            let quizList: number[] = [];
+            for (let id of idList) {
+                if (id !== quizId) {
+                    quizList.push(id);
+                }
+            }
+            idList = quizList;
+        }
+        patient.quizToPlayList = idList;
+    }
+
+    leaveGame(): void {
+        if (this.selectedPatient === undefined || this.selectedPatient.stage >= 5) {
+            this.router.navigateByUrl("/patient-page");
+        }
+        else {
+            this.router.navigateByUrl("/quiz-page");
+        }
     }
 }

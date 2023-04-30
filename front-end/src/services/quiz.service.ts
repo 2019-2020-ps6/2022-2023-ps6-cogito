@@ -1,6 +1,8 @@
 import { Injectable } from "@angular/core";
-import { BehaviorSubject, Subject } from "rxjs";
+import { Router } from "@angular/router";
+import { BehaviorSubject } from "rxjs";
 
+import { QUIZZES_ALL } from "../mocks/quiz.mock";
 import { Patient } from "../models/patient.model";
 import { Quiz } from "../models/quiz.model";
 import { Theme } from "../models/theme.model";
@@ -17,9 +19,31 @@ export class QuizService {
     private selectedTheme?: Theme;
     public selectedQuiz$: BehaviorSubject<Quiz | undefined> = new BehaviorSubject<Quiz | undefined>(undefined);
 
-    constructor(private patientService: PatientService, private themeService: ThemeService) {
+    constructor(private patientService: PatientService, private themeService: ThemeService, private router: Router) {
         this.patientService.selectedPatient$.subscribe((patient?: Patient): void => {
+            if (this.router.url.includes("/quiz-page") && patient === undefined) {
+                this.router.navigateByUrl("/patient-page");
+            }
+
             this.selectedPatient = patient;
+
+            function patientQuizList(patient: Patient): Quiz[] {
+                let quizList: Quiz[] = [];
+
+                for (let quizId of patient.quizIdList) {
+                    let index: number = QUIZZES_ALL.findIndex((quiz: Quiz): boolean => quiz.id === quizId);
+                    if (index !== -1) {
+                        quizList.push(QUIZZES_ALL[index]);
+                    }
+                }
+
+                quizList.sort((a, b): number => a.title.localeCompare(b.title));
+                return quizList;
+            }
+
+            this.quizList = (this.selectedPatient == undefined || this.selectedPatient.stage !== 4)
+                            ? [] : patientQuizList(this.selectedPatient);
+            this.quizList$.next(this.quizList);
         });
 
         this.themeService.selectedTheme$.subscribe((theme?: Theme): void => {
@@ -40,8 +64,11 @@ export class QuizService {
                 return quizList;
             }
 
-            this.quizList = (this.selectedPatient == undefined || theme == undefined)
-                            ? [] : patientQuizList(this.selectedPatient, theme);
+            if (this.selectedPatient === undefined) {
+                this.quizList = [];
+            } else if (this.selectedTheme != undefined) {
+                this.quizList = patientQuizList(this.selectedPatient, this.selectedTheme);
+            }
             this.quizList$.next(this.quizList);
         });
     }
@@ -49,5 +76,14 @@ export class QuizService {
     selectQuiz(quiz: Quiz): void {
         this.selectedQuiz$.next(quiz);
         console.log("Quiz selected : ", quiz.title);
+    }
+
+    leaveQuiz(): void {
+        if (this.selectedPatient === undefined || this.selectedPatient.stage >= 4) {
+            this.router.navigateByUrl("/patient-page");
+        }
+        else {
+            this.router.navigateByUrl("/theme-page");
+        }
     }
 }

@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { BehaviorSubject, Subject } from "rxjs";
+import { BehaviorSubject } from "rxjs";
 
 import { PATIENT_LIST } from "../mocks/patient.mock";
 import { Patient } from "../models/patient.model";
@@ -18,5 +18,10 @@ export class PatientService {
     selectPatient(patient: Patient): void {
         this.selectedPatient$.next(patient);
         console.log("Patient selected : ", patient.name);
+    }
+
+    noSelectedPatient(): void {
+        this.selectedPatient$.next(undefined);
+        console.log("Patient unselected");
     }
 }

@@ -6,7 +6,7 @@
         <div class="anwser" *ngFor="let answer of question.answerList">{{answer.value}}</div>
     </div>
     <div class="divButtons">
-        <button routerLink="/quiz-page">QUITTER</button>
+        <button (click)="leavePage()">QUITTER</button>
         <button *ngIf="!lastQuestion; else finishButton" (click)="nextQuestion()">SUIVANT</button>
         <ng-template #finishButton>
             <button (click)="finishGame()">TERMINER</button>

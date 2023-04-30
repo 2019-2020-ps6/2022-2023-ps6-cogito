@@ -8,6 +8,6 @@
         <button class="buttonNext" *ngIf="hasNextOrPrevButtons()" (click)="nextDisplayQuizzes()">Suivant</button>
     </div>
     <div class="divButtons">
-        <button class="backButton" routerLink="/theme-page">RETOUR</button>
+        <button class="backButton" (click)="leavePage()">RETOUR</button>
     </div>
 </section>

@@ -2,6 +2,18 @@
 
 .theme {
     margin: max(10px, 2vh, 2vw);
+
+    &:hover {
+        cursor: pointer;
+
+        .themeImage {
+            border: 4px solid black;
+        }
+
+        figcaption {
+            font-weight: bold;
+        }
+    }
 }
 
 .themeImage {
@@ -28,14 +40,4 @@
     height: 32px;
     font-size: $normal_size;
     text-align: center;
-}
-
-.theme:hover .themeImage {
-    border: 4px solid black;
-    cursor: pointer;
-}
-
-.theme:hover figcaption {
-    font-weight: bold;
-    cursor: pointer;
 }

@@ -25,6 +25,7 @@ export class PatientPageComponent implements OnInit {
         this.currentSize();
         this.nbDisplayPatients = this.numberRowPatients() * this.numberColPatients();
         this.displayPatientList = [];
+        this.patientService.noSelectedPatient();
     }
 
     maxMargin(): void {
@@ -96,6 +97,15 @@ export class PatientPageComponent implements OnInit {
 
     selectPatient(patient: Patient): void {
         this.patientService.selectPatient(patient);
-        this.router.navigateByUrl("/theme-page");
+        let stage: number = patient.stage;
+        if (stage <= 3) {
+            this.router.navigateByUrl("/theme-page");
+        }
+        else if (stage == 4) {
+            this.router.navigateByUrl("/quiz-page");
+        }
+        else {
+            this.router.navigateByUrl("/game-page");
+        }
     }
 }
