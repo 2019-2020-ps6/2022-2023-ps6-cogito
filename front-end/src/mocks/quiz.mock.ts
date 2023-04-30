@@ -26,3 +26,6 @@ export const QUIZ_ECHECS: Quiz = {
 };
 
 export const QUIZZES_SPORT: Quiz[] = [QUIZ_ECHECS];
+
+
+export const QUIZZES_ALL: Quiz[] = QUIZZES_MUSIQUE.concat(QUIZZES_SPORT);

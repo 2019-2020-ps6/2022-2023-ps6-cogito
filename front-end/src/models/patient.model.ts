@@ -12,4 +12,5 @@ export interface Patient {
 
     themeIdList: number[];
     quizIdList: number[];
+    quizToPlayList: number[];
 }

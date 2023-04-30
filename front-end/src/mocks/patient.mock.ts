@@ -12,7 +12,8 @@ export const PATIENT_ANDREA: Patient = {
     configuration: CONFIG_DEFAULT_3,
 
     themeIdList: [1, 2],
-    quizIdList: [1, 2, 3]
+    quizIdList: [1, 2, 3],
+    quizToPlayList: []
 }
 
 export const PATIENT_BOB: Patient = {
@@ -25,7 +26,8 @@ export const PATIENT_BOB: Patient = {
     configuration: CONFIG_DEFAULT_4,
 
     themeIdList: [1, 2],
-    quizIdList: [1, 3]
+    quizIdList: [1, 3],
+    quizToPlayList: []
 }
 
 export const PATIENT_DOUG: Patient = {
@@ -38,7 +40,8 @@ export const PATIENT_DOUG: Patient = {
     configuration: CONFIG_DEFAULT_3,
 
     themeIdList: [1, 2],
-    quizIdList: [1, 2, 3]
+    quizIdList: [1, 2, 3],
+    quizToPlayList: []
 }
 
 export const PATIENT_ERIC: Patient = {
@@ -51,7 +54,8 @@ export const PATIENT_ERIC: Patient = {
     configuration: CONFIG_DEFAULT_4,
 
     themeIdList: [1, 2],
-    quizIdList: [1, 3]
+    quizIdList: [1, 3],
+    quizToPlayList: []
 }
 
 export const PATIENT_FABIENNE: Patient = {
@@ -64,7 +68,8 @@ export const PATIENT_FABIENNE: Patient = {
     configuration: CONFIG_DEFAULT_5,
 
     themeIdList: [1],
-    quizIdList: [1]
+    quizIdList: [1],
+    quizToPlayList: []
 }
 
 export const PATIENT_GERARD: Patient = {
@@ -77,7 +82,8 @@ export const PATIENT_GERARD: Patient = {
     configuration: CONFIG_DEFAULT_5,
 
     themeIdList: [1],
-    quizIdList: [1]
+    quizIdList: [1],
+    quizToPlayList: []
 }
 
 export const PATIENT_HERCULE: Patient = {
@@ -90,7 +96,8 @@ export const PATIENT_HERCULE: Patient = {
     configuration: CONFIG_DEFAULT_4,
 
     themeIdList: [1, 2],
-    quizIdList: [1, 3]
+    quizIdList: [1, 3],
+    quizToPlayList: []
 }
 
 export const PATIENT_JULIAN: Patient = {
@@ -103,7 +110,8 @@ export const PATIENT_JULIAN: Patient = {
     configuration: CONFIG_DEFAULT_3,
 
     themeIdList: [1, 2],
-    quizIdList: [1, 2, 3]
+    quizIdList: [1, 2, 3],
+    quizToPlayList: []
 }
 
 export const PATIENT_KYLE: Patient = {
@@ -116,7 +124,8 @@ export const PATIENT_KYLE: Patient = {
     configuration: CONFIG_DEFAULT_4,
 
     themeIdList: [1, 2],
-    quizIdList: [1, 3]
+    quizIdList: [1, 3],
+    quizToPlayList: []
 }
 
 export const PATIENT_LAETICIA: Patient = {
@@ -129,7 +138,8 @@ export const PATIENT_LAETICIA: Patient = {
     configuration: CONFIG_DEFAULT_5,
 
     themeIdList: [1],
-    quizIdList: [1]
+    quizIdList: [1],
+    quizToPlayList: []
 }
 
 export const PATIENT_MAURICE: Patient = {
@@ -142,7 +152,8 @@ export const PATIENT_MAURICE: Patient = {
     configuration: CONFIG_DEFAULT_5,
 
     themeIdList: [1],
-    quizIdList: [1]
+    quizIdList: [1],
+    quizToPlayList: []
 }
 
 export const PATIENT_LIST: Patient[] = [PATIENT_JULIAN, PATIENT_LAETICIA, PATIENT_GERARD, PATIENT_ANDREA, PATIENT_BOB, PATIENT_DOUG, PATIENT_MAURICE, PATIENT_HERCULE, PATIENT_KYLE, PATIENT_FABIENNE, PATIENT_ERIC];
