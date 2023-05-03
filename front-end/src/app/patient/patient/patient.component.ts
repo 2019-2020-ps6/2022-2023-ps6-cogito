@@ -15,7 +15,8 @@ export class PatientComponent implements OnInit {
     selectedPatient: EventEmitter<Patient> = new EventEmitter<Patient>();
 
 
-    constructor() {}
+    constructor() {
+    }
 
 
     ngOnInit(): void {}
