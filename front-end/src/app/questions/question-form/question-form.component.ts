@@ -17,22 +17,23 @@ export class QuestionFormComponent implements OnInit {
 
     ngOnInit(): void {
         this.quizService.getSelectedQuestion().subscribe(question => {
-            this.question = { ...question };
-            if (Object.keys(this.question).length === 0) {
+            this.question = JSON.parse(JSON.stringify(question)) ;
+            if (Object.keys(this.question as Question).length === 0) {
                 this.type = "creation";
             }
             else {
                 this.type = "edition";
-                this.originalQuestion = { ...question };
             }
         });
     }
 
     addAnswerToForm(): void {
+        if(this.question?.answerList.length)
+            console.log(this.question?.answerList.length + 1);
         this.question?.answerList.push({
             value: "",
             isCorrect: false,
-            id: this.question?.answerList.length + 1
+            id: this.quizService.getIdOfNewAnswerOf(this.question as Question)
         });
     }
 
@@ -44,6 +45,7 @@ export class QuestionFormComponent implements OnInit {
     }
 
     cancelQuestion(): void {
-        this.quizService.selectQuestion(undefined);
+        this.quizService.resetSelectedQuestion();
+        console.log("cancelQuestion");
     }
 }

@@ -5,7 +5,7 @@
                 {{question.title}}
             </h2>
             <div class="buttons">
-                <button (click)="editQuestion(question)" class="button-card">
+                <button (click)="editQuestion(question)" [routerLink]="['/question-form']" class="button-card">
                     <i class="fa-solid fa-pen"></i>
                 </button>
                 <button class="button-card">
@@ -15,3 +15,5 @@
         </div>
     </li>
 </ul>
+
+<app-question-form></app-question-form>

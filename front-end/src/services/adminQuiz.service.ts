@@ -31,8 +31,8 @@ export class QuizService {
 
   selectQuestion(question?: Question): void {
     this.selectedQuestion = question;
-    this.selectionQuestionSubject?.next(this.selectedQuestion as Question);
-    this.oldSelectedQuestion = {...this.selectedQuestion} as Question;
+    this.selectionQuestionSubject?.next({...this.selectedQuestion} as Question);
+    this.oldSelectedQuestion = JSON.parse(JSON.stringify(this.selectedQuestion)) as Question;
   }
 
   getSelectedQuestion(): Observable<Question> {
@@ -47,6 +47,22 @@ export class QuizService {
       this.selectedQuiz = {...this.selectedQuiz, questionList: updatedQuestionList} as Quiz;
       this.selectionQuizSubject.next(this.selectedQuiz as Quiz);
     }
+  }
+
+  resetSelectedQuestion(): void{
+    console.log("resetSelectedQuestion");
+    this.selectionQuestionSubject?.next(this.oldSelectedQuestion as Question);
+  }
+
+
+  getIdOfNewAnswerOf(question : Question): number{
+    let id = 0;
+    question.answerList.forEach(answer => {
+      if(answer.id > id){
+        id = answer.id;
+      }
+    });
+    return id + 1;
   }
   
 

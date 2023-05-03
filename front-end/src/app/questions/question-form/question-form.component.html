@@ -28,7 +28,7 @@
         Réponses :
         <ul>
             <li *ngFor="let answer of question?.answerList">
-                <input type="text" name="{{answer.id}}" [(ngModel)]="answer === undefined ? '' : answer.value">
+                <input type="text" name="{{answer.id}}" [(ngModel)]="answer === undefined ? 'undefined' : answer.value">
                 <input type="checkbox" name="isCorrect" [checked]="answer.isCorrect"
                        (change)="answer.isCorrect = !answer.isCorrect">
             </li>
@@ -37,7 +37,7 @@
     </div>
 
     <div>
-        <button (click)="saveQuestion()">Enregistrer</button>
-        <button (click)="cancelQuestion()">Annuler</button>
+        <button (click)="saveQuestion()" [routerLink]="['/questions-list']">Enregistrer</button>
+        <button (click)="cancelQuestion()" [routerLink]="['/questions-list']">Annuler</button>
     </div>
 </form>
