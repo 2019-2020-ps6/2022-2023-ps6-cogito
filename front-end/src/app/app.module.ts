@@ -50,7 +50,7 @@ import { AnswerConfigurationComponent } from './manager/answer-configuration/ans
         ResultQuizComponent,
         ResultQuestionComponent,
         AnswerConfigurationComponent
-        ],
+    ],
     imports: [
         BrowserModule,
         AppRoutingModule,
