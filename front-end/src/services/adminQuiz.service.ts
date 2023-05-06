@@ -14,6 +14,7 @@ export class QuizService {
   private selectionQuestionSubject: BehaviorSubject<Question> = new BehaviorSubject<Question>({} as Question);
   private oldSelectedQuestion: Question | undefined;
 
+  private typeOfForm: string = "creation";
 
   constructor() { 
     this.selectionQuizSubject.next(this.selectedQuiz as Quiz);
@@ -31,8 +32,14 @@ export class QuizService {
 
   selectQuestion(question?: Question): void {
     this.selectedQuestion = question;
+    this.typeOfForm = "edition";
     this.selectionQuestionSubject?.next({...this.selectedQuestion} as Question);
     this.oldSelectedQuestion = JSON.parse(JSON.stringify(this.selectedQuestion)) as Question;
+  }
+
+  deselectQuestion(): void {
+    this.selectedQuestion = undefined;
+    this.selectionQuestionSubject?.next(this.selectedQuestion as unknown as Question);
   }
 
   getSelectedQuestion(): Observable<Question> {
@@ -65,6 +72,15 @@ export class QuizService {
     return id + 1;
   }
   
+  getIdOfNewQuestion(): number{
+    let id = 0;
+    this.selectedQuiz?.questionList?.forEach(question => {
+      if(question.id > id){
+        id = question.id;
+      }
+    });
+    return id + 1;
+  }
 
   removeQuestion(question: Question): void {
     const index = this.selectedQuiz?.questionList?.findIndex(q => q.id === question.id);
@@ -74,6 +90,28 @@ export class QuizService {
       this.selectedQuiz = {...this.selectedQuiz, questionList: updatedQuestionList} as Quiz;
       this.selectionQuizSubject.next(this.selectedQuiz as Quiz);
     }
+  }
+
+  addQuestion(question: Question): void {
+    const updatedQuestionList = [...this.selectedQuiz?.questionList as Question[]];
+    updatedQuestionList.push(question);
+    this.selectedQuiz = {...this.selectedQuiz, questionList: updatedQuestionList} as Quiz;
+    this.selectionQuizSubject.next(this.selectedQuiz as Quiz);
+  }
+
+  createAndSelectNewQuestion(): void {
+    const question = {} as Question;
+    question.id = this.getIdOfNewQuestion();
+    question.title = "";
+    question.answerList = [];
+    this.addQuestion(question);
+    this.selectQuestion(question);
+    this.typeOfForm = "creation";
+    console.log(question)
+  }
+
+  getTypeOfForm(): string{
+    return this.typeOfForm;
   }
 
   

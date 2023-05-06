@@ -12,25 +12,16 @@ import { QuizService } from "src/services/adminQuiz.service";
 export class QuestionFormComponent implements OnInit {
     question?: Question;
     originalQuestion?: Question;
-    type: string = "creation";
 
     constructor(private quizService: QuizService) {}
 
     ngOnInit(): void {
         this.quizService.getSelectedQuestion().subscribe(question => {
-            this.question = JSON.parse(JSON.stringify(question)) ;
-            if (Object.keys(this.question as Question).length === 0) {
-                this.type = "creation";
-            }
-            else {
-                this.type = "edition";
-            }
+                this.question = JSON.parse(JSON.stringify(question)) ;
         });
     }
 
     addAnswerToForm(): void {
-        if(this.question?.answerList.length)
-            console.log(this.question?.answerList.length + 1);
         this.question?.answerList.push({
             value: "",
             isCorrect: false,
@@ -39,15 +30,16 @@ export class QuestionFormComponent implements OnInit {
     }
 
     saveQuestion(): void {
-        if (this.type === "edition") {
-            this.quizService.updateQuestion(this.question as Question);
-        }
+        this.quizService.updateQuestion(this.question as Question);
         this.quizService.selectQuestion(undefined);
     }
 
     cancelQuestion(): void {
         this.quizService.resetSelectedQuestion();
-        console.log("cancelQuestion");
+        if(this.quizService.getTypeOfForm() === "creation"){
+            this.quizService.removeQuestion(this.question as Question);
+        }
+        this.quizService.selectQuestion(undefined);
     }
 
     deleteAnswer(answer : Answer): void {
