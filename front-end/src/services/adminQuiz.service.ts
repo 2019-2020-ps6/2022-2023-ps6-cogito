@@ -66,6 +66,16 @@ export class QuizService {
   }
   
 
+  removeQuestion(question: Question): void {
+    const index = this.selectedQuiz?.questionList?.findIndex(q => q.id === question.id);
+    if (index !== undefined && index >= 0) {
+      const updatedQuestionList = [...this.selectedQuiz?.questionList as Question[]];
+      updatedQuestionList.splice(index, 1);
+      this.selectedQuiz = {...this.selectedQuiz, questionList: updatedQuestionList} as Quiz;
+      this.selectionQuizSubject.next(this.selectedQuiz as Quiz);
+    }
+  }
+
   
 
 }
