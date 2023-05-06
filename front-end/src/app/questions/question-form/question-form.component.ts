@@ -30,8 +30,13 @@ export class QuestionFormComponent implements OnInit {
     }
 
     saveQuestion(): void {
-        this.quizService.updateQuestion(this.question as Question);
-        this.quizService.selectQuestion(undefined);
+        if(!this.checkQuestionValidity()){
+            console.log("Question is not valid");
+        }
+        else {
+            this.quizService.updateQuestion(this.question as Question);
+            this.quizService.selectQuestion(undefined);
+        }
     }
 
     cancelQuestion(): void {
@@ -44,5 +49,10 @@ export class QuestionFormComponent implements OnInit {
 
     deleteAnswer(answer : Answer): void {
         this.question?.answerList.splice(this.question.answerList.indexOf(answer), 1);
+    }
+
+
+    checkQuestionValidity(): boolean {
+        return this.question?.title !== undefined && this.question?.title !== "" && this.question?.answerList.length > 1 && this.question?.answerList.filter(answer => answer.isCorrect).length > 0 && this.question?.answerList.filter(answer => answer.value !== "").length === this.question?.answerList.length && this.question?.difficulty !== undefined && this.question?.defaultMediaType !== undefined;
     }
 }

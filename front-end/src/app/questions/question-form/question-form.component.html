@@ -42,7 +42,7 @@
     </div>
 
     <div class="side-content">
-        <button (click)="saveQuestion()" [routerLink]="['/questions-list']">Enregistrer</button>
+        <button (click)="saveQuestion()" [routerLink]="['/questions-list']" [disabled]="!checkQuestionValidity()" [ngClass]="{'invalid-question': !checkQuestionValidity()}">Enregistrer</button>
         <button (click)="cancelQuestion()" [routerLink]="['/questions-list']">Annuler</button>
     </div>
 </form>
