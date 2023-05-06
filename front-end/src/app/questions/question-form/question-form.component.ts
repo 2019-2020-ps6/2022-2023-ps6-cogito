@@ -1,4 +1,5 @@
 import { Component, OnInit } from "@angular/core";
+import { Answer } from "src/models/answer.model";
 
 import { Question } from "src/models/question.model";
 import { QuizService } from "src/services/adminQuiz.service";
@@ -47,5 +48,9 @@ export class QuestionFormComponent implements OnInit {
     cancelQuestion(): void {
         this.quizService.resetSelectedQuestion();
         console.log("cancelQuestion");
+    }
+
+    deleteAnswer(answer : Answer): void {
+        this.question?.answerList.splice(this.question.answerList.indexOf(answer), 1);
     }
 }
