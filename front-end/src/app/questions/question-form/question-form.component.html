@@ -5,6 +5,11 @@
             <input type="text" name="title" [(ngModel)]="question === undefined ? '' : question.title">
         </label>
         <label>
+            Image associée à la question
+            <input type="text" name="picture" [(ngModel)]="question === undefined ? '' : question.picture">
+            <img class="img-question" *ngIf="question?.picture" src="{{question?.picture}}">
+        </label>
+        <label>
             Difficulté
             <select name="difficulty" [(ngModel)]="question === undefined ? '' : question.difficulty">
                 <option value="1">Facile</option>
@@ -13,7 +18,7 @@
             </select>
         </label>
         <label>
-            Type de question
+            Type de question par défaut : 
             <select name="type" [(ngModel)]="question === undefined ? '' : question.defaultMediaType">
                 <option value="1">Texte</option>
                 <option value="2">Son</option>
@@ -27,6 +32,14 @@
 
         <div>
             Réponses :
+            <div>
+                Type de réponses:
+                <select name="answerType" [(ngModel)]="question === undefined ? '' : question.defaultAnswersMediaType">
+                    <option value="1">Texte</option>
+                    <option value="2">Son</option>
+                    <option value="3">Image</option>
+                </select>
+            </div>
             <ul>
                 <li *ngFor="let answer of question?.answerList">
                     <input type="text" name="{{answer.id}}" [(ngModel)]="answer === undefined ? 'undefined' : answer.value">
