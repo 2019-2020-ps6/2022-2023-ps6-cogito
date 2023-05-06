@@ -71,4 +71,4 @@ export const QUESTION_INS6: GameQuestion = {
     corDescription: "Jacques Brel a chanté \"Ne me quitte pas\" dès 1959",
     picDescription: "https://www.melody.tv/wp-content/uploads/2021/10/jacques-brel61696dee9f9b6-1024x576.jpeg"
 };
-export const QUESTIONS_INS: GameQuestion[] = [ QUESTION_INS1,QUESTION_INS2, QUESTION_INS3,QUESTION_INS4,QUESTION_INS5,QUESTION_INS6];
+export const QUESTIONS_INS: GameQuestion[] = [ QUESTION_INS1,QUESTION_INS2, QUESTION_INS3,QUESTION_INS4,QUESTION_INS6];

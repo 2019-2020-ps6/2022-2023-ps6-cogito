@@ -1,5 +1,5 @@
 <section class="question-result">
-    <section class="question-result-content" [ngClass]="{'green-background': isCorrect, 'red-background': !isCorrect}">
+    <section class="question-result-content" [ngClass]="{'green-background': isCorrect, 'wrong-background': !isCorrect}">
         <h1>{{questionName}}</h1>
         <span *ngIf="description">{{description}}</span>
         <div class="desabs" *ngIf="!description"></div>

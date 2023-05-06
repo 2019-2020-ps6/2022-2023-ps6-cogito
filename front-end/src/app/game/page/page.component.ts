@@ -100,6 +100,10 @@ export class GamePageComponent implements OnInit {
         else if (this.clickanswer){
             this.onAnswerQuestion(true);
         }
+        this.gameService.stopSound();
+        if (this.questions[this.currentQuestion-1].sound){
+            this.gameService.playSound(this.questions[this.currentQuestion-1].sound);
+        }
         this.resultDisplayed=false;
     }
 }

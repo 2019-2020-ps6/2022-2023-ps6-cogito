@@ -12,7 +12,7 @@ import { GameService } from 'src/services/game.service';
 export class GameQuestionComponent implements OnInit {
     public question!: GameQuestion;
     private audio!:HTMLAudioElement |undefined;
-    imageUrl:string="./assets/pictures/audio-off.png";
+    imageUrl:string="./assets/pictures/audio-on.png";
 
     @Output()
     isAnwsered: EventEmitter<boolean> = new EventEmitter<boolean>();
@@ -27,7 +27,15 @@ export class GameQuestionComponent implements OnInit {
     }
 
 
-    ngOnInit(): void { }
+    ngOnInit(): void {
+        setTimeout(()=>{
+            this.gameService.stopSound();
+            if (this.question.sound){
+                this.gameService.playSound(this.question.sound);
+                this.imageUrl="./assets/pictures/audio-on.png"
+            }
+        },500);
+    }
 
     selectAnswer(answer: GameAnswer): void {
         this.gameService.checkAnswer(answer);
@@ -36,18 +44,16 @@ export class GameQuestionComponent implements OnInit {
     }
 
     playSound() {
-        this.audio=new Audio(this.question.sound);
-        if (this.audio){
-            this.audio.play()
+        if (this.question.sound){
+            this.gameService.playSound(this.question.sound);
             this.imageUrl="./assets/pictures/audio-on.png";
         }
     }
 
     stopSound(){
-        if (this.audio){
-            this.audio.pause();
-            this.audio.currentTime = 0;
-            this.imageUrl="./assets/pictures/audio-off.png";
+        if (this.question.sound){
+        this.gameService.stopSound();
+        this.imageUrl="./assets/pictures/audio-off.png";
         }
     }
 

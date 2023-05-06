@@ -4,6 +4,7 @@ import { GAME_INSTRUMENTS } from "src/mocks/gameInstance.mock";
 import { GameAnswer } from "src/models/gameAnswer.model";
 import { GameInstance } from "src/models/gameInstance.model";
 import { GameQuestion } from "src/models/gameQuestion.model";
+import { QuizSoundService } from "./sound-quiz.service";
 
 @Injectable({
     providedIn: "root"
@@ -18,7 +19,7 @@ export class GameService {
     public answers: Map<GameQuestion,boolean>;
 
 
-    constructor() {
+    constructor(private soundService: QuizSoundService) {
         this.gameInstance = GAME_INSTRUMENTS;
         this.originalLenght = GAME_INSTRUMENTS.gameQuestionList.length;
         this.gameInstance$ = new BehaviorSubject(this.gameInstance);
@@ -72,4 +73,13 @@ export class GameService {
             }
         }
     }
+
+    playSound(soundUrl: string| undefined){
+        if (soundUrl)
+        this.soundService.playSound(soundUrl);
+    }
+    stopSound(){
+        this.soundService.stopAllSounds();
+    }
+    
 }
