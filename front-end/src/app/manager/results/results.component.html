@@ -1,1 +1,13 @@
-<p>results works!</p>
+<body>
+    <div class="box">
+        <div class="quiz" *ngFor="let quiz of quizList">
+            <!--Inputs & Output allow communication between parent & child components.-->
+            <!--More information: https://angular.io/guide/component-interaction-->
+            {{quiz.title}}
+            <button type="submit" class="button-card" [queryParams]="{id: quiz.id}" [routerLink]="['/result-quiz']"> Score quiz </button>
+            <button type="submit" class="button-card" [queryParams]="{id: quiz.id}" [routerLink]="['/result-question']"> Score questions </button>
+        </div>
+    
+    <button type="submit" class="button-back" [routerLink]="['/profil']"> RETOUR </button>
+    </div>
+ </body>

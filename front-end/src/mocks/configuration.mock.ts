@@ -1,6 +1,10 @@
 import { Configuration } from "../models/configuration.model";
 import { Difficulty } from "../models/question.model";
 
+let listeConfiguration: Configuration[] = [];
+
+
+
 export const CONFIG_DEFAULT_3: Configuration = {
     id: 1,
     name: "Défaut stade 3",
@@ -83,3 +87,5 @@ export const CONFIG_DEFAULT_5: Configuration = {
     falseImage: true,
     falseSound: true
 }
+
+listeConfiguration.push(CONFIG_DEFAULT_3, CONFIG_DEFAULT_4, CONFIG_DEFAULT_5);

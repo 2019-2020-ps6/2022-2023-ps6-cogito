@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Configuration } from 'src/models/configuration.model';
+import { ConfigurationService } from 'src/services/configuration.service';
 
 @Component({
   selector: 'app-question-configuration',
@@ -6,5 +8,16 @@ import { Component } from '@angular/core';
   styleUrls: ['./question-configuration.component.scss']
 })
 export class QuestionConfigurationComponent {
+  configuration: Configuration | undefined;
 
+  constructor(public configurationService : ConfigurationService) {
+  };
+
+  ngOnInit() {
+    // subscribe to configurationService
+    //this.configurationService.setConfigToDefault();
+    this.configurationService.getNewConfig().subscribe((config: Configuration) => {
+      this.configuration = config;
+    });
+  }
 }

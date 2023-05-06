@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ConfigurationService } from 'src/services/configuration.service';
 
 @Component({
   selector: 'app-configuration',
@@ -6,5 +7,10 @@ import { Component } from '@angular/core';
   styleUrls: ['./configuration.component.scss']
 })
 export class ConfigurationComponent {
+
+  constructor(public configurationService: ConfigurationService) { }
+
+  ngOnInit() {
+  }
 
 }

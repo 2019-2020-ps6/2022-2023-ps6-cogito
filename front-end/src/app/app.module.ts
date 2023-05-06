@@ -24,6 +24,7 @@ import { QuestionConfigurationComponent } from './manager/question-configuration
 import { ResultsComponent } from './manager/results/results.component';
 import { ResultQuizComponent } from './manager/result-quiz/result-quiz.component';
 import { ResultQuestionComponent } from './manager/result-question/result-question.component';
+import { AnswerConfigurationComponent } from './manager/answer-configuration/answer-configuration.component';
 
 @NgModule({
     declarations: [
@@ -47,7 +48,8 @@ import { ResultQuestionComponent } from './manager/result-question/result-questi
         QuestionConfigurationComponent,
         ResultsComponent,
         ResultQuizComponent,
-        ResultQuestionComponent
+        ResultQuestionComponent,
+        AnswerConfigurationComponent
         ],
     imports: [
         BrowserModule,

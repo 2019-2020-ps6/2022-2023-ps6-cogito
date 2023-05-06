@@ -1,1 +1,33 @@
-<p>create-configuration works!</p>
+<body>
+    <div *ngIf="state==='general'">   
+        <label for="name"> Nom de la configuration : </label>
+        <input type="text" id="name" name="nom" placeholder="Nom de la configuration"   [(ngModel)]="configuration === undefined ? '' : configuration.name">
+
+        <br>
+
+        <label for="description"> Description de la configuration : </label>
+        <input type="text" id="description" name="description" placeholder="Description de la configuration" [(ngModel)]="configuration === undefined ? '' : configuration.description">
+    </div>
+
+    <div  *ngIf="state==='interface'">
+        <app-interface-configuration></app-interface-configuration>
+    </div>
+
+    <div  *ngIf="state==='questions'">
+        <app-question-configuration></app-question-configuration>
+    </div>
+
+    <div  *ngIf="state==='answers'">
+        <app-answer-configuration></app-answer-configuration>
+    </div>
+
+    <div class="navbuttons">
+    <button type="submit" class="button {{state === 'general' ? 'active' : ''}}"  (click)="changeState('general')"> General </button>
+    <button type="submit" class="button {{state === 'interface' ? 'active' : ''}}" (click)="changeState('interface')"> Interface </button>
+    <button type="submit" class="button {{state === 'questions' ? 'active' : ''}}" (click)="changeState('questions')"> Questions </button>
+    <button type="submit" class="button {{state === 'answers' ? 'active' : ''}}" (click)="changeState('answers')"> Réponses </button>
+    </div>
+
+    <button type="submit" class="button-save" (click)="addNewConfig()" [routerLink]="['/configuration']">Sauvegarder </button>
+    <button type="submit" class="button-back" (click)="this.configurationService.setConfigToDefault()" [routerLink]="['/configuration']"> Annuler </button>
+</body>
