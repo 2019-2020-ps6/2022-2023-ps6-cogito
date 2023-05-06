@@ -8,7 +8,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class ConfigurationService {
-
+  selectedConfig: BehaviorSubject<Configuration> = new BehaviorSubject<Configuration>({} as Configuration);
   newConfig: BehaviorSubject<Configuration> = new BehaviorSubject<Configuration>({} as Configuration);
 
   emptyConfig: Configuration = {
@@ -44,6 +44,10 @@ export class ConfigurationService {
 
   constructor() {
     this.setConfigToDefault();
+  }
+
+  getSelectedConfig(): Observable<Configuration> {
+    return this.selectedConfig.asObservable();
   }
 
   getNewConfig(): Observable<Configuration> {

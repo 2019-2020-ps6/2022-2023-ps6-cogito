@@ -10,9 +10,11 @@ import { PATIENT_ANDREA } from "src/mocks/patient.mock";
 })
 export class ProfilComponent implements OnInit {
   Patient: Patient;
+  link: string;
 
   constructor() {
     this.Patient = PATIENT_ANDREA;
+    this.link = this.Patient.picture;
   }
 
   ngOnInit() {
