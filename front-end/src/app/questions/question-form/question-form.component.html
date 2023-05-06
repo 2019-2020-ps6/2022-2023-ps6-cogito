@@ -1,43 +1,61 @@
 <form>
-    <label>
-        Intitulé de la question
-        <input type="text" name="title" [(ngModel)]="question === undefined ? '' : question.title">
-    </label>
-    <label>
-        Difficulté
-        <select name="difficulty" [(ngModel)]="question === undefined ? '' : question.difficulty">
-            <option value="1">Facile</option>
-            <option value="2">Moyen</option>
-            <option value="3">Difficile</option>
-        </select>
-    </label>
-    <label>
-        Type de question
-        <select name="type" [(ngModel)]="question === undefined ? '' : question.defaultMediaType">
-            <option value="1">Texte</option>
-            <option value="2">Son</option>
-            <option value="3">Image</option>
-        </select>
-    </label>
-    <label>
-        Indice
-        <input type="text" name="hint" [(ngModel)]="question === undefined ? '' : question.hint">
-    </label>
+    <div class="main-content">
+        <label>
+            Intitulé de la question
+            <input type="text" name="title" [(ngModel)]="question === undefined ? '' : question.title">
+        </label>
+        <label>
+            Image associée à la question
+            <input type="text" name="picture" [(ngModel)]="question === undefined ? '' : question.picture">
+            <img class="img-question" *ngIf="question?.picture" src="{{question?.picture}}">
+        </label>
+        <label>
+            Difficulté
+            <select name="difficulty" [(ngModel)]="question === undefined ? '' : question.difficulty">
+                <option value="1">Facile</option>
+                <option value="2">Moyen</option>
+                <option value="3">Difficile</option>
+            </select>
+        </label>
+        <label>
+            Type de question par défaut : 
+            <select name="type" [(ngModel)]="question === undefined ? '' : question.defaultMediaType">
+                <option value="1">Texte</option>
+                <option value="2">Son</option>
+                <option value="3">Image</option>
+            </select>
+        </label>
+        <label>
+            Indice
+            <input type="text" name="hint" [(ngModel)]="question === undefined ? '' : question.hint">
+        </label>
 
-    <div>
-        Réponses :
-        <ul>
-            <li *ngFor="let answer of question?.answerList">
-                <input type="text" name="{{answer.id}}" [(ngModel)]="answer === undefined ? 'undefined' : answer.value">
-                <input type="checkbox" name="isCorrect" [checked]="answer.isCorrect"
-                       (change)="answer.isCorrect = !answer.isCorrect">
-            </li>
-        </ul>
-        <button (click)="addAnswerToForm()">Ajouter une réponse</button>
+        <div>
+            Réponses :
+            <div>
+                Type de réponses:
+                <select name="answerType" [(ngModel)]="question === undefined ? '' : question.defaultAnswersMediaType">
+                    <option value="1">Texte</option>
+                    <option value="2">Son</option>
+                    <option value="3">Image</option>
+                </select>
+            </div>
+            <ul>
+                <li *ngFor="let answer of question?.answerList">
+                    <input type="text" name="{{answer.id}}" [(ngModel)]="answer === undefined ? 'undefined' : answer.value">
+                    <input type="checkbox" name="isCorrect" [checked]="answer.isCorrect"
+                        (change)="answer.isCorrect = !answer.isCorrect">
+                        <button class="button-card" (click)="deleteAnswer(answer)">
+                            <i class="fas fa-trash-alt"></i>
+                        </button>
+                </li>
+            </ul>
+            <button (click)="addAnswerToForm()">Ajouter une réponse</button>
+        </div>
     </div>
 
-    <div>
-        <button (click)="saveQuestion()" [routerLink]="['/questions-list']">Enregistrer</button>
+    <div class="side-content">
+        <button (click)="saveQuestion()" [routerLink]="['/questions-list']" [disabled]="!checkQuestionValidity()" [ngClass]="{'invalid-question': !checkQuestionValidity()}">Enregistrer</button>
         <button (click)="cancelQuestion()" [routerLink]="['/questions-list']">Annuler</button>
     </div>
 </form>

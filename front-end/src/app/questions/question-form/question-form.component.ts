@@ -1,4 +1,5 @@
 import { Component, OnInit } from "@angular/core";
+import { Answer } from "src/models/answer.model";
 
 import { Question } from "src/models/question.model";
 import { QuizService } from "src/services/adminQuiz.service";
@@ -11,25 +12,16 @@ import { QuizService } from "src/services/adminQuiz.service";
 export class QuestionFormComponent implements OnInit {
     question?: Question;
     originalQuestion?: Question;
-    type: string = "creation";
 
     constructor(private quizService: QuizService) {}
 
     ngOnInit(): void {
         this.quizService.getSelectedQuestion().subscribe(question => {
-            this.question = JSON.parse(JSON.stringify(question)) ;
-            if (Object.keys(this.question as Question).length === 0) {
-                this.type = "creation";
-            }
-            else {
-                this.type = "edition";
-            }
+                this.question = JSON.parse(JSON.stringify(question)) ;
         });
     }
 
     addAnswerToForm(): void {
-        if(this.question?.answerList.length)
-            console.log(this.question?.answerList.length + 1);
         this.question?.answerList.push({
             value: "",
             isCorrect: false,
@@ -38,14 +30,29 @@ export class QuestionFormComponent implements OnInit {
     }
 
     saveQuestion(): void {
-        if (this.type === "edition") {
-            this.quizService.updateQuestion(this.question as Question);
+        if(!this.checkQuestionValidity()){
+            console.log("Question is not valid");
         }
-        this.quizService.selectQuestion(undefined);
+        else {
+            this.quizService.updateQuestion(this.question as Question);
+            this.quizService.selectQuestion(undefined);
+        }
     }
 
     cancelQuestion(): void {
         this.quizService.resetSelectedQuestion();
-        console.log("cancelQuestion");
+        if(this.quizService.getTypeOfForm() === "creation"){
+            this.quizService.removeQuestion(this.question as Question);
+        }
+        this.quizService.selectQuestion(undefined);
+    }
+
+    deleteAnswer(answer : Answer): void {
+        this.question?.answerList.splice(this.question.answerList.indexOf(answer), 1);
+    }
+
+
+    checkQuestionValidity(): boolean {
+        return this.question?.title !== undefined && this.question?.title !== "" && this.question?.answerList.length > 1 && this.question?.answerList.filter(answer => answer.isCorrect).length > 0 && this.question?.answerList.filter(answer => answer.value !== "").length === this.question?.answerList.length && this.question?.difficulty !== undefined && this.question?.defaultMediaType !== undefined;
     }
 }

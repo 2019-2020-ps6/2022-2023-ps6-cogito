@@ -23,4 +23,12 @@ export class QuestionsListComponent implements OnInit {
     editQuestion(question: Question): void {
         this.quizService.selectQuestion(question);
     }
+
+    removeQuestion(question: Question): void {
+        this.quizService.removeQuestion(question);
+    }
+
+    createNewQuestion(): void {
+        this.quizService.createAndSelectNewQuestion();
+    }
 }

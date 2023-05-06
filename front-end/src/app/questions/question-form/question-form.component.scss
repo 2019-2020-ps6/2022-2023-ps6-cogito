@@ -1,0 +1,32 @@
+.main-content{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    padding: 20px;
+    width: 80%;
+    background-color: lightgray;
+    margin: 20px;
+}
+
+.side-content{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin: 30px;
+}
+
+form{
+    display: flex;
+    flex-direction: row-reverse;
+    height: 80%;
+}
+
+label {
+    display: flex;
+    flex-direction: column;
+}
+
+.img-question {
+    max-width: 100px;
+    height: auto;
+}
