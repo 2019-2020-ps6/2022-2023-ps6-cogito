@@ -1,0 +1,12 @@
+<body>
+        <p>RÉSULTATS POUR LE DERNIER TEST :  </p>
+        <br> <br>
+        <div id="boucle" *ngFor="let result of this.questionStats; let i = index">
+            Question {{i + 1}} : {{result}} 
+            <br> 
+            <br>
+   
+        </div>
+    <button type="submit" class="button-back" [routerLink]="['/results']" > RETOUR </button>
+
+ </body>    

@@ -1,0 +1,36 @@
+
+        Types de questions possibles :
+        <br>
+        <label id="custom-dropdown-label">Avec images : </label>
+        <input type="checkbox" id="pic"  [(ngModel)]="configuration === undefined ? '' : configuration.pictures">
+        <br>         
+         
+        <label id="custom-dropdown-label">Choix multipes : </label>
+        <input type="checkbox" id="qcm" ng-model="checkboxModel.value1" [(ngModel)]="configuration === undefined ? '' : configuration.multipleAnswers">
+        <br>
+
+        <label id="custom-dropdown-label">Avec sons : </label>
+        <input type="checkbox" id="sound" ng-model="checkboxModel.value1" [(ngModel)]="configuration === undefined ? '' : configuration.sounds">
+        <br>
+
+        <label id="custom-dropdown-label">Avec indices : </label>
+        <input type="checkbox" id="hint" ng-model="checkboxModel.value1" [(ngModel)]="configuration === undefined ? '' : configuration.hints">
+        <br> <br>
+        
+        Possibilité de reposer les questions :
+        <br>
+
+        <label id="custom-dropdown-label">Réponses fausses : </label>
+        <input type="checkbox" id="againfalse" ng-model="checkboxModel.value1" [(ngModel)]="configuration === undefined ? '' : configuration.againFalseQuestion">
+        <br> <br>
+
+        Infos:
+        <br>
+
+        <label for="difficulty"> Difficulté de la configuration : </label>
+        <input type="text" id="difficulty" name="difficulty" placeholder="Difficulté de la configuration" [(ngModel)]="configuration === undefined ? '' : configuration.difficulty">
+
+        <br>
+        
+        <label for="timeDisplayHint"> Temps d'apparition des indices : </label>
+        <input type="number" id="timeDisplayHint" name="timeDisplayHint" placeholder="Temps d'apparation des indices" [(ngModel)]="configuration === undefined ? '' : configuration.timeDisplayHint">

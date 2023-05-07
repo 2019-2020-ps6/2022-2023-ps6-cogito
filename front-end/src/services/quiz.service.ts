@@ -86,4 +86,11 @@ export class QuizService {
             this.router.navigateByUrl("/theme-page");
         }
     }
+
+    // par rapport à quizzesALL
+    getQuizById(id: number): Quiz | undefined {
+        let index: number = QUIZZES_ALL.findIndex((quiz: Quiz): boolean => quiz.id === id);
+        return (index === -1) ? undefined : QUIZZES_ALL[index];
+    }
+
 }

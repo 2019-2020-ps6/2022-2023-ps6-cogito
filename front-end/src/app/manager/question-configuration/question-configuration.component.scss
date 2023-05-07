@@ -1,0 +1,24 @@
+.important {
+    position: absolute;
+    top: -10vh;
+    display: block;
+    background-color: lightgrey;
+}
+
+div {
+    font-size: 20px;
+    position: absolute;
+    padding: 15px 453px 167px 100px;
+}
+
+*,
+  *:before,
+  *:after {
+      -webkit-box-sizing: border-box;
+      -moz-box-sizing: border-box;
+      box-sizing: border-box;
+  }
+
+.label {
+    font-style: italic;
+}

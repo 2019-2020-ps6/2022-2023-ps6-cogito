@@ -1,6 +1,6 @@
 import { Quiz } from "../models/quiz.model";
 import { QUESTIONS_CHA, QUESTIONS_ECH, QUESTIONS_INS } from "./question.mock";
-
+ 
 export const QUIZ_INSTRUMENTS: Quiz = {
     id: 1,
     title: "Instruments",

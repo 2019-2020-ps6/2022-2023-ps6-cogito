@@ -1,0 +1,32 @@
+@import "/src/styles/variables";
+
+
+.box {
+    background-color: $grey;
+    padding: 10px;
+    margin: 20vh;
+    align-items: center;
+    text-align: center;
+    padding: 40px;
+    border: 2px solid black;
+
+}
+
+p {
+    background-color: $yellow;
+    border: 2px solid black;
+    padding: 15px;
+    margin: 10px 20vw 0 20vw;
+    font-size: $normal_size;
+}
+
+.button-back {
+    background-color: $orange;
+    color: black;
+    border: 1px solid black;
+    padding: 10px 20px;
+    border-radius: 5px;
+    position: absolute;
+    left: 1vw;
+    bottom: 3vh;
+  }
