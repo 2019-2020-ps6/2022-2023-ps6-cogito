@@ -141,9 +141,52 @@
             </ul>
         </div>
 
-        <div class="correction-part mb-3">
-            <h3>Correction</h3>
+        Voulez vous ajouter une correction ?
+        <input type="checkbox" name="correction" [checked]="question?.correcting" (change)="addOrRemoveCorrection($event)">
 
+        <div *ngIf="question?.correcting" class="correction-part mb-3">
+            <h3>Correction</h3>
+            <div class="row g-3 align-items-center mb-3">
+                <div class="col-auto">
+                    <label class="col-form-label">Description associée : </label>
+                </div>
+                <div class="col-auto">
+                    <input *ngIf="question && question.correcting" type="text" class="form-control" name="description"  [(ngModel)]="question.correcting === undefined ? '' : question.correcting.description">
+                </div>
+                <div class="col-auto">
+                    <span class="form-text">
+                        Le message permettant d'expliquer la réponse correcte.
+                    </span>
+                </div>
+            </div>
+            <div class="row g-3 align-items-center mb-3">
+                <div class="col-auto">
+                    <label class="col-form-label">Image associée : </label>
+                </div>
+                <div class="col-auto">
+                    <input *ngIf="question && question.correcting" type="text" class="form-control" name="description" [(ngModel)]="question.correcting.picture">
+                </div>
+                <div class="col-auto">
+                    <span class="form-text">
+                        L'image qui sera affichée en complémant de la description.
+                    </span>
+                    <img *ngIf="question && question.correcting" src="{{question.correcting.picture}}">
+                </div>
+            </div>
+            <div class="row g-3 align-items-center mb-3">
+                <div class="col-auto">
+                    <label class="col-form-label">Son associé : </label>
+                </div>
+                <div class="col-auto">
+                    <input *ngIf="question && question.correcting" type="text" class="form-control" name="description" [(ngModel)]="question.correcting.sound">
+                </div>
+                <div class="col-auto">
+                    <span class="form-text">
+                        Le son qui pourra être joué en complémant de la description.
+                    </span>
+                    <img *ngIf="question && question.correcting" src="{{question.correcting.sound}}">
+                </div>
+            </div>
         </div>
     </div>
 

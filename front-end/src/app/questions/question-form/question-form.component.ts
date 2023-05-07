@@ -6,6 +6,7 @@ import { QuizService } from "src/services/adminQuiz.service";
 
 import * as fs from 'fs-extra';
 import * as path from 'path';
+import { Correcting } from "src/models/correcting.model";
 
 @Component({
     selector: "app-question-form",
@@ -63,6 +64,18 @@ export class QuestionFormComponent implements OnInit {
 
     uploadSound(event: any): void {
         // wait for backend to be ready
+    }
+
+    addOrRemoveCorrection(event: any) : void {
+        if(event.target.checked){
+            if(this.question){
+                this.question.correcting = {id: -1, description: ""} as Correcting;
+            }
+        }
+        else{
+            delete this.question?.correcting;
+        }
+        console.log(this.question);
     }
   
 }
