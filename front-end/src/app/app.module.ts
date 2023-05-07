@@ -29,6 +29,7 @@ import { ResultQuizComponent } from './manager/result-quiz/result-quiz.component
 import { ResultQuestionComponent } from './manager/result-question/result-question.component';
 import { AnswerConfigurationComponent } from './manager/answer-configuration/answer-configuration.component';
 import { ManagerListComponent } from './manager/manager-list/manager-list.component';
+import { ManagerFormComponent } from './manager/manager-form/manager-form.component';
 
 
 
@@ -57,6 +58,7 @@ import { ManagerListComponent } from './manager/manager-list/manager-list.compon
         ResultQuestionComponent,
         AnswerConfigurationComponent,
         ManagerListComponent,
+        ManagerFormComponent,
 
     ],
     imports: [
