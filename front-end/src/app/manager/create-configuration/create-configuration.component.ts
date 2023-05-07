@@ -1,12 +1,8 @@
 import { Component } from '@angular/core';
 
 import { OnInit } from '@angular/core';
-import { QuizService } from '../../../services/quiz.service';
-import { Patient } from '../../../models/patient.model';
-import { ActivatedRoute, Router } from '@angular/router';
 import { Configuration } from 'src/models/configuration.model';
 import { ConfigurationService } from 'src/services/configuration.service';
-import { ConfigurationComponent } from '../configuration/configuration.component';
 
 @Component({
   selector: 'app-create-configuration',

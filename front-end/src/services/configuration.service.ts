@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { ConfigurationComponent } from 'src/app/manager/configuration/configuration.component';
 import { Configuration } from 'src/models/configuration.model';
 import { CONFIG_DEFAULT_3, CONFIG_DEFAULT_4, CONFIG_DEFAULT_5} from 'src/mocks/configuration.mock';
 import { BehaviorSubject, Observable } from 'rxjs';

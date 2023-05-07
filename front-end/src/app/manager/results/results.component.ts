@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Patient } from 'src/models/patient.model';
-import { PatientService } from 'src/services/patient.service';
 import { PATIENT_ANDREA } from 'src/mocks/patient.mock';
 import { QUIZZES_ALL } from 'src/mocks/quiz.mock';
-import { ActivatedRoute } from '@angular/router';
 
 
 @Component({
