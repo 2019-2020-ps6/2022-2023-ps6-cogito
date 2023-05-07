@@ -17,6 +17,7 @@ export class GameService {
     public selectedQuestion$: BehaviorSubject<GameQuestion>;
     public currentQuestionIndex: number;
     public answers: Map<GameQuestion,boolean>;
+    public quizfinished: boolean = false;
 
 
     constructor(private soundService: QuizSoundService) {
@@ -41,13 +42,11 @@ export class GameService {
 
     checkAnswer(answer: GameAnswer): void {
         this.currentQuestionIndex = this.gameInstance.gameQuestionList.indexOf(this.selectedQuestion);
-        if (this.currentQuestionIndex < this.gameInstance.gameQuestionList.length - 1) {
+        if (this.currentQuestionIndex < this.gameInstance.gameQuestionList.length) {
             this.answers.set(this.gameInstance.gameQuestionList[this.currentQuestionIndex],answer.isCorrect)
             this.selectQuestion(this.gameInstance.gameQuestionList[this.currentQuestionIndex + 1]);
             this.currentQuestionIndex--;
-        } else {
-                console.log("End of quiz");
-            }
+        }
     }
 
     reinitQuiz(){
@@ -60,14 +59,12 @@ export class GameService {
         for (let i=0; i<this.gameInstance.gameQuestionList.length; i++){
             this.answers.set(this.gameInstance.gameQuestionList[i],false)
         }
-        console.log(this.gameInstance.gameQuestionList.length)
     }
 
     wrongAnswers(n:number){
         for (let i=0;i<n;i++){
             const q = this.gameInstance.gameQuestionList[i];
             const n = this.gameInstance.gameQuestionList.filter(element => element === q).length;
-            console.log(!this.answers.get(q)&&n<2)
             if (!this.answers.get(q)&&n<2){
                 this.gameInstance.gameQuestionList[this.gameInstance.gameQuestionList.length]=q;
             }
@@ -80,6 +77,17 @@ export class GameService {
     }
     stopSound(){
         this.soundService.stopAllSounds();
+    }
+
+    checkQuestions(){
+    }
+
+    finalScores(){
+        console.log(this.answers);
+        console.log("Score 2 : " + this.correctAnswers() +" sur " + this.gameInstance.gameQuestionList.length );}
+
+    correctAnswers(): number{
+        return Array.from(this.answers.values()).reduce((count, currentValue) => {return currentValue === true ? count + 1 : count;}, 0);
     }
     
 }

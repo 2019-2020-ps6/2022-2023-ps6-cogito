@@ -28,9 +28,11 @@ export class GameQuestionResultComponent implements OnInit {
     }
 
 
-    ngOnInit(): void { }
+    ngOnInit(): void {
+     }
 
     continueClicked() {
+        this.gameService.stopSound();
         this.clickOnContinue.emit(true);
     }
 }

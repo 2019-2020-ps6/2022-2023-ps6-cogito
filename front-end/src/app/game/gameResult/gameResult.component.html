@@ -1,6 +1,11 @@
 <div class="game-result">
     <section class="game-result-content">
         <h1>Félicitations vous avez fini le quiz {{quizId}}!</h1>
+        <ul>
+            <li *ngFor="let q of questions; let i = index">
+              {{ i + 1}} : {{ q.title }} {{trueAnswers[i].value}}
+            </li>
+        </ul>
         <button (click)="quitClicked()" routerLink="/theme-page">QUITTER</button>
     </section>
 </div>

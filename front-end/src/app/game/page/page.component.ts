@@ -83,7 +83,7 @@ export class GamePageComponent implements OnInit {
         }
         this.gameFinished=true;
         this.resultDisplayed=true;
-        console.log(this.gameService.answers);
+        this.gameService.stopSound();
     }
 
     onClickQuit(clickOnQuitt: boolean){
@@ -103,6 +103,9 @@ export class GamePageComponent implements OnInit {
         this.gameService.stopSound();
         if (this.questions[this.currentQuestion-1].sound){
             this.gameService.playSound(this.questions[this.currentQuestion-1].sound);
+        }
+        if (this.gameFinished){
+            this.gameService.stopSound();
         }
         this.resultDisplayed=false;
     }
