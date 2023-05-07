@@ -2,11 +2,14 @@ import { Injectable } from '@angular/core';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { Quiz } from 'src/models/quiz.model';
 import { Question } from 'src/models/question.model';
+import {QUIZZES_ALL} from 'src/mocks/quiz.mock';
 
 @Injectable({
   providedIn: 'root'
 })
 export class QuizService {
+  private quizList: Quiz[] = QUIZZES_ALL;
+
   private selectedQuiz: Quiz | undefined;
   private selectionQuizSubject: BehaviorSubject<Quiz> = new BehaviorSubject<Quiz>({} as Quiz);
 
@@ -21,9 +24,13 @@ export class QuizService {
     this.selectionQuestionSubject.next(this.selectedQuestion as Question);
   }
 
-  selectQuiz(quiz?: Quiz): void { 
-    this.selectedQuiz = quiz;
+  selectQuizById(id: number): void {
+    this.selectedQuiz = this.quizList.find(quiz => quiz.id === id);
     this.selectionQuizSubject?.next(this.selectedQuiz as Quiz);
+  }
+
+  selectQuiz(quiz?: Quiz): void { 
+    this.selectQuizById(quiz?.id as number);
   }
 
   getSelectedQuiz(): Observable<Quiz> {

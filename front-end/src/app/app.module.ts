@@ -28,6 +28,8 @@ import { ResultsComponent } from './manager/results/results.component';
 import { ResultQuizComponent } from './manager/result-quiz/result-quiz.component';
 import { ResultQuestionComponent } from './manager/result-question/result-question.component';
 import { AnswerConfigurationComponent } from './manager/answer-configuration/answer-configuration.component';
+import { ManagerListComponent } from './manager/manager-list/manager-list.component';
+
 
 
 @NgModule({
@@ -53,7 +55,8 @@ import { AnswerConfigurationComponent } from './manager/answer-configuration/ans
         ResultsComponent,
         ResultQuizComponent,
         ResultQuestionComponent,
-        AnswerConfigurationComponent
+        AnswerConfigurationComponent,
+        ManagerListComponent,
 
     ],
     imports: [

@@ -1,9 +1,9 @@
-<ul>
-    <li *ngFor="let question of quiz?.questionList" style="height: 100px;">
+<ul class="list-group">
+    <li *ngFor="let question of quiz?.questionList" class="list-group-item">
         <div class="question-item">
-            <h2>
+            <h5>
                 {{question.title}}
-            </h2>
+            </h5>
             <div class="buttons-side">
                 <button (click)="editQuestion(question)" [routerLink]="['/question-form']" class="button-card">
                     <i class="fa-solid fa-pen"></i>

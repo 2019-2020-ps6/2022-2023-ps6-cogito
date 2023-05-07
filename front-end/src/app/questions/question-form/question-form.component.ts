@@ -3,9 +3,6 @@ import { Answer } from "src/models/answer.model";
 
 import { Question } from "src/models/question.model";
 import { QuizService } from "src/services/adminQuiz.service";
-
-import * as fs from 'fs-extra';
-import * as path from 'path';
 import { Correcting } from "src/models/correcting.model";
 
 @Component({

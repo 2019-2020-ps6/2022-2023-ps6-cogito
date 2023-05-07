@@ -18,6 +18,7 @@ import { ResultsComponent } from "./manager/results/results.component";
 import { ResultQuizComponent } from "./manager/result-quiz/result-quiz.component";
 import { ResultQuestionComponent } from "./manager/result-question/result-question.component";
 import { AnswerConfigurationComponent } from "./manager/answer-configuration/answer-configuration.component";
+import { ManagerListComponent } from "./manager/manager-list/manager-list.component";
 
 
 const routes: Routes = [
@@ -38,6 +39,8 @@ const routes: Routes = [
     { path: "result-quiz", component: ResultQuizComponent, data: { title: "Résultats des quiz" } },
     { path: "result-question", component: ResultQuestionComponent, data: { title: "Résultats des questions" } },
     { path: "answer-configuration", component: AnswerConfigurationComponent, data: { title: "Réponses" } },
+    { path: "quiz-list/:id", component: ManagerListComponent, data: { title: "Gestionnaire de quiz" } },
+    { path: "theme-list/:id", component: ManagerListComponent, data: { title: "Gestionnaire de thème" } },
     { path: "", redirectTo: "home-page", pathMatch: "full" },
     { path: "**", redirectTo: "home-page" }
 ];
