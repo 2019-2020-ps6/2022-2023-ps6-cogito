@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import Chart from 'chart.js/auto';
 import { PATIENT_ANDREA } from 'src/mocks/patient.mock';
 import { QuizService } from 'src/services/quiz.service';
+import { Chart } from 'chart.js/auto';
 
 @Component({
   selector: 'app-result-quiz',

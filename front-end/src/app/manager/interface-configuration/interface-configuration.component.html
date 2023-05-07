@@ -8,7 +8,8 @@
             <span class="button" id="button3font" (click)="setFontFamily('Century Gothic'); lastFontFamilySelected('button3font')">Test</span>
         </div>
         
-        <div class="test1" id="test1" [(ngModel)]="configuration === undefined ? '' : configuration.fontFamily" [style.fontFamily.px]="configuration === undefined ? 'Arial' : configuration.fontFamily"> Ceci est un test </div>
+        <div class="test1" id="test1" [ngStyle]="{'font-family': configuration?.fontFamily || 'Arial'}">Ceci est un test</div>
+
         <br>
           
         <label id="label">Taille de la police : </label>
