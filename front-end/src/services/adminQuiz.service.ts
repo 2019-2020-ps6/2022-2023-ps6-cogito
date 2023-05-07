@@ -37,6 +37,10 @@ export class QuizService {
     return this.selectionQuizSubject.asObservable();
   }
 
+  getIdOfSelectedQuiz(): number {
+    return this.selectedQuiz?.id as number;
+  }
+
   selectQuestion(question?: Question): void {
     this.selectedQuestion = question;
     this.typeOfForm = "edition";
@@ -60,6 +64,8 @@ export class QuizService {
       updatedQuestionList[index] = question;
       this.selectedQuiz = {...this.selectedQuiz, questionList: updatedQuestionList} as Quiz;
       this.selectionQuizSubject.next(this.selectedQuiz as Quiz);
+      this.updateQuizList(this.selectedQuiz);
+      console.log(this.selectedQuiz);
     }
   }
 
@@ -123,6 +129,16 @@ export class QuizService {
     return this.typeOfForm;
   }
 
-  
+  updateQuizList(quiz: Quiz): void {
+    const index = this.quizList.findIndex(q => q.id === quiz.id);
+    if (index !== undefined && index >= 0) {
+      const updatedQuizList = [...this.quizList];
+      updatedQuizList[index] = quiz;
+      this.quizList = updatedQuizList;
+    }
+    else {
+      this.quizList.push(quiz);
+    }
+  }
 
 }

@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { QuestionsListComponent} from './questions/questions-list/questions-list.component';
 import { Quiz } from '../models/quiz.model';
 import { QUIZZES_MUSIQUE } from '../mocks/quiz.mock';
 import { QuizService } from 'src/services/adminQuiz.service';

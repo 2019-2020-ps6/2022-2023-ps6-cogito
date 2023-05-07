@@ -18,6 +18,8 @@ export class ManagerFormComponent implements OnInit{
 
   public theme : Theme | undefined;
 
+  public selectedOption : string | undefined = 'general';
+
   constructor(private quizService: QuizService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {

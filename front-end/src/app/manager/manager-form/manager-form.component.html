@@ -1,1 +1,48 @@
-{{quiz?.title}}
+<div class="content">
+    <div class="side-content">
+        <div class="btn-group-vertical" role="group" aria-label="Vertical radio toggle button group">
+            <input type="radio" class="btn-check btn-lg" name="vbtn-radio" id="vbtn-radio1" autocomplete="off" [(ngModel)]="selectedOption" value="general">
+            <label class="btn btn-outline-secondary btn-lg" for="vbtn-radio1">General</label>
+            <input type="radio" class="btn-check btn-lg" name="vbtn-radio" id="vbtn-radio2" autocomplete="off" [(ngModel)]="selectedOption" value="questions">
+            <label class="btn btn-outline-secondary btn-lg" for="vbtn-radio2">{{element === 'quiz-form' ? 'Questions' : 'Quiz'}}</label>
+        </div>
+    
+        <div class="exiting-buttons">
+            <button class="btn btn-warning btn-outline-dark">Sauvegarder</button>
+            <button class="btn btn-danger btn-outline-dark">Annuler</button>
+        </div>
+    </div>
+      
+    <div class="main-content overflow-auto">
+        <div *ngIf="selectedOption === 'general'">
+            <div class="row g-3 align-items-center mb-3">
+                <div class="col-auto">
+                    <label class="col-form-label">Nom du quiz : </label>
+                </div>
+                <div class="col-auto">
+                    <input type="text" class="form-control" name="description"  [(ngModel)]="quiz === undefined ? '' : quiz.title">
+                </div>
+            </div>
+            <div class="row g-3 align-items-center mb-3">
+                <div class="col-auto">
+                    <label class="col-form-label">Image associée : </label>
+                </div>
+                <div class="col-auto">
+                    <input type="text" class="form-control" name="description" [(ngModel)]="quiz === undefined ? '' : quiz.picture">
+                </div>
+                <div class="col-auto">
+                    <span class="form-text">
+                        L'image peut servir le patient à se souvenir du quiz.
+                    </span>
+                </div>
+            </div>
+            <div class="picture">
+                <img class="w-25" *ngIf="quiz && quiz.picture" src="{{quiz.picture}}">
+            </div>
+        </div>
+        <div *ngIf="selectedOption === 'questions'">
+            <app-questions-list *ngIf="element==='quiz-form'"></app-questions-list>
+        </div>
+    </div>
+</div>
+  
