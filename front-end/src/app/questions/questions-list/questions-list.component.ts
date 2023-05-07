@@ -26,6 +26,7 @@ export class QuestionsListComponent implements OnInit {
 
     removeQuestion(question: Question): void {
         this.quizService.removeQuestion(question);
+        
     }
 
     createNewQuestion(): void {

@@ -27,14 +27,14 @@ h2 {
     text-align: center;
 }
 
-.card {
+.question-item {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     height: 100%;
 }
 
-.buttons {
+.buttons-side {
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;

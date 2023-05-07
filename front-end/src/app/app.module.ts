@@ -15,6 +15,7 @@ import { QuizComponent } from "./quiz/quiz/quiz.component";
 import { GamePageComponent } from "./game/page/page.component";
 import { QuestionsListComponent } from './questions/questions-list/questions-list.component';
 import { QuestionFormComponent } from './questions/question-form/question-form.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
     declarations: [
@@ -29,12 +30,13 @@ import { QuestionFormComponent } from './questions/question-form/question-form.c
         QuizComponent,
         GamePageComponent,
         QuestionsListComponent,
-        QuestionFormComponent
+        QuestionFormComponent,
     ],
     imports: [
         BrowserModule,
         AppRoutingModule,
-        FormsModule
+        FormsModule,
+        BrowserAnimationsModule
     ],
     providers: [],
     bootstrap: [AppComponent]

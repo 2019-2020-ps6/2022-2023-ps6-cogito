@@ -104,6 +104,8 @@ export class QuizService {
     question.id = this.getIdOfNewQuestion();
     question.title = "";
     question.answerList = [];
+    question.sound = "";
+    question.picture = "";
     this.addQuestion(question);
     this.selectQuestion(question);
     this.typeOfForm = "creation";

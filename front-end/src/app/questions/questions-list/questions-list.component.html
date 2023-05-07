@@ -1,10 +1,10 @@
 <ul>
     <li *ngFor="let question of quiz?.questionList" style="height: 100px;">
-        <div class="card">
+        <div class="question-item">
             <h2>
                 {{question.title}}
             </h2>
-            <div class="buttons">
+            <div class="buttons-side">
                 <button (click)="editQuestion(question)" [routerLink]="['/question-form']" class="button-card">
                     <i class="fa-solid fa-pen"></i>
                 </button>
@@ -15,4 +15,5 @@
         </div>
     </li>
 </ul>
+
 <button [routerLink]="['/question-form']" (click)="createNewQuestion()">Créer une nouvelle question</button>
