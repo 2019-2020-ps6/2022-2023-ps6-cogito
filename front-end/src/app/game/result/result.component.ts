@@ -11,7 +11,6 @@ import { Quiz } from "../../../models/quiz.model";
 })
 export class GameResultComponent implements OnInit {
     
-    public quizId?: number;
     public questions?: GameQuestion[] = [];
     public trueAnswers?: Answer[] = [];
 
@@ -23,8 +22,7 @@ export class GameResultComponent implements OnInit {
 
 
     constructor(private gameService: idList) {
-        this.gameService.currentQuestion$.subscribe((question?: GameQuestion): void => {
-            this.quizId = this.gameService.getQuiz()?.quizId;
+        this.gameService.currentQuestion$.subscribe((): void => {
             let res = this.gameService.finalScore();
             this.questions = Array.from(res.keys());
             this.trueAnswers=[];

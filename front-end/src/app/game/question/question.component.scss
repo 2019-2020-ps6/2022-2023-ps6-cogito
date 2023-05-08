@@ -12,7 +12,6 @@
     }
   
     button{
-      margin-top: 5vh;
       background-color: yellow;
     }
     button:hover{
@@ -27,7 +26,7 @@
       text-shadow: -1px -1px 0 $yellow, 1px -1px 0 $yellow, -1px 1px 0 $yellow, 1px 1px 0 $yellow;
       height: 20vh;
       width: 20vh;
-      padding-top: 10vh
+      padding-top: 2vh
     }
   
     .ans-picture-present:hover {
@@ -35,6 +34,7 @@
     }
   
   img {
+    margin: -10vh;
       max-width: 25vh;
       display: flex;
       justify-content: space-evenly;

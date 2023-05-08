@@ -21,3 +21,11 @@
     flex-direction: column;
     justify-content: space-around;
   }
+
+  .textdescription {
+    padding-left: 10vh;
+    padding-right: 10vh;
+    max-width: 100%;
+    font-size: $normal-size;
+    word-wrap: break-word;
+  }
