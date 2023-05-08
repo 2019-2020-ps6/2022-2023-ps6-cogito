@@ -1,1 +1,18 @@
-<p>{{quiz?.title}}</p>
+<ul class="list-group">
+    <li *ngFor="let elementToDisplay of listToDisplay" class="list-group-item">
+        <div class="elementToDisplay-item">
+            <h5>
+                {{elementToDisplay.title}}
+                {{elementToDisplay.id}}
+            </h5>
+            <div class="buttons-side">
+                <button [routerLink]="[element==='quiz-list' ? '/quiz-form/' : 'theme-form', elementToDisplay.id]" class="button-card">
+                    <i class="fa-solid fa-pen"></i>
+                </button>
+                <button class="button-card">
+                    <i class="fas fa-trash-alt"></i>
+                </button>
+            </div>
+        </div>
+    </li>
+</ul>
