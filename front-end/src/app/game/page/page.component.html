@@ -1,9 +1,12 @@
 <section class="questionPage">
     <div *ngIf="question" class="questionTitle">
         <h2>{{question.title}}</h2>
+        <img class="picture" *ngIf="question.picture" src="{{question.picture}}" alt="image de la question">
+        <img class="sound" *ngIf="question.sound" [src]="imageUrl" alt="Bouton">
     </div>
     <div *ngIf="question" class="questionContent">
-        <div class="anwser" *ngFor="let answer of question.answerList">{{answer.value}}</div>
+        <div class="anwser" *ngFor="let answer of question.answerList">
+            <button [ngClass]="{'ans-picture-present': answer.picture}" (click)="checkAnswer(answer)" [style.background-image]="'url(' + answer.picture + ')'">{{answer.value}}</button></div>
     </div>
     <div class="divButtons">
         <button (click)="leavePage()">QUITTER</button>

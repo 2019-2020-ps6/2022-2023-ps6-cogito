@@ -21,3 +21,24 @@
     flex-wrap: wrap;
     align-content: space-evenly;
 }
+
+.ans-picture-present {
+    background-size: cover; /* Ajuste la taille de l'image pour couvrir le bouton */
+    background-position: center; /* Centre l'image horizontalement et verticalement */
+    text-shadow: -1px -1px 0 $yellow, 1px -1px 0 $yellow, -1px 1px 0 $yellow, 1px 1px 0 $yellow;
+    height: 20vh;
+    width: 20vh;
+    padding-top: 10vh
+  }
+
+  .ans-picture-present:hover {
+    opacity: 0.5;
+  }
+
+  .picture {
+    max-width: 20vw;
+  }
+
+  .sound {
+    width: 20vw;
+  }

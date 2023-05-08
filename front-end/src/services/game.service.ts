@@ -13,6 +13,7 @@ import { Quiz } from "../models/quiz.model";
 import { Statistics } from "../models/statistics.model";
 import { PatientService } from "./patient.service";
 import { QuizService } from "./quiz.service";
+import { QuizSoundService } from "./gameSound.service";
 
 @Injectable({
     providedIn: "root"
@@ -26,8 +27,9 @@ export class idList {
         = new BehaviorSubject<GameQuestion | undefined>(undefined);
     private currentQuestion?: GameQuestion;
     private currentInd: number = -1;
+    public resultQuiz: Map<GameQuestion,boolean> = new Map();
 
-    constructor(private patientService: PatientService, private quizService: QuizService, private router: Router) {
+    constructor(private patientService: PatientService, private quizService: QuizService, private soundService: QuizSoundService, private router: Router) {
         this.patientService.selectedPatient$.subscribe((patient?: Patient): void => {
             if (this.router.url.includes("/game-page") && patient === undefined) {
                 this.router.navigateByUrl("/patient-page");
@@ -88,6 +90,7 @@ export class idList {
         this.questionList = [];
         this.currentQuestion$.next(undefined);
         this.currentInd = -1;
+        this.resultQuiz = new Map();
     }
 
     private getQuestionsList(configuration: Configuration, quiz: Quiz): void {
@@ -203,6 +206,19 @@ export class idList {
             this.currentQuestion.startTime = new Date();
             this.currentQuestion$.next(this.currentQuestion);
         }
+    }
+
+    checkAnswer(answer: Answer, question?: GameQuestion): void {
+        if (question)
+        this.resultQuiz.set(question,answer.isCorrect);
+    }
+
+    playSound(soundUrl: string| undefined){
+        if (soundUrl)
+        this.soundService.playSound(soundUrl);
+    }
+    stopSound(){
+        this.soundService.stopAllSounds();
     }
 
     islastQuestion(): boolean {

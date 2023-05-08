@@ -1,5 +1,5 @@
 import { Difficulty, MediaType, Question } from "../models/question.model";
-import { CHA_Q1, CHA_Q2, ECH_Q1, ECH_Q2, INS_Q1, INS_Q2, INS_Q3 } from "./answer.mock";
+import { CHA_Q1, CHA_Q2, ECH_Q1, ECH_Q2, INS_Q1, INS_Q2, INS_Q3, INS_Q4 } from "./answer.mock";
 
 export const QUESTION_INS1: Question = {
     id: 1,
@@ -28,7 +28,17 @@ export const QUESTION_INS3: Question = {
     defaultAnswersMediaType: MediaType.text
 };
 
-export const QUESTIONS_INS: Question[] = [QUESTION_INS1, QUESTION_INS2, QUESTION_INS3];
+export const QUESTION_INS4: Question = {
+    id: 3,
+    title: "Qui a chanté \"Ne me quitte pas\" ?",
+    difficulty: Difficulty.facile,
+    answerList: INS_Q4,
+    defaultMediaType: MediaType.sound,
+    defaultAnswersMediaType: MediaType.picture,
+    sound:"/assets/sounds/neMeQuittePas.mp3"
+};
+
+export const QUESTIONS_INS: Question[] = [QUESTION_INS1, QUESTION_INS2, QUESTION_INS3,QUESTION_INS4];
 
 
 export const QUESTION_CHA1: Question = {

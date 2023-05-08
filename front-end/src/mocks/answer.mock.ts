@@ -62,6 +62,23 @@ export const INS_Q3_4: Answer = {
 
 export const INS_Q3: Answer[] = [INS_Q3_1, INS_Q3_2, INS_Q3_3, INS_Q3_4];
 
+export const INS_Q4_1: Answer = {
+    id: 6,
+    value: "Jacques Brel",
+    isCorrect: false,
+    picture: "https://www.melody.tv/wp-content/uploads/2021/10/jacques-brel61696dee9f9b6-1024x576.jpeg"
+};
+
+export const INS_Q4_2: Answer = {
+    id: 7,
+    value: "Georges Brassens",
+    isCorrect: false,
+    picture: "https://images.rtl.fr/~c/2000v2000/rtl/www/1234639-le-chanteur-francais-georges-brassens-chez-lui.jpg"
+
+};
+
+export const INS_Q4: Answer[] = [INS_Q4_1, INS_Q4_2];
+
 
 export const CHA_Q1_1: Answer = {
     id: 10,
