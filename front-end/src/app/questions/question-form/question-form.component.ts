@@ -1,9 +1,11 @@
 import { Component, OnInit } from "@angular/core";
 import { Answer } from "src/models/answer.model";
-
 import { Question } from "src/models/question.model";
 import { QuizService } from "src/services/adminQuiz.service";
 import { Correcting } from "src/models/correcting.model";
+import { GamePageComponent } from "src/app/game/page/page.component";
+import { GameQuestion } from "src/models/gameQuestion.model";
+
 
 @Component({
     selector: "app-question-form",
@@ -13,6 +15,7 @@ import { Correcting } from "src/models/correcting.model";
 export class QuestionFormComponent implements OnInit {
     question?: Question;
     originalQuestion?: Question;
+    Show: boolean = false;
 
     constructor(private quizService: QuizService) {}
 
@@ -79,5 +82,10 @@ export class QuestionFormComponent implements OnInit {
     getIdOfQuiz(): number {
         return this.quizService.getIdOfSelectedQuiz();
     }
+
+    afficher(): void {
+        this.Show = !this.Show;
+    }
+
   
 }
