@@ -141,4 +141,13 @@ export class QuizService {
     }
   }
 
+  removeQuiz(quiz: Quiz): void {
+    const index = this.quizList.findIndex(q => q.id === quiz.id);
+    if (index !== undefined && index >= 0) {
+      const updatedQuizList = [...this.quizList];
+      updatedQuizList.splice(index, 1);
+      this.quizList = updatedQuizList;
+    }
+  }
+
 }

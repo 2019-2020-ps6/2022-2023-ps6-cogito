@@ -40,8 +40,15 @@
                 <img class="w-25" *ngIf="quiz && quiz.picture" src="{{quiz.picture}}">
             </div>
         </div>
-        <div *ngIf="selectedOption === 'questions'">
+        <div *ngIf="selectedOption === 'questions' || selectedOption=== 'quiz'">
             <app-questions-list *ngIf="element==='quiz-form'"></app-questions-list>
+            <div *ngIf="element==='theme-form'">
+                <ul>
+                    <li *ngFor="let quiz of theme?.quizList">
+                        {{quiz.title}}
+                    </li>
+                </ul>
+            </div>
         </div>
     </div>
 </div>
