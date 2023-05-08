@@ -20,6 +20,8 @@ export class GamePageComponent {
             // console.log("Before last question: ", this.lastQuestion);
             this.lastQuestion = this.gameService.islastQuestion();
             // console.log("After last question: ", this.lastQuestion);
+            if (this.question)
+            this.gameService.playSound(this.question.sound);
         });
     }
 
@@ -30,11 +32,14 @@ export class GamePageComponent {
         else {
             console.log("Ask next question");
             this.gameService.nextQuestion();
+            if (this.question)
+            this.gameService.playSound(this.question.sound);
         }
     }
 
     finishGame(): void {
         this.lastQuestion = false;
+        this.gameService.stopSound();
         this.gameService.finishGame();
     }
 
@@ -42,10 +47,33 @@ export class GamePageComponent {
         this.gameService.leaveGame();
     }
 
-    checkAnswer(answer: Answer){
+    checkAnswer(answer: Answer): void{
         console.log(answer);
         this.gameService.checkAnswer(answer,this.question);
         this.nextQuestion();
 
+    }
+
+    clickSpeaker(): void {
+        console.log("hello");
+        if (this.imageUrl=="./assets/pictures/audio-on.png")
+        this.setAudioOff();
+        else {
+            this.setAudioOn()
+        }
+
+    }
+
+    setAudioOn(): void {
+        if (this.question){
+            this.gameService.playSound(this.question.sound);
+            this.imageUrl="./assets/pictures/audio-on.png"
+        }
+    }
+    
+    setAudioOff(): void {
+    
+        this.gameService.stopSound();
+        this.imageUrl="./assets/pictures/audio-off.png";
     }
 }

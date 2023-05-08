@@ -2,7 +2,7 @@
     <div *ngIf="question" class="questionTitle">
         <h2>{{question.title}}</h2>
         <img class="picture" *ngIf="question.picture" src="{{question.picture}}" alt="image de la question">
-        <img class="sound" *ngIf="question.sound" [src]="imageUrl" alt="Bouton">
+        <img class="sound" *ngIf="question.sound" [src]="imageUrl" alt="Bouton" (click)="clickSpeaker()">
     </div>
     <div *ngIf="question" class="questionContent">
         <div class="anwser" *ngFor="let answer of question.answerList">

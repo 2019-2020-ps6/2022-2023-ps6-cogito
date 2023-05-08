@@ -15,8 +15,9 @@ export const QUESTION_INS2: Question = {
     title: "Le violon possède ...",
     difficulty: Difficulty.moyenne,
     answerList: INS_Q2,
-    defaultMediaType: MediaType.text,
-    defaultAnswersMediaType: MediaType.text
+    defaultMediaType: MediaType.picture,
+    defaultAnswersMediaType: MediaType.text,
+    picture:"https://www.guillaume-kessler.fr/wp-content/uploads/2017/11/violon-passion-tradition-mirecourt-trois-quart-carre.jpg"
 };
 
 export const QUESTION_INS3: Question = {
