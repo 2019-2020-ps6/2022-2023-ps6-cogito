@@ -17,10 +17,10 @@
         <div *ngIf="selectedOption === 'general'">
             <div class="row g-3 align-items-center mb-3">
                 <div class="col-auto">
-                    <label class="col-form-label">Nom du quiz : </label>
+                    <label class="col-form-label">{{element === 'quiz-form' ? 'Nom du quiz :' : 'Nom du thème :'}} </label>
                 </div>
                 <div class="col-auto">
-                    <input type="text" class="form-control" name="description"  [(ngModel)]="quiz === undefined ? '' : quiz.title">
+                    <input type="text" class="form-control" name="description"  [(ngModel)]="element === 'quiz-form' ? quiz === undefined ? '' : quiz.title : theme === undefined ? '' : theme.title">
                 </div>
             </div>
             <div class="row g-3 align-items-center mb-3">
@@ -28,16 +28,17 @@
                     <label class="col-form-label">Image associée : </label>
                 </div>
                 <div class="col-auto">
-                    <input type="text" class="form-control" name="description" [(ngModel)]="quiz === undefined ? '' : quiz.picture">
+                    <input type="text" class="form-control" name="description" [(ngModel)]="element === 'quiz-form' ? quiz === undefined ? '' : quiz.picture : theme === undefined ? '' : theme.picture">
                 </div>
                 <div class="col-auto">
                     <span class="form-text">
-                        L'image peut servir le patient à se souvenir du quiz.
+                        L'image peut servir le patient à se souvenir du {{element === 'quiz-form' ? 'quiz' : 'theme'}}.
                     </span>
                 </div>
             </div>
             <div class="picture">
-                <img class="w-25" *ngIf="quiz && quiz.picture" src="{{quiz.picture}}">
+                <img class="w-25" *ngIf="quiz && quiz.picture" src="{{quiz.picture }}">
+                <img class="w-25" *ngIf="theme && theme.picture" src="{{theme.picture}}">
             </div>
         </div>
         <div *ngIf="selectedOption === 'questions' || selectedOption=== 'quiz'">
