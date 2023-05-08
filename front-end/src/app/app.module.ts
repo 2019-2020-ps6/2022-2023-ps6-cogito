@@ -31,6 +31,7 @@ import { AnswerConfigurationComponent } from './manager/answer-configuration/ans
 import { ManagerListComponent } from './manager/manager-list/manager-list.component';
 import { ManagerFormComponent } from './manager/manager-form/manager-form.component';
 import { GameQuestionResultComponent } from "./game/corrWindow/corrWindow.component";
+import { GameResultComponent } from "./game/result/result.component";
 
 
 
@@ -60,7 +61,8 @@ import { GameQuestionResultComponent } from "./game/corrWindow/corrWindow.compon
         AnswerConfigurationComponent,
         ManagerListComponent,
         ManagerFormComponent,
-        GameQuestionResultComponent
+        GameQuestionResultComponent,
+        GameResultComponent
 
     ],
     imports: [

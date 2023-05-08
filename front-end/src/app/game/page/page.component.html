@@ -12,8 +12,9 @@
         <button (click)="leavePage()">QUITTER</button>
         <button *ngIf="!lastQuestion; else finishButton" (click)="skipQuestion()">SUIVANT</button>
         <ng-template #finishButton>
-            <button (click)="finishGame()">TERMINER</button>
+            <button (click)="skipQuestion()">TERMINER</button>
         </ng-template>
     </div>
     <corrWindow *ngIf="corrDisplayed" [corrDisplayed]="corrDisplayed" [lastAnswer]="lastAnswer" (clickOnContinue)="clickOnCorrWindow($event)"></corrWindow>   
+    <quizResult *ngIf="result"></quizResult>
 </section>

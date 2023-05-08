@@ -251,6 +251,10 @@ export class idList {
         return this.selectedPatient?.configuration||undefined;
     }
 
+    getQuiz() : GameQuiz|undefined {
+        return this.gameQuiz;
+    }
+
     finishGame(): void {
         if (this.currentQuestion != undefined && this.gameQuiz != undefined && this.selectedPatient != undefined) {
             this.currentQuestion.endTime = new Date();

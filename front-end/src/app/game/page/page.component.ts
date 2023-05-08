@@ -15,6 +15,7 @@ export class GamePageComponent {
     imageUrl:string="./assets/pictures/audio-on.png";
     public corrDisplayed: boolean = false;
     public lastAnswer: boolean = false;
+    public result: boolean = false;
     constructor(private gameService: idList) {
         this.gameService.currentQuestion$.subscribe((question?: GameQuestion): void => {
             this.question = question;
@@ -36,7 +37,8 @@ export class GamePageComponent {
 
     nextQuestion(): void {
         if (this.gameService.islastQuestion()){
-            this.finishGame();
+            this.corrAnswerWindow(this.question);
+            //this.finishGame();
         }
         else {
             this.gameService.stopSound();
@@ -91,16 +93,22 @@ export class GamePageComponent {
         if (question){
             if (this.gameService.activeCorrWindow()&& question.correcting){
                 this.lastAnswer=this.gameService.finalScore().get(question)||false;
-                console.log(this.gameService.activeCorrTrueWindow() && this.lastAnswer);
-                console.log((this.gameService.activeCorrFalseWindow() && !this.lastAnswer));
                 if ((this.gameService.activeCorrTrueWindow() && this.lastAnswer)||(this.gameService.activeCorrFalseWindow() && !this.lastAnswer)){
                     this.corrDisplayed=true;
+                }
+                else if (this.lastQuestion){
+                    this.result=true;
                 }
                 else
                 this.nextQuestion();
             }
-            else
-            this.nextQuestion();
+            else {
+                if (this.lastQuestion){
+                    this.result=true;
+                    return;
+                }
+                this.nextQuestion();
+            }
         }
         else
             this.nextQuestion();
@@ -108,7 +116,12 @@ export class GamePageComponent {
 
     clickOnCorrWindow(clickOnQuitt: boolean){
         this.corrDisplayed=false;
-        this.lastAnswer=false;
+        if (!this.lastQuestion)
         this.nextQuestion();
+        else {
+            this.result=true;
+
+        }
+
     }
 }
