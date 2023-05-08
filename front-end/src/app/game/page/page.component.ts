@@ -32,7 +32,6 @@ export class GamePageComponent {
             this.finishGame();
         }
         else {
-            console.log("Ask next question");
             this.gameService.stopSound();
             this.gameService.nextQuestion();
             if (this.question)
@@ -52,17 +51,15 @@ export class GamePageComponent {
     }
 
     checkAnswer(answer: Answer): void{
-        console.log(answer);
         this.gameService.checkAnswer(answer,this.question);
         if (this.gameService.activeCorrWindow())
         this.corrAnswerWindow(this.question);
         else
-        this.nextQuestion
+        this.nextQuestion();
 
     }
 
     clickSpeaker(): void {
-        console.log("hello");
         if (this.imageUrl=="./assets/pictures/audio-on.png")
         this.setAudioOff();
         else {
@@ -86,8 +83,14 @@ export class GamePageComponent {
     corrAnswerWindow(question?:GameQuestion): void {
         if (question){
             if (this.gameService.activeCorrWindow()&& question.correcting){
-                this.corrDisplayed=true;
                 this.lastAnswer=this.gameService.finalScore().get(question)||false;
+                console.log(this.gameService.activeCorrTrueWindow() && this.lastAnswer);
+                console.log((this.gameService.activeCorrFalseWindow() && !this.lastAnswer));
+                if ((this.gameService.activeCorrTrueWindow() && this.lastAnswer)||(this.gameService.activeCorrFalseWindow() && !this.lastAnswer)){
+                    this.corrDisplayed=true;
+                }
+                else
+                this.nextQuestion();
             }
             else
             this.nextQuestion();
