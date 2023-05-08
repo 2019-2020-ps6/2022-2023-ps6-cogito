@@ -49,7 +49,7 @@ export const CONFIG_DEFAULT_4: Configuration = {
     difficulty: Difficulty.moyenne,
     againFalseQuestion: true,
 
-    correctAnswerWindow: true,
+    correctAnswerWindow: false,
     correctDescription: true,
     correctImage: true,
     correctSound: true,

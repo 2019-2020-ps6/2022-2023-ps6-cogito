@@ -15,4 +15,5 @@
             <button (click)="finishGame()">TERMINER</button>
         </ng-template>
     </div>
+    <corrWindow *ngIf="corrDisplayed" [corrDisplayed]="corrDisplayed" [lastAnswer]="lastAnswer" (clickOnContinue)="clickOnCorrWindow($event)"></corrWindow>   
 </section>

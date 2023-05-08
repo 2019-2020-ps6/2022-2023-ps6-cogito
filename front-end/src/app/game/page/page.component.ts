@@ -12,8 +12,9 @@ import { Answer } from "../../../models/answer.model";
 export class GamePageComponent {
     public question?: GameQuestion;
     public lastQuestion: boolean = false;
-    imageUrl:string="./assets/pictures/audio-on.png"; 
-
+    imageUrl:string="./assets/pictures/audio-on.png";
+    public corrDisplayed: boolean = false;
+    public lastAnswer: boolean = false;
     constructor(private gameService: idList) {
         this.gameService.currentQuestion$.subscribe((question?: GameQuestion): void => {
             this.question = question;
@@ -26,11 +27,13 @@ export class GamePageComponent {
     }
 
     nextQuestion(): void {
+        this.gameService.checkAnswer(undefined,this.question);
         if (this.gameService.islastQuestion()){
             this.finishGame();
         }
         else {
             console.log("Ask next question");
+            this.gameService.stopSound();
             this.gameService.nextQuestion();
             if (this.question)
             this.gameService.playSound(this.question.sound);
@@ -40,6 +43,7 @@ export class GamePageComponent {
     finishGame(): void {
         this.lastQuestion = false;
         this.gameService.stopSound();
+        console.log(this.gameService.finalScore());
         this.gameService.finishGame();
     }
 
@@ -50,7 +54,10 @@ export class GamePageComponent {
     checkAnswer(answer: Answer): void{
         console.log(answer);
         this.gameService.checkAnswer(answer,this.question);
-        this.nextQuestion();
+        if (this.gameService.activeCorrWindow())
+        this.corrAnswerWindow(this.question);
+        else
+        this.nextQuestion
 
     }
 
@@ -72,8 +79,26 @@ export class GamePageComponent {
     }
     
     setAudioOff(): void {
-    
         this.gameService.stopSound();
         this.imageUrl="./assets/pictures/audio-off.png";
+    }
+
+    corrAnswerWindow(question?:GameQuestion): void {
+        if (question){
+            if (this.gameService.activeCorrWindow()&& question.correcting){
+                this.corrDisplayed=true;
+                this.lastAnswer=this.gameService.finalScore().get(question)||false;
+            }
+            else
+            this.nextQuestion();
+        }
+        else
+            this.nextQuestion();
+    }
+
+    clickOnCorrWindow(clickOnQuitt: boolean){
+        this.corrDisplayed=false;
+        this.lastAnswer=false;
+        this.nextQuestion();
     }
 }

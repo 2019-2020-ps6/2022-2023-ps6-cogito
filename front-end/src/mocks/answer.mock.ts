@@ -65,7 +65,7 @@ export const INS_Q3: Answer[] = [INS_Q3_1, INS_Q3_2, INS_Q3_3, INS_Q3_4];
 export const INS_Q4_1: Answer = {
     id: 6,
     value: "Jacques Brel",
-    isCorrect: false,
+    isCorrect: true,
     picture: "https://www.melody.tv/wp-content/uploads/2021/10/jacques-brel61696dee9f9b6-1024x576.jpeg"
 };
 

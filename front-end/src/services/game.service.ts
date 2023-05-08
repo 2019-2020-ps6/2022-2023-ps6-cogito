@@ -14,6 +14,7 @@ import { Statistics } from "../models/statistics.model";
 import { PatientService } from "./patient.service";
 import { QuizService } from "./quiz.service";
 import { QuizSoundService } from "./gameSound.service";
+import { read } from "fs-extra";
 
 @Injectable({
     providedIn: "root"
@@ -208,9 +209,18 @@ export class idList {
         }
     }
 
-    checkAnswer(answer: Answer, question?: GameQuestion): void {
-        if (question)
-        this.resultQuiz.set(question,answer.isCorrect);
+    checkAnswer(answer?: Answer, question?: GameQuestion): void {
+        if (question){
+            if (answer)
+            this.resultQuiz.set(question,answer.isCorrect);
+            else if (this.resultQuiz.get(question)==undefined)
+            this.resultQuiz.set(question,false);
+        }
+    }
+
+    finalScore():  Map<GameQuestion,boolean> {
+        return this.resultQuiz;
+
     }
 
     playSound(soundUrl: string| undefined){
@@ -223,6 +233,22 @@ export class idList {
 
     islastQuestion(): boolean {
         return !(this.currentInd < this.questionList.length - 1);
+    }
+
+    activeCorrWindow(): boolean {
+        return this.selectedPatient?.configuration.correctAnswerWindow||this.selectedPatient?.configuration.falseAnswerWindow||false;
+    }
+
+    activeCorrTrueWindow(): boolean {
+        return this.selectedPatient?.configuration.correctAnswerWindow||false;
+    }
+
+    activeCorrFalseWindow(): boolean {
+        return this.selectedPatient?.configuration.falseAnswerWindow||false;
+    }
+
+    getConfig(): Configuration|undefined {
+        return this.selectedPatient?.configuration||undefined;
     }
 
     finishGame(): void {
