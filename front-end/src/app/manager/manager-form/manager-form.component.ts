@@ -5,7 +5,7 @@ import { Quiz } from 'src/models/quiz.model';
 import { Theme } from 'src/models/theme.model';
 import { QuizService } from 'src/services/adminQuiz.service';
 import { ThemeService } from 'src/services/adminTheme.service';
-import { Location } from '@angular/common';
+import { Location } from 'src/services/location.service';
 
 @Component({
   selector: 'app-manager-form',
@@ -22,10 +22,16 @@ export class ManagerFormComponent implements OnInit{
 
   public selectedOption : string | undefined = 'general';
 
-  constructor(private quizService: QuizService,private themeService: ThemeService, private route: ActivatedRoute, private location: Location) { }
+  public myLocation : string[] | undefined;
+
+  public previousRoute : string | undefined;
+  constructor(private quizService: QuizService,private themeService: ThemeService, private route: ActivatedRoute, public location: Location) { }
 
   ngOnInit(): void {
     // check the url to know which element is selected
+    this.location.addPathToHistory({path:window.location.href.split('/')[3],id: +this.route.snapshot.params['id']});
+    console.log(this.location.getHistory());
+
     this.element = window.location.href.split('/')[3];
     const elementId = +this.route.snapshot.params['id'];
     if(this.element){
@@ -48,10 +54,15 @@ export class ManagerFormComponent implements OnInit{
     }
   }
 
-
-  goBack(): void {
-    this.location.back();
+  getPreviousRoute() : void {
+    const previous =  this.location.backToHistory();
+    this.previousRoute =  '/' + previous.path + '/';
+    if(previous.id){
+      this.previousRoute +=  previous.id;
+    }
+    console.log(this.previousRoute);
   }
+
 }
 
 

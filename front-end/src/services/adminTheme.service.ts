@@ -22,6 +22,9 @@ export class ThemeService {
 
   private quizListSubject: BehaviorSubject<Quiz[]> = new BehaviorSubject<Quiz[]>([] as Quiz[]);
 
+  // behaviourSubject of themeList
+    private themeListSubject: BehaviorSubject<Theme[]> = new BehaviorSubject<Theme[]>(this.themeList);
+
   constructor(private quizService: QuizService) { 
     this.selectionThemeSubject.next(this.selectedTheme as Theme);
     this.quizService.getSelectedQuiz().subscribe((quiz: Quiz) => {
@@ -30,6 +33,9 @@ export class ThemeService {
     );
   }
 
+    getThemeList(): Observable<Theme[]> {
+        return this.themeListSubject.asObservable();
+    }
 
     getQuizListByThemeId(id: number): Observable<Quiz[]> {
         this.quizListSubject.next(this.themeList.find(theme => theme.id === id)?.quizList as Quiz[]);

@@ -110,6 +110,7 @@ export class QuizService {
       updatedQuestionList.splice(index, 1);
       this.selectedQuiz = {...this.selectedQuiz, questionList: updatedQuestionList} as Quiz;
       this.selectionQuizSubject.next(this.selectedQuiz as Quiz);
+      this.updateQuizList(this.selectedQuiz);
     }
   }
 
@@ -118,6 +119,7 @@ export class QuizService {
     updatedQuestionList.push(question);
     this.selectedQuiz = {...this.selectedQuiz, questionList: updatedQuestionList} as Quiz;
     this.selectionQuizSubject.next(this.selectedQuiz as Quiz);
+    this.updateQuizList(this.selectedQuiz);
   }
 
   createAndSelectNewQuestion(): void {
@@ -147,6 +149,7 @@ export class QuizService {
     else {
       this.quizList.push(quiz);
     }
+    this.quizListSubject.next(this.quizList);
   }
 
   removeQuiz(quiz: Quiz): void {
