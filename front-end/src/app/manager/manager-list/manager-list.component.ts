@@ -26,7 +26,7 @@ export class ManagerListComponent implements OnInit{
 
   public listToDisplay : any[] | undefined;
 
-  constructor(private themeService: ThemeService, private quizService: QuizService,private route: ActivatedRoute, private location: Location) { 
+  constructor(private themeService: ThemeService, private quizService: QuizService,private route: ActivatedRoute) { 
 
   }
 
@@ -36,7 +36,6 @@ export class ManagerListComponent implements OnInit{
     if(!this.element){ // if the element is not defined, it means that the list is displayed from the menu
       this.element = window.location.href.split('/')[3];
       this.elementId = 0;
-      this.location.addPathToHistory({path:window.location.href.split('/')[3], id:0});
     }
 
     if(!this.elementId && this.elementId !== 0){ 
@@ -46,7 +45,6 @@ export class ManagerListComponent implements OnInit{
     if(this.element){
       if(this.element == 'quiz-list'){
         // subscribe to quizService
-        console.log(this.location.getHistory()); 
         if(!this.elementId){
           this.quizService.getQuizList().subscribe(quizList => {
             this.quizList = JSON.parse(JSON.stringify(quizList)) ;
@@ -74,10 +72,6 @@ export class ManagerListComponent implements OnInit{
         }
       }
     }
-
-    console.log(this.listToDisplay)
-    console.log(this.elementId)
-    console.log(this.element)
   }
 
 }

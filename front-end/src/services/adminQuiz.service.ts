@@ -147,6 +147,7 @@ export class QuizService {
       this.quizList = updatedQuizList;
     }
     else {
+      console.log(quiz);
       this.quizList.push(quiz);
     }
     this.quizListSubject.next(this.quizList);
