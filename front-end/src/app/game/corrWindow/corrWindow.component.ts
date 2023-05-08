@@ -28,6 +28,7 @@ export class GameQuestionResultComponent implements OnInit {
         this.gameService.currentQuestion$.subscribe((question?: GameQuestion): void => {
             this.config = this.gameService.getConfig();
             if (this.config && question) {
+                this.title=question.title;
                 if ((this.config.correctDescription && this.lastAnswer)||(this.config.falseDescription && !this.lastAnswer))
                 this.description=question?.correcting?.description;
                 if ((this.config.correctImage && this.lastAnswer)||(this.config.falseImage && !this.lastAnswer))
