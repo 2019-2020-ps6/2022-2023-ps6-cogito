@@ -67,7 +67,7 @@ export class QuestionFormComponent implements OnInit {
         console.log("event")
         if(event.target.checked){
             if(this.question){
-                this.question.correcting = {id: -1, description: ""} as Correcting;
+                this.question.correcting = {id: -1, description: "",picture:"",sound:""} as Correcting;
             }
         }
         else{

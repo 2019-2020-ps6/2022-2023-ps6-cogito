@@ -151,7 +151,7 @@
                     <label class="col-form-label">Description associée : </label>
                 </div>
                 <div class="col-auto">
-                    <input *ngIf="question && question.correcting" type="text" class="form-control" name="description"  [(ngModel)]="question.correcting === undefined ? '' : question.correcting.description">
+                    <input *ngIf="question && question.correcting" type="text" class="form-control" name="title" [(ngModel)]="question.correcting.description">
                 </div>
                 <div class="col-auto">
                     <span class="form-text">
