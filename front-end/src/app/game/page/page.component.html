@@ -10,7 +10,7 @@
     </div>
     <div class="divButtons">
         <button (click)="leavePage()">QUITTER</button>
-        <button *ngIf="!lastQuestion; else finishButton" (click)="nextQuestion()">SUIVANT</button>
+        <button *ngIf="!lastQuestion; else finishButton" (click)="skipQuestion()">SUIVANT</button>
         <ng-template #finishButton>
             <button (click)="finishGame()">TERMINER</button>
         </ng-template>

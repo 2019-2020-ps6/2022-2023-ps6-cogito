@@ -26,8 +26,15 @@ export class GamePageComponent {
         });
     }
 
-    nextQuestion(): void {
+    skipQuestion(): void {
         this.gameService.checkAnswer(undefined,this.question);
+        if (this.gameService.activeCorrWindow())
+        this.corrAnswerWindow(this.question);
+        else
+        this.nextQuestion();
+    }
+
+    nextQuestion(): void {
         if (this.gameService.islastQuestion()){
             this.finishGame();
         }
