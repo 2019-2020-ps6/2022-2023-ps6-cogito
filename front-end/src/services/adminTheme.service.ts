@@ -20,6 +20,8 @@ export class ThemeService {
 
   private typeOfForm: string = "creation";
 
+  private quizListSubject: BehaviorSubject<Quiz[]> = new BehaviorSubject<Quiz[]>([] as Quiz[]);
+
   constructor(private quizService: QuizService) { 
     this.selectionThemeSubject.next(this.selectedTheme as Theme);
     this.quizService.getSelectedQuiz().subscribe((quiz: Quiz) => {
@@ -27,6 +29,13 @@ export class ThemeService {
         }
     );
   }
+
+
+    getQuizListByThemeId(id: number): Observable<Quiz[]> {
+        this.quizListSubject.next(this.themeList.find(theme => theme.id === id)?.quizList as Quiz[]);
+        return this.quizListSubject.asObservable();
+    }
+
 
   selectThemeById(id: number): void {
     this.selectedTheme = this.themeList.find(quiz => quiz.id === id);

@@ -17,11 +17,19 @@ export class QuizService {
   private selectionQuestionSubject: BehaviorSubject<Question> = new BehaviorSubject<Question>({} as Question);
   private oldSelectedQuestion: Question | undefined;
 
+
+  // behaviourSubject of quizList
+  private quizListSubject: BehaviorSubject<Quiz[]> = new BehaviorSubject<Quiz[]>(this.quizList);
+
   private typeOfForm: string = "creation";
 
   constructor() { 
     this.selectionQuizSubject.next(this.selectedQuiz as Quiz);
     this.selectionQuestionSubject.next(this.selectedQuestion as Question);
+  }
+
+  getQuizList(): Observable<Quiz[]> {
+    return this.quizListSubject.asObservable();
   }
 
   selectQuizById(id: number): void {

@@ -5,6 +5,7 @@ import { Quiz } from 'src/models/quiz.model';
 import { Theme } from 'src/models/theme.model';
 import { QuizService } from 'src/services/adminQuiz.service';
 import { ThemeService } from 'src/services/adminTheme.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-manager-form',
@@ -21,7 +22,7 @@ export class ManagerFormComponent implements OnInit{
 
   public selectedOption : string | undefined = 'general';
 
-  constructor(private quizService: QuizService,private themeService: ThemeService, private route: ActivatedRoute) { }
+  constructor(private quizService: QuizService,private themeService: ThemeService, private route: ActivatedRoute, private location: Location) { }
 
   ngOnInit(): void {
     // check the url to know which element is selected
@@ -47,6 +48,10 @@ export class ManagerFormComponent implements OnInit{
     }
   }
 
+
+  goBack(): void {
+    this.location.back();
+  }
 }
 
 
