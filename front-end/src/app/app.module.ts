@@ -32,6 +32,7 @@ import { ManagerListComponent } from './manager/manager-list/manager-list.compon
 import { ManagerFormComponent } from './manager/manager-form/manager-form.component';
 import { GameQuestionResultComponent } from "./game/corrWindow/corrWindow.component";
 import { GameResultComponent } from "./game/result/result.component";
+import { GameQuestionComponent } from "./game/question/question.component";
 
 
 
@@ -62,7 +63,8 @@ import { GameResultComponent } from "./game/result/result.component";
         ManagerListComponent,
         ManagerFormComponent,
         GameQuestionResultComponent,
-        GameResultComponent
+        GameResultComponent,
+        GameQuestionComponent
 
     ],
     imports: [

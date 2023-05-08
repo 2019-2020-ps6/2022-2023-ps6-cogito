@@ -12,18 +12,13 @@ import { Answer } from "../../../models/answer.model";
 export class GamePageComponent {
     public question?: GameQuestion;
     public lastQuestion: boolean = false;
-    imageUrl:string="./assets/pictures/audio-on.png";
     public corrDisplayed: boolean = false;
     public lastAnswer: boolean = false;
     public result: boolean = false;
     constructor(private gameService: idList) {
         this.gameService.currentQuestion$.subscribe((question?: GameQuestion): void => {
             this.question = question;
-            // console.log("Before last question: ", this.lastQuestion);
             this.lastQuestion = this.gameService.islastQuestion();
-            // console.log("After last question: ", this.lastQuestion);
-            if (this.question)
-            this.gameService.playSound(this.question.sound);
         });
     }
 
@@ -38,7 +33,6 @@ export class GamePageComponent {
     nextQuestion(): void {
         if (this.gameService.islastQuestion()){
             this.corrAnswerWindow(this.question);
-            //this.finishGame();
         }
         else {
             this.gameService.stopSound();
@@ -59,34 +53,11 @@ export class GamePageComponent {
         this.gameService.leaveGame();
     }
 
-    checkAnswer(answer: Answer): void{
-        this.gameService.checkAnswer(answer,this.question);
+    clickOnCheckAnswer(answer: Answer): void{
         if (this.gameService.activeCorrWindow())
         this.corrAnswerWindow(this.question);
         else
         this.nextQuestion();
-
-    }
-
-    clickSpeaker(): void {
-        if (this.imageUrl=="./assets/pictures/audio-on.png")
-        this.setAudioOff();
-        else {
-            this.setAudioOn()
-        }
-
-    }
-
-    setAudioOn(): void {
-        if (this.question){
-            this.gameService.playSound(this.question.sound);
-            this.imageUrl="./assets/pictures/audio-on.png"
-        }
-    }
-    
-    setAudioOff(): void {
-        this.gameService.stopSound();
-        this.imageUrl="./assets/pictures/audio-off.png";
     }
 
     corrAnswerWindow(question?:GameQuestion): void {

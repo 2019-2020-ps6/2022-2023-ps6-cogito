@@ -4,14 +4,7 @@
             {{question.title}}
         </h2>
     </div>
-    <img class="picture" *ngIf="question && question.picture" src="{{question.picture}}" alt="image de la question">
-    <img class="sound" *ngIf="question && question.sound" [src]="imageUrl" alt="Bouton" (click)="clickSpeaker()">
-    <div *ngIf="question" class="questionContent">
-        <div class="row">
-            <div class="answer col-md-6" *ngFor="let answer of question.answerList; let i = index;">
-                <button [ngClass]="{'ans-picture-present': answer.picture}" (click)="checkAnswer(answer)" [style.background-image]="'url(' + answer.picture + ')'">{{answer.value}}</button>
-            </div>
-        </div></div>
+    <question-compo (clickOncheckAnswer)="clickOnCheckAnswer($event)"></question-compo>
     <div class="divButtons">
         <button (click)="leavePage()">QUITTER</button>
         <button *ngIf="!lastQuestion; else finishButton" (click)="skipQuestion()">SUIVANT</button>
@@ -19,7 +12,6 @@
             <button (click)="skipQuestion()">TERMINER</button>
         </ng-template>
     </div>
-
     <div *ngIf="corrDisplayed" class="modal-overlay">
         <div class="modal-window">
           <corrWindow [corrDisplayed]="corrDisplayed" [lastAnswer]="lastAnswer" (clickOnContinue)="clickOnCorrWindow($event)"></corrWindow>
