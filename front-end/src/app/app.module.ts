@@ -8,6 +8,8 @@ import { HeaderComponent } from "./header/header.component";
 import { HomePageComponent } from "./home-page/home-page.component";
 import { PatientPageComponent } from "./patient/page/page.component";
 import { PatientComponent } from "./patient/patient/patient.component";
+import { PatientDeleteComponent } from "./manager/profil_list/patient/patient.component";
+import { CreationPatientComponent } from "./manager/creation_patient/page.component";
 import { ThemePageComponent } from "./theme/page/page.component";
 import { ThemeComponent } from "./theme/theme/theme.component";
 import { QuizPageComponent } from "./quiz/page/page.component";
@@ -20,6 +22,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { MenuComponent } from './manager/menu/menu.component';
 import { ProfilComponent } from './manager/profil/profil.component';
+import { PatientPageListComponent } from "./manager/profil_list/page.component";
 import { ConfigurationComponent } from './manager/configuration/configuration.component';
 import { CreateConfigurationComponent } from './manager/create-configuration/create-configuration.component';
 import { InterfaceConfigurationComponent } from './manager/interface-configuration/interface-configuration.component';
@@ -40,6 +43,8 @@ import { ListThemeQuizPageComponent } from './manager/list-theme-quiz-page/list-
 @NgModule({
     declarations: [
         AppComponent,
+        PatientPageListComponent,
+        PatientDeleteComponent,
         HeaderComponent,
         HomePageComponent,
         PatientPageComponent,
@@ -48,6 +53,7 @@ import { ListThemeQuizPageComponent } from './manager/list-theme-quiz-page/list-
         ThemeComponent,
         QuizPageComponent,
         QuizComponent,
+        CreationPatientComponent,
         GamePageComponent,
         QuestionsListComponent,
         QuestionFormComponent,

@@ -1,12 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, Renderer2  } from '@angular/core';
 
 import { OnInit } from '@angular/core';
-import { QuizService } from '../../../services/quiz.service';
-import { Patient } from '../../../models/patient.model';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { Configuration } from 'src/models/configuration.model';
 import { ConfigurationService } from 'src/services/configuration.service';
-import { ConfigurationComponent } from '../configuration/configuration.component';
 
 @Component({
   selector: 'app-create-configuration',
@@ -15,10 +12,14 @@ import { ConfigurationComponent } from '../configuration/configuration.component
 })
 
 export class CreateConfigurationComponent implements OnInit {
+
   state: String = 'general';
   configuration: Configuration | undefined;
+  fontFamily: string = "Arial";
 
-  constructor(public configurationService : ConfigurationService) {
+  displayButtonChoose = false;
+
+  constructor(public configurationService : ConfigurationService, private renderer: Renderer2, public route : ActivatedRoute) {
   };
 
   ngOnInit() {
@@ -27,6 +28,7 @@ export class CreateConfigurationComponent implements OnInit {
     this.configurationService.getNewConfig().subscribe((config: Configuration) => {
       this.configuration = config;
     });
+    this.displayButtonChoose = this.route.snapshot.data['displayButtonChoose'] || false;
   }
 
   addNewConfig(){
@@ -38,4 +40,13 @@ export class CreateConfigurationComponent implements OnInit {
   changeState(state: String) {
     this.state = state;
   }
+
+  changeFontFamily() {
+    this.renderer.setStyle(document.documentElement, '--font-family', 'Century Gothic');
+  }
+
+  changeFontSize() {
+    this.renderer.setStyle(document.documentElement, '--font-size', '20px');
+  }
+  
 }

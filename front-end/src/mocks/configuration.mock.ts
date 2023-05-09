@@ -11,7 +11,7 @@ export const CONFIG_DEFAULT_3: Configuration = {
     description: "Configuration par défaut pour le stade 3",
 
     fontFamily: "Roboto",
-    fontSize: 18,
+    fontSize: 14,
     theme: "Clair",
 
     pictures: true,
@@ -37,7 +37,7 @@ export const CONFIG_DEFAULT_4: Configuration = {
     name: "Défaut stade 4",
     description: "Configuration par défaut pour le stade 4",
 
-    fontFamily: "Century Gothic",
+    fontFamily: "Arial",
     fontSize: 20,
     theme: "Clair",
 
@@ -65,7 +65,7 @@ export const CONFIG_DEFAULT_5: Configuration = {
     name: "Défaut stade 5",
     description: "Configuration par défaut pour le stade 5",
 
-    fontFamily: "Roboto",
+    fontFamily: "Century Gothic",
     fontSize: 22,
     theme: "Clair",
 

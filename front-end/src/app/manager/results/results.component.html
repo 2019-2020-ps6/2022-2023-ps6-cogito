@@ -4,8 +4,9 @@
             <!--Inputs & Output allow communication between parent & child components.-->
             <!--More information: https://angular.io/guide/component-interaction-->
             {{quiz.title}}
-            <button type="submit" class="button-card" [queryParams]="{id: quiz.id}" [routerLink]="['/result-quiz']"> Score quiz </button>
-            <button type="submit" class="button-card" [queryParams]="{id: quiz.id}" [routerLink]="['/result-question']"> Score questions </button>
+            <button type="submit" class="button-card1" [queryParams]="{id: quiz.id}" [routerLink]="['/result-quiz']"> Score quiz </button>
+            <button type="submit" class="button-card2" [queryParams]="{id: quiz.id}" [routerLink]="['/result-question']"> Score questions </button>
+            <button type="submit" class="delete" (click)="deleteQuiz(quiz.id)"> Supprimer </button>
         </div>
     
     <button type="submit" class="button-back" [routerLink]="['/profil']"> RETOUR </button>

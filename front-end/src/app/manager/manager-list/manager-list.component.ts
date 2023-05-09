@@ -86,4 +86,31 @@ export class ManagerListComponent implements OnInit{
       }
     }
   }
+
+  createNewElement() : void{
+    if(this.element){
+      if(this.element == 'quiz-list'){
+        // subscribe to quizService
+        this.quizService.createAndSelectNewQuiz();
+      }
+      else if(this.element === 'theme-list'){
+        // subscribe to themeService
+        this.themeService.selectThemeById(0);
+      }
+    }
+  }
+
+  getIdOfNewElement() : number{
+    if(this.element){
+      if(this.element == 'quiz-list'){
+        // subscribe to quizService
+        return this.quizService.getIdOfNewQuiz();
+      }
+      else if(this.element === 'theme-list'){
+        // subscribe to themeService
+        return 3;
+      }
+    }
+    return 0;
+  }
 }
