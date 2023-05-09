@@ -51,3 +51,38 @@
     min-height: 35%;
     margin-left: 40px;
 }
+
+.deleteButtonPop {
+    background-color: red;
+    width: 50%;
+    height: 35%;
+    min-width: 35%;
+    min-height: 35%;
+    margin-left: 20px;
+}
+
+.popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 37%;
+    height: 30%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  p{
+    font-size: 20px;
+    font-weight: bold;
+  }
+  
+  
+  
+  .popup-container {
+    background-color: white;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  }

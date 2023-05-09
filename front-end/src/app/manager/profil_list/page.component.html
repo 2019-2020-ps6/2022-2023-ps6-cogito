@@ -1,8 +1,8 @@
 <section class="page">
     <div class="rowListContainer">
         <button class="buttonPrev" *ngIf="hasNextOrPrevButtons()" (click)="prevDisplayPatients()">Précédent</button>
-        <div class="rowList">
-            <app-patient-patient-delete *ngFor="let patient of displayPatientList" [patient]="patient"
+        <div class="rowList" >
+            <app-patient-patient-delete (deletedPatient)="refreshList()" *ngFor="let patient of displayPatientList"  [patient]="patient"
                                  (selectedPatient)="selectPatient($event)">
             </app-patient-patient-delete>
         </div>
@@ -10,6 +10,6 @@
     </div>
     <div class="divButtons">
         <button class="backButton" routerLink="/menu">RETOUR</button>
-        <button class="backButton" routerLink="/creation-patient-page">NOUVEAU</button>
+        <button class="backButton" (click)="createNewPatient()" routerLink="/creation-patient-page">NOUVEAU</button>
     </div>
 </section>

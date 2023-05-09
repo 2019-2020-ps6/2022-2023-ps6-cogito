@@ -1,9 +1,17 @@
-<div class="patient" (click)="selectPatient()">
+<div class="patient">
     <figure>
-        <div class="patientImage">
+        <div class="patientImage" (click)="selectPatient()">
             <img src="{{patient.picture}}" alt="Image de profil de {{patient.name}}">
         </div>
         <figcaption>{{patient.name}}</figcaption>
     </figure>
-    <button class="deleteButton" routerLink="/menu">X</button>
+    <button class="deleteButton" (click)="afficher()" routerLink="/profil-list">X</button>
+</div>
+
+<div class="popup"  *ngIf="Show">
+    <div class="popup-container">
+        <p>Êtes-vous sur de vouloir supprimer ce Patient ?</p>
+        <button (click)="afficher()" routerLink="/profil-list">Annuler</button>
+        <button class="deleteButtonPop" (click)="deletePatient()" routerLink="/profil-list">Supprimer</button>
+    </div>
 </div>

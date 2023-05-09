@@ -40,8 +40,12 @@ body {
 
 .button-choose-configuration {
     position: absolute;
+    display: flex;
     left: 3vw;
     bottom: 15vh;
+    flex-direction: column;
+    justify-content: space-around;
+    height: 40%;
 }
 
 .button-back {

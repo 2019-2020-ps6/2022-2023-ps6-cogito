@@ -1,10 +1,9 @@
 import { Component, OnInit } from "@angular/core";
-import { Answer } from "src/models/answer.model";
-import { Question } from "src/models/question.model";
-import { QuizService } from "src/services/adminQuiz.service";
-import { Correcting } from "src/models/correcting.model";
-import { GamePageComponent } from "src/app/game/page/page.component";
-import { GameQuestion } from "src/models/gameQuestion.model";
+import { Router } from "@angular/router";
+
+import { Patient } from "src/models/patient.model";
+import { PatientPageListComponent } from "../profil_list/page.component";
+import { PatientService } from "src/services/patient.service";
 
 
 @Component({
@@ -13,79 +12,38 @@ import { GameQuestion } from "src/models/gameQuestion.model";
     styleUrls: ["./page.component.scss"]
 })
 export class CreationPatientComponent implements OnInit {
-    question?: Question;
-    originalQuestion?: Question;
-    Show: boolean = false;
+    patient?: Patient;
+    originalpatient?: Patient;
+    private patientList!: Patient[];
 
-    constructor(private quizService: QuizService) {}
 
+    constructor(private patientService: PatientService, private router: Router) {
+    }
+    
     ngOnInit(): void {
-        this.quizService.getSelectedQuestion().subscribe(question => {
-            this.question = JSON.parse(JSON.stringify(question)) ;
+        this.patientService.patientList$.subscribe((patientList: Patient[]): void => {
+            this.patientList = patientList;
         });
+        this.patientService.selectedPatient$.subscribe((patient?: Patient): void => {
+            if (patient !== undefined) {
+                this.patient = patient;
+                this.originalpatient = JSON.parse(JSON.stringify(patient));
+            }
+        }
+        );
     }
 
-    addAnswerToForm(): void {
-        const id = this.quizService.getIdOfNewAnswerOf(this.question as Question);
-        this.question?.answerList.push({
-            value: "",
-            isCorrect: false,
-            id: id
-        });
-    }
 
-    saveQuestion(): void {
-        if(!this.checkQuestionValidity()){
+    savePatient(): void {
+        if(!this.checkPatientValidity()){
             console.log("Question is not valid");
         }
         else {
-            this.quizService.updateQuestion(this.question as Question);
-            this.quizService.selectQuestion(undefined);
+            this.patientService.addPatient(this.patient as Patient);
         }
     }
 
-    cancelQuestion(): void {
-        this.quizService.resetSelectedQuestion();
-        if(this.quizService.getTypeOfForm() === "creation"){
-            this.quizService.removeQuestion(this.question as Question);
-        }
-        this.quizService.selectQuestion(undefined);
-    }
-
-    deleteAnswer(answer : Answer): void {
-        this.question?.answerList.splice(this.question.answerList.indexOf(answer), 1);
-
-    }
-
-
-    checkQuestionValidity(): boolean {
-        return this.question?.title !== undefined && this.question?.title !== "" && this.question?.answerList.length > 1 && this.question?.answerList.filter(answer => answer.isCorrect).length > 0 && this.question?.answerList.filter(answer => answer.value !== "").length === this.question?.answerList.length && this.question?.difficulty !== undefined && this.question?.defaultMediaType !== undefined;
-    }
-
-    uploadSound(event: any): void {
-        // wait for backend to be ready
-    }
-
-    addOrRemoveCorrection(event: any) : void {
-        console.log("event")
-        if(event.target.checked){
-            if(this.question){
-                this.question.correcting = {id: -1, description: "",picture:"",sound:""} as Correcting;
-            }
-        }
-        else{
-            delete this.question?.correcting;
-        }
-        console.log(this.question);
-    }
-
-    getIdOfQuiz(): number {
-        return this.quizService.getIdOfSelectedQuiz();
-    }
-
-    afficher(): void {
-        this.Show = !this.Show;
-    }
-
-  
+    checkPatientValidity(): boolean {
+        return this.patient?.name !== "" && this.patient?.age !== undefined && this.patient?.stage !== undefined && this.patient?.quizIdList !== undefined;
+    }  
 }

@@ -26,6 +26,7 @@ import { ManagerFormComponent } from "./manager/manager-form/manager-form.compon
 
 const routes: Routes = [
     { path: "home-page", component: HomePageComponent, data: { title: "Accueil" } },
+    { path: "modification-patient-page", component: CreationPatientComponent, data: { title: "Modifier les Informations du Profil" } },
     { path: "creation-patient-page", component: CreationPatientComponent, data: { title: "Créer un Nouveau Profil" } },
     { path: "patient-page", component: PatientPageComponent, data: { title: "Qui êtes-vous ?" } },
     { path: "profil-list", component: PatientPageListComponent, data: { title: "Liste des patients" } },

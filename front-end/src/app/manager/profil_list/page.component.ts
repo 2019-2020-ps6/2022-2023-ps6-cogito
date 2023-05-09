@@ -100,4 +100,13 @@ export class PatientPageListComponent implements OnInit {
         let stage: number = patient.stage;
         this.router.navigateByUrl("/profil");
     }
+
+    createNewPatient(): void {
+        this.patientService.createNewPatient();
+    }
+
+    refreshList(): void {
+        this.nextDisplayPatients();
+        this.prevDisplayPatients();
+    }
 }
