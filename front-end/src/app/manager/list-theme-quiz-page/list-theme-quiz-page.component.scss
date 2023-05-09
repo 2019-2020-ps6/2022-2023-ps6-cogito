@@ -1,0 +1,32 @@
+@import '/src/styles/variables.scss';
+
+.content{
+    padding: 10px;
+    background-color: $grey;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    width: 100%;
+    height: 100%;
+}
+
+.main-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    height: 100%;
+    width: 70%;
+}
+
+
+.overflow-auto{
+    height: 70%;
+}
+
+.page {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 10px;
+}

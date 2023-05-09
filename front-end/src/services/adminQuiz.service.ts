@@ -12,10 +12,15 @@ export class QuizService {
 
   private selectedQuiz: Quiz | undefined;
   private selectionQuizSubject: BehaviorSubject<Quiz> = new BehaviorSubject<Quiz>({} as Quiz);
+  private oldSelectedQuiz: Quiz | undefined;
 
   private selectedQuestion: Question | undefined;
   private selectionQuestionSubject: BehaviorSubject<Question> = new BehaviorSubject<Question>({} as Question);
   private oldSelectedQuestion: Question | undefined;
+
+
+  // behaviourSubject of quizList
+  private quizListSubject: BehaviorSubject<Quiz[]> = new BehaviorSubject<Quiz[]>(this.quizList);
 
   private typeOfForm: string = "creation";
 
@@ -24,8 +29,13 @@ export class QuizService {
     this.selectionQuestionSubject.next(this.selectedQuestion as Question);
   }
 
+  getQuizList(): Observable<Quiz[]> {
+    return this.quizListSubject.asObservable();
+  }
+
   selectQuizById(id: number): void {
     this.selectedQuiz = this.quizList.find(quiz => quiz.id === id);
+    this.oldSelectedQuiz = JSON.parse(JSON.stringify(this.selectedQuiz)) as Quiz;
     this.selectionQuizSubject?.next(this.selectedQuiz as Quiz);
   }
 
@@ -71,7 +81,8 @@ export class QuizService {
 
   resetSelectedQuestion(): void{
     console.log("resetSelectedQuestion");
-    this.selectionQuestionSubject?.next(this.oldSelectedQuestion as Question);
+    this.selectedQuestion = JSON.parse(JSON.stringify(this.oldSelectedQuestion)) as Question;
+    this.selectionQuestionSubject?.next(this.selectedQuestion as Question);
   }
 
 
@@ -102,6 +113,7 @@ export class QuizService {
       updatedQuestionList.splice(index, 1);
       this.selectedQuiz = {...this.selectedQuiz, questionList: updatedQuestionList} as Quiz;
       this.selectionQuizSubject.next(this.selectedQuiz as Quiz);
+      this.updateQuizList(this.selectedQuiz);
     }
   }
 
@@ -110,6 +122,7 @@ export class QuizService {
     updatedQuestionList.push(question);
     this.selectedQuiz = {...this.selectedQuiz, questionList: updatedQuestionList} as Quiz;
     this.selectionQuizSubject.next(this.selectedQuiz as Quiz);
+    this.updateQuizList(this.selectedQuiz);
   }
 
   createAndSelectNewQuestion(): void {
@@ -137,8 +150,27 @@ export class QuizService {
       this.quizList = updatedQuizList;
     }
     else {
+      console.log(quiz);
       this.quizList.push(quiz);
     }
+    this.quizListSubject.next(this.quizList);
+  }
+
+  removeQuiz(quiz: Quiz): void {
+    const index = this.quizList.findIndex(q => q.id === quiz.id);
+    if (index !== undefined && index >= 0) {
+      const updatedQuizList = [...this.quizList];
+      updatedQuizList.splice(index, 1);
+      this.quizList = updatedQuizList;
+      this.quizListSubject.next(this.quizList);
+    }
+  }
+
+  resetSelectedQuiz(): void {
+    this.selectedQuiz = this.oldSelectedQuiz as Quiz;
+    console.log(this.selectedQuiz);
+    this.selectionQuizSubject.next(this.selectedQuiz as Quiz);
+    this.updateQuizList(this.selectedQuiz as Quiz);
   }
 
 }

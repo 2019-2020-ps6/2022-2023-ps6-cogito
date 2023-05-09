@@ -4,6 +4,9 @@ import { ActivatedRoute } from '@angular/router';
 import { Quiz } from 'src/models/quiz.model';
 import { Theme } from 'src/models/theme.model';
 import { QuizService } from 'src/services/adminQuiz.service';
+import { ThemeService } from 'src/services/adminTheme.service';
+import { Location } from '@angular/common';
+
 
 @Component({
   selector: 'app-manager-form',
@@ -20,10 +23,11 @@ export class ManagerFormComponent implements OnInit{
 
   public selectedOption : string | undefined = 'general';
 
-  constructor(private quizService: QuizService, private route: ActivatedRoute) { }
+  public previousRoute : string | undefined;
+  constructor(private quizService: QuizService,private themeService: ThemeService, private route: ActivatedRoute, private location: Location ) { }
 
   ngOnInit(): void {
-    // check the url to know which element is selected
+
     this.element = window.location.href.split('/')[3];
     const elementId = +this.route.snapshot.params['id'];
     if(this.element){
@@ -37,10 +41,45 @@ export class ManagerFormComponent implements OnInit{
       }
       else if(this.element === 'theme-form'){
         // subscribe to themeService
+        this.themeService.selectThemeById(elementId);
+        this.themeService.getSelectedTheme().subscribe(theme => {
+          this.theme = JSON.parse(JSON.stringify(theme)) ;
+        }
+        );
       }
     }
   }
 
+
+  saveElement() : void{
+    if(this.element){
+      if(this.element == 'quiz-form'){
+        // subscribe to quizService
+        //this.themeService.updateQuiz(this.quiz as Quiz);
+        console.log("quiz to update", this.quiz)
+        this.quizService.updateQuizList(this.quiz as Quiz);
+        console.log("updated quiz list", this.quizService.getQuizList());
+      }
+      else if(this.element === 'theme-form'){
+        // subscribe to themeService
+        this.themeService.updateThemeList(this.theme as Theme);
+      }
+    }
+    
+  }
+
+  resetElement() : void{
+    if(this.element){
+      if(this.element === 'quiz-form'){
+        // subscribe to quizService
+        this.quizService.resetSelectedQuiz();
+      }
+      else if(this.element === 'theme-form'){
+        // subscribe to themeService
+        this.themeService.resetSelectedTheme();
+      }
+    }
+  }
 }
 
 
