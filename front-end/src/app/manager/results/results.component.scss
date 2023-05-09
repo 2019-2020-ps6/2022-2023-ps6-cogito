@@ -1,9 +1,9 @@
 @import '../../../styles/variables.scss';  
   
-.button-card{
+.button-card1{
     background-color: $orange;
     color: black;
-    width: 17vw;
+    width: 14vw;
     border: 1px solid black;
     padding: 10px 20px;
     border-radius: 5px;
@@ -15,6 +15,20 @@
     }
   }
   
+  .button-card2{
+    background-color: $orange;
+    color: black;
+    width: 18vw;
+    border: 1px solid black;
+    padding: 10px 20px;
+    border-radius: 5px;
+    margin-left: 7vw;
+    &:hover {
+      background-color: red;
+      border-color: black;
+      color: black;
+    }
+  }
   .quiz{
       margin-top : 20px;;
       border: 2px solid grey;
@@ -54,7 +68,7 @@
 .delete {
   border: 2px solid red;
   color: red;
-  width: 5vw;
+  width: 6vw;
   margin-right: 0px;
   margin-left: 2vw;
   border-radius: 5px;

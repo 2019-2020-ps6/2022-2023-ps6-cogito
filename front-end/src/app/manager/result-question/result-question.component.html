@@ -1,5 +1,5 @@
 <body>
-        <p>RÉSULTATS POUR LE DERNIER TEST :  </p>
+        <p>Résultat du dernier essai du quiz : {{this.quiztitle}}  </p>
         <br> <br>
         <div id="boucle" *ngFor="let result of this.questionStats; let i = index" [ngStyle]="getStyle(result)">
             Question {{i + 1}} : {{result}} 
