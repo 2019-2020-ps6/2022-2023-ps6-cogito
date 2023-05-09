@@ -25,5 +25,6 @@ export class PatientComponent implements OnInit {
         this.selectedPatient.emit(this.patient);
         console.log(this.patient);
         console.log(this.patient.configuration);
+        // change font depending on patient's configuration
     }
 }
