@@ -1,11 +1,11 @@
 <body>
     <div *ngIf="state==='general'">   
-        <label for="name"> Nom de la configuration : </label>
+        <p> Nom de la configuration : </p>
         <input type="text" id="name" name="nom" placeholder="Nom de la configuration"   [(ngModel)]="configuration === undefined ? '' : configuration.name">
 
         <br>
 
-        <label for="description"> Description de la configuration : </label>
+        <p> Description de la configuration : </p>
         <input type="text" id="description" name="description" placeholder="Description de la configuration" [(ngModel)]="configuration === undefined ? '' : configuration.description">
     </div>
 
@@ -30,6 +30,10 @@
 
     <button type="submit" class="button-save" *ngIf="!displayButtonChoose" (click)="addNewConfig()" [routerLink]="['/configuration']">Sauvegarder </button>
     <button type="submit" class="button-back" (click)="this.configurationService.setConfigToDefault()" [routerLink]="['/configuration']"> Annuler </button>
-    <button type="submit" class="button-accept" *ngIf="displayButtonChoose" (click)="changeFontFamily(); this.configurationService.setGlobalFont(this.configurationService.getNewFontFamily()); this.configurationService.setGlobalSize(this.configurationService.getNewFontSize())" [routerLink]="['/configuration']"> Choisir cette configuration </button>
+    <button type="submit" class="button-accept" *ngIf="displayButtonChoose" (click)="updateConfiguration()" [routerLink]="['/configuration']"> Choisir cette configuration </button>
+    <!-- On ne veut plus modifier la font family et la font size ici
+        Mais on veut que cela soit modifier seulement lorsque le la personne joue
+        this.configurationService.setGlobalFont(this.configurationService.getNewFontFamily()); this.configurationService.setGlobalSize(this.configurationService.getNewFontSize()) -->
+
 
 </body>

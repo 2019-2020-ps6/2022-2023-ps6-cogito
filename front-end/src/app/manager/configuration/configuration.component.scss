@@ -1,5 +1,9 @@
 @import '../../../styles/variables.scss';
 
+
+body {
+  height: 80vh;
+}
 .button-back {
     background-color: yellow;
     color: black;
@@ -27,7 +31,7 @@
     padding-top: 10px;
     background-color: lightgrey;
     margin: 5vh 10vw 0 25vw;
-    padding-bottom: 25vh;
+    padding-bottom: 20vh;
     text-align: center;
     font-size: $h2-size;
     border: 2px solid black;

@@ -1,33 +1,35 @@
 
 <body>
-    <div class="profil">
-        <div class="informations">
-            <!-- <li *ngFor="let elements of patient">
-                {{elements}}
-                bonjour 
+    <div class="content">
+        <div class="profil">
+            <div class="informations">
+                <!-- <li *ngFor="let elements of patient">
+                    {{elements}}
+                    bonjour 
+                    <br>
+                </li> -->
+                {{Patient.name}} 
                 <br>
-            </li> -->
-            {{Patient.name}} 
-            <br>
-            {{Patient.age + " ans"}}
-            <br>
-            {{"Stade approximatif : " + Patient.stage}}
-            
-            
-            <div class="button-result-quiz">
-                <button type="submit" class="button-card" [routerLink]="['/results']"> Voir les résultats</button>
+                {{Patient.age + " ans"}}
+                <br>
+                {{"Stade approximatif : " + Patient.stage}}
+                
+                
+                <div class="button-result-quiz d-flex flex-column align-items-center">
+                    <button type="submit" class="btn btn-primary mb-1" [routerLink]="['/modification-patient-page']"> Changer les informations</button>
+                    <button type="submit" class="btn btn-primary" [routerLink]="['/results']"> Voir les résultats</button>
+                </div>
+                </div>
+        </div>
+        
+        <div class="side-content ml-3 d-flex flex-column align-items-center justify-content-evenly">
+            <img src="{{Patient.picture}}" alt="Photo du patient"> 
+            <div class=" btn-side d-flex flex-column align-items-center justify-content-around">
+                <button type="submit" class="btn btn-warning btn-outline-dark" [routerLink]="['/configuration']"> Choisir la configuration</button>
+                <button type="submit" class="btn btn-danger btn-outline-dark" [routerLink]="['/profil-list']"> Retour </button>
             </div>
-            </div>
-        <div class="facePicture">
-            <p><img src="{{Patient.picture}}" alt="Photo du patient"> </p>
         </div>
     </div>
-
-    <div class="button-choose-configuration">
-        <button type="submit" class="button-card" [routerLink]="['/modification-patient-page']"> Changer les informations</button>
-        <button type="submit" class="button-card" [routerLink]="['/configuration']"> Choisir la configuration</button>
-    </div>
-    <button type="submit" class="button-back" [routerLink]="['/profil-list']"> Retour </button>
     
     
     </body>
