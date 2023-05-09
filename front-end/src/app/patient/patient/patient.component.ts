@@ -23,5 +23,7 @@ export class PatientComponent implements OnInit {
 
     selectPatient(): void {
         this.selectedPatient.emit(this.patient);
+        console.log(this.patient);
+        console.log(this.patient.configuration);
     }
 }

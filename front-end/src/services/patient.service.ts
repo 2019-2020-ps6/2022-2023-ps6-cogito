@@ -77,4 +77,15 @@ export class PatientService {
         this.patientList$.next(this.patientList);
         console.log("Patient deleted : ", patient.name);
     }
+
+    updatePatient(patient: Patient) {
+        let index: number = this.patientList.findIndex((patientInList: Patient): boolean => patientInList.id === patient.id);
+        if (index !== -1) {
+            this.patientList[index] = patient;
+            this.patientList.sort((a, b) => a.name.localeCompare(b.name));
+            this.patientList$.next(this.patientList);
+            console.log("Patient updated : ", patient.name);
+        }
+        
+    }
 }

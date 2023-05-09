@@ -2,12 +2,10 @@
 
 body {
   height: 80vh;
-  font-size: $normal_size;
 }
 
 .button-card{
     background-color: $orange; 
-    color: black;
     border: 1px solid black;
     border-radius: 5px;
     height: 13vh;
@@ -32,8 +30,8 @@ body {
 .facePicture {
     float: left;
     margin-top: 15vh;
-    margin-left: 15vw;
-    padding: 100px;
+    margin-left: 25vw;
+    padding: 30px;
     border: 2px solid black;
 }
 
@@ -50,7 +48,6 @@ body {
 
 .button-back {
   background-color: $orange;
-  color: black;
   border: 1px solid black;
   padding: 10px 20px;
   border-radius: 5px;
