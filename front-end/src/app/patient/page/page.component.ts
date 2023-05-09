@@ -3,6 +3,8 @@ import { Router } from "@angular/router";
 
 import { PatientService } from "src/services/patient.service";
 import { Patient } from "src/models/patient.model";
+import { ConfigurationService } from "src/services/configuration.service";
+import { CONFIG_DEFAULT_3 } from "src/mocks/configuration.mock";
 
 @Component({
     selector: "app-patient-page",
@@ -16,11 +18,13 @@ export class PatientPageComponent implements OnInit {
     private nbDisplayPatients: number = 0;
     private margin!: number;
     private size!: number;
+    configurationService: any;
 
-    constructor(private patientService: PatientService, private router: Router) {
+    constructor(private patientService: PatientService, private router: Router, configurationService: ConfigurationService) {
         this.patientService.patientList$.subscribe((patientList: Patient[]): void => {
             this.patientList = patientList;
         });
+        this.configurationService = configurationService;
         this.maxMargin();
         this.currentSize();
         this.nbDisplayPatients = this.numberRowPatients() * this.numberColPatients();
@@ -54,6 +58,8 @@ export class PatientPageComponent implements OnInit {
 
     ngOnInit(): void {
         this.nextDisplayPatients();
+        this.configurationService.setGlobalFont(CONFIG_DEFAULT_3.fontFamily);
+        this.configurationService.setGlobalSize(CONFIG_DEFAULT_3.fontSize);
     }
 
     @HostListener("window:resize")
@@ -97,6 +103,10 @@ export class PatientPageComponent implements OnInit {
 
     selectPatient(patient: Patient): void {
         this.patientService.selectPatient(patient);
+        // Lorsque l'on clique sur un patient, on récupère sa configuration et on la met en place
+        // Sur le restant du site.
+        this.configurationService.setGlobalFont(patient.configuration.fontFamily);
+        this.configurationService.setGlobalSize(patient.configuration.fontSize);
         let stage: number = patient.stage;
         if (stage <= 3) {
             this.router.navigateByUrl("/theme-page");

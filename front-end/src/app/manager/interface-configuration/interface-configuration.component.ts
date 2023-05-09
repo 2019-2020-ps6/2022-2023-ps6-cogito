@@ -10,7 +10,7 @@ import { ConfigurationService } from 'src/services/configuration.service';
 export class InterfaceConfigurationComponent {
   selectedOption: string = 'option1';
   activeArray: any = [];
-  @Input() fontSize: number = 16;
+  @Input() fontSize: number = 20;
 
   newFontFamilySelected: string = "Arial";
   newFontSizeSelected: number = 20;
@@ -46,11 +46,6 @@ export class InterfaceConfigurationComponent {
     }
   }
 
-  /*onButtonClick(event: MouseEvent) {
-    console.log('Button clicked:', event.target);
-    const buttonId = (event.target as HTMLButtonElement).id;
-    this.lastFontFamilySelected(buttonId);
-  }*/
 
   lastFontFamilySelected(buttonString: String) {
     if (buttonString == "button1font"){
@@ -74,8 +69,8 @@ export class InterfaceConfigurationComponent {
       this.newFontSizeSelected = 20;
     }
     else if (buttonString == "button3size"){
-      this.newFontSizeSelected = 22;
+      this.newFontSizeSelected = 24;
   }
   this.configurationService.setNewFontSize(this.newFontSizeSelected);
-}
+  }
 }

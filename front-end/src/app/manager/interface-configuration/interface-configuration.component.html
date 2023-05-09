@@ -14,12 +14,12 @@
           
         <label id="label">Taille de la police : </label>
         <div class="buttons">
-            <span class="button" id="button1size" (click)="setFontSize('18pt'); lastFontSizeSelected('button1size')">Test</span>
-            <span class="button" id="button2size" (click)="setFontSize('20pt'); lastFontSizeSelected('button2size')">Test</span>
-            <span class="button" id="button3size" (click)="setFontSize('22pt'); lastFontSizeSelected('button3size')">Test</span>
+            <span class="button" id="button1size" (click)="setFontSize('18px'); lastFontSizeSelected('button1size')">Test</span>
+            <span class="button" id="button2size" (click)="setFontSize('20px'); lastFontSizeSelected('button2size')">Test</span>
+            <span class="button" id="button3size" (click)="setFontSize('24px'); lastFontSizeSelected('button3size')">Test</span>
         </div>
 
-        <div class="test2" id="test2" [(ngModel)]="configuration === undefined ? '' : configuration.fontSize" [style.fontSize.px]="configuration === undefined ? 'Arial' : configuration.fontSize"> Ceci est un test </div>
+        <div class="test2" id="test2" [ngStyle]="{'font-family': configuration?.fontSize || '20px'}">Ceci est un test</div>
         <br>
         
         <!-- <label id="style-label">Thème de couleur : </label>
