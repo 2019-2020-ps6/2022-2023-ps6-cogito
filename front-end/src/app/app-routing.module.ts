@@ -9,7 +9,9 @@ import { GamePageComponent } from "./game/page/page.component";
 import { QuestionsListComponent } from "./questions/questions-list/questions-list.component";
 import { QuestionFormComponent } from "./questions/question-form/question-form.component";
 import { MenuComponent } from "./manager/menu/menu.component";
+import { CreationPatientComponent } from "./manager/creation_patient/page.component";
 import { ProfilComponent } from "./manager/profil/profil.component";
+import { PatientPageListComponent } from "./manager/profil_list/page.component";
 import { ConfigurationComponent } from "./manager/configuration/configuration.component";
 import { CreateConfigurationComponent } from "./manager/create-configuration/create-configuration.component";
 import { InterfaceConfigurationComponent } from "./manager/interface-configuration/interface-configuration.component";
@@ -25,7 +27,10 @@ import { ListThemeQuizPageComponent } from "./manager/list-theme-quiz-page/list-
 
 const routes: Routes = [
     { path: "home-page", component: HomePageComponent, data: { title: "Accueil" } },
+    { path: "modification-patient-page", component: CreationPatientComponent, data: { title: "Modifier les Informations du Profil" } },
+    { path: "creation-patient-page", component: CreationPatientComponent, data: { title: "Créer un Nouveau Profil" } },
     { path: "patient-page", component: PatientPageComponent, data: { title: "Qui êtes-vous ?" } },
+    { path: "profil-list", component: PatientPageListComponent, data: { title: "Liste des patients" } },
     { path: "theme-page", component: ThemePageComponent, data: { title: "Choisissez un thème" } },
     { path: "quiz-page", component: QuizPageComponent, data: { title: "Choisissez un quiz" } },
     { path: "game-page", component: GamePageComponent },

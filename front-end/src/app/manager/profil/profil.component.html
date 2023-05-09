@@ -19,14 +19,15 @@
             </div>
             </div>
         <div class="facePicture">
-            <p><img src="this.link" alt="this.link"> </p>
+            <p><img src="{{Patient.picture}}" alt="this.link"> </p>
         </div>
     </div>
-    
+
     <div class="button-choose-configuration">
+        <button type="submit" class="button-card" [routerLink]="['/modification-patient-page']"> Changer les informations</button>
         <button type="submit" class="button-card" [routerLink]="['/configuration']"> Choisir la configuration</button>
     </div>
-    <button type="submit" class="button-back" [routerLink]="['/menu']"> Retour </button>
+    <button type="submit" class="button-back" [routerLink]="['/profil-list']"> Retour </button>
     
     
     </body>

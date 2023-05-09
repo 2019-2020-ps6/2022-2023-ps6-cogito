@@ -151,7 +151,7 @@
                     <label class="col-form-label">Description associée : </label>
                 </div>
                 <div class="col-auto">
-                    <input *ngIf="question && question.correcting" type="text" class="form-control" name="description"  [(ngModel)]="question.correcting === undefined ? '' : question.correcting.description">
+                    <input *ngIf="question && question.correcting" type="text" class="form-control" name="title" [(ngModel)]="question.correcting.description">
                 </div>
                 <div class="col-auto">
                     <span class="form-text">
@@ -192,6 +192,20 @@
 
     <div class="side-content">
         <button (click)="saveQuestion()" [routerLink]="['/quiz-form',getIdOfQuiz()]" [disabled]="!checkQuestionValidity()" [ngClass]="{'invalid-question': !checkQuestionValidity()}">Enregistrer</button>
+        <button (click)="afficher()">Afficher</button>
         <button (click)="cancelQuestion()" [routerLink]="['/quiz-form',getIdOfQuiz()]">Annuler</button>
     </div>
 </form>
+
+<div class="popup"  *ngIf="Show">
+    <div class="popup-container">
+        <section class="questionPage">
+            <div *ngIf="question" class="questionTitle">
+                <h2>{{question.title}}</h2>
+            </div>
+            <div *ngIf="question" class="questionContent">
+                <div class="anwser" *ngFor="let answer of question.answerList">{{answer.value}}</div>
+            </div>
+        </section>
+    </div>
+</div>
