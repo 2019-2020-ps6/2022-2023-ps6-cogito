@@ -88,4 +88,8 @@ export class PatientService {
         }
         
     }
+
+    getSelectedPatient(): BehaviorSubject<Patient | undefined> {
+        return this.selectedPatient$;
+    }
 }
