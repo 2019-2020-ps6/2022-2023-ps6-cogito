@@ -54,7 +54,7 @@ export const CONFIG_DEFAULT_4: Configuration = {
     correctImage: true,
     correctSound: true,
 
-    falseAnswerWindow: false,
+    falseAnswerWindow: true,
     falseDescription: true,
     falseImage: true,
     falseSound: true

@@ -1,0 +1,9 @@
+<img class="picture" *ngIf="question && question.picture" src="{{question.picture}}" alt="image de la question">
+<img class="sound" *ngIf="question && question.sound" [src]="imageUrl" alt="Bouton" (click)="clickSpeaker()">
+<div *ngIf="question" class="questionContent">
+    <div class="row">
+        <div class="answer col-md-6" *ngFor="let answer of question.answerList; let i = index;">
+            <button [ngClass]="{'ans-picture-present': answer.picture}" (click)="checkAnswer(answer)" [style.background-image]="'url(' + answer.picture + ')'">{{answer.value}}</button>
+        </div>
+    </div>
+</div>

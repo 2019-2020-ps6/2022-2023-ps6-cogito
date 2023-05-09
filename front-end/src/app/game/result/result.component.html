@@ -1,0 +1,9 @@
+<section class="game-result-content">
+    <h1>Félicitations vous avez fini le quiz !</h1>
+    <ul>
+      <h3>Petit recapitulatif :</h3>
+        <li *ngFor="let q of questions; let i = index">
+          <p *ngIf="trueAnswers" class="question">{{ i + 1}} : {{ q.title }}</p> <p *ngIf="trueAnswers"  class="reponse">Réponse : {{trueAnswers[i].value}}</p>
+        </li>
+    </ul>
+<button (click)="finishedClick()">TERMINER</button>

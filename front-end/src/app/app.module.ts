@@ -33,6 +33,9 @@ import { ResultQuestionComponent } from './manager/result-question/result-questi
 import { AnswerConfigurationComponent } from './manager/answer-configuration/answer-configuration.component';
 import { ManagerListComponent } from './manager/manager-list/manager-list.component';
 import { ManagerFormComponent } from './manager/manager-form/manager-form.component';
+import { GameQuestionResultComponent } from "./game/corrWindow/corrWindow.component";
+import { GameResultComponent } from "./game/result/result.component";
+import { GameQuestionComponent } from "./game/question/question.component";
 import { ListThemeQuizPageComponent } from './manager/list-theme-quiz-page/list-theme-quiz-page.component';
 
 
@@ -67,6 +70,9 @@ import { ListThemeQuizPageComponent } from './manager/list-theme-quiz-page/list-
         ManagerListComponent,
         ManagerFormComponent,
         ListThemeQuizPageComponent,
+        GameQuestionResultComponent,
+        GameResultComponent,
+        GameQuestionComponent
 
     ],
     imports: [

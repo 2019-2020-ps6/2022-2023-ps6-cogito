@@ -13,6 +13,8 @@ import { Quiz } from "../models/quiz.model";
 import { Statistics } from "../models/statistics.model";
 import { PatientService } from "./patient.service";
 import { QuizService } from "./quiz.service";
+import { QuizSoundService } from "./gameSound.service";
+import { read } from "fs-extra";
 
 @Injectable({
     providedIn: "root"
@@ -26,8 +28,9 @@ export class idList {
         = new BehaviorSubject<GameQuestion | undefined>(undefined);
     private currentQuestion?: GameQuestion;
     private currentInd: number = -1;
+    public resultQuiz: Map<GameQuestion,boolean> = new Map();
 
-    constructor(private patientService: PatientService, private quizService: QuizService, private router: Router) {
+    constructor(private patientService: PatientService, private quizService: QuizService, private soundService: QuizSoundService, private router: Router) {
         this.patientService.selectedPatient$.subscribe((patient?: Patient): void => {
             if (this.router.url.includes("/game-page") && patient === undefined) {
                 this.router.navigateByUrl("/patient-page");
@@ -88,6 +91,7 @@ export class idList {
         this.questionList = [];
         this.currentQuestion$.next(undefined);
         this.currentInd = -1;
+        this.resultQuiz = new Map();
     }
 
     private getQuestionsList(configuration: Configuration, quiz: Quiz): void {
@@ -205,8 +209,55 @@ export class idList {
         }
     }
 
+    checkAnswer(answer?: Answer, question?: GameQuestion): void {
+        if (question){
+            if (answer)
+            this.resultQuiz.set(question,answer.isCorrect);
+            else if (this.resultQuiz.get(question)==undefined){
+                this.resultQuiz.set(question,false);
+                let occur = this.questionList.reduce((acc, curr) => curr === question ? acc + 1 : acc, 0);
+                if (occur && occur <2)
+                    this.questionList.push(question);
+                
+            }
+        }
+    }
+
+    finalScore():  Map<GameQuestion,boolean> {
+        return this.resultQuiz;
+
+    }
+
+    playSound(soundUrl: string| undefined){
+        if (soundUrl)
+        this.soundService.playSound(soundUrl);
+    }
+    stopSound(){
+        this.soundService.stopAllSounds();
+    }
+
     islastQuestion(): boolean {
         return !(this.currentInd < this.questionList.length - 1);
+    }
+
+    activeCorrWindow(): boolean {
+        return this.selectedPatient?.configuration.correctAnswerWindow||this.selectedPatient?.configuration.falseAnswerWindow||false;
+    }
+
+    activeCorrTrueWindow(): boolean {
+        return this.selectedPatient?.configuration.correctAnswerWindow||false;
+    }
+
+    activeCorrFalseWindow(): boolean {
+        return this.selectedPatient?.configuration.falseAnswerWindow||false;
+    }
+
+    getConfig(): Configuration|undefined {
+        return this.selectedPatient?.configuration||undefined;
+    }
+
+    getQuiz() : GameQuiz|undefined {
+        return this.gameQuiz;
     }
 
     finishGame(): void {
