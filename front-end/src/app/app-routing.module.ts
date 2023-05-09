@@ -32,6 +32,7 @@ const routes: Routes = [
     { path: "profil", component: ProfilComponent, data: { title: "Patient" } },
     { path: "configuration", component: ConfigurationComponent, data: { title: "Liste des configurations" } },
     { path: "create-configuration", component: CreateConfigurationComponent, data: { title: "Création de configuration" } },
+    { path: "create-configuration-with", component: CreateConfigurationComponent, data: { title: "Création de configuration", displayButtonChoose : true } },
     { path: "interface-configuration", component: InterfaceConfigurationComponent, data: { title: "Interface de configuration" } },
     { path: "question-configuration", component: QuestionConfigurationComponent, data: { title: "Question de configuration" } },
     { path: "results", component: ResultsComponent, data: { title: "Résultats" } },

@@ -1,6 +1,7 @@
 import { Component, Renderer2  } from '@angular/core';
 
 import { OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { Configuration } from 'src/models/configuration.model';
 import { ConfigurationService } from 'src/services/configuration.service';
 
@@ -16,7 +17,9 @@ export class CreateConfigurationComponent implements OnInit {
   configuration: Configuration | undefined;
   fontFamily: string = "Arial";
 
-  constructor(public configurationService : ConfigurationService, private renderer: Renderer2) {
+  displayButtonChoose = false;
+
+  constructor(public configurationService : ConfigurationService, private renderer: Renderer2, public route : ActivatedRoute) {
   };
 
   ngOnInit() {
@@ -25,6 +28,7 @@ export class CreateConfigurationComponent implements OnInit {
     this.configurationService.getNewConfig().subscribe((config: Configuration) => {
       this.configuration = config;
     });
+    this.displayButtonChoose = this.route.snapshot.data['displayButtonChoose'] || false;
   }
 
   addNewConfig(){
