@@ -106,6 +106,16 @@ export class QuizService {
     return id + 1;
   }
 
+  getIdOfNewQuiz(): number{
+    let id = 0;
+    this.quizList.forEach(quiz => {
+      if(quiz.id > id){
+        id = quiz.id;
+      }
+    });
+    return id + 1;
+  }
+
   removeQuestion(question: Question): void {
     const index = this.selectedQuiz?.questionList?.findIndex(q => q.id === question.id);
     if (index !== undefined && index >= 0) {
@@ -138,6 +148,16 @@ export class QuizService {
     console.log(question)
   }
 
+  createAndSelectNewQuiz() : void{
+    const quiz = {} as Quiz;
+    quiz.id = this.getIdOfNewQuiz();
+    quiz.title = "";
+    quiz.questionList = [];
+    this.quizList.push(quiz);
+    this.selectQuiz(quiz);
+    this.typeOfForm = "creation";
+  }
+
   getTypeOfForm(): string{
     return this.typeOfForm;
   }
@@ -167,10 +187,15 @@ export class QuizService {
   }
 
   resetSelectedQuiz(): void {
-    this.selectedQuiz = this.oldSelectedQuiz as Quiz;
-    console.log(this.selectedQuiz);
-    this.selectionQuizSubject.next(this.selectedQuiz as Quiz);
-    this.updateQuizList(this.selectedQuiz as Quiz);
+    if(this.typeOfForm === "creation"){
+      this.removeQuiz(this.selectedQuiz as Quiz);
+    }
+    else{
+      this.selectedQuiz = this.oldSelectedQuiz as Quiz;
+      console.log(this.selectedQuiz);
+      this.selectionQuizSubject.next(this.selectedQuiz as Quiz);
+      this.updateQuizList(this.selectedQuiz as Quiz);
+    }
   }
 
 }
