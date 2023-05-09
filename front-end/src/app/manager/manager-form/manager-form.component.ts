@@ -79,7 +79,6 @@ export class ManagerFormComponent implements OnInit{
         this.themeService.resetSelectedTheme();
       }
     }
-    this.location.back();
   }
 }
 
