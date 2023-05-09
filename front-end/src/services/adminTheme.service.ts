@@ -98,14 +98,18 @@ export class ThemeService {
 
 
   resetSelectedTheme(): void{
-    console.log("resetSelectedTheme");
-    this.selectedTheme = JSON.parse(JSON.stringify(this.oldSelectionTheme)) as Theme;
-    console.log(this.selectedTheme);
-    for(let i = 0; i < this.selectedTheme?.quizList.length; i++){
-      this.quizService.updateQuizList(this.selectedTheme?.quizList[i]);
+    if(this.oldSelectionTheme?.title === ''){
+      this.removeTheme(this.oldSelectionTheme);
     }
-    this.selectionThemeSubject.next(this.selectedTheme as Theme);
-    this.updateThemeList(this.selectedTheme);
+    else{
+      this.selectedTheme = JSON.parse(JSON.stringify(this.oldSelectionTheme)) as Theme;
+      console.log(this.selectedTheme);
+      for(let i = 0; i < this.selectedTheme?.quizList.length; i++){
+        this.quizService.updateQuizList(this.selectedTheme?.quizList[i]);
+      }
+      this.selectionThemeSubject.next(this.selectedTheme as Theme);
+      this.updateThemeList(this.selectedTheme);
+    }
   }
   
   getIdOfNewQuiz(): number{
@@ -118,25 +122,24 @@ export class ThemeService {
     return id + 1;
   }
 
-  /*removeQuiz(quiz: Quiz): void {
-    const index = this.selectedTheme?.quizList?.findIndex(q => q.id === quiz.id);
-    if (index !== undefined && index >= 0) {
-      const updatedQuizList = [...this.selectedTheme?.quizList as Quiz[]];
-      updatedQuizList.splice(index, 1);
-      this.selectedTheme = {...this.selectedTheme, questionList: updatedQuizList} as Theme;
-      this.selectionThemeSubject.next(this.selectedTheme as Theme);
-        this.updateThemeList(this.selectedTheme);
-        this.quizService.removeQuiz(quiz); 
-    }
-  }*/
 
+  /*
+    add a quiz to selectedTheme
+  */
   addQuiz(quiz: Quiz): void {
     const updatedQuizList = [...this.selectedTheme?.quizList as Quiz[]];
     updatedQuizList.push(quiz);
-    this.selectedTheme = {...this.selectedTheme, questionList: updatedQuizList} as Theme;
+    this.selectedTheme = {...this.selectedTheme, quizList: updatedQuizList} as Theme;
     this.selectionThemeSubject.next(this.selectedTheme as Theme);
     this.updateThemeList(this.selectedTheme);
     this.quizService.updateQuizList(quiz);
+  }
+
+  addTheme(theme: Theme): void {
+    const updatedThemeList = [...this.themeList];
+    updatedThemeList.push(theme);
+    this.themeList = updatedThemeList;
+    this.themeListSubject.next(this.themeList);
   }
 
   createAndSelectNewQuiz(): void {
@@ -156,6 +159,8 @@ export class ThemeService {
   }
 
   updateThemeList(theme: Theme): void {
+    if(theme.title === '')
+      theme.title = 'Nouveau thème';
     const index = this.themeList.findIndex(q => q.id === theme.id);
     if (index !== undefined && index >= 0) {
       const updatedThemeList = [...this.themeList];
@@ -176,7 +181,44 @@ export class ThemeService {
       updatedThemeList.splice(index, 1);
       this.themeList = updatedThemeList;
       this.themeListSubject.next(this.themeList);
+      theme.quizList.forEach(quiz => {
+        this.quizService.removeQuiz(quiz);
+      }
+      );
     }
+  }
+
+  getIdOfNewTheme(): number{
+    let id = 0;
+    this.themeList?.forEach(theme => {
+      if(theme.id > id){
+        id = theme.id;
+      }
+    });
+    console.log(id + 1);
+    return id + 1;
+  }
+
+  createAndSelectNewTheme(): void {
+    const theme = {} as Theme;
+    theme.id = this.getIdOfNewTheme();
+    theme.title = "";
+    theme.quizList = [];
+    this.addTheme(theme);
+    this.selectTheme(theme);
+    this.typeOfForm = "creation";
+    console.log(theme);
+  }
+
+  deselectTheme(): void {
+    this.selectedTheme = undefined;
+    this.selectionThemeSubject.next(this.selectedTheme as unknown as Theme);
+  }
+
+
+  findInWhichThemeIsQuiz(id: number): Theme | undefined{
+    let theme = this.themeList.find(theme => theme.quizList.find(q => q.id === id) !== undefined);
+    return theme;
   }
 
 }

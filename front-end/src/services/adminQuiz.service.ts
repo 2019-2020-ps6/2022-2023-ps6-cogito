@@ -63,6 +63,11 @@ export class QuizService {
     this.selectionQuestionSubject?.next(this.selectedQuestion as unknown as Question);
   }
 
+  deselectQuiz(): void {
+    this.selectedQuiz = undefined;
+    this.selectionQuizSubject?.next(this.selectedQuiz as unknown as Quiz);
+  }
+
   getSelectedQuestion(): Observable<Question> {
     return this.selectionQuestionSubject.asObservable();
   }
@@ -163,6 +168,8 @@ export class QuizService {
   }
 
   updateQuizList(quiz: Quiz): void {
+    if(quiz.title ==='')
+      quiz.title = 'Nouveau quiz';
     const index = this.quizList.findIndex(q => q.id === quiz.id);
     if (index !== undefined && index >= 0) {
       const updatedQuizList = [...this.quizList];
@@ -187,7 +194,8 @@ export class QuizService {
   }
 
   resetSelectedQuiz(): void {
-    if(this.typeOfForm === "creation"){
+    console.log(this.typeOfForm)
+    if(this.oldSelectedQuiz?.title === ''){
       this.removeQuiz(this.selectedQuiz as Quiz);
     }
     else{

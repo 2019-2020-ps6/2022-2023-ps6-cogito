@@ -20,6 +20,9 @@ export class ManagerListComponent implements OnInit{
   @Input()
   public elementId : number | undefined;
 
+  @Input()
+  public type : string | undefined = 'list';
+
   public quizList : Quiz[] | undefined;
 
   public themeList : Theme[] | undefined;
@@ -32,6 +35,7 @@ export class ManagerListComponent implements OnInit{
 
   ngOnInit(): void {
     // check the url to know which element is selected
+    console.log(this.element, this.elementId);
 
     if(!this.element){ // if the element is not defined, it means that the list is displayed from the menu
       this.element = window.location.href.split('/')[3];
@@ -39,6 +43,7 @@ export class ManagerListComponent implements OnInit{
     }
 
     if(!this.elementId && this.elementId !== 0){ 
+      console.log("ici");
       this.elementId = +this.route.snapshot.params['id'];
     }
 
@@ -95,7 +100,7 @@ export class ManagerListComponent implements OnInit{
       }
       else if(this.element === 'theme-list'){
         // subscribe to themeService
-        this.themeService.selectThemeById(0);
+        this.themeService.createAndSelectNewTheme();
       }
     }
   }
@@ -108,9 +113,23 @@ export class ManagerListComponent implements OnInit{
       }
       else if(this.element === 'theme-list'){
         // subscribe to themeService
-        return 3;
+        return this.themeService.getIdOfNewTheme();
       }
     }
     return 0;
+  }
+
+  selectElement(id : number) : void{
+    if(this.element){
+      if(this.element == 'quiz-list'){
+        // subscribe to quizService
+        this.themeService.selectTheme(this.themeService.findInWhichThemeIsQuiz(id))
+      }
+      else{
+        if(this.type === 'selector'){
+          this.themeService.selectThemeById(id);
+        }
+      }
+    }
   }
 }
