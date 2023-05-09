@@ -92,6 +92,7 @@ export class ThemeService {
   resetSelectedQuiz(): void{
     console.log("resetSelectedQuiz");
     this.selectedQuiz = JSON.parse(JSON.stringify(this.oldSelectionQuiz)) as Quiz;
+    console.log(this.selectedQuiz);
     this.quizService.selectQuiz(this.selectedQuiz);
   }
 
@@ -99,6 +100,10 @@ export class ThemeService {
   resetSelectedTheme(): void{
     console.log("resetSelectedTheme");
     this.selectedTheme = JSON.parse(JSON.stringify(this.oldSelectionTheme)) as Theme;
+    console.log(this.selectedTheme);
+    for(let i = 0; i < this.selectedTheme?.quizList.length; i++){
+      this.quizService.updateQuizList(this.selectedTheme?.quizList[i]);
+    }
     this.selectionThemeSubject.next(this.selectedTheme as Theme);
     this.updateThemeList(this.selectedTheme);
   }
@@ -113,7 +118,7 @@ export class ThemeService {
     return id + 1;
   }
 
-  removeQuiz(quiz: Quiz): void {
+  /*removeQuiz(quiz: Quiz): void {
     const index = this.selectedTheme?.quizList?.findIndex(q => q.id === quiz.id);
     if (index !== undefined && index >= 0) {
       const updatedQuizList = [...this.selectedTheme?.quizList as Quiz[]];
@@ -123,7 +128,7 @@ export class ThemeService {
         this.updateThemeList(this.selectedTheme);
         this.quizService.removeQuiz(quiz); 
     }
-  }
+  }*/
 
   addQuiz(quiz: Quiz): void {
     const updatedQuizList = [...this.selectedTheme?.quizList as Quiz[]];
@@ -161,6 +166,17 @@ export class ThemeService {
       this.themeList.push(theme);
     }
     this.themeListSubject.next(this.themeList);
+  }
+
+
+  removeTheme(theme: Theme): void {
+    const index = this.themeList.findIndex(q => q.id === theme.id);
+    if (index !== undefined && index >= 0) {
+      const updatedThemeList = [...this.themeList];
+      updatedThemeList.splice(index, 1);
+      this.themeList = updatedThemeList;
+      this.themeListSubject.next(this.themeList);
+    }
   }
 
 }

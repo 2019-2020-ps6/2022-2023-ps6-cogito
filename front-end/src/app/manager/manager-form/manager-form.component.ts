@@ -72,7 +72,7 @@ export class ManagerFormComponent implements OnInit{
     if(this.element){
       if(this.element === 'quiz-form'){
         // subscribe to quizService
-        this.themeService.resetSelectedQuiz();
+        this.quizService.resetSelectedQuiz();
       }
       else if(this.element === 'theme-form'){
         // subscribe to themeService

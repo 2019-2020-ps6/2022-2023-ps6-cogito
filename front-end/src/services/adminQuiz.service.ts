@@ -12,6 +12,7 @@ export class QuizService {
 
   private selectedQuiz: Quiz | undefined;
   private selectionQuizSubject: BehaviorSubject<Quiz> = new BehaviorSubject<Quiz>({} as Quiz);
+  private oldSelectedQuiz: Quiz | undefined;
 
   private selectedQuestion: Question | undefined;
   private selectionQuestionSubject: BehaviorSubject<Question> = new BehaviorSubject<Question>({} as Question);
@@ -34,6 +35,7 @@ export class QuizService {
 
   selectQuizById(id: number): void {
     this.selectedQuiz = this.quizList.find(quiz => quiz.id === id);
+    this.oldSelectedQuiz = JSON.parse(JSON.stringify(this.selectedQuiz)) as Quiz;
     this.selectionQuizSubject?.next(this.selectedQuiz as Quiz);
   }
 
@@ -79,7 +81,8 @@ export class QuizService {
 
   resetSelectedQuestion(): void{
     console.log("resetSelectedQuestion");
-    this.selectionQuestionSubject?.next(this.oldSelectedQuestion as Question);
+    this.selectedQuestion = JSON.parse(JSON.stringify(this.oldSelectedQuestion)) as Question;
+    this.selectionQuestionSubject?.next(this.selectedQuestion as Question);
   }
 
 
@@ -159,7 +162,15 @@ export class QuizService {
       const updatedQuizList = [...this.quizList];
       updatedQuizList.splice(index, 1);
       this.quizList = updatedQuizList;
+      this.quizListSubject.next(this.quizList);
     }
+  }
+
+  resetSelectedQuiz(): void {
+    this.selectedQuiz = this.oldSelectedQuiz as Quiz;
+    console.log(this.selectedQuiz);
+    this.selectionQuizSubject.next(this.selectedQuiz as Quiz);
+    this.updateQuizList(this.selectedQuiz as Quiz);
   }
 
 }

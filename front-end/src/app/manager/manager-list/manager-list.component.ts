@@ -74,4 +74,16 @@ export class ManagerListComponent implements OnInit{
     }
   }
 
+  removeElement(element : any) : void{
+    if(this.element){
+      if(this.element == 'quiz-list'){
+        // subscribe to quizService
+        this.quizService.removeQuiz(element as Quiz);
+      }
+      else if(this.element === 'theme-list'){
+        // subscribe to themeService
+        this.themeService.removeTheme(element as Theme);
+      }
+    }
+  }
 }
