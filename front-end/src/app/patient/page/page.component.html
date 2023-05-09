@@ -3,12 +3,14 @@
         <button class="buttonPrev" *ngIf="hasNextOrPrevButtons()" (click)="prevDisplayPatients()">Précédent</button>
         <div class="rowList">
             <app-patient-patient *ngFor="let patient of displayPatientList" [patient]="patient"
-                                 (selectedPatient)="selectPatient($event)"></app-patient-patient>
+                                (selectedPatient)="selectPatient($event)">
+                                 
+            </app-patient-patient>
         </div>
         <button class="buttonNext" *ngIf="hasNextOrPrevButtons()" (click)="nextDisplayPatients()">Suivant</button>
     </div>
     <div class="divButtons">
-        <button class="backButton" routerLink="/home-page">RETOUR</button>
+        <button class="backButton" routerLink="/home-page"> RETOUR </button>
     </div>
 </section>
 

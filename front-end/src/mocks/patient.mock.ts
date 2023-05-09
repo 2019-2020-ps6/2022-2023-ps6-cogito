@@ -11,9 +11,9 @@ let myMap = new Map<number, number[]>([
 ]);
 
 let myMap2 = new Map<number, boolean[]>([
-    [QUIZZES_ALL[0].id, [true, true, false, true, true]],
-    [QUIZZES_ALL[1].id, [true, true, true, true, true]],
-    [QUIZZES_ALL[2].id, [true, true, true, true, true]]
+    [QUIZZES_ALL[0].id, [true, true, false, true, true, true, true, false, true, true]],
+    [QUIZZES_ALL[1].id, [true, true, true, true, true, true, true, true, true, true]],
+    [QUIZZES_ALL[2].id, [true, true, false, false, true, false, false, false, false]]
 ]);
 
 

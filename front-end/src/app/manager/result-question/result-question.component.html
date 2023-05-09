@@ -1,7 +1,7 @@
 <body>
         <p>RÉSULTATS POUR LE DERNIER TEST :  </p>
         <br> <br>
-        <div id="boucle" *ngFor="let result of this.questionStats; let i = index">
+        <div id="boucle" *ngFor="let result of this.questionStats; let i = index" [ngStyle]="getStyle(result)">
             Question {{i + 1}} : {{result}} 
             <br> 
             <br>

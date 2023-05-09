@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Renderer2  } from '@angular/core';
 
 import { OnInit } from '@angular/core';
 import { Configuration } from 'src/models/configuration.model';
@@ -11,10 +11,12 @@ import { ConfigurationService } from 'src/services/configuration.service';
 })
 
 export class CreateConfigurationComponent implements OnInit {
+
   state: String = 'general';
   configuration: Configuration | undefined;
+  fontFamily: string = "Arial";
 
-  constructor(public configurationService : ConfigurationService) {
+  constructor(public configurationService : ConfigurationService, private renderer: Renderer2) {
   };
 
   ngOnInit() {
@@ -34,4 +36,13 @@ export class CreateConfigurationComponent implements OnInit {
   changeState(state: String) {
     this.state = state;
   }
+
+  changeFontFamily() {
+    this.renderer.setStyle(document.documentElement, '--font-family', 'Century Gothic');
+  }
+
+  changeFontSize() {
+    this.renderer.setStyle(document.documentElement, '--font-size', '20px');
+  }
+  
 }

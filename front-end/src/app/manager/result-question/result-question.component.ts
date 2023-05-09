@@ -35,4 +35,13 @@ export class ResultQuestionComponent {
   setNumberToOne() {
     this.compteur = 1;
   }
+
+  getStyle(result: boolean) {
+    if (result === true) {
+      return {'background-color': '#3bbb3b'};
+    } else {
+      return {'background-color': 'red'};
+    }
+  }
+  
 }
