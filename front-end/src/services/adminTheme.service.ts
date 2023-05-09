@@ -13,6 +13,7 @@ export class ThemeService {
 
   private selectedTheme: Theme | undefined;
   private selectionThemeSubject: BehaviorSubject<Theme> = new BehaviorSubject<Theme>({} as Theme);
+  private oldSelectionTheme: Theme | undefined;
 
   private selectedQuiz: Quiz | undefined;
   //private selectionQuizSubject: BehaviorSubject<Quiz> = new BehaviorSubject<Quiz>({} as Quiz);
@@ -20,7 +21,11 @@ export class ThemeService {
 
   private typeOfForm: string = "creation";
 
-  private quizListSubject: BehaviorSubject<Quiz[]> = new BehaviorSubject<Quiz[]>([] as Quiz[]);
+  //private quizListSubject: BehaviorSubject<Quiz[]> = new BehaviorSubject<Quiz[]>([] as Quiz[]);
+  private allQuizList: Quiz[] = [];
+
+  // behaviourSubject of themeList
+  private themeListSubject: BehaviorSubject<Theme[]> = new BehaviorSubject<Theme[]>(this.themeList);
 
   constructor(private quizService: QuizService) { 
     this.selectionThemeSubject.next(this.selectedTheme as Theme);
@@ -28,17 +33,35 @@ export class ThemeService {
         this.selectedQuiz = quiz;
         }
     );
+
+    this.quizService.getQuizList().subscribe((quizList: Quiz[]) => {
+        this.allQuizList = quizList;
+    }
+    );
   }
 
+    getThemeList(): Observable<Theme[]> {
+        return this.themeListSubject.asObservable();
+    }
 
     getQuizListByThemeId(id: number): Observable<Quiz[]> {
-        this.quizListSubject.next(this.themeList.find(theme => theme.id === id)?.quizList as Quiz[]);
-        return this.quizListSubject.asObservable();
+        // return all the quiz from allQuizList which are in the theme with id = id
+        let theme = this.themeList.find(theme => theme.id === id);
+        let quizList: Quiz[] = [];
+        theme?.quizList.forEach(quiz => {
+            let tmpQuiz = this.allQuizList.find(q => q.id === quiz.id);
+            if(tmpQuiz !== undefined) {
+                quizList.push(tmpQuiz);
+            }
+        }
+        );
+        return new BehaviorSubject<Quiz[]>(quizList).asObservable();
     }
 
 
   selectThemeById(id: number): void {
     this.selectedTheme = this.themeList.find(quiz => quiz.id === id);
+    this.oldSelectionTheme = JSON.parse(JSON.stringify(this.selectedTheme)) as Theme;
     this.selectionThemeSubject?.next(this.selectedTheme as Theme);
   }
 
@@ -66,36 +89,24 @@ export class ThemeService {
     this.quizService.selectQuiz(this.selectQuiz as unknown as Quiz);
   }
 
-  updateQuiz(quiz: Quiz): void {
-    const index = this.selectedTheme?.quizList?.findIndex(q => q.id === quiz.id);
-    if (index !== undefined && index >= 0) {
-      const updatedQuizList = [...this.selectedTheme?.quizList as Quiz[]];
-      updatedQuizList[index] = quiz;
-      this.selectedTheme = {...this.selectedTheme, questionList: updatedQuizList} as Theme;
-      this.selectionThemeSubject.next(this.selectedTheme as Theme);
-      this.updateThemeList(this.selectedTheme);
-      this.quizService.updateQuizList(quiz);
-      console.log(this.selectedTheme);
-    }
-
-  }
-
   resetSelectedQuiz(): void{
     console.log("resetSelectedQuiz");
     this.selectedQuiz = JSON.parse(JSON.stringify(this.oldSelectionQuiz)) as Quiz;
+    console.log(this.selectedQuiz);
     this.quizService.selectQuiz(this.selectedQuiz);
   }
 
 
-  /*getIdOfNewAnswerOf(question : Question): number{
-    let id = 0;
-    question.answerList.forEach(answer => {
-      if(answer.id > id){
-        id = answer.id;
-      }
-    });
-    return id + 1;
-  }*/
+  resetSelectedTheme(): void{
+    console.log("resetSelectedTheme");
+    this.selectedTheme = JSON.parse(JSON.stringify(this.oldSelectionTheme)) as Theme;
+    console.log(this.selectedTheme);
+    for(let i = 0; i < this.selectedTheme?.quizList.length; i++){
+      this.quizService.updateQuizList(this.selectedTheme?.quizList[i]);
+    }
+    this.selectionThemeSubject.next(this.selectedTheme as Theme);
+    this.updateThemeList(this.selectedTheme);
+  }
   
   getIdOfNewQuiz(): number{
     let id = 0;
@@ -107,7 +118,7 @@ export class ThemeService {
     return id + 1;
   }
 
-  removeQuiz(quiz: Quiz): void {
+  /*removeQuiz(quiz: Quiz): void {
     const index = this.selectedTheme?.quizList?.findIndex(q => q.id === quiz.id);
     if (index !== undefined && index >= 0) {
       const updatedQuizList = [...this.selectedTheme?.quizList as Quiz[]];
@@ -117,7 +128,7 @@ export class ThemeService {
         this.updateThemeList(this.selectedTheme);
         this.quizService.removeQuiz(quiz); 
     }
-  }
+  }*/
 
   addQuiz(quiz: Quiz): void {
     const updatedQuizList = [...this.selectedTheme?.quizList as Quiz[]];
@@ -153,6 +164,18 @@ export class ThemeService {
     }
     else {
       this.themeList.push(theme);
+    }
+    this.themeListSubject.next(this.themeList);
+  }
+
+
+  removeTheme(theme: Theme): void {
+    const index = this.themeList.findIndex(q => q.id === theme.id);
+    if (index !== undefined && index >= 0) {
+      const updatedThemeList = [...this.themeList];
+      updatedThemeList.splice(index, 1);
+      this.themeList = updatedThemeList;
+      this.themeListSubject.next(this.themeList);
     }
   }
 

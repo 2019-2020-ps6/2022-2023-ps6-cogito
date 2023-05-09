@@ -37,7 +37,7 @@ export const CONFIG_DEFAULT_4: Configuration = {
     name: "Défaut stade 4",
     description: "Configuration par défaut pour le stade 4",
 
-    fontFamily: "Roboto",
+    fontFamily: "Century Gothic",
     fontSize: 20,
     theme: "Clair",
 

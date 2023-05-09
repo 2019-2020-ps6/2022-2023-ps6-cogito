@@ -8,8 +8,8 @@
         </div>
     
         <div class="exiting-buttons">
-            <button class="btn btn-warning btn-outline-dark" (click)="goBack()">Sauvegarder</button>
-            <button class="btn btn-danger btn-outline-dark">Annuler</button>
+            <button class="btn btn-warning btn-outline-dark" (click)="saveElement()"[routerLink]="['/list-theme-quiz-page/']">Sauvegarder</button>
+            <button class="btn btn-danger btn-outline-dark" (click)="resetElement()" [routerLink]="['/list-theme-quiz-page/']">Annuler</button>
         </div>
     </div>
       
@@ -20,7 +20,8 @@
                     <label class="col-form-label">{{element === 'quiz-form' ? 'Nom du quiz :' : 'Nom du thème :'}} </label>
                 </div>
                 <div class="col-auto">
-                    <input type="text" class="form-control" name="description"  [(ngModel)]="element === 'quiz-form' ? quiz === undefined ? '' : quiz.title : theme === undefined ? '' : theme.title">
+                    <input *ngIf="element === 'quiz-form'" type="text" class="form-control" name="description"  [(ngModel)]="quiz === undefined ? '' : quiz.title">           
+                    <input *ngIf="element === 'theme-form'" type="text" class="form-control" name="description"  [(ngModel)]="theme === undefined ? '' : theme.title">
                 </div>
             </div>
             <div class="row g-3 align-items-center mb-3">
@@ -28,7 +29,8 @@
                     <label class="col-form-label">Image associée : </label>
                 </div>
                 <div class="col-auto">
-                    <input type="text" class="form-control" name="description" [(ngModel)]="element === 'quiz-form' ? quiz === undefined ? '' : quiz.picture : theme === undefined ? '' : theme.picture">
+                    <input *ngIf="element==='quiz-form'"type="text" class="form-control" name="description" [(ngModel)]=" quiz === undefined ? '' : quiz.picture ">
+                    <input *ngIf="element==='theme-form'"type="text" class="form-control" name="description" [(ngModel)]="theme === undefined ? '' : theme.picture">
                 </div>
                 <div class="col-auto">
                     <span class="form-text">

@@ -215,11 +215,10 @@ export class idList {
             this.resultQuiz.set(question,answer.isCorrect);
             else if (this.resultQuiz.get(question)==undefined){
                 this.resultQuiz.set(question,false);
-                // let quiz = this.getQuiz()?.questionList;
-                // let occur = quiz?.reduce((acc, curr) => curr === question ? acc + 1 : acc, 0);
-                // if (occur && occur <2){
-                //     quiz?.push(question);
-                // }
+                let occur = this.questionList.reduce((acc, curr) => curr === question ? acc + 1 : acc, 0);
+                if (occur && occur <2)
+                    this.questionList.push(question);
+                
             }
         }
     }
