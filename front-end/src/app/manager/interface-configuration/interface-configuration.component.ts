@@ -30,9 +30,12 @@ export class InterfaceConfigurationComponent {
   }
 
   setFontFamily(fontFamily: string) {
+    console.log(fontFamily)
     const element = document.getElementById('test1');
+    console.log(element)
     if (element !== null) {
       element.style.fontFamily = fontFamily;
+      console.log(element.style.fontFamily)
     }
   }
 
@@ -43,12 +46,6 @@ export class InterfaceConfigurationComponent {
     }
   }
 
-  // CHECK IF THE BUTTON IS ACTIVE
-  // onButtonClick(event: MouseEvent) {
-  //   console.log('Button clicked:', event.target);
-  //   const buttonId = (event.target as HTMLButtonElement).id;
-  //   this.lastFontFamilySelected(buttonId);
-  // }
 
   lastFontFamilySelected(buttonString: String) {
     if (buttonString == "button1font"){
