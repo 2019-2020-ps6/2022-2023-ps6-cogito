@@ -1,11 +1,15 @@
 @import "/src/styles/variables";
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap");
 
+$font-family: Arial;
+$font-size: 20;
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: Roboto, Verdana, sans-serif;
+    font-family: var(--font-family);;
+    font-size: var(--font-size);
 }
 
 html {

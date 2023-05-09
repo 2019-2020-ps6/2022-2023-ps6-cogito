@@ -5,15 +5,15 @@ import { QUIZZES_ALL } from "./quiz.mock";
 import { Quiz } from "src/models/quiz.model";
 
 let myMap = new Map<number, number[]>([
-    [QUIZZES_ALL[0].id, [85, 90, 75, 85, 100]],
-    [QUIZZES_ALL[1].id, [75, 75, 90, 85, 90]],
-    [QUIZZES_ALL[2].id, [80, 80, 100, 100, 100]]
+    [QUIZZES_ALL[0].id, [8, 9, 7, 8, 8]],
+    [QUIZZES_ALL[1].id, [7, 7, 9, 8, 10]],
+    [QUIZZES_ALL[2].id, [8, 8, 6, 4, 3]]
 ]);
 
 let myMap2 = new Map<number, boolean[]>([
-    [QUIZZES_ALL[0].id, [true, true, false, true, true]],
-    [QUIZZES_ALL[1].id, [true, true, true, true, true]],
-    [QUIZZES_ALL[2].id, [true, true, true, true, true]]
+    [QUIZZES_ALL[0].id, [true, true, false, true, true, true, true, false, true, true]],
+    [QUIZZES_ALL[1].id, [true, true, true, true, true, true, true, true, true, true]],
+    [QUIZZES_ALL[2].id, [true, true, false, false, true, false, false, false, false]]
 ]);
 
 
