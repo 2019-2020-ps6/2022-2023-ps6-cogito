@@ -3,11 +3,11 @@
 .button-card{
     background-color: $orange;
     color: black;
-    width: 19vw;
+    width: 17vw;
     border: 1px solid black;
     padding: 10px 20px;
     border-radius: 5px;
-    margin-left: 10vw;
+    margin-left: 7vw;
     &:hover {
       background-color: red;
       border-color: black;
@@ -49,4 +49,15 @@
     background-color: lightgray;
     padding-bottom: 50px;
   }
+
+
+.delete {
+  border: 2px solid red;
+  color: red;
+  width: 5vw;
+  margin-right: 0px;
+  margin-left: 2vw;
+  border-radius: 5px;
+  background-color: rgb(255, 192, 192);
+}
    

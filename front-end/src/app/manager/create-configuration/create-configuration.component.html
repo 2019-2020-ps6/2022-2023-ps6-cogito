@@ -28,7 +28,7 @@
     <button type="submit" class="button {{state === 'answers' ? 'active' : ''}}" (click)="changeState('answers')"> Réponses </button>
     </div>
 
-    <button type="submit" class="button-save" (click)="addNewConfig()" [routerLink]="['/configuration']">Sauvegarder </button>
+    <button type="submit" class="button-save" *ngIf="!displayButtonChoose" (click)="addNewConfig()" [routerLink]="['/configuration']">Sauvegarder </button>
     <button type="submit" class="button-back" (click)="this.configurationService.setConfigToDefault()" [routerLink]="['/configuration']"> Annuler </button>
     <button type="submit" class="button-accept" *ngIf="displayButtonChoose" (click)="changeFontFamily(); this.configurationService.setGlobalFont(this.configurationService.getNewFontFamily()); this.configurationService.setGlobalSize(this.configurationService.getNewFontSize())" [routerLink]="['/configuration']"> Choisir cette configuration </button>
 
