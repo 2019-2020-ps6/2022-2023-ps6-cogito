@@ -192,7 +192,7 @@
 
     <div class="side-content">
         <button (click)="saveQuestion()" [routerLink]="['/quiz-form',getIdOfQuiz()]" [disabled]="!checkQuestionValidity()" [ngClass]="{'invalid-question': !checkQuestionValidity()}">Enregistrer</button>
-        <button (click)="afficher()">Afficher</button>
+        <button (click)="displayPopUp()">Afficher</button>
         <button (click)="cancelQuestion()" [routerLink]="['/quiz-form',getIdOfQuiz()]">Annuler</button>
     </div>
 </form>

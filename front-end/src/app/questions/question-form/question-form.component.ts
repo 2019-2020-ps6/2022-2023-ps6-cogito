@@ -2,9 +2,12 @@ import { Component, OnInit } from "@angular/core";
 import { Answer } from "src/models/answer.model";
 import { Question } from "src/models/question.model";
 import { QuizService } from "src/services/adminQuiz.service";
+
+
 import { Correcting } from "src/models/correcting.model";
 import { GamePageComponent } from "src/app/game/page/page.component";
 import { GameQuestion } from "src/models/gameQuestion.model";
+import { idList } from "src/services/game.service";
 
 
 @Component({
@@ -17,11 +20,12 @@ export class QuestionFormComponent implements OnInit {
     originalQuestion?: Question;
     Show: boolean = false;
 
-    constructor(private quizService: QuizService) {}
+    constructor(private quizService: QuizService,private gameService: idList) {}
 
     ngOnInit(): void {
         this.quizService.getSelectedQuestion().subscribe(question => {
             this.question = JSON.parse(JSON.stringify(question)) ;
+            this.gameService.selectQuestionForExample(this.question as Question);
         });
     }
 
@@ -82,8 +86,9 @@ export class QuestionFormComponent implements OnInit {
         return this.quizService.getIdOfSelectedQuiz();
     }
 
-    afficher(): void {
+    displayPopUp(): void {
         this.Show = !this.Show;
+        this.gameService.selectQuestionForExample(this.question as Question);
     }
 
   
