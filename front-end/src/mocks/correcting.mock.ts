@@ -6,6 +6,12 @@ export const  CORR_QUESTION_INS: Correcting = {
     picture: "https://upload.wikimedia.org/wikipedia/commons/f/f5/Aristotle_latin_manuscript.jpg"
 }
 
+export const  CORR_CINFR2: Correcting = {
+    id: 1,
+    description: "Jean Dujardin a remporté l'Oscar du meilleur acteur en 2012 pour son rôle dans ce film muet.",
+    picture: "https://fr.web.img6.acsta.net/medias/nmedia/18/83/95/46/20024873.jpg"
+}
+
 export const  CORR_QUESTION_FOOT1: Correcting = {
     id: 10,
     description: "C'est la France qui a gagné la coupe du monde de football en 2018",
@@ -47,4 +53,3 @@ export const CORR_QUESTION_HYGIENE1: Correcting = {
     description: "Il faut se laver les mains avec du savon",
     picture: "https://remeng.rosselcdn.net/sites/default/files/dpistyles_v2/rem_16_9_1124w/2020/03/05/node_136509/11576673/public/2020/03/05/B9722822728Z.1_20200305205431_000%2BGBKFLQFMT.1-0.jpg?itok=4ynvFijT1583501827"
 };
-

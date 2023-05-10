@@ -42,20 +42,22 @@
     h1 {
       background-color: yellow;
     }
+
 }
-    .ans-picture-present:hover {
+
+.ans-picture-present:hover {
       opacity: 0.5;
       
-    }
+}
   
-    .sound:hover{
+.sound:hover{
       opacity: 0.5;
       cursor: pointer;
     }
   
-    .answer {
+.answer {
+      margin-top: 5vh;
       justify-content: center;
       display: flex;
-      width: 45%;
-    }
-  
+      width: 50%;
+}
