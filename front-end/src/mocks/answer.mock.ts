@@ -669,5 +669,5 @@ export const CALC_Q2_3: Answer = {
     isCorrect: false
 };
 
-export const CALC_Q2: Answer[] = [CALC_Q2_1, CALC_Q2_3,CALC_Q2_3];
+export const CALC_Q2: Answer[] = [CALC_Q2_1, CALC_Q2_2,CALC_Q2_3];
 
