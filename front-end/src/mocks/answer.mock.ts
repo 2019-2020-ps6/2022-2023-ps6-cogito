@@ -38,25 +38,25 @@ export const INS_Q2: Answer[] = [INS_Q2_1, INS_Q2_2, INS_Q2_3];
 
 export const INS_Q3_1: Answer = {
     id: 6,
-    value: "cuivre",
+    value: "Cuivre",
     isCorrect: false
 };
 
 export const INS_Q3_2: Answer = {
     id: 7,
-    value: "vent",
+    value: "Vent",
     isCorrect: false
 };
 
 export const INS_Q3_3: Answer = {
     id: 8,
-    value: "cordes",
+    value: "Cordes",
     isCorrect: true
 };
 
 export const INS_Q3_4: Answer = {
     id: 9,
-    value: "percussion",
+    value: "Percussion",
     isCorrect: false
 };
 
@@ -345,7 +345,7 @@ export const CUIS_Q1_2: Answer = {
 
 export const CUIS_Q1_3: Answer = {
     id: 43,
-    value: "Bannane",
+    value: "Banane",
     isCorrect: false
 };
 
@@ -430,25 +430,25 @@ export const GEO_Q1: Answer[] = [GEO_Q1_1, GEO_Q1_2, GEO_Q1_3, GEO_Q1_4];
 
 export const GEO_Q2_1: Answer = {
     id: 55,
-    value: "le Sahara",
+    value: "Le Sahara",
     isCorrect: true
 };
 
 export const GEO_Q2_2: Answer = {
     id: 56,
-    value: "le désert d'Atacama",
+    value: "Le désert d'Atacama",
     isCorrect: false
 };
 
 export const GEO_Q2_3: Answer = {
     id: 57,
-    value: "le désert de Gobi",
+    value: "Le désert de Gobi",
     isCorrect: false
 };
 
 export const GEO_Q2_4: Answer = {
     id: 58,
-    value: "le désert d'Arabie",
+    value: "Le désert d'Arabie",
     isCorrect: false
 };
 
@@ -624,7 +624,7 @@ export const ECH_H1: Answer[] = [ECH_H1_1, ECH_H1_2, ECH_H1_3];
 
 export const ECH_H2_1: Answer = {
     id: 2510,
-    value: "Aprés un repas",
+    value: "Après un repas",
     isCorrect: true
 };
 
