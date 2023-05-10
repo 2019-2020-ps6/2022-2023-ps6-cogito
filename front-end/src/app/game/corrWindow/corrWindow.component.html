@@ -1,0 +1,6 @@
+<section  *ngIf="corrDisplayed" class="content {{lastAnswer ? 'green-background' : 'wrong-background'}}">
+<h3>{{title}}</h3>
+<p *ngIf="description" class="textdescription">{{description}}</p>
+<img *ngIf="picture" [src]="picture">
+<button (click)="continueClicked()">Continuer</button>
+</section>

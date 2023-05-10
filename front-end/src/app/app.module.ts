@@ -1,66 +1,87 @@
 import { NgModule } from "@angular/core";
 import { BrowserModule } from "@angular/platform-browser";
-import { ReactiveFormsModule } from "@angular/forms";
+import { FormsModule } from "@angular/forms";
 
 import { AppRoutingModule } from "./app-routing.module";
-import { FormsModule } from "@angular/forms";
 import { AppComponent } from "./app.component";
 import { HeaderComponent } from "./header/header.component";
 import { HomePageComponent } from "./home-page/home-page.component";
-import { ProfileListComponent } from "./profiles/profile-list/profile-list.component";
-import { ProfileComponent } from "./profiles/profile/profile.component";
-import { ThemePageComponent } from "./themes/page/page.component";
-import { ThemeListComponent } from "./themes/theme-list/theme-list.component";
-import { ThemeComponent } from "./themes/theme/theme.component";
-import { QuizPageComponent } from "./quizzes/page/page.component";
-import { QuizListComponent } from "./quizzes/quiz-list/quiz-list.component";
-import { QuizComponent } from "./quizzes/quiz/quiz.component";
+import { PatientPageComponent } from "./patient/page/page.component";
+import { PatientComponent } from "./patient/patient/patient.component";
+import { PatientDeleteComponent } from "./manager/profil_list/patient/patient.component";
+import { CreationPatientComponent } from "./manager/creation_patient/page.component";
+import { ThemePageComponent } from "./theme/page/page.component";
+import { ThemeComponent } from "./theme/theme/theme.component";
+import { QuizPageComponent } from "./quiz/page/page.component";
+import { QuizComponent } from "./quiz/quiz/quiz.component";
 import { GamePageComponent } from "./game/page/page.component";
+import { QuestionsListComponent } from './questions/questions-list/questions-list.component';
+import { QuestionFormComponent } from './questions/question-form/question-form.component';
+
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import { MenuComponent } from './manager/menu/menu.component';
+import { ProfilComponent } from './manager/profil/profil.component';
+import { PatientPageListComponent } from "./manager/profil_list/page.component";
+import { ConfigurationComponent } from './manager/configuration/configuration.component';
+import { CreateConfigurationComponent } from './manager/create-configuration/create-configuration.component';
+import { InterfaceConfigurationComponent } from './manager/interface-configuration/interface-configuration.component';
+import { QuestionConfigurationComponent } from './manager/question-configuration/question-configuration.component';
+import { ResultsComponent } from './manager/results/results.component';
+import { ResultQuizComponent } from './manager/result-quiz/result-quiz.component';
+import { ResultQuestionComponent } from './manager/result-question/result-question.component';
+import { AnswerConfigurationComponent } from './manager/answer-configuration/answer-configuration.component';
+import { ManagerListComponent } from './manager/manager-list/manager-list.component';
+import { ManagerFormComponent } from './manager/manager-form/manager-form.component';
+import { GameQuestionResultComponent } from "./game/corrWindow/corrWindow.component";
+import { GameResultComponent } from "./game/result/result.component";
 import { GameQuestionComponent } from "./game/question/question.component";
-import { GameAnswerComponent } from "./game/answer/answer.component";
-import { GameResultComponent } from './game/gameResult/gameResult.component';
-import { GameQuestionResultComponent } from './game/questionResult/questionResult.component';
-import { EditQuizComponent } from "./quizzes/edit-quiz/edit-quiz.component";
-import { QuizFormComponent } from "./quizzes/quiz-form/quiz-form.component";
-import { AdminQuizListComponent } from "./quizzes/admin-quiz-list/admin-quiz-list.component";
-import { AdminQuizComponent } from "./quizzes/admin-quiz/admin-quiz.component";
-import { QuestionFormComponent } from "./questions/question-form/question-form.component";
-import { QuestionListComponent } from "./questions/question-list/question-list.component";
-import { QuestionComponent } from "./questions/question/question.component";
+import { ListThemeQuizPageComponent } from './manager/list-theme-quiz-page/list-theme-quiz-page.component';
+
+
 
 @NgModule({
     declarations: [
         AppComponent,
+        PatientPageListComponent,
+        PatientDeleteComponent,
         HeaderComponent,
         HomePageComponent,
-        ProfileListComponent,
-        ProfileComponent,
+        PatientPageComponent,
+        PatientComponent,
         ThemePageComponent,
-        ThemeListComponent,
         ThemeComponent,
         QuizPageComponent,
-        QuizListComponent,
         QuizComponent,
+        CreationPatientComponent,
         GamePageComponent,
-        GameQuestionComponent,
-        GameAnswerComponent,
-        GameResultComponent,
-        GameQuestionResultComponent,
-        EditQuizComponent,
-        QuizFormComponent,
-        AdminQuizListComponent,
-        AdminQuizComponent,
+        QuestionsListComponent,
         QuestionFormComponent,
-        QuestionListComponent,
-        QuestionComponent
+        MenuComponent,
+        ProfilComponent,
+        ConfigurationComponent,
+        CreateConfigurationComponent,
+        InterfaceConfigurationComponent,
+        QuestionConfigurationComponent,
+        ResultsComponent,
+        ResultQuizComponent,
+        ResultQuestionComponent,
+        AnswerConfigurationComponent,
+        ManagerListComponent,
+        ManagerFormComponent,
+        ListThemeQuizPageComponent,
+        GameQuestionResultComponent,
+        GameResultComponent,
+        GameQuestionComponent
+
     ],
     imports: [
         BrowserModule,
-        ReactiveFormsModule,
         AppRoutingModule,
-        FormsModule
+        FormsModule,
+        BrowserAnimationsModule
     ],
     providers: [],
     bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}

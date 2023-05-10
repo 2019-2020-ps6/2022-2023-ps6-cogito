@@ -1,63 +1,76 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from "@angular/core";
 
-import { GameAnswer } from 'src/models/gameAnswer.model';
-import { GameQuestion } from 'src/models/gameQuestion.model';
-import { GameService } from 'src/services/game.service';
+import { GameQuestion } from "src/models/gameQuestion.model";
+import { idList } from "src/services/game.service";
+import { Answer } from "../../../models/answer.model";
 
 @Component({
-    selector: 'app-game-question',
-    templateUrl: './question.component.html',
-    styleUrls: ['./question.component.scss']
+    selector: "question-compo",
+    templateUrl: "./question.component.html",
+    styleUrls: ["./question.component.scss"]
 })
-export class GameQuestionComponent implements OnInit {
-    public question!: GameQuestion;
-    private audio!:HTMLAudioElement |undefined;
-    imageUrl:string="./assets/pictures/audio-off.png";
+export class GameQuestionComponent {
+    public question?: GameQuestion;
+    public lastQuestion: boolean = false;
+    public hintIsShow: boolean = false;
+    imageUrl:string="./assets/pictures/audio-on.png";
 
     @Output()
-    isAnwsered: EventEmitter<boolean> = new EventEmitter<boolean>();
-    @Output()
-    stateAnswered: EventEmitter<boolean> = new EventEmitter<boolean>();
+    clickOncheckAnswer: EventEmitter<Answer> = new EventEmitter<Answer>();
 
-
-    constructor(public gameService: GameService) {
-        this.gameService.selectedQuestion$.subscribe((question: GameQuestion) => {
+    constructor(private gameService: idList) {
+        this.gameService.currentQuestion$.subscribe((question?: GameQuestion): void => {
             this.question = question;
+            this.lastQuestion = this.gameService.islastQuestion();
+            if (this.question)
+            this.gameService.playSound(this.question.sound);
+            this.hintIsShow = !this.gameService.getConfig()?.hints ||this.question?.hint === undefined || this.question?.hint === "" ;
         });
+
     }
 
+    clickSpeaker(): void {
+        if (this.imageUrl=="./assets/pictures/audio-on.png")
+        this.setAudioOff();
+        else {
+            this.setAudioOn()
+        }
 
-    ngOnInit(): void { }
-
-    selectAnswer(answer: GameAnswer): void {
-        this.gameService.checkAnswer(answer);
-        this.isAnwsered.emit(true);
-        this.stateAnswered.emit(answer.isCorrect);
     }
 
-    playSound() {
-        this.audio=new Audio(this.question.sound);
-        if (this.audio){
-            this.audio.play()
-            this.imageUrl="./assets/pictures/audio-on.png";
+    setAudioOn(): void {
+        if (this.question){
+            this.gameService.playSound(this.question.sound);
+            this.imageUrl="./assets/pictures/audio-on.png"
         }
     }
-
-    stopSound(){
-        if (this.audio){
-            this.audio.pause();
-            this.audio.currentTime = 0;
-            this.imageUrl="./assets/pictures/audio-off.png";
-        }
+    
+    setAudioOff(): void {
+        this.gameService.stopSound();
+        this.imageUrl="./assets/pictures/audio-off.png";
     }
 
-    clickOnSpeaker(){
-        if (this.imageUrl=="./assets/pictures/audio-on.png"){
-            this.stopSound();
+    checkAnswer(answer: Answer): void{
+
+        if(this.hintIsShow || !this.gameService.getConfig()?.hints){
+            console.log(this.hintIsShow);
+            this.gameService.checkAnswer(answer,this.question);
+            this.clickOncheckAnswer.emit(answer);
+            this.hintIsShow = false;
         }
-        else
-        this.playSound();
-
+        else {
+            if(answer.isCorrect){
+                this.gameService.checkAnswer(answer,this.question);
+                console.log('réponse juste du premier coup');
+                this.clickOncheckAnswer.emit(answer);
+                this.hintIsShow = false;
+            }
+            else{
+                this.gameService.checkAnswer(answer,this.question);
+                console.log(this.hintIsShow)
+                this.hintIsShow = true;
+            }
+            console.log(this.gameService.finalScore())
+        }
     }
-
 }

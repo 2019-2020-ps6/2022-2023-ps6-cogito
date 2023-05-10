@@ -1,101 +1,48 @@
 import { Injectable } from "@angular/core";
-import { BehaviorSubject, Subject } from "rxjs";
-import { THEME_MUSIQUE } from "src/mocks/theme.mock";
-import { Theme } from "src/models/theme.model";
+import { Router } from "@angular/router";
+import { BehaviorSubject } from "rxjs";
 
+import { THEME_LIST } from "../mocks/theme.mock";
+import { Patient } from "../models/patient.model";
+import { Theme } from "../models/theme.model";
+import { PatientService } from "./patient.service";
 
 @Injectable({
     providedIn: "root"
 })
 export class ThemeService {
-    private themes: Theme[];
-    private themesCopy: Theme[];
-    public startIndex: number = 0;
-    public endIndex: number;
-    public themes$: BehaviorSubject<Theme[]>;
-    public themeSelected$: Subject<Theme> = new Subject<Theme>();
-    public start = true;
-    public start$: BehaviorSubject<boolean> = new BehaviorSubject(true);
-    public end = false;
-    public end$: BehaviorSubject<boolean> = new BehaviorSubject(false);
+    private themeList: Theme[] = [];
+    public themeList$: BehaviorSubject<Theme[]> = new BehaviorSubject<Theme[]>([]);
+    private selectedPatient?: Patient;
+    public selectedTheme$: BehaviorSubject<Theme | undefined> = new BehaviorSubject<Theme | undefined>(undefined);
 
-
-    constructor() {
-        this.themes = THEME_MUSIQUE;
-        this.themesCopy = THEME_MUSIQUE;
-        this.themes$ = new BehaviorSubject(this.themes);
-        this.endIndex = this.themesCopy.length;
-    }
-
-
-    sortThemeList() {
-        this.themes = this.themes.sort((a, b) => {
-            if (a.title < b.title) {
-                return -1;
+    constructor(private patientService: PatientService, private router: Router) {
+        this.patientService.selectedPatient$.subscribe((patient: Patient | undefined): void => {
+            if (this.router.url.includes("/theme-page") && patient === undefined) {
+                this.router.navigateByUrl("/patient-page");
             }
-            else if (a.title > b.title) {
-                return 1;
+
+            this.selectedPatient = patient;
+
+            function patientThemeList(patient: Patient): Theme[] {
+                let themeList: Theme[] = [];
+
+                for (let themeId of patient.themeIdList) {
+                    let index: number = THEME_LIST.findIndex((theme: Theme): boolean => theme.id === themeId);
+                    themeList.push(THEME_LIST[index]);
+                }
+
+                themeList.sort((a, b) => a.title.localeCompare(b.title));
+                return themeList;
             }
-            else {
-                return 0;
-            }
+
+            this.themeList = (patient == undefined) ? [] : patientThemeList(patient);
+            this.themeList$.next(this.themeList);
         });
-        this.themes$.next(this.themes);
     }
 
-    getThe6() {
-        this.end$.next(false);
-        if (this.startIndex > this.endIndex) this.startIndex = 0;
-        if (this.startIndex < 0) {
-            this.startIndex = this.endIndex - (((this.endIndex / 6) - Math.floor(
-                this.endIndex / 6)) * 6);
-        }
-        if (this.startIndex + 6 > this.endIndex) {
-            this.end$.next(true);
-
-            this.themes = this.themesCopy.slice(this.startIndex, this.endIndex);
-        }
-        else {
-            this.themes = this.themesCopy.slice(this.startIndex, this.startIndex + 6);
-        }
-        this.themes$.next(this.themes);
-        if (this.startIndex == 0) {
-            this.start$.next(true);
-        }
-        else {
-            this.start$.next(false);
-        }
-    }
-
-    showNextThemes() {
-        this.startIndex += 6;
-        this.getThe6();
-    }
-
-    showPreviousThemes() {
-        this.startIndex -= 6;
-        //if(this.startIndex < 0) this.startIndex = 0;
-        this.getThe6();
-    }
-
-    getThemeById(id: number): Theme | undefined {
-        return this.themes.find((theme) => theme.id === id);
-    }
-
-    updateTheme(theme: Theme) {
-        console.log(theme);
-        let index = this.themes.findIndex((t) => t.id === theme.id);
-        console.log("index", index);
-        this.themes[index] = theme;
-        console.log(this.themes);
-        this.themes$.next(this.themes);
-    }
-
-    setSelected(id: number) {
-
-        let t = { ...this.themes.find((theme) => theme.id === id) } as Theme;
-        if (t != undefined) {
-            this.themeSelected$.next(t);
-        }
+    selectTheme(theme: Theme): void {
+        this.selectedTheme$.next(theme);
+        console.log("Theme selected : ", theme.title);
     }
 }

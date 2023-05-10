@@ -1,11 +1,20 @@
-import { GameAnswer } from "./gameAnswer.model";
+import { Answer } from "./answer.model";
+import { Correcting } from "./correcting.model";
+import { MediaType } from "./question.model";
 
 export interface GameQuestion {
     id: number;
+    questionId: number;
     title: string;
-    gameAnswerList: GameAnswer[];
-    startTime: Date | undefined;
-    endTime: Date | undefined;
-    picture:string|undefined;
-    sound:string|undefined;
+    answersMediaType: MediaType;
+    answerList: Answer[];
+    correcting?: Correcting;
+    hint?: string;
+    picture?: string;
+    sound?: string;
+
+    startTime?: Date;
+    endTime?: Date;
+    displayedHint: boolean;
+    selectedAnswer?: Answer;
 }

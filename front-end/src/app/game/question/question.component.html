@@ -1,10 +1,18 @@
-<div class="game-question" *ngIf="question">
-    <h2 [ngClass]="{'picture-present': question.picture || question.sound}">
-        <span [ngClass]="{'picture-present': question.picture || question.sound}">{{question.title}}</span>
-        <img class="picture" *ngIf="question.picture" src="{{question.picture}}" alt="image de la question">
-        <img class="sound" *ngIf="question.sound" [src]="imageUrl" alt="Bouton" (click)="clickOnSpeaker()">
-    </h2>
-    <div class="game-answer-list">
-        <app-game-answer *ngFor="let answer of question.gameAnswerList" [answer]="answer" (selectedAnswer)="selectAnswer($event)"></app-game-answer>
+<div *ngIf="question" class="d-flex flex-column align-items-center content-question" style="width: 100%;">
+    <div class="optional-content">
+        <img class="picture" *ngIf="question && question.picture" src="{{question.picture}}" alt="image de la question">
+        <img class="sound" *ngIf="question && question.sound" [src]="imageUrl" alt="Bouton" (click)="clickSpeaker()">
+    </div>
+    <div class="row d-flex">
+        <div class="answer col-md-6" *ngFor="let answer of question.answerList; let i = index;">
+            <button [ngClass]="{'ans-picture-present d-flex flex-column justifiy-content-center align-items-center': answer.picture}" (click)="checkAnswer(answer)" class="" [style.background-image]="'url(' + answer.picture + ')'"><h1>{{answer.value}}</h1></button>
+        </div>
+    </div>
+    <div  *ngIf="hintIsShow && question.hint !== '' && question.hint !== undefined" class="d-flex justifiy-content-center align-items-center flex-column">
+        <div class="card">
+            <div class="card-body">
+                <p>{{question.hint}}</p>
+            </div>
+        </div>
     </div>
 </div>

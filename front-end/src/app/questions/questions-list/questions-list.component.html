@@ -1,0 +1,19 @@
+<ul class="list-group">
+    <li *ngFor="let question of quiz?.questionList" class="list-group-item">
+        <div class="question-item">
+            <h5>
+                {{question.title}}
+            </h5>
+            <div class="buttons-side">
+                <button (click)="editQuestion(question)" [routerLink]="['/question-form']" class="button-card">
+                    <i class="fa-solid fa-pen"></i>
+                </button>
+                <button class="button-card" (click)="removeQuestion(question)">
+                    <i class="fas fa-trash-alt"></i>
+                </button>
+            </div>
+        </div>
+    </li>
+</ul>
+
+<button class="btn btn-primary btn-sm mt-3" [routerLink]="['/question-form']" (click)="createNewQuestion()">Créer une nouvelle question</button>

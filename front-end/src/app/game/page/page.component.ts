@@ -1,105 +1,100 @@
-import { Component, OnInit } from "@angular/core";
+import { Component } from "@angular/core";
 
-import { GameInstance } from "src/models/gameInstance.model";
 import { GameQuestion } from "src/models/gameQuestion.model";
-import { GameService } from "src/services/game.service";
+import { idList } from "src/services/game.service";
+import { Answer } from "../../../models/answer.model";
 
 @Component({
     selector: "app-game-page",
     templateUrl: "./page.component.html",
     styleUrls: ["./page.component.scss"]
 })
-export class GamePageComponent implements OnInit {
-    public quizId!: number;
-    public questions: GameQuestion[] = [];
-    public currentQuestion: number = 0;
-    public numberQuestions: number;
-    public questionChanged: boolean = false;
-    public gameFinished: boolean = false;
-    public resultDisplayed: boolean = false;
-    public nextquestion: boolean = false;
-    public clickanswer: boolean =false;
-    public currAnswer: boolean = false;
-
-
-    constructor(public gameService: GameService) {
-        this.gameService.gameInstance$.subscribe((gameInstance: GameInstance): void => {
-            this.quizId = gameInstance.quizId;
-            this.questions = gameInstance.gameQuestionList;
+export class GamePageComponent {
+    public question?: GameQuestion;
+    public lastQuestion: boolean = false;
+    public corrDisplayed: boolean = false;
+    public lastAnswer: boolean = false;
+    public result: boolean = false;
+    constructor(private gameService: idList) {
+        this.gameService.currentQuestion$.subscribe((question?: GameQuestion): void => {
+            this.question = question;
+            this.lastQuestion = this.gameService.islastQuestion();
         });
-        this.numberQuestions = this.questions.length;
-        this.currentQuestion=this.gameService.currentQuestionIndex+1;
     }
 
-    stateAnswer(stateAnswered : boolean){
-        this.currAnswer=stateAnswered;
+    skipQuestion(): void {
+        this.gameService.checkAnswer(undefined,this.question);
+        if (this.gameService.activeCorrWindow())
+        this.corrAnswerWindow(this.question);
+        else
+        this.nextQuestion();
     }
 
-
-    ngOnInit(): void { }
-
-    nextQuestion() {
-        if (!this.resultDisplayed){
-            this.resultDisplayed=true;
-            this.nextquestion=true;
-            this.currAnswer=false;
+    nextQuestion(): void {
+        if (this.gameService.islastQuestion()){
+            this.corrAnswerWindow(this.question);
         }
         else {
-            if (this.currentQuestion<this.numberQuestions){
-                this.gameService.selectQuestion(this.questions[this.currentQuestion]);
-                this.gameService.wrongAnswers(this.currentQuestion);
-                this.numberQuestions = this.questions.length;
-                this.currentQuestion++;
-                this.nextquestion=false;
+            this.gameService.stopSound();
+            this.gameService.nextQuestion();
+            if (this.question)
+            this.gameService.playSound(this.question.sound);
+        }
+    }
+
+    finishGame(): void {
+        this.lastQuestion = false;
+        this.gameService.stopSound();
+        console.log(this.gameService.finalScore());
+        this.gameService.finishGame();
+    }
+
+    leavePage(): void {
+        this.gameService.stopSound();
+        this.gameService.leaveGame();
+    }
+
+    clickOnCheckAnswer(answer: Answer): void{
+        if (this.gameService.activeCorrWindow())
+        this.corrAnswerWindow(this.question);
+        else
+        this.nextQuestion();
+    }
+
+    corrAnswerWindow(question?:GameQuestion): void {
+        if (question){
+            if (this.gameService.activeCorrWindow()&& question.correcting){
+                this.lastAnswer=this.gameService.finalScore().get(question)||false;
+                if ((this.gameService.activeCorrTrueWindow() && this.lastAnswer)||(this.gameService.activeCorrFalseWindow() && !this.lastAnswer)){
+                    this.corrDisplayed=true;
+                }
+                else if (this.lastQuestion){
+                    this.result=true;
+                }
+                else
+                this.nextQuestion();
+            }
+            else {
+                if (this.lastQuestion){
+                    this.result=true;
+                    return;
+                }
+                this.nextQuestion();
             }
         }
-    }
-
-    onAnswerQuestion(isAnwsered: boolean) {
-        this.numberQuestions = this.questions.length;
-        if (!this.resultDisplayed){
-            this.resultDisplayed=true;
-            this.clickanswer=true;
-        }
-        else {
-            this.gameService.wrongAnswers(this.currentQuestion);
-            if (this.currentQuestion<this.numberQuestions){
-                this.questionChanged=isAnwsered;
-                this.questionChanged=false;
-                this.clickanswer=false;
-                this.numberQuestions = this.questions.length;
-                this.currentQuestion++;
-                this.gameService.currentQuestionIndex++;
-            }
-            else{
-                this.endGame();
-            }
-        }
-    }
-
-    endGame(){
-        if (!this.clickanswer){
-            this.currAnswer=false;
-        }
-        this.gameFinished=true;
-        this.resultDisplayed=true;
-        console.log(this.gameService.answers);
-    }
-
-    onClickQuit(clickOnQuitt: boolean){
-        this.gameFinished=false;
-        this.gameService.reinitQuiz();
-        this.numberQuestions = this.questions.length;
-        this.currentQuestion=this.gameService.currentQuestionIndex+1;
-    }
-
-    onClickContinue(clickOnQuitt: boolean){
-        if (this.nextquestion){
+        else
             this.nextQuestion();
-        }
-        else if (this.clickanswer){
-            this.onAnswerQuestion(true);
-        }
-        this.resultDisplayed=false;
     }
+
+    clickOnCorrWindow(clickOnQuitt: boolean){
+        this.corrDisplayed=false;
+        if (!this.lastQuestion)
+        this.nextQuestion();
+        else {
+            this.result=true;
+
+        }
+
+    }
+
 }

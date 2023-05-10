@@ -1,39 +1,65 @@
-@import './styles/variables.scss';
+@import "/src/styles/variables";
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap");
+
+$font-family: Arial;
+$font-size: 20;
 
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font: 500 20px/32px Roboto, "Helvetica Neue", sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: var(--font-family);;
+    font-size: var(--font-size);
 }
 
 html {
-  height: 100vh;
-  width: 100vw;
+    height: 100vh;
+    width: 100vw;
 }
 
 body {
-  height: 100vh;
-  width: 100vw;
-  background-color: $app-background-color;
+    height: 100vh;
+    width: 100vw;
+    background-color: $app_background_color;
 }
 
-header h1 {
-  font-size: $h1-size;
-  font-weight: bold;
-  height: $header-height;
-  min-height: $min-header-height;
-  min-width: $min-page-width;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: $blue;
+.page {
+    height: $page_height;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+h2 {
+    height: $h2_height;
+    width: $h2_width;
+    font-size: $h2_size;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: $h2_light_blue;
+    border: $h2_border;
+}
+
+.divButtons {
+    height: 15vh;
+    width: 90vw;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
 }
 
 button {
-  border: solid 2px black;
+    font-size: $normal_size;
+    height: $button_height;
+    width: $button_width;
+    min-height: 40px;
+    min-width: 120px;
+    background-color: $orange;
+    border: $button_border;
 }
 
 button:hover {
-  cursor: pointer;
+    background-color: $hover_light-orange;
+    cursor: pointer;
 }

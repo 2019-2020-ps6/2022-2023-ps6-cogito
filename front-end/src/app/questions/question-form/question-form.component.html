@@ -1,30 +1,220 @@
-<div class="page-form">
-  <div class="left-part">
-    <button type="button" class="button-add" (click)="addQuestion()" [routerLink]="[ '/edit-quiz/', this.quiz.id]" [disabled]="!questionForm.valid">Créer la question</button>
-    <button class="button-cancel" [routerLink]="['/edit-quiz/', this.quiz.id]">Retour</button>
-  </div>
-  <div class="center-div">
-    <form [formGroup]="questionForm" (ngSubmit)="addQuestion()">
-      <label class="title">
-        Intitulé de la question :
-        <textarea class="question-title" formControlName="title" ></textarea>
-      </label>
-      
-      <div formArrayName="quizAnswerList">
-        <div *ngFor="let answer of quizAnswerList.controls; let i=index" [formGroupName]="i" class="answer">
-          <label>
-            Réponse {{ i + 1 }}:
-            <input type="text" formControlName="value" />
-          </label>
-          
-          <label>
-            Réponse correcte ?
-            <input type="checkbox" formControlName="isCorrect" />
-          </label>
-          <button (click)="deleteAnswer(i)"><i class="fa-solid fa-trash-can"></i></button>
+<form>
+    <div class="overflow-auto">
+        <div class="question-part mb-3 border-bottom">
+            <h3>Question</h3>
+            <div class="row g-3 align-items-center mb-1">
+                <div class="col-auto">
+                    <label class="col-form-label">Intitulé :</label>
+                </div>
+                <div class="col">
+                    <input type="text" class="form-control" name="questionTitle"[(ngModel)]="question === undefined ? '' : question.title">
+                </div>
+            </div>
+            <div class="row g-3 align-items-center mb-1">
+                <div class="col-auto">
+                    <label class="col-form-label">Image associée :</label>
+                </div>
+                <div class="col-auto">
+                    <input type="text" class="form-control" name="picture" [(ngModel)]="question === undefined ? '' : question.picture">
+                </div>
+                <div class="col-auto">
+                    <span class="form-text">
+                        Vous pouvez mettre une image en lien avec la question
+                    </span>
+                </div>
+            </div>
+            <div class="row g-3 align-items-center mb-1">
+                <div class="col-auto">
+                  <label class="col-form-label">Son associé :</label>
+                </div>
+                <div class="col-auto">
+                  <input class="form-control" type="file" id="formFile" (change)="uploadSound($event)">
+                </div>
+                <div class="col-auto">
+                  <span class="form-text">
+                    Vous pouvez mettre un son en lien avec la question comme une musique ou un bruit
+                  </span>
+                </div>
+              </div>
+              
+              <div class="row g-3 align-items-center mb-1">
+                <div class="col-auto">
+                  <label class="form-label">Difficulté :</label>
+                </div>
+                <div class="col-auto">
+                  <select name="difficulty" class="form-select" [(ngModel)]="question === undefined ? 0 : question.difficulty">
+                    <option value="0">Facile</option>
+                    <option value="1">Moyen</option>
+                    <option value="2">Difficile</option>
+                  </select>
+                </div>
+                <div class="col-auto">
+                  <span class="form-text">Choisir la difficulté de la question</span>
+                </div>
+              </div>
+              
+            <!--<div class="row g-3 align-items-center mb-1">
+                <div class="col-auto">
+                    <label class="col-form-label">Type de question par défaut :</label>
+                </div>
+                <div class="col-auto">
+                    <select name="type" class="form-select" [(ngModel)]="question === undefined ? '' : question.defaultMediaType">
+                        <option value="0">Texte</option>
+                        <option value="1">Son</option>
+                        <option value="2">Image</option>
+                    </select>
+                </div>
+                <div class="col-auto">
+                  <span class="form-text">
+                    Choisir si la question est par défaut en texte, son ou image
+                  </span>
+                </div>
+              </div>
+            -->
+            <div class="row g-3 align-items-center mb-3">
+                <div class="col-auto">
+                    <label class="col-form-label">Indice :</label>
+                </div>
+                <div class="col">
+                    <input type="text" class="form-control" name="hint" [(ngModel)]="question === undefined ? '' : question.hint">
+                </div>
+            </div>
         </div>
-      </div>
-      <button type="button" (click)="addAnswer()">Ajouter une réponse</button>
-    </form>
-  </div>
+
+        <div class="answer-part mb-3 border-bottom">
+            <h3>Réponses</h3>
+            <!--<div class="row g-3 align-items-center mb-3">
+                <div class="col-auto">
+                    <label class="col-form-label">Type de réponses par défaut :</label>
+                </div>
+                <div class="col-auto">
+                    <select name="answerType" class="form-select" [(ngModel)]="question === undefined ? '' : question.defaultAnswersMediaType">
+                        <option value="0">Texte</option>
+                        <option value="1">Son</option>
+                        <option value="2">Image</option>
+                    </select>
+                </div>
+                <div class="col-auto">
+                    <span class="form-text">
+                        Choisir si les réponses sont par défaut en texte, son ou image.
+                    </span>
+                </div>
+            </div>-->
+            <button class="btn btn-primary mb-3" (click)="addAnswerToForm()">Ajouter une réponse</button>
+            <ul>
+                <li *ngFor="let answer of question?.answerList; let i = index" id="answer-{{answer.id}}">
+                    <div class="card answer" >
+                        <h5 class="card-header mb-0 answer-header">
+                            Réponse {{i+1}}
+                            <a class="btn btn-secondary btn-sm" (click)="deleteAnswer(answer)">x</a>
+                        </h5>
+                        <div class="card-body">
+                            <div class="mb-0">
+                                <label class="form-label">
+                                    Intitulé de la réponse
+                                </label>
+                                <input type="text" name="{{answer.id}}" class="form-control" [(ngModel)]="answer === undefined ? 'undefined' : answer.value">
+                            </div>
+                            <div class="mb-0 answer-picture">
+                                <label class="form-label">
+                                    Image associée : 
+                                </label>
+                                <input type="text" class="form-control" name="{{answer.id}}-picture" [(ngModel)]="answer === undefined ? 'undefined' : answer.picture">
+                                <img *ngIf="answer?.picture" src="{{answer.picture}}">
+                                <span *ngIf="!answer?.picture" class="form-text" >Aucune image</span>
+                            </div>
+                            <div class="mb-1">
+                                <label class="form-label">
+                                    Son associé :
+                                </label>
+                                <input type="file" name="{{answer.id}}-sound" class="form-control">
+                            </div>
+                            <div class="btn-group" role="group" [attr.aria-labelledby]="'btnradio-' + answer.id">
+                                <input type="radio" class="btn-check" name="btnradio-{{answer.id}}" id="btnradio-{{answer.id}}-1" autocomplete="off" checked [checked]="answer.isCorrect" (change)="answer.isCorrect = true">
+                                <label class="btn btn-outline-{{answer.isCorrect ? 'success' : 'danger'}}" for="btnradio-{{answer.id}}-1">Réponse correcte</label>
+                            
+                                <input type="radio" class="btn-check" name="btnradio-{{answer.id}}" id="btnradio-{{answer.id}}-2" autocomplete="off" [checked]="!answer.isCorrect" (change)="answer.isCorrect = false">
+                                <label class="btn btn-outline-{{answer.isCorrect ? 'success' : 'danger'}}" for="btnradio-{{answer.id}}-2">Réponse fausse</label>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+        Voulez vous ajouter une correction ?
+        <input type="checkbox" name="correction" [checked]="question?.correcting" (change)="addOrRemoveCorrection($event)">
+
+        <div *ngIf="question?.correcting" class="correction-part mb-3">
+            <h3>Correction</h3>
+            <div class="row g-3 align-items-center mb-3">
+                <div class="col-auto">
+                    <label class="col-form-label">Description associée : </label>
+                </div>
+                <div class="col-auto">
+                    <input *ngIf="question && question.correcting" type="text" class="form-control" name="title" [(ngModel)]="question.correcting.description">
+                </div>
+                <div class="col-auto">
+                    <span class="form-text">
+                        Le message permettant d'expliquer la réponse correcte.
+                    </span>
+                </div>
+            </div>
+            <div class="row g-3 align-items-center mb-3">
+                <div class="col-auto">
+                    <label class="col-form-label">Image associée : </label>
+                </div>
+                <div class="col-auto">
+                    <input *ngIf="question && question.correcting" type="text" name="pictureCorrecting" class="form-control" [(ngModel)]="question.correcting.picture">
+                </div>
+                <div class="col-auto">
+                    <span *ngIf="question && question.correcting" class="form-text">
+                        L'image qui sera affichée en complémant de la description.
+                    </span>
+                    <img *ngIf="question && question.correcting" [(ngModel)]="question.correcting.picture">
+                </div>
+            </div>
+            <div class="row g-3 align-items-center mb-3">
+                <div class="col-auto">
+                    <label class="col-form-label">Son associé : </label>
+                </div>
+                <div class="col-auto">
+                    <input *ngIf="question && question.correcting" type="soundCorrecting" name="soundCorrecting" class="form-control" [(ngModel)]="question.correcting.sound">
+                </div>
+                <div class="col-auto">
+                    <span class="form-text">
+                        Le son qui pourra être joué en complémant de la description.
+                    </span>
+                    <img *ngIf="question && question.correcting" src="{{question.correcting.sound}}">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="side-content">
+        <button (click)="saveQuestion()" [routerLink]="['/quiz-form',getIdOfQuiz()]" [disabled]="!checkQuestionValidity()" [ngClass]="{'invalid-question': !checkQuestionValidity()}">Enregistrer</button>
+        <button (click)="displayPopUp()">Afficher</button>
+        <button (click)="cancelQuestion()" [routerLink]="['/quiz-form',getIdOfQuiz()]">Annuler</button>
+    </div>
+</form>
+
+<div class="popup"  *ngIf="Show">
+    <div class="popup-container">
+        <div class="buttonContainer">
+            <a (click)="displayPopUp()" class="btn btn-sm btn-danger buttonClose">X</a>
+        </div>
+        <div *ngIf="question" class="questionTitle">
+            <h2>
+                {{question.title}}
+            </h2>
+        </div>
+        <div class="contentQuestion">
+            <question-compo class="questionContent" (clickOncheckAnswer)="clickOnCheckAnswer($event)"></question-compo>
+        </div>
+        <div  *ngIf="corrDisplayed" class="popup content {{lastAnswer ? 'green-background' : 'wrong-background'}}">
+            <p class="textdescription">{{question?.correcting?.description}}</p>
+            <img [src]="question?.correcting?.picture" class="correctionDisplayImg">
+        </div>
+    </div>
 </div>
+

@@ -1,116 +1,119 @@
-import { Component, OnInit, Input } from "@angular/core";
-import { FormGroup, FormBuilder, FormArray, Validators } from "@angular/forms";
-import { ActivatedRoute } from '@angular/router';
+import { Component, OnInit } from "@angular/core";
+import { Answer } from "src/models/answer.model";
+import { Question } from "src/models/question.model";
+import { QuizService } from "src/services/adminQuiz.service";
 
-import { AdminQuizService } from "src/services/admin-quiz.service";
-import { Quiz } from "src/models/quiz.model";
-import { QuizQuestion } from "src/models/quizQuestion.model";
+
+import { Correcting } from "src/models/correcting.model";
+import { GamePageComponent } from "src/app/game/page/page.component";
+import { GameQuestion } from "src/models/gameQuestion.model";
+import { idList } from "src/services/game.service";
+
 
 @Component({
-    selector: "app-questions-question-form",
+    selector: "app-question-form",
     templateUrl: "./question-form.component.html",
     styleUrls: ["./question-form.component.scss"]
 })
 export class QuestionFormComponent implements OnInit {
-
-  public quiz: Quiz = {} as Quiz;
-
-  public questionForm: FormGroup = new FormGroup({});
-
-  public question: QuizQuestion = {} as QuizQuestion;
-
-  public type: string = 'create';
+    question?: Question;
+    originalQuestion?: Question;
+    currentQuestion?: GameQuestion;
+    public lastAnswer: boolean = false;
+    Show: boolean = false;
+    public corrDisplayed: boolean = false;
 
 
-  constructor(private route: ActivatedRoute, public quizService: AdminQuizService, public formBuilder: FormBuilder) {
-    this.initializeQuestionForm();
-  }
+    constructor(private quizService: QuizService,private gameService: idList) {}
 
-    private initializeQuestionForm(): void {
-        this.questionForm = this.formBuilder.group({
-            title: ["", Validators.required],
-            quizAnswerList: this.formBuilder.array([])
+    ngOnInit(): void {
+        this.quizService.getSelectedQuestion().subscribe(question => {
+            this.question = JSON.parse(JSON.stringify(question)) ;
+            this.gameService.selectQuestionForExample(this.question as Question);
         });
-    }
-
-
-  ngOnInit() {
-    this.quizService.selectedQuiz$.subscribe((quiz: Quiz) => {
-      this.quiz = quiz;
-    });
-    const id = this.route.snapshot.paramMap.get('id');
-    if (id != null) {
-      this.type = 'edit';
-    }
-    const quizId = this.route.snapshot.paramMap.get('quizId');
-    if (quizId != null) {
-      this.type = 'create';
-    }
-    this.question = this.quiz.quizQuestionList.find(q => q.id == parseInt(id as string)) as QuizQuestion;
-    this.questionForm = this.formBuilder.group({
-      title: [this.question.title, Validators.required],
-      quizAnswerList: this.formBuilder.array([])
-    });
-    this.question.quizAnswerList.forEach(a => {
-          this.quizAnswerList.push(this.formBuilder.group({
-            value: a.value,
-            isCorrect: a.isCorrect,
-          }));
+        this.gameService.currentQuestion$.subscribe((question?: GameQuestion): void => {
+            this.currentQuestion = question;
         }
-    );
-  }
+        );
+    }
 
-  get quizAnswerList(): FormArray {
-    if (this.questionForm)
-      return this.questionForm.get('quizAnswerList') as FormArray;
-    else
-      return this.formBuilder.array([]);
-  }
-
-    private createAnswer(): FormGroup {
-        return this.formBuilder.group({
+    addAnswerToForm(): void {
+        const id = this.quizService.getIdOfNewAnswerOf(this.question as Question);
+        this.question?.answerList.push({
             value: "",
-            isCorrect: false
+            isCorrect: false,
+            id: id
         });
     }
 
-    addAnswer(): void {
-        this.quizAnswerList.push(this.createAnswer());
+    saveQuestion(): void {
+        if(!this.checkQuestionValidity()){
+            console.log("Question is not valid");
+        }
+        else {
+            this.quizService.updateQuestion(this.question as Question);
+            this.quizService.selectQuestion(undefined);
+        }
     }
 
-  addQuestion(): void {
-    if(this.type==='create'){
-      if (this.questionForm) {
-        if (this.questionForm.valid) {
-          const question = this.questionForm.getRawValue() as QuizQuestion;
-          question.id = this.quiz.quizQuestionList.length + 1;
-          this.quiz.quizQuestionList.push(question);
-          this.initializeQuestionForm();
-          this.quizService.setSelected(this.quiz.id);
+    cancelQuestion(): void {
+        this.quizService.resetSelectedQuestion();
+        if(this.quizService.getTypeOfForm() === "creation"){
+            this.quizService.removeQuestion(this.question as Question);
         }
-      }
+        this.quizService.selectQuestion(undefined);
     }
-    else{
-      if (this.questionForm) {
-        if (this.questionForm.valid) {
-          let id = this.route.snapshot.paramMap.get('id');
-          const question = this.questionForm.getRawValue() as QuizQuestion;
-          question.id = parseInt(id as string);
-          if (this.quiz !== undefined) {
-            if (this.quiz.quizQuestionList === undefined) {
-              this.quiz.quizQuestionList = [];
+
+    deleteAnswer(answer : Answer): void {
+        this.question?.answerList.splice(this.question.answerList.indexOf(answer), 1);
+
+    }
+
+
+    checkQuestionValidity(): boolean {
+        return this.question?.title !== undefined && this.question?.title !== "" && this.question?.answerList.length > 1 && this.question?.answerList.filter(answer => answer.isCorrect).length > 0 && this.question?.answerList.filter(answer => answer.value !== "").length === this.question?.answerList.length && this.question?.difficulty !== undefined && this.question?.defaultMediaType !== undefined;
+    }
+
+    uploadSound(event: any): void {
+        // wait for backend to be ready
+    }
+
+    addOrRemoveCorrection(event: any) : void {
+        if(event.target.checked){
+            if(this.question){
+                this.question.correcting = {id: -1, description: "",picture:"",sound:""} as Correcting;
             }
-            this.quiz.quizQuestionList[this.quiz.quizQuestionList.findIndex(q => q.id == this.question.id)] = question;
-          }
-          this.initializeQuestionForm();
-          console.log(this.quiz);
-          this.quizService.setSelected(this.quiz.id);
         }
-      }
+        else{
+            delete this.question?.correcting;
+        }
+        console.log(this.question);
     }
-  }
 
-  deleteAnswer(index : number): void {
-    this.quizAnswerList.removeAt(index);
-  }
+    getIdOfQuiz(): number {
+        return this.quizService.getIdOfSelectedQuiz();
+    }
+
+    displayPopUp(): void {
+        this.Show = !this.Show;
+        this.gameService.selectQuestionForExample(this.question as Question);
+        this.corrDisplayed=false;
+    }
+
+    clickOnCorrWindow(clickOnQuitt: boolean){
+        this.corrDisplayed=false;
+    }
+
+    corrAnswerWindow(question?:GameQuestion): void { 
+        if (question){
+            this.lastAnswer=this.gameService.finalScore().get(question)||false;
+            console.log(this.lastAnswer);
+                this.corrDisplayed=!this.corrDisplayed;  
+        }
+    }
+
+
+    clickOnCheckAnswer(answer: Answer): void{
+        this.corrAnswerWindow(this.currentQuestion);
+    }
 }

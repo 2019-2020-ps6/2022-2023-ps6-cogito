@@ -1,0 +1,39 @@
+Pour les réponses correctes, afficher : 
+<br>
+
+<label id="custom-dropdown-label">La fenêtre : </label>
+<input type="checkbox" id="cwin"  [(ngModel)]="configuration === undefined ? '' : configuration.correctAnswerWindow">
+<br>    
+
+<label id="custom-dropdown-label">La description : </label>
+<input type="checkbox" id="cdesc"  [(ngModel)]="configuration === undefined ? '' : configuration.correctDescription">
+<br>   
+
+<label id="custom-dropdown-label">L'image : </label>
+<input type="checkbox" id="cpic"  [(ngModel)]="configuration === undefined ? '' : configuration.correctImage">
+<br>  
+
+<label id="custom-dropdown-label">Le son : </label>
+<input type="checkbox" id="cson"  [(ngModel)]="configuration === undefined ? '' : configuration.correctSound">
+<br>    
+
+<br>
+
+Pour les réponses fausses, afficher : 
+<br>
+
+<label id="custom-dropdown-label">La fenêtre : </label>
+<input type="checkbox" id="cwin"  [(ngModel)]="configuration === undefined ? '' : configuration.falseAnswerWindow">
+<br>    
+
+<label id="custom-dropdown-label">La description : </label>
+<input type="checkbox" id="cdesc"  [(ngModel)]="configuration === undefined ? '' : configuration.falseDescription">
+<br>   
+
+<label id="custom-dropdown-label">L'image : </label>
+<input type="checkbox" id="cpic"  [(ngModel)]="configuration === undefined ? '' : configuration.falseImage">
+<br>  
+
+<label id="custom-dropdown-label">Le son : </label>
+<input type="checkbox" id="cson"  [(ngModel)]="configuration === undefined ? '' : configuration.falseSound">
+<br>    

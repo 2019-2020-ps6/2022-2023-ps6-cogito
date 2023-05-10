@@ -1,2 +1,13 @@
-@import "../../styles/variables.scss";
+@import "/src/styles/variables";
 
+header {
+    height: $header_height;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: $header_blue;
+}
+
+h1 {
+    font-size: $h1_size;
+}
