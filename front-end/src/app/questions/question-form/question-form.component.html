@@ -170,7 +170,7 @@
                     <span class="form-text">
                         L'image qui sera affichée en complémant de la description.
                     </span>
-                    <img *ngIf="question && question.correcting" src="{{question.correcting.picture}}">
+                    <img *ngIf="question && question.correcting" [(ngModel)]="question.correcting.picture">
                 </div>
             </div>
             <div class="row g-3 align-items-center mb-3">
@@ -199,7 +199,7 @@
 
 <div class="popup"  *ngIf="Show">
     <div class="popup-container">
-        <div class="buttonContainer mb-3">
+        <div class="buttonContainer">
             <a (click)="displayPopUp()" class="btn btn-sm btn-danger buttonClose">X</a>
         </div>
         <div *ngIf="question" class="questionTitle">
@@ -207,7 +207,9 @@
                 {{question.title}}
             </h2>
         </div>
-        <question-compo class="questionContent" (clickOncheckAnswer)="clickOnCheckAnswer($event)"></question-compo>
+        <div class="contentQuestion">
+            <question-compo class="questionContent" (clickOncheckAnswer)="clickOnCheckAnswer($event)"></question-compo>
+        </div>
         <div  *ngIf="corrDisplayed" class="popup content {{lastAnswer ? 'green-background' : 'wrong-background'}}">
             <p class="textdescription">{{question?.correcting?.description}}</p>
             <img [src]="question?.correcting?.picture" class="correctionDisplayImg">
