@@ -199,13 +199,11 @@
 
 <div class="popup"  *ngIf="Show">
     <div class="popup-container">
-        <section class="questionPage">
-            <div *ngIf="question" class="questionTitle">
-                <h2>{{question.title}}</h2>
-            </div>
-            <div *ngIf="question" class="questionContent">
-                <div class="anwser" *ngFor="let answer of question.answerList">{{answer.value}}</div>
-            </div>
-        </section>
+        <div *ngIf="question" class="questionTitle">
+            <h2>
+                {{question.title}}
+            </h2>
+        </div>
+        <question-compo></question-compo>
     </div>
 </div>
