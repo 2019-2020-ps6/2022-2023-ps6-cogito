@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { Quiz } from 'src/models/quiz.model';
-import { Question } from 'src/models/question.model';
+import { MediaType, Question } from 'src/models/question.model';
 import {QUIZZES_ALL} from 'src/mocks/quiz.mock';
 
 @Injectable({
@@ -146,6 +146,7 @@ export class QuizService {
     question.title = "";
     question.answerList = [];
     question.sound = "";
+    question.defaultMediaType = MediaType.text;
     question.picture = "";
     this.addQuestion(question);
     this.selectQuestion(question);
