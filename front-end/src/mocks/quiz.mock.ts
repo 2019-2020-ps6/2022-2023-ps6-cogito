@@ -1,5 +1,5 @@
 import { Quiz } from "../models/quiz.model";
-import { QUESTIONS_CHA, QUESTIONS_ECH, QUESTIONS_INS } from "./question.mock";
+import { QUESTIONS_CHA, QUESTIONS_ECH, QUESTIONS_INS ,QUESTIONS_HYGIENE} from "./question.mock";
  
 export const QUIZ_INSTRUMENTS: Quiz = {
     id: 1,
@@ -25,7 +25,17 @@ export const QUIZ_ECHECS: Quiz = {
     questionList: QUESTIONS_ECH
 };
 
+export const QUIZ_QUOTIDIEN: Quiz = {
+    id: 4,
+    title: "Hygiène",
+    picture: "https://www.mmj.fr/sites/default/files/public/images/shutterstock_1661809672-laver_mains.jpg",
+    questionList: QUESTIONS_HYGIENE
+};
+
 export const QUIZZES_SPORT: Quiz[] = [QUIZ_ECHECS];
+
+export const QUIZZES_QUOTIDIEN: Quiz[] = [QUIZ_QUOTIDIEN];
+
 
 
 export const QUIZZES_ALL: Quiz[] = QUIZZES_MUSIQUE.concat(QUIZZES_SPORT);

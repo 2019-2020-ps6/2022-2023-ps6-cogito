@@ -1,5 +1,5 @@
 import { Theme } from "../models/theme.model";
-import { QUIZ_ECHECS, QUIZZES_MUSIQUE, QUIZZES_SPORT } from "./quiz.mock";
+import { QUIZ_ECHECS, QUIZZES_MUSIQUE, QUIZZES_SPORT, QUIZZES_QUOTIDIEN } from "./quiz.mock";
 
 export const THEME_MUSIQUE: Theme = {
     id: 1,
@@ -15,4 +15,11 @@ export const THEME_SPORT: Theme = {
     quizList: QUIZZES_SPORT
 };
 
-export const THEME_LIST: Theme[] = [THEME_MUSIQUE, THEME_SPORT];
+export const THEME_QUOTIDIEN: Theme = {
+    id: 3,
+    title: "Quotidien",
+    picture: "https://www.maisons-pierre.com/wp-content/uploads/2020/08/Visuel5.jpg",
+    quizList: QUIZZES_QUOTIDIEN
+};
+
+export const THEME_LIST: Theme[] = [THEME_QUOTIDIEN, THEME_SPORT, THEME_MUSIQUE];

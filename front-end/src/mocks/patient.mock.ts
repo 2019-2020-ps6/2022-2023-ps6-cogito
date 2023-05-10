@@ -29,8 +29,8 @@ export const PATIENT_ANDREA: Patient = {
     quizResult: myMap,
     questionResult: myMap2,
 
-    themeIdList: [1, 2],
-    quizIdList: [1, 2, 3],
+    themeIdList: [1, 2, 3],
+    quizIdList: [1, 2, 3, 4],
     quizToPlayList: []
 }
 
@@ -46,8 +46,8 @@ export const PATIENT_BOB: Patient = {
     quizResult: myMap,
     questionResult: myMap2,
 
-    themeIdList: [1, 2],
-    quizIdList: [1, 3],
+    themeIdList: [1, 2, 3],
+    quizIdList: [1, 3 , 4],
     quizToPlayList: []
 }
 
@@ -63,8 +63,8 @@ export const PATIENT_DOUG: Patient = {
     quizResult: myMap,
     questionResult: myMap2,
 
-    themeIdList: [1, 2],
-    quizIdList: [1, 2, 3],
+    themeIdList: [1, 2 , 3],
+    quizIdList: [1, 2, 3,4],
     quizToPlayList: []
 }
 
@@ -80,8 +80,8 @@ export const PATIENT_ERIC: Patient = {
     quizResult: myMap,
     questionResult: myMap2,
 
-    themeIdList: [1, 2],
-    quizIdList: [1, 3],
+    themeIdList: [1, 2, 3],
+    quizIdList: [1, 3, 4],
     quizToPlayList: []
 }
 
@@ -97,8 +97,8 @@ export const PATIENT_FABIENNE: Patient = {
     quizResult: myMap,
     questionResult: myMap2,
 
-    themeIdList: [1],
-    quizIdList: [1],
+    themeIdList: [1,3],
+    quizIdList: [1,4],
     quizToPlayList: []
 }
 
@@ -114,8 +114,8 @@ export const PATIENT_GERARD: Patient = {
     quizResult: myMap,
     questionResult: myMap2,
 
-    themeIdList: [1],
-    quizIdList: [1],
+    themeIdList: [1,3],
+    quizIdList: [1,4],
     quizToPlayList: []
 }
 
@@ -131,8 +131,8 @@ export const PATIENT_HERCULE: Patient = {
     quizResult: myMap,
     questionResult: myMap2,
 
-    themeIdList: [1, 2],
-    quizIdList: [1, 3],
+    themeIdList: [1, 2,3],
+    quizIdList: [1, 3,4],
     quizToPlayList: []
 }
 
@@ -148,8 +148,8 @@ export const PATIENT_JULIAN: Patient = {
     quizResult: myMap,
     questionResult: myMap2,
 
-    themeIdList: [1, 2],
-    quizIdList: [1, 2, 3],
+    themeIdList: [1, 2,3],
+    quizIdList: [1, 2, 3,4],
     quizToPlayList: []
 }
 
@@ -165,8 +165,8 @@ export const PATIENT_KYLE: Patient = {
     quizResult: myMap,
     questionResult: myMap2,
 
-    themeIdList: [1, 2],
-    quizIdList: [1, 3],
+    themeIdList: [1, 2,3],
+    quizIdList: [1, 3,4],
     quizToPlayList: []
 }
 
@@ -182,8 +182,8 @@ export const PATIENT_LAETICIA: Patient = {
     quizResult: myMap,
     questionResult: myMap2,
 
-    themeIdList: [1],
-    quizIdList: [1],
+    themeIdList: [1,3],
+    quizIdList: [1,4],
     quizToPlayList: []
 }
 
@@ -199,8 +199,8 @@ export const PATIENT_MAURICE: Patient = {
     quizResult: myMap,
     questionResult: myMap2,
 
-    themeIdList: [1],
-    quizIdList: [1],
+    themeIdList: [1,3],
+    quizIdList: [1,4],
     quizToPlayList: []
 }
 

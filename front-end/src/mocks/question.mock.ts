@@ -1,5 +1,5 @@
 import { Difficulty, MediaType, Question } from "../models/question.model";
-import { CHA_Q1, CHA_Q2, ECH_Q1, ECH_Q2, INS_Q1, INS_Q2, INS_Q3, INS_Q4 } from "./answer.mock";
+import { CHA_Q1, CHA_Q2, ECH_Q1, ECH_Q2, INS_Q1, INS_Q2, INS_Q3, INS_Q4,ECH_H1 } from "./answer.mock";
 import { CORR_QUESTION_INS } from "./correcting.mock";
 
 export const QUESTION_INS1: Question = {
@@ -85,3 +85,14 @@ export const QUESTION_ECH2: Question = {
 }
 
 export const QUESTIONS_ECH: Question[] = [QUESTION_ECH1, QUESTION_ECH2];
+
+export const QUESTION_HYGIENE1: Question = {
+    id: 8,
+    title: "Il faut se laver les dents avec ...",
+    difficulty: Difficulty.facile,
+    answerList: ECH_H1,
+    defaultMediaType: MediaType.text,
+    defaultAnswersMediaType: MediaType.text
+};
+
+export const QUESTIONS_HYGIENE: Question[] = [QUESTION_HYGIENE1];
