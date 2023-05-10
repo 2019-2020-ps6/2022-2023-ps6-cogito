@@ -14,6 +14,8 @@ export class ResultQuizComponent implements OnInit {
   id: any;
   patient = PATIENT_ANDREA;
   quiztitle = "";
+  data: any;
+  printMessage: String = "";
   
   constructor(private route: ActivatedRoute, public quizService: QuizService) { }
 
@@ -29,6 +31,13 @@ export class ResultQuizComponent implements OnInit {
       this.quiztitle = QUIZZES_ALL[index].title;
     }
 
+    // Récupérer le tableau de nombres de la propriété quizResult du patient
+    this.data = this.patient.quizResult.get(this.id - 0);
+    if (this.data[this.data.length - 1] < 5) {
+      this.printMessage = "Il faudrait probablement supprimer le quiz pour ce patient";
+    }
+
+    console.log(this.patient.quizResult.get(this.id - 0));
 
   var myChart = new Chart("myChart", {
     type: 'line',

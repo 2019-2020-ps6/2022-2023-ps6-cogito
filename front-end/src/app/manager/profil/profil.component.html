@@ -1,35 +1,30 @@
 
 <body>
-    <div class="content">
         <div class="profil">
-            <div class="informations">
                 <!-- <li *ngFor="let elements of patient">
                     {{elements}}
                     bonjour 
                     <br>
                 </li> -->
+            <div id="txt">
                 {{Patient.name}} 
                 <br>
                 {{Patient.age + " ans"}}
                 <br>
                 {{"Stade approximatif : " + Patient.stage}}
-                
+            </div>
                 
                 <div class="button-result-quiz d-flex flex-column align-items-center">
                     <button type="submit" class="btn btn-primary mb-1" [routerLink]="['/modification-patient-page']"> Changer les informations</button>
-                    <button type="submit" class="btn btn-primary" [routerLink]="['/results']"> Voir les résultats</button>
-                </div>
+                    <button type="submit" class="btn btn-primary result" [routerLink]="['/results']"> Voir les résultats</button>
                 </div>
         </div>
         
-        <div class="side-content ml-3 d-flex flex-column align-items-center justify-content-evenly">
+        <div class="bg-primary pic">
             <img src="{{Patient.picture}}" alt="Photo du patient"> 
-            <div class=" btn-side d-flex flex-column align-items-center justify-content-around">
-                <button type="submit" class="btn btn-warning btn-outline-dark" [routerLink]="['/configuration']"> Choisir la configuration</button>
-                <button type="submit" class="btn btn-danger btn-outline-dark" [routerLink]="['/profil-list']"> Retour </button>
-            </div>
         </div>
-    </div>
-    
-    
-    </body>
+        
+        <button type="submit" class="btn btn-primary btnchoose" [routerLink]="['/configuration']"> Choisir la configuration</button>
+        <button type="submit" class="button-back" [routerLink]="['/profil-list']"> RETOUR </button>
+
+</body>

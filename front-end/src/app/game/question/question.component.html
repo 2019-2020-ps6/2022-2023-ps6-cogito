@@ -8,10 +8,10 @@
             <button [ngClass]="{'ans-picture-present': answer.picture}" (click)="checkAnswer(answer)" [style.background-image]="'url(' + answer.picture + ')'"><h1>{{answer.value}}</h1></button>
         </div>
     </div>
-    <div class="d-flex justifiy-content-center align-items-center flex-column">
+    <div  *ngIf="hintIsShow && question.hint !== '' && question.hint !== undefined" class="d-flex justifiy-content-center align-items-center flex-column">
         <div class="card">
             <div class="card-body">
-                {{question.hint}}
+                <p>{{question.hint}}</p>
             </div>
         </div>
     </div>

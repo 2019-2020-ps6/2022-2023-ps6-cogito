@@ -164,10 +164,10 @@
                     <label class="col-form-label">Image associée : </label>
                 </div>
                 <div class="col-auto">
-                    <input *ngIf="question && question.correcting" type="text" class="form-control" [(ngModel)]="question.correcting.picture">
+                    <input *ngIf="question && question.correcting" type="text" name="pictureCorrecting" class="form-control" [(ngModel)]="question.correcting.picture">
                 </div>
                 <div class="col-auto">
-                    <span class="form-text">
+                    <span *ngIf="question && question.correcting" class="form-text">
                         L'image qui sera affichée en complémant de la description.
                     </span>
                     <img *ngIf="question && question.correcting" [(ngModel)]="question.correcting.picture">
@@ -178,7 +178,7 @@
                     <label class="col-form-label">Son associé : </label>
                 </div>
                 <div class="col-auto">
-                    <input *ngIf="question && question.correcting" type="text" class="form-control" [(ngModel)]="question.correcting.sound">
+                    <input *ngIf="question && question.correcting" type="soundCorrecting" name="soundCorrecting" class="form-control" [(ngModel)]="question.correcting.sound">
                 </div>
                 <div class="col-auto">
                     <span class="form-text">

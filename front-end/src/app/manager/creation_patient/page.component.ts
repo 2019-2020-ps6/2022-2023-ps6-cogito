@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { Router } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 
 import { Patient } from "src/models/patient.model";
 import { PatientPageListComponent } from "../profil_list/page.component";
@@ -16,8 +16,10 @@ export class CreationPatientComponent implements OnInit {
     originalpatient?: Patient;
     private patientList!: Patient[];
 
+    data: any;
 
-    constructor(private patientService: PatientService, private router: Router) {
+
+    constructor(private patientService: PatientService, private router: Router, private route: ActivatedRoute) {
     }
     
     ngOnInit(): void {
@@ -31,6 +33,7 @@ export class CreationPatientComponent implements OnInit {
             }
         }
         );
+        this.data = this.route.snapshot.data['title'];
     }
 
 

@@ -12,6 +12,7 @@ import { Answer } from "../../../models/answer.model";
 export class GameQuestionComponent {
     public question?: GameQuestion;
     public lastQuestion: boolean = false;
+    public hintIsShow: boolean = false;
     imageUrl:string="./assets/pictures/audio-on.png";
 
     @Output()
@@ -23,7 +24,9 @@ export class GameQuestionComponent {
             this.lastQuestion = this.gameService.islastQuestion();
             if (this.question)
             this.gameService.playSound(this.question.sound);
+            this.hintIsShow = !this.gameService.getConfig()?.hints ||this.question?.hint === undefined || this.question?.hint === "" ;
         });
+
     }
 
     clickSpeaker(): void {
@@ -48,7 +51,22 @@ export class GameQuestionComponent {
     }
 
     checkAnswer(answer: Answer): void{
-        this.gameService.checkAnswer(answer,this.question);
-        this.clickOncheckAnswer.emit(answer);
+
+        if(this.hintIsShow || !this.gameService.getConfig()?.hints){
+            this.gameService.checkAnswer(answer,this.question);
+            this.clickOncheckAnswer.emit(answer);
+            this.hintIsShow = false;
+        }
+        else {
+            if(answer.isCorrect){
+                console.log('réponse juste du premier coup');
+                this.clickOncheckAnswer.emit(answer);
+                this.hintIsShow = false;
+            }
+            else{
+                console.log(this.hintIsShow)
+                this.hintIsShow = true;
+            }
+        }
     }
 }

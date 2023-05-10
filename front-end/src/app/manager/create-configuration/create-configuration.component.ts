@@ -58,13 +58,8 @@ export class CreateConfigurationComponent implements OnInit {
   }
 
   updateConfiguration() {
-    console.log(this.configuration);
-    console.log(this.Patient);
     this.Patient.configuration = this.configuration;
-    console.log(this.configuration);
-    console.log(this.Patient.configuration);
     this.patientService.updatePatient(this.Patient);
-    console.log(this.Patient);
   }
   
 }
