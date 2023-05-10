@@ -40,25 +40,14 @@ export class ResultQuestionComponent {
     }
 
     this.data = this.patient.questionResult.get(this.id - 0);
-    if (this.data[this.data.length - 1] === false) {
-      this.falseCpt++;
-    } 
-    if (this.data[this.data.length - 2] === false) {
-      this.falseCpt++;
+    for (let i = 0; i < this.data.length; i++) {
+      if (this.data[i] === false) {
+        this.compteur++;
+      }
     }
-    if (this.data[this.data.length - 3] === false) {
-      this.falseCpt++;
-    }
-    if (this.data[this.data.length - 4] === false) {
-      this.falseCpt++;
-    }
-    if (this.data[this.data.length - 5] === false) {
-      this.falseCpt++;
-    }
-    if (this.falseCpt >= 4) {
+    if (this.compteur >= 6) {
       this.printMessage = "Il faudrait probablement supprimer le quiz pour ce patient";
     }
-
 
   }
 
