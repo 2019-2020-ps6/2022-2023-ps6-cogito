@@ -2,7 +2,7 @@ import { Difficulty, MediaType, Question } from "../models/question.model";
 
 
 import { CHA_Q1, CHA_Q2, CINFR_Q1, CINFR_Q2, CINFR_Q3, CINHO_Q1, CINHO_Q2, CINHO_Q3, CUIS_Q1, CUIS_Q2, CUIS_Q3, GEO_Q1, GEO_Q2, GEO_Q3,
-        ECH_Q1, ECH_Q2, FOOT_Q1, FOOT_Q2, FOOT_Q3, INS_Q1, INS_Q2, INS_Q3, INS_Q4, RUGBY_Q1, RUGBY_Q2, RUGBY_Q3, ECH_H1 } from "./answer.mock";
+        ECH_Q1, ECH_Q2, FOOT_Q1, FOOT_Q2, FOOT_Q3, INS_Q1, INS_Q2, INS_Q3, INS_Q4, RUGBY_Q1, RUGBY_Q2, RUGBY_Q3 } from "./answer.mock";
 
 import { CORR_QUESTION_INS, CORR_QUESTION_FOOT1, CORR_QUESTION_FOOT2, CORR_QUESTION_FOOT3, CORR_QUESTION_RUGBY1,
      CORR_QUESTION_RUGBY2, CORR_QUESTION_RUGBY3, CORR_QUESTION_HYGIENE1, CORR_CINFR2 } from "./correcting.mock";
@@ -47,7 +47,7 @@ export const QUESTION_INS4: Question = {
     defaultMediaType: MediaType.sound,
     defaultAnswersMediaType: MediaType.picture,
     sound:"/assets/sounds/neMeQuittePas.mp3",
-    correcting: CORR_QUESTION_INS
+    correcting: CORR_QUESTION_INS,
     hint: "C'est un instrument à corde"
 };
 
@@ -61,7 +61,7 @@ export const QUESTION_CHA1: Question = {
     answerList: CHA_Q1,
     defaultMediaType: MediaType.text,
     defaultAnswersMediaType: MediaType.text,
-    correcting: CORR_QUESTION_INS
+    correcting: CORR_QUESTION_INS,
     hint: "C'est un instrument à corde"
 };
 
@@ -233,8 +233,6 @@ export const QUESTION_GEO3: Question = {
 
 
 export const QUESTIONS_GEO: Question[] = [QUESTION_GEO1, QUESTION_GEO2, QUESTION_GEO3];
-
-export const QUESTIONS_ECH: Question[] = [QUESTION_ECH1, QUESTION_ECH2];
 
 export const QUESTION_FOOT1: Question = {
     id: 18,

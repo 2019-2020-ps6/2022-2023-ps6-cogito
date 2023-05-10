@@ -53,6 +53,7 @@ export class GameQuestionComponent {
     checkAnswer(answer: Answer): void{
 
         if(this.hintIsShow || !this.gameService.getConfig()?.hints){
+            console.log(this.hintIsShow);
             this.gameService.checkAnswer(answer,this.question);
             this.clickOncheckAnswer.emit(answer);
             this.hintIsShow = false;
