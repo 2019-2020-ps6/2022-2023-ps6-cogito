@@ -69,3 +69,23 @@ export const CORR_QUESTION_CALCUL2: Correcting = {
     id: 27,
     description: "3 x 9 = 27"
 };
+
+export const CORR_QUESTION_INSTRUMENT1: Correcting = {
+    id: 70,
+    description: "Le violon possède 4 cordes"
+};
+
+export const CORR_QUESTION_INSTRUMENT2: Correcting = {
+    id: 71,
+    description: "La guitare est un instrument à cordes"
+};
+
+export const CORR_QUESTION_INSTRUMENT3: Correcting = {
+    id: 72,
+    description: "C'est Jacques Brel qui chante 'Ne me quitte pas'"
+};
+
+export const CORR_QUESTION_INSTRUMENT4: Correcting = {
+    id: 73,
+    description: "Oui, le carillon est composé de cloches"
+};

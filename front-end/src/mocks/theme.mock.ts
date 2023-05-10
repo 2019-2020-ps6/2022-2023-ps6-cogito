@@ -18,21 +18,21 @@ export const THEME_SPORT: Theme = {
 
 export const THEME_CINEMA: Theme = {
     id: 3,
-    title: "Cinema",
+    title: "Cinéma",
     picture: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ-ONcdDrnUOOYEv1ttmf1eCEU3anSa32cTiEl3bG_zBYWtZWwkQFOL975PjfUYsG7PtHA&usqp=CAU",
     quizList: QUIZZES_CINEMA
 };
 
 export const THEME_CUISINE: Theme = {
     id: 4,
-    title: "CUISINE",
+    title: "Cuisine",
     picture: "https://domf5oio6qrcr.cloudfront.net/medialibrary/11537/4a78f148-d427-4209-8173-f33d04c44106.jpg",
     quizList: QUIZZES_CUISINE
 };
 
 export const THEME_GEOGRAPHIE: Theme = {
     id: 5,
-    title: "GEOGRAPHIE",
+    title: "Géographie",
     picture: "https://www.radiofrance.fr/s3/cruiser-production/2021/05/7025520a-5446-44db-a38c-1c1281516249/560x315_gout-geographie.jpg",
     quizList: QUIZZES_GEO
 };
@@ -46,7 +46,7 @@ export const THEME_QUOTIDIEN: Theme = {
 
 export const THEME_MATHEMATIQUE: Theme = {
     id: 7,
-    title: "Mahematiques",
+    title: "Mathématiques",
     picture: "https://la1ere.francetvinfo.fr/image/YujSOf-uUaeUmjjZnQuYJ03SdxY/600x400/outremer/2022/03/28/62421efbe5164_images-4.jfif",
     quizList: QUIZZES_CALCUL
 };

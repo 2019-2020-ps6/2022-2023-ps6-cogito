@@ -5,7 +5,7 @@ import { CHA_Q1, CHA_Q2, CINFR_Q1, CINFR_Q2, CINFR_Q3, CINHO_Q1, CINHO_Q2, CINHO
         ECH_Q1, ECH_Q2, FOOT_Q1, FOOT_Q2, FOOT_Q3, INS_Q1, INS_Q2, INS_Q3, INS_Q4, RUGBY_Q1, RUGBY_Q2, RUGBY_Q3, ECH_H1, ECH_H2, CALC_Q1, CALC_Q2 } from "./answer.mock";
 
 import { CORR_QUESTION_INS, CORR_QUESTION_FOOT1, CORR_QUESTION_FOOT2, CORR_QUESTION_FOOT3, CORR_QUESTION_RUGBY1,
-     CORR_QUESTION_RUGBY2, CORR_QUESTION_RUGBY3, CORR_QUESTION_HYGIENE1, CORR_CINFR2, CORR_QUESTION_HYGIENE2, CORR_QUESTION_CALCUL1, CORR_QUESTION_CALCUL2 } from "./correcting.mock";
+     CORR_QUESTION_RUGBY2, CORR_QUESTION_RUGBY3, CORR_QUESTION_HYGIENE1, CORR_CINFR2, CORR_QUESTION_HYGIENE2, CORR_QUESTION_CALCUL1, CORR_QUESTION_CALCUL2, CORR_QUESTION_INSTRUMENT3, CORR_QUESTION_INSTRUMENT2, CORR_QUESTION_INSTRUMENT1, CORR_QUESTION_INSTRUMENT4 } from "./correcting.mock";
 
 export const QUESTION_INS1: Question = {
     id: 1,
@@ -14,7 +14,7 @@ export const QUESTION_INS1: Question = {
     answerList: INS_Q1,
     defaultMediaType: MediaType.text,
     defaultAnswersMediaType: MediaType.text,
-    correcting: CORR_QUESTION_INS
+    correcting: CORR_QUESTION_INSTRUMENT4
 }
 
 export const QUESTION_INS2: Question = {
@@ -25,8 +25,8 @@ export const QUESTION_INS2: Question = {
     defaultMediaType: MediaType.picture,
     defaultAnswersMediaType: MediaType.text,
     picture:"https://www.guillaume-kessler.fr/wp-content/uploads/2017/11/violon-passion-tradition-mirecourt-trois-quart-carre.jpg",
-    correcting: CORR_QUESTION_INS,
-    hint: "C'est un instrument à corde"
+    correcting: CORR_QUESTION_INSTRUMENT1,
+    hint: "Ce n'est pas 3 !"
 };
 
 export const QUESTION_INS3: Question = {
@@ -36,7 +36,7 @@ export const QUESTION_INS3: Question = {
     answerList: INS_Q3,
     defaultMediaType: MediaType.text,
     defaultAnswersMediaType: MediaType.text,
-    correcting: CORR_QUESTION_INS
+    correcting: CORR_QUESTION_INSTRUMENT2
 };
 
 export const QUESTION_INS4: Question = {
@@ -47,8 +47,8 @@ export const QUESTION_INS4: Question = {
     defaultMediaType: MediaType.sound,
     defaultAnswersMediaType: MediaType.picture,
     sound:"/assets/sounds/neMeQuittePas.mp3",
-    correcting: CORR_QUESTION_INS,
-    hint: "C'est un instrument à corde"
+    correcting: CORR_QUESTION_INSTRUMENT3,
+    hint: "Il est né en 1929"
 };
 
 export const QUESTIONS_INS: Question[] = [QUESTION_INS1, QUESTION_INS2, QUESTION_INS3,QUESTION_INS4];
@@ -61,8 +61,8 @@ export const QUESTION_CHA1: Question = {
     answerList: CHA_Q1,
     defaultMediaType: MediaType.text,
     defaultAnswersMediaType: MediaType.text,
-    correcting: CORR_QUESTION_INS,
-    hint: "C'est un instrument à corde"
+    correcting: CORR_QUESTION_INSTRUMENT3,
+    hint: "Il est né en 1929"
 };
 
 export const QUESTION_CHA2: Question = {

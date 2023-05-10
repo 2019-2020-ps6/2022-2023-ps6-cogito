@@ -3,9 +3,9 @@
         <label id="label">Style de la police : </label>
         
         <div class="buttonsFont">
-            <span class="button" id="button1font" (click)="setFontFamily('Arial'); lastFontFamilySelected('button1font')">Test</span>
-            <span class="button" id="button2font" (click)="setFontFamily('Optima'); lastFontFamilySelected('button2font')">Test</span>
-            <span class="button" id="button3font" (click)="setFontFamily('Century Gothic'); lastFontFamilySelected('button3font')">Test</span>
+            <span class="button" id="button1font" (click)="setFontFamily('Roboto'); lastFontFamilySelected('button1font')">Test</span>
+            <span class="button" id="button2font" (click)="setFontFamily('Century Gothic'); lastFontFamilySelected('button2font')">Test</span>
+            <span class="button" id="button3font" (click)="setFontFamily('Arial'); lastFontFamilySelected('button3font')">Test</span>
         </div>
         
         <div class="test1" id="test1" [ngStyle]="{'font-family': configuration?.fontFamily || 'Arial'}">Ceci est un test</div>
