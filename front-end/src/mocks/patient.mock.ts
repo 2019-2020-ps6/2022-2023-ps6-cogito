@@ -30,7 +30,7 @@ export const PATIENT_ANDREA: Patient = {
     questionResult: myMap2,
 
     themeIdList: [1, 2],
-    quizIdList: [1, 2, 3, 10],
+    quizIdList: [1, 2, 3, 10, 11],
     quizToPlayList: []
 }
 
@@ -47,7 +47,7 @@ export const PATIENT_BOB: Patient = {
     questionResult: myMap2,
 
     themeIdList: [1, 2],
-    quizIdList: [1, 3, 10],
+    quizIdList: [1, 3, 10, 11],
     quizToPlayList: []
 }
 
