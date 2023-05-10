@@ -1,5 +1,5 @@
 import { Quiz } from "../models/quiz.model";
-import { QUESTIONS_CHA, QUESTIONS_ECH, QUESTIONS_INS } from "./question.mock";
+import { QUESTIONS_CHA, QUESTIONS_ECH, QUESTIONS_FOOT, QUESTIONS_INS } from "./question.mock";
  
 export const QUIZ_INSTRUMENTS: Quiz = {
     id: 1,
@@ -25,7 +25,14 @@ export const QUIZ_ECHECS: Quiz = {
     questionList: QUESTIONS_ECH
 };
 
-export const QUIZZES_SPORT: Quiz[] = [QUIZ_ECHECS];
+export const QUIZ_FOOT: Quiz = {
+    id: 10,
+    title: "Football",
+    picture: "https://lempreintedigitale.com/wp-content/uploads/2022/03/clubs-foot-europeens-plus-suivis-reseaux-sociaux-min.jpeg",
+    questionList: QUESTIONS_FOOT
+};
+
+export const QUIZZES_SPORT: Quiz[] = [QUIZ_FOOT, QUIZ_ECHECS];
 
 
 export const QUIZZES_ALL: Quiz[] = QUIZZES_MUSIQUE.concat(QUIZZES_SPORT);

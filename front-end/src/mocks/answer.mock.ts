@@ -180,3 +180,51 @@ export const ECH_Q2_3: Answer = {
 };
 
 export const ECH_Q2: Answer[] = [ECH_Q2_1, ECH_Q2_2, ECH_Q2_3];
+
+export const FOOT_Q1_1: Answer = {
+    id: 25,
+    value: "France",
+    isCorrect: true,
+};
+
+export const FOOT_Q1_2: Answer = {
+    id: 26,
+    value: "Allemagne",
+    isCorrect: false,
+};
+
+export const FOOT_Q1_3: Answer = {
+    id: 27,
+    value: "Espagne",
+    isCorrect: false,
+};
+
+export const FOOT_Q1_4: Answer = {
+    id: 28,
+    value: "Italie",
+    isCorrect: false,
+};
+
+export const FOOT_Q1_5: Answer = {
+    id: 29,
+    value: "Portugal",
+    isCorrect: false,
+};
+
+export const FOOT_Q1_6: Answer = {
+    id: 30,
+    value: "Allemagne",
+    isCorrect: true,
+};
+
+export const FOOT_Q1_7: Answer = {
+    id: 31,
+    value: "Espagne",
+    isCorrect: true,
+};
+
+export const FOOT_Q1: Answer[] = [FOOT_Q1_1, FOOT_Q1_2, FOOT_Q1_3, FOOT_Q1_4];
+
+export const FOOT_Q2: Answer[] = [FOOT_Q1_5, FOOT_Q1_6, FOOT_Q1_4, FOOT_Q1_3];
+
+export const FOOT_Q3: Answer[] = [FOOT_Q1_7, FOOT_Q1_2, FOOT_Q1_5, FOOT_Q1_4];

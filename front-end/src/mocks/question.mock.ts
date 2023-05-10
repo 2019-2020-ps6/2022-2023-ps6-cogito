@@ -1,5 +1,5 @@
 import { Difficulty, MediaType, Question } from "../models/question.model";
-import { CHA_Q1, CHA_Q2, ECH_Q1, ECH_Q2, INS_Q1, INS_Q2, INS_Q3, INS_Q4 } from "./answer.mock";
+import { CHA_Q1, CHA_Q2, ECH_Q1, ECH_Q2, FOOT_Q1, FOOT_Q2, FOOT_Q3, INS_Q1, INS_Q2, INS_Q3, INS_Q4 } from "./answer.mock";
 import { CORR_QUESTION_INS } from "./correcting.mock";
 
 export const QUESTION_INS1: Question = {
@@ -85,3 +85,32 @@ export const QUESTION_ECH2: Question = {
 }
 
 export const QUESTIONS_ECH: Question[] = [QUESTION_ECH1, QUESTION_ECH2];
+
+export const QUESTION_FOOT1: Question = {
+    id: 8,
+    title: "Qui a gagné la coupe du monde 2018 ?",
+    difficulty: Difficulty.facile,
+    answerList: FOOT_Q1,
+    defaultMediaType: MediaType.text,
+    defaultAnswersMediaType: MediaType.text
+};
+
+export const QUESTION_FOOT2: Question = {
+    id: 9,
+    title: "Qui a gagné la coupe du monde 2014 ?",
+    difficulty: Difficulty.facile,
+    answerList: FOOT_Q2,
+    defaultMediaType: MediaType.text,
+    defaultAnswersMediaType: MediaType.text
+};
+
+export const QUESTION_FOOT3: Question = {
+    id: 10,
+    title: "Qui a gagné la coupe du monde 2010 ?",
+    difficulty: Difficulty.facile,
+    answerList: FOOT_Q3,
+    defaultMediaType: MediaType.text,
+    defaultAnswersMediaType: MediaType.text
+};
+
+export const QUESTIONS_FOOT: Question[] = [QUESTION_FOOT1, QUESTION_FOOT2, QUESTION_FOOT3];
