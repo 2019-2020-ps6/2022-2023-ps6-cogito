@@ -620,7 +620,7 @@ export const ECH_H1_3: Answer = {
     isCorrect: false
 };
 
-export const ECH_H1: Answer[] = [ECH_H1_1, ECH_H1_2, ECH_H1_3];
+export const ECH_H1: Answer[] = [ECH_H1_1, ECH_H1_2];
 
 export const ECH_H2_1: Answer = {
     id: 2510,
