@@ -1,5 +1,5 @@
 import { Theme } from "../models/theme.model";
-import { QUIZ_ECHECS, QUIZZES_MUSIQUE, QUIZZES_SPORT } from "./quiz.mock";
+import { QUIZ_ECHECS, QUIZZES_CINEMA, QUIZZES_CUISINE, QUIZZES_MUSIQUE, QUIZZES_SPORT } from "./quiz.mock";
 
 export const THEME_MUSIQUE: Theme = {
     id: 1,
@@ -15,4 +15,17 @@ export const THEME_SPORT: Theme = {
     quizList: QUIZZES_SPORT
 };
 
-export const THEME_LIST: Theme[] = [THEME_MUSIQUE, THEME_SPORT];
+export const THEME_CINEMA: Theme = {
+    id: 3,
+    title: "Cinema",
+    picture: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ-ONcdDrnUOOYEv1ttmf1eCEU3anSa32cTiEl3bG_zBYWtZWwkQFOL975PjfUYsG7PtHA&usqp=CAU",
+    quizList: QUIZZES_CINEMA
+};
+
+export const THEME_CUISINE: Theme = {
+    id: 4,
+    title: "CUISINE",
+    picture: "https://domf5oio6qrcr.cloudfront.net/medialibrary/11537/4a78f148-d427-4209-8173-f33d04c44106.jpg",
+    quizList: QUIZZES_CUISINE
+};
+export const THEME_LIST: Theme[] = [THEME_MUSIQUE, THEME_SPORT, THEME_CINEMA,THEME_CUISINE];

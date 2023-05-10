@@ -180,3 +180,224 @@ export const ECH_Q2_3: Answer = {
 };
 
 export const ECH_Q2: Answer[] = [ECH_Q2_1, ECH_Q2_2, ECH_Q2_3];
+
+
+export const CINFR_Q1_1: Answer = {
+    id: 25,
+    value: "Le fabuleux destin d\'Amelie Poulain",
+    isCorrect: true
+};
+
+export const CINFR_Q1_2: Answer = {
+    id: 26,
+    value: "Intouchables",
+    isCorrect: false
+};
+
+export const CINFR_Q1_3: Answer = {
+    id: 27,
+    value: "Un monstre à Paris",
+    isCorrect: false
+};
+
+export const CINFR_Q1: Answer[] = [CINFR_Q1_1, CINFR_Q1_2, CINFR_Q1_3];
+
+export const CINFR_Q2_1: Answer = {
+    id: 28,
+    value: "Brice de Nice",
+    isCorrect: false
+};
+
+export const CINFR_Q2_2: Answer = {
+    id: 29,
+    value: "The Artist",
+    isCorrect: true
+};
+
+export const CINFR_Q2_3: Answer = {
+    id: 30,
+    value: "La French",
+    isCorrect: false
+};
+
+export const CINFR_Q2_4: Answer = {
+    id: 30,
+    value: "Les petits mouchois",
+    isCorrect: false
+};
+
+export const CINFR_Q2: Answer[] = [CINFR_Q2_1, CINFR_Q2_2, CINFR_Q2_3,CINFR_Q2_4];
+
+export const CINFR_Q3_1: Answer = {
+    id: 28,
+    value: "Olivier Baroux",
+    isCorrect: true,
+    picture: "https://www.culturequizz.com/wp-content/uploads/oli-250x250.jpg"
+};
+
+export const CINFR_Q3_2: Answer = {
+    id: 29,
+    value: "Kad Mérad",
+    isCorrect: false,
+    picture: "https://www.culturequizz.com/wp-content/uploads/merad-250x250.jpg"
+};
+
+export const CINFR_Q3_3: Answer = {
+    id: 30,
+    value: "Jean-Paul Rouve",
+    isCorrect: false,
+    picture: "https://www.culturequizz.com/wp-content/uploads/jprouve-250x250.jpg"
+};
+
+export const CINFR_Q3_4: Answer = {
+    id: 30,
+    value: "Pef",
+    isCorrect: false,
+    picture: "https://www.culturequizz.com/wp-content/uploads/pef-250x250.jpg"
+};
+
+export const CINFR_Q3: Answer[] = [CINFR_Q3_1, CINFR_Q3_2, CINFR_Q3_3,CINFR_Q3_4];
+
+export const CINHO_Q1_1: Answer = {
+    id: 31,
+    value: "Forrest Gump",
+    isCorrect: true
+};
+
+export const CINHO_Q1_2: Answer = {
+    id: 32,
+    value: "Titanic",
+    isCorrect: false
+};
+
+export const CINHO_Q1_3: Answer = {
+    id: 33,
+    value: "Le Seigneur des anneaux",
+    isCorrect: false
+};
+
+export const CINHO_Q1_4: Answer = {
+    id: 33,
+    value: "Batman",
+    isCorrect: false
+};
+
+export const CINHO_Q1: Answer[] = [CINHO_Q1_1, CINHO_Q1_2, CINHO_Q1_3,CINHO_Q1_4];
+
+
+export const CINHO_Q2_1: Answer = {
+    id: 34,
+    value: "Steven Spielber",
+    isCorrect: true
+};
+
+export const CINHO_Q2_2: Answer = {
+    id: 35,
+    value: "Martin Scorsese",
+    isCorrect: false
+};
+
+export const CINHO_Q2_3: Answer = {
+    id: 36,
+    value: "Quentin Tarantino",
+    isCorrect: false
+};
+
+export const CINHO_Q2_4: Answer = {
+    id: 37,
+    value: "Alfred Hitchcock",
+    isCorrect: false
+};
+
+export const CINHO_Q2: Answer[] = [CINHO_Q2_1, CINHO_Q2_2, CINHO_Q2_3,CINHO_Q2_4];
+
+
+export const CINHO_Q3_1: Answer = {
+    id: 38,
+    value: "La Mission",
+    isCorrect: false
+};
+
+export const CINHO_Q3_2: Answer = {
+    id: 39,
+    value: "Sound of Metal",
+    isCorrect: false
+};
+
+export const CINHO_Q3_3: Answer = {
+    id: 40,
+    value: "Mank",
+    isCorrect: true
+};
+
+export const CINHO_Q3: Answer[] = [CINHO_Q3_1, CINHO_Q3_2, CINHO_Q3_3];
+
+export const CUIS_Q1_1: Answer = {
+    id: 41,
+    value: "Avocat",
+    isCorrect: true
+};
+
+export const CUIS_Q1_2: Answer = {
+    id: 42,
+    value: "Pomme de terre",
+    isCorrect: false
+};
+
+export const CUIS_Q1_3: Answer = {
+    id: 43,
+    value: "Bannane",
+    isCorrect: false
+};
+
+export const CUIS_Q1: Answer[] = [CUIS_Q1_1, CUIS_Q1_2, CUIS_Q1_3];
+
+export const CUIS_Q2_1: Answer = {
+    id: 44,
+    value: "Huile d'olive",
+    isCorrect: false,
+    picture: "https://resize.prod.docfr.doc-media.fr/s/1200/ext/eac4ff34/content/2022/7/4/huile-d-olive-7aeda1564faf724b.jpeg"
+};
+
+export const CUIS_Q2_2: Answer = {
+    id: 45,
+    value: "Beurre",
+    isCorrect: true,
+    picture: "https://img-3.journaldesfemmes.fr/wL8YsmuUZnKQprYtJFg0isTvxzY=/1500x/smart/432c5298182d45818c7a1b140e6b21f1/ccmcms-jdf/10662027.jpg"
+};
+
+export const CUIS_Q2_3: Answer = {
+    id: 46,
+    value: "Vinaigre",
+    isCorrect: false,
+    picture: "https://cache.magazine-avantages.fr/data/photo/w1000_ci/5g/comment_bien_choisir_son_vinaigre_balsamique_cuisine_italie.jpg"
+};
+
+export const CUIS_Q2_4: Answer = {
+    id: 47,
+    value: "Sucre",
+    isCorrect: false,
+    picture: "https://fac.img.pmdstatic.net/fit/http.3A.2F.2Fprd2-bone-image.2Es3-website-eu-west-1.2Eamazonaws.2Ecom.2FFAC.2Fvar.2Ffemmeactuelle.2Fstorage.2Fimages.2Fdeco.2Fmaison-pratique.2Fusages-insolites-sucre-33009.2F14243644-1-fre-FR.2Fles-10-usages-insolites-du-sucre.2Ejpg/1200x1200/quality/80/crop-from/center/les-10-usages-insolites-du-sucre.jpeg"
+};
+
+export const CUIS_Q2: Answer[] = [CUIS_Q2_1, CUIS_Q2_2, CUIS_Q2_3];
+
+export const CUIS_Q3_1: Answer = {
+    id: 48,
+    value: "Sushi",
+    isCorrect: true
+};
+
+export const CUIS_Q3_2: Answer = {
+    id: 49,
+    value: "Tempura",
+    isCorrect: false
+};
+
+export const CUIS_Q3_3: Answer = {
+    id: 47,
+    value: "Ramen",
+    isCorrect: false
+};
+
+export const CUIS_Q3: Answer[] = [CUIS_Q2_1, CUIS_Q2_2, CUIS_Q2_3];
