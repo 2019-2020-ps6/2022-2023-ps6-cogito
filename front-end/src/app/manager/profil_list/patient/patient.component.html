@@ -1,11 +1,11 @@
-<div class="patient">
+<div class="patient d-flex flex-column align-items-center">
     <figure>
         <div class="patientImage" (click)="selectPatient()">
             <img src="{{patient.picture}}" alt="Image de profil de {{patient.name}}">
         </div>
         <figcaption>{{patient.name}}</figcaption>
     </figure>
-    <button class="deleteButton" (click)="afficher()" routerLink="/profil-list">X</button>
+    <a class="btn btn-danger" (click)="afficher()" routerLink="/profil-list">X</a>
 </div>
 
 <div class="popup"  *ngIf="Show">

@@ -1,3 +1,5 @@
+@import "../../../styles.scss";
+
 body {
     max-width: 100%;
     max-height: 80%;
@@ -7,32 +9,30 @@ body {
 }
 
 .button-back {
-    background-color: orange;
-    color: black;
+    background-color: $orange;
     border: 1px solid black;
     padding: 10px 20px;
     border-radius: 5px;
     position: absolute;
-    left: 3vw;
+    left: 1vw;
     bottom: 3vh;
-  }
+}
 
 .button-save {
     background-color: yellow;
-    color: black;
     border: 1px solid black;
     padding: 10px 20px;
     border-radius: 5px;
     position: absolute;
-    left: 3vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    left: 1vw;
     bottom: 12vh;
 }
 
-
-
 .button {
     background-color: lightgrey;
-    color: black;
     border: 1px solid black;
     padding: 10px 20px;
     border-radius: 5px;
@@ -50,7 +50,6 @@ body {
     position: absolute;
     left : 3vw;
 }
-
 
 div {
     font-size: 20pt;
@@ -73,15 +72,16 @@ div {
     font-style: italic;
 }
 
-.button-accept {
-    background-color: rgb(37, 168, 37);
-    color: black;
-    border: 1px solid black;
-    padding: 10px 20px;
-    border-radius: 5px;
-    position: absolute;
-    height: 13vh;
-    width: 20vw;
-    right: 3vw;
-    bottom: 3vh;
+.accept {
+    background-color: #0d6efd;
+    margin-left: 80%;
+    margin-top: 17%;
+    height: 15%;
+    hover {
+        background-color: blue;
+    }
+}
+
+label[name="name"] {
+    margin-right: 2vw;
 }

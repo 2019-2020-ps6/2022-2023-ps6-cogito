@@ -1,33 +1,25 @@
 @import '../../../styles/variables.scss';
 
+
+body {
+  height: 80vh;
+}
+
 .button-back {
-    background-color: yellow;
-    color: black;
-    border: 1px solid black;
-    padding: 10px 20px;
-    border-radius: 5px;
-    position: absolute;
-    left: 3vw;
-    bottom: 3vh;
-  }
+  background-color: $orange;
+  border: 1px solid black;
+  padding: 10px 20px;
+  border-radius: 5px;
+  position: absolute;
+  left: 1vw;
+  bottom: 3vh;
+}
 
-  .button-create-config {
-    background-color: yellow;
-    color: black;
-    border: 1px solid black;
-    padding: 10px 20px;
-    border-radius: 5px;
-    width: 250px;
-    position: absolute;
-    left: 3vw;
-    bottom: 20vh;
-  }
-
-  .box {
+.box {
     padding-top: 10px;
     background-color: lightgrey;
     margin: 5vh 10vw 0 25vw;
-    padding-bottom: 25vh;
+    padding-bottom: 20vh;
     text-align: center;
     font-size: $h2-size;
     border: 2px solid black;
@@ -35,26 +27,14 @@
 
 li {
   border: 2px solid black;
-  background-color: yellow;
+  background-color: $orange;
   margin: 15px 150px 0 150px;
   text-decoration: none;
 }
 
 ol {
   list-style-type: none;
-  color: black;
-}
-
-.button-back {
-  background-color: yellow;
-  color: black;
-  border: 1px solid black;
-  padding: 10px 20px;
-  border-radius: 5px;
-  position: absolute;
-  left: 3vw;
-  bottom: 3vh;
-}
+  }
 
 a {
   padding: 10px;
@@ -66,15 +46,9 @@ a {
 }
 
 .button-create {
-  background-color: yellow;
-  color: black;
-  border: 1px solid black;
-  padding: 10px 20px;
-  border-radius: 5px;
   position: absolute;
-  left: 3vw;
+  left: 1vw;
   bottom: 15vh;
-  height: 13vh;  
 }
 
 section {

@@ -4,6 +4,7 @@ import { OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Configuration } from 'src/models/configuration.model';
 import { ConfigurationService } from 'src/services/configuration.service';
+import { PatientService } from 'src/services/patient.service';
 
 @Component({
   selector: 'app-create-configuration',
@@ -12,14 +13,17 @@ import { ConfigurationService } from 'src/services/configuration.service';
 })
 
 export class CreateConfigurationComponent implements OnInit {
+  Patient: any;
 
   state: String = 'general';
   configuration: Configuration | undefined;
   fontFamily: string = "Arial";
 
+
   displayButtonChoose = false;
 
-  constructor(public configurationService : ConfigurationService, private renderer: Renderer2, public route : ActivatedRoute) {
+  constructor(public configurationService : ConfigurationService, private renderer: Renderer2, public route : ActivatedRoute, private patientService : PatientService) {
+    this.Patient = this.patientService.selectedPatient$;
   };
 
   ngOnInit() {
@@ -27,6 +31,10 @@ export class CreateConfigurationComponent implements OnInit {
     //this.configurationService.setConfigToDefault();
     this.configurationService.getNewConfig().subscribe((config: Configuration) => {
       this.configuration = config;
+    });
+
+    this.patientService.selectedPatient$.subscribe((patient: any) => {
+      this.Patient = patient;
     });
     this.displayButtonChoose = this.route.snapshot.data['displayButtonChoose'] || false;
   }
@@ -47,6 +55,11 @@ export class CreateConfigurationComponent implements OnInit {
 
   changeFontSize() {
     this.renderer.setStyle(document.documentElement, '--font-size', '20px');
+  }
+
+  updateConfiguration() {
+    this.Patient.configuration = this.configuration;
+    this.patientService.updatePatient(this.Patient);
   }
   
 }

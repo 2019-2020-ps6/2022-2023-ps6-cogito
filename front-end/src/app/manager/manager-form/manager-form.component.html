@@ -1,4 +1,15 @@
-<div class="content">
+<div *ngIf="theme === undefined">
+    <div class="side-content">
+        <a class="btn btn-danger">Retour au menu</a>
+    </div>
+    <div class="main-content">
+        <div>
+            <h5>Il n'y a pas de thème selecitonné, veuillez en choisir un ou créez en un nouveau.</h5>
+        </div>
+        <app-manager-list element="theme-list" [elementId]="0" [type]="'selector'"></app-manager-list>
+    </div>
+</div>
+<div *ngIf="theme" class="content">
     <div class="side-content">
         <div class="btn-group-vertical" role="group" aria-label="Vertical radio toggle button group">
             <input type="radio" class="btn-check btn-lg" name="vbtn-radio" id="vbtn-radio1" autocomplete="off" [(ngModel)]="selectedOption" value="general">
@@ -6,7 +17,11 @@
             <input type="radio" class="btn-check btn-lg" name="vbtn-radio" id="vbtn-radio2" autocomplete="off" [(ngModel)]="selectedOption" value="questions">
             <label class="btn btn-outline-secondary btn-lg" for="vbtn-radio2">{{element === 'quiz-form' ? 'Questions' : 'Quiz'}}</label>
         </div>
-    
+        <div class="card" *ngIf="element === 'quiz-form'">
+            <div class="card-body">
+                Ce quiz est associée au thème : {{theme.title}}
+            </div>
+        </div>
         <div class="exiting-buttons">
             <button class="btn btn-warning btn-outline-dark" (click)="saveElement()"[routerLink]="['/list-theme-quiz-page/']">Sauvegarder</button>
             <button class="btn btn-danger btn-outline-dark" (click)="resetElement()" [routerLink]="['/list-theme-quiz-page/']">Annuler</button>
@@ -39,8 +54,8 @@
                 </div>
             </div>
             <div class="picture">
-                <img class="w-25" *ngIf="quiz && quiz.picture" src="{{quiz.picture }}">
-                <img class="w-25" *ngIf="theme && theme.picture" src="{{theme.picture}}">
+                <img class="w-25" *ngIf="element === 'quiz-form' && quiz && quiz.picture" src="{{quiz.picture }}">
+                <img class="w-25" *ngIf="element === 'theme-form' && theme && theme.picture" src="{{theme.picture}}">
             </div>
         </div>
         <div *ngIf="selectedOption === 'questions' || selectedOption=== 'quiz'">
@@ -49,4 +64,6 @@
         </div>
     </div>
 </div>
+
+
   

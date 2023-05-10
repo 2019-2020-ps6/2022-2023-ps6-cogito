@@ -1,6 +1,4 @@
 .important {
-    position: absolute;
-    top: -10vh;
     display: block;
     background-color: lightgrey;
 }
@@ -21,4 +19,16 @@ div {
 
 .label {
     font-style: italic;
+}
+
+#custom-dropdown-label {
+    margin-right: 1vw;
+}
+
+#hint {
+    margin-bottom: 4vh;
+}
+
+#againfalse {
+    margin-bottom: 4vh;
 }

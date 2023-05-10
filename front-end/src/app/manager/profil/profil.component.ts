@@ -12,11 +12,9 @@ import { Router } from '@angular/router';
 })
 export class ProfilComponent implements OnInit {
   Patient: Patient;
-  link: string;
 
   constructor(private patientService: PatientService, private router: Router) {
     this.Patient = PATIENT_ANDREA;
-    this.link = this.Patient.picture;
   }
 
   ngOnInit(): void {

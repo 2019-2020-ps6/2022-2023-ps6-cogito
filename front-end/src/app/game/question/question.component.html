@@ -1,9 +1,18 @@
-<img class="picture" *ngIf="question && question.picture" src="{{question.picture}}" alt="image de la question">
-<img class="sound" *ngIf="question && question.sound" [src]="imageUrl" alt="Bouton" (click)="clickSpeaker()">
-<div *ngIf="question" class="questionContent">
-    <div class="row">
+<div *ngIf="question" class="d-flex flex-column align-items-center content-question" style="width: 100%;">
+    <div class="optional-content">
+        <img class="picture" *ngIf="question && question.picture" src="{{question.picture}}" alt="image de la question">
+        <img class="sound" *ngIf="question && question.sound" [src]="imageUrl" alt="Bouton" (click)="clickSpeaker()">
+    </div>
+    <div class="row d-flex">
         <div class="answer col-md-6" *ngFor="let answer of question.answerList; let i = index;">
-            <button [ngClass]="{'ans-picture-present': answer.picture}" (click)="checkAnswer(answer)" [style.background-image]="'url(' + answer.picture + ')'">{{answer.value}}</button>
+            <button [ngClass]="{'ans-picture-present': answer.picture}" (click)="checkAnswer(answer)" [style.background-image]="'url(' + answer.picture + ')'"><h1>{{answer.value}}</h1></button>
+        </div>
+    </div>
+    <div  *ngIf="hintIsShow && question.hint !== '' && question.hint !== undefined" class="d-flex justifiy-content-center align-items-center flex-column">
+        <div class="card">
+            <div class="card-body">
+                <p>{{question.hint}}</p>
+            </div>
         </div>
     </div>
 </div>

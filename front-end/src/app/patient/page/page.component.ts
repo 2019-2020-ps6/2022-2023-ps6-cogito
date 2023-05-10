@@ -60,6 +60,7 @@ export class PatientPageComponent implements OnInit {
         this.nextDisplayPatients();
         this.configurationService.setGlobalFont(CONFIG_DEFAULT_3.fontFamily);
         this.configurationService.setGlobalSize(CONFIG_DEFAULT_3.fontSize);
+        console.log("PatientPageComponent");
     }
 
     @HostListener("window:resize")
@@ -107,6 +108,9 @@ export class PatientPageComponent implements OnInit {
         // Sur le restant du site.
         this.configurationService.setGlobalFont(patient.configuration.fontFamily);
         this.configurationService.setGlobalSize(patient.configuration.fontSize);
+        console.log("TEST");
+        console.log(patient.configuration.fontFamily);
+        console.log(patient.configuration.fontSize);
         let stage: number = patient.stage;
         if (stage <= 3) {
             this.router.navigateByUrl("/theme-page");

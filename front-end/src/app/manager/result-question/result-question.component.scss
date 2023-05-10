@@ -2,7 +2,6 @@
 
 .button-back {
     background-color: $orange;
-    color: black;
     border: 1px solid black;
     padding: 10px 20px;
     border-radius: 5px;
@@ -50,4 +49,9 @@
 
 p {
   text-decoration: none;
+}
+
+#message {
+  margin-top: 5vh;
+  color: red;
 }

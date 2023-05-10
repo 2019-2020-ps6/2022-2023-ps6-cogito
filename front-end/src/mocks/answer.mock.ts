@@ -63,14 +63,14 @@ export const INS_Q3_4: Answer = {
 export const INS_Q3: Answer[] = [INS_Q3_1, INS_Q3_2, INS_Q3_3, INS_Q3_4];
 
 export const INS_Q4_1: Answer = {
-    id: 6,
+    id: 10,
     value: "Jacques Brel",
     isCorrect: true,
     picture: "https://www.melody.tv/wp-content/uploads/2021/10/jacques-brel61696dee9f9b6-1024x576.jpeg"
 };
 
 export const INS_Q4_2: Answer = {
-    id: 7,
+    id: 11,
     value: "Georges Brassens",
     isCorrect: false,
     picture: "https://images.rtl.fr/~c/2000v2000/rtl/www/1234639-le-chanteur-francais-georges-brassens-chez-lui.jpg"
@@ -81,13 +81,13 @@ export const INS_Q4: Answer[] = [INS_Q4_1, INS_Q4_2];
 
 
 export const CHA_Q1_1: Answer = {
-    id: 10,
+    id: 100,
     value: "Claude François",
     isCorrect: false
 };
 
 export const CHA_Q1_2: Answer = {
-    id: 11,
+    id: 110,
     value: "Céline Dion",
     isCorrect: false
 };
@@ -181,7 +181,6 @@ export const ECH_Q2_3: Answer = {
 
 export const ECH_Q2: Answer[] = [ECH_Q2_1, ECH_Q2_2, ECH_Q2_3];
 
-
 export const CINFR_Q1_1: Answer = {
     id: 25,
     value: "Le fabuleux destin d\'Amelie Poulain",
@@ -229,28 +228,28 @@ export const CINFR_Q2_4: Answer = {
 export const CINFR_Q2: Answer[] = [CINFR_Q2_1, CINFR_Q2_2, CINFR_Q2_3,CINFR_Q2_4];
 
 export const CINFR_Q3_1: Answer = {
-    id: 28,
+    id: 280,
     value: "Olivier Baroux",
     isCorrect: true,
     picture: "https://www.culturequizz.com/wp-content/uploads/oli-250x250.jpg"
 };
 
 export const CINFR_Q3_2: Answer = {
-    id: 29,
+    id: 290,
     value: "Kad Mérad",
     isCorrect: false,
     picture: "https://www.culturequizz.com/wp-content/uploads/merad-250x250.jpg"
 };
 
 export const CINFR_Q3_3: Answer = {
-    id: 30,
+    id: 300,
     value: "Jean-Paul Rouve",
     isCorrect: false,
     picture: "https://www.culturequizz.com/wp-content/uploads/jprouve-250x250.jpg"
 };
 
 export const CINFR_Q3_4: Answer = {
-    id: 30,
+    id: 301,
     value: "Pef",
     isCorrect: false,
     picture: "https://www.culturequizz.com/wp-content/uploads/pef-250x250.jpg"
@@ -474,3 +473,151 @@ export const GEO_Q3_3: Answer = {
 };
 
 export const GEO_Q3: Answer[] = [GEO_Q3_1, GEO_Q3_2, GEO_Q3_3];
+=======
+export const FOOT_Q1_1: Answer = {
+    id: 500,
+    value: "France",
+    isCorrect: true,
+};
+
+export const FOOT_Q1_2: Answer = {
+    id: 510,
+    value: "Allemagne",
+    isCorrect: false,
+};
+
+export const FOOT_Q1_3: Answer = {
+    id: 520,
+    value: "Espagne",
+    isCorrect: false,
+};
+
+export const FOOT_Q1_4: Answer = {
+    id: 530,
+    value: "Italie",
+    isCorrect: false,
+};
+
+export const FOOT_Q1_5: Answer = {
+    id: 540,
+    value: "Portugal",
+    isCorrect: false,
+};
+
+export const FOOT_Q1_6: Answer = {
+    id: 550,
+    value: "Allemagne",
+    isCorrect: true,
+};
+
+export const FOOT_Q1_7: Answer = {
+    id: 560,
+    value: "Espagne",
+    isCorrect: true,
+};
+
+export const FOOT_Q1: Answer[] = [FOOT_Q1_1, FOOT_Q1_2, FOOT_Q1_3, FOOT_Q1_4];
+
+export const FOOT_Q2: Answer[] = [FOOT_Q1_5, FOOT_Q1_6, FOOT_Q1_4, FOOT_Q1_3];
+
+export const FOOT_Q3: Answer[] = [FOOT_Q1_7, FOOT_Q1_2, FOOT_Q1_5, FOOT_Q1_4];
+
+
+export const RUGBY_Q1_1: Answer = {
+    id: 570,
+    value: "La rose",
+    isCorrect: true,
+};
+
+export const RUGBY_Q1_2: Answer = {
+    id: 580,
+    value: "Le coq",
+    isCorrect: false,
+};
+
+export const RUGBY_Q1_3: Answer = {
+    id: 590,
+    value: "Le dragon",
+    isCorrect: false,
+};
+
+export const RUGBY_Q1_4: Answer = {
+    id: 600,
+    value: "Le lion",
+    isCorrect: false,
+};
+
+export const RUGBY_Q1: Answer[] = [RUGBY_Q1_1, RUGBY_Q1_2, RUGBY_Q1_3, RUGBY_Q1_4];
+
+export const RUGBY_Q2_1: Answer = {
+    id: 610,
+    value: "La France",
+    isCorrect: false,
+};
+
+export const RUGBY_Q2_2: Answer = {
+    id: 620,
+    value: "L'Angleterre",
+    isCorrect: false,
+};
+
+export const RUGBY_Q2_3: Answer = {
+    id: 630,
+    value: "L'Afrique du Sud",
+    isCorrect: false,
+};
+
+export const RUGBY_Q2_4: Answer = {
+    id: 640,
+    value: "La Nouvelle-Zélande",
+    isCorrect: true,
+};
+
+export const RUGBY_Q2: Answer[] = [RUGBY_Q2_1, RUGBY_Q2_2, RUGBY_Q2_3, RUGBY_Q2_4];
+
+export const RUGBY_Q3_1: Answer = {
+    id: 650,
+    value: "Jonah Lomu",
+    isCorrect: true,
+};
+
+export const RUGBY_Q3_2: Answer = {
+    id: 660,
+    value: "Richie McCaw",
+    isCorrect: false,
+};
+
+export const RUGBY_Q3_3: Answer = {
+    id: 670,
+    value: "Dan Carter",
+    isCorrect: false,
+};
+
+export const RUGBY_Q3_4: Answer = {
+    id: 680,
+    value: "Sebastien Chabal",
+    isCorrect: false,
+};
+
+export const RUGBY_Q3: Answer[] = [RUGBY_Q3_1, RUGBY_Q3_2, RUGBY_Q3_3, RUGBY_Q3_4];
+
+
+export const ECH_H1_1: Answer = {
+    id: 2500,
+    value: "Du savon",
+    isCorrect: false
+};
+
+export const ECH_H1_2: Answer = {
+    id: 2600,
+    value: "Du dentifrice",
+    isCorrect: true
+};
+
+export const ECH_H1_3: Answer = {
+    id: 2700,
+    value: "Du shampoing",
+    isCorrect: false
+};
+
+export const ECH_H1: Answer[] = [ECH_H1_1, ECH_H1_2, ECH_H1_3];

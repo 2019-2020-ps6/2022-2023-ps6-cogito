@@ -4,6 +4,7 @@ import { Router } from "@angular/router";
 import { ThemeService } from "src/services/theme.service";
 import { Theme } from "src/models/theme.model";
 import { Patient } from "../../../models/patient.model";
+import { PatientService } from "../../../services/patient.service";
 
 @Component({
     selector: "app-theme-page",
@@ -17,8 +18,9 @@ export class ThemePageComponent implements OnInit {
     private nbDisplayThemes: number = 0;
     private margin!: number;
     private size!: number;
+    private patientSelected : Patient | undefined;
 
-    constructor(private themeService: ThemeService, private router: Router) {
+    constructor(private themeService: ThemeService, private router: Router, private patientService: PatientService) {
         this.themeService.themeList$.subscribe((themeList: Theme[]): void => {
             this.themeList = themeList;
         });
@@ -54,6 +56,13 @@ export class ThemePageComponent implements OnInit {
 
     ngOnInit(): void {
         this.nextDisplayThemes();
+        this.patientService.getSelectedPatient().subscribe(patient => {
+            this.patientSelected = patient;
+            document.documentElement.style.setProperty('--font-family', this.patientSelected?.configuration?.fontFamily as string);
+            document.documentElement.style.setProperty('--font-size', this.patientSelected?.configuration?.fontSize as number + "px");
+        }
+        );
+
     }
 
     @HostListener("window:resize")
