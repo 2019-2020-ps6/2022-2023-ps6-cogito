@@ -1,5 +1,5 @@
 import { Difficulty, MediaType, Question } from "../models/question.model";
-import { CHA_Q1, CHA_Q2, CINFR_Q1, CINFR_Q2, CINFR_Q3, CINHO_Q1, CINHO_Q2, CINHO_Q3, CUIS_Q1, CUIS_Q2, CUIS_Q3, ECH_Q1, ECH_Q2, INS_Q1, INS_Q2, INS_Q3, INS_Q4 } from "./answer.mock";
+import { CHA_Q1, CHA_Q2, CINFR_Q1, CINFR_Q2, CINFR_Q3, CINHO_Q1, CINHO_Q2, CINHO_Q3, CUIS_Q1, CUIS_Q2, CUIS_Q3, ECH_Q1, ECH_Q2, GEO_Q1, GEO_Q2, GEO_Q3, INS_Q1, INS_Q2, INS_Q3, INS_Q4 } from "./answer.mock";
 import { CORR_CINFR2, CORR_QUESTION_INS } from "./correcting.mock";
 
 export const QUESTION_INS1: Question = {
@@ -191,3 +191,36 @@ export const QUESTION_CUIS3: Question = {
 }
 
 export const QUESTIONS_CUIS: Question[] = [QUESTION_CUIS1, QUESTION_CUIS2, QUESTION_CUIS3];
+
+export const QUESTION_GEO1: Question = {
+    id: 14,
+    title: "Dans quel pays se trouve le Taj Mahal ?",
+    difficulty: Difficulty.moyenne,
+    answerList: GEO_Q1,
+    defaultMediaType: MediaType.picture,
+    defaultAnswersMediaType: MediaType.text,
+    correcting: CORR_QUESTION_INS,
+    picture: "https://rochesfleuries.com/wp-content/uploads/2019/09/visite-taj-mahal-1024x683.jpg"
+}
+
+export const QUESTION_GEO2: Question = {
+    id: 15,
+    title: "Quel est le plus grand désert du monde ?",
+    difficulty: Difficulty.moyenne,
+    answerList: GEO_Q2,
+    defaultMediaType: MediaType.text,
+    defaultAnswersMediaType: MediaType.text,
+    correcting: CORR_QUESTION_INS
+}
+
+export const QUESTION_GEO3: Question = {
+    id: 16,
+    title: "Quel est le plus grand pays du monde par superficie ?",
+    difficulty: Difficulty.facile,
+    answerList: GEO_Q3,
+    defaultMediaType: MediaType.text,
+    defaultAnswersMediaType: MediaType.text,
+    correcting: CORR_QUESTION_INS
+}
+
+export const QUESTIONS_GEO: Question[] = [QUESTION_GEO1, QUESTION_GEO2, QUESTION_GEO3];

@@ -1,5 +1,5 @@
 import { Quiz } from "../models/quiz.model";
-import { QUESTIONS_CHA, QUESTIONS_CINFR, QUESTIONS_CINHO, QUESTIONS_CUIS, QUESTIONS_ECH, QUESTIONS_INS } from "./question.mock";
+import { QUESTIONS_CHA, QUESTIONS_CINFR, QUESTIONS_CINHO, QUESTIONS_CUIS, QUESTIONS_ECH, QUESTIONS_GEO, QUESTIONS_INS } from "./question.mock";
  
 export const QUIZ_INSTRUMENTS: Quiz = {
     id: 1,
@@ -52,5 +52,13 @@ export const QUIZ_CUIS1: Quiz = {
 
 export const QUIZZES_CUISINE: Quiz[] = [QUIZ_CUIS1];
 
+export const QUIZ_GEO1: Quiz = {
+    id: 7,
+    title: "Géographie",
+    picture: "https://www.ifop.com/wp-content/uploads/2021/04/AdobeStock_2951056-scaled.jpeg",
+    questionList: QUESTIONS_GEO
+};
 
-export const QUIZZES_ALL: Quiz[] = QUIZZES_MUSIQUE.concat(QUIZZES_SPORT).concat(QUIZZES_CINEMA).concat(QUIZZES_CUISINE);
+export const QUIZZES_GEO: Quiz[] = [QUIZ_GEO1];
+
+export const QUIZZES_ALL: Quiz[] = QUIZZES_MUSIQUE.concat(QUIZZES_SPORT).concat(QUIZZES_CINEMA).concat(QUIZZES_CUISINE).concat(QUIZZES_GEO);

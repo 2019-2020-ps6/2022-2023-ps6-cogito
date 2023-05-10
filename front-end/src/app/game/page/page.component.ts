@@ -50,6 +50,7 @@ export class GamePageComponent {
     }
 
     leavePage(): void {
+        this.gameService.stopSound();
         this.gameService.leaveGame();
     }
 

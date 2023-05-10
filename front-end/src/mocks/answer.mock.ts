@@ -384,7 +384,7 @@ export const CUIS_Q2: Answer[] = [CUIS_Q2_1, CUIS_Q2_2, CUIS_Q2_3];
 
 export const CUIS_Q3_1: Answer = {
     id: 48,
-    value: "Sushi",
+    value: "Bento",
     isCorrect: true
 };
 
@@ -395,9 +395,82 @@ export const CUIS_Q3_2: Answer = {
 };
 
 export const CUIS_Q3_3: Answer = {
-    id: 47,
+    id: 50,
     value: "Ramen",
     isCorrect: false
 };
 
-export const CUIS_Q3: Answer[] = [CUIS_Q2_1, CUIS_Q2_2, CUIS_Q2_3];
+export const CUIS_Q3: Answer[] = [CUIS_Q3_1, CUIS_Q3_2, CUIS_Q3_3];
+
+
+export const GEO_Q1_1: Answer = {
+    id: 51,
+    value: "Inde",
+    isCorrect: true
+};
+
+export const GEO_Q1_2: Answer = {
+    id: 52,
+    value: "Chine",
+    isCorrect: false
+};
+
+export const GEO_Q1_3: Answer = {
+    id: 53,
+    value: "Japon",
+    isCorrect: false
+};
+
+export const GEO_Q1_4: Answer = {
+    id: 54,
+    value: "Russie",
+    isCorrect: false
+};
+
+export const GEO_Q1: Answer[] = [GEO_Q1_1, GEO_Q1_2, GEO_Q1_3, GEO_Q1_4];
+
+export const GEO_Q2_1: Answer = {
+    id: 55,
+    value: "le Sahara",
+    isCorrect: true
+};
+
+export const GEO_Q2_2: Answer = {
+    id: 56,
+    value: "le désert d'Atacama",
+    isCorrect: false
+};
+
+export const GEO_Q2_3: Answer = {
+    id: 57,
+    value: "le désert de Gobi",
+    isCorrect: false
+};
+
+export const GEO_Q2_4: Answer = {
+    id: 58,
+    value: "le désert d'Arabie",
+    isCorrect: false
+};
+
+export const GEO_Q2: Answer[] = [GEO_Q2_1, GEO_Q2_2, GEO_Q2_3, GEO_Q2_4];
+
+export const GEO_Q3_1: Answer = {
+    id: 59,
+    value: "Russie",
+    isCorrect: true
+};
+
+export const GEO_Q3_2: Answer = {
+    id: 60,
+    value: "États-Unis",
+    isCorrect: false
+};
+
+export const GEO_Q3_3: Answer = {
+    id: 61,
+    value: "Chine",
+    isCorrect: false
+};
+
+export const GEO_Q3: Answer[] = [GEO_Q3_1, GEO_Q3_2, GEO_Q3_3];

@@ -1,5 +1,5 @@
 import { Theme } from "../models/theme.model";
-import { QUIZ_ECHECS, QUIZZES_CINEMA, QUIZZES_CUISINE, QUIZZES_MUSIQUE, QUIZZES_SPORT } from "./quiz.mock";
+import { QUIZ_ECHECS, QUIZZES_CINEMA, QUIZZES_CUISINE, QUIZZES_GEO, QUIZZES_MUSIQUE, QUIZZES_SPORT } from "./quiz.mock";
 
 export const THEME_MUSIQUE: Theme = {
     id: 1,
@@ -28,4 +28,11 @@ export const THEME_CUISINE: Theme = {
     picture: "https://domf5oio6qrcr.cloudfront.net/medialibrary/11537/4a78f148-d427-4209-8173-f33d04c44106.jpg",
     quizList: QUIZZES_CUISINE
 };
-export const THEME_LIST: Theme[] = [THEME_MUSIQUE, THEME_SPORT, THEME_CINEMA,THEME_CUISINE];
+
+export const THEME_GEOGRAPHIE: Theme = {
+    id: 5,
+    title: "GEOGRAPHIE",
+    picture: "https://www.radiofrance.fr/s3/cruiser-production/2021/05/7025520a-5446-44db-a38c-1c1281516249/560x315_gout-geographie.jpg",
+    quizList: QUIZZES_GEO
+};
+export const THEME_LIST: Theme[] = [THEME_MUSIQUE, THEME_SPORT, THEME_CINEMA,THEME_CUISINE, THEME_GEOGRAPHIE];

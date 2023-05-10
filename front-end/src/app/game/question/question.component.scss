@@ -24,8 +24,8 @@
       background-size: cover; /* Ajuste la taille de l'image pour couvrir le bouton */
       background-position: center; /* Centre l'image horizontalement et verticalement */
       text-shadow: -1px -1px 0 $yellow, 1px -1px 0 $yellow, -1px 1px 0 $yellow, 1px 1px 0 $yellow;
-      height: 20vh;
-      width: 20vh;
+      height: 25vh;
+      width: 25vh;
       padding-top: 2vh
     }
   
@@ -34,7 +34,7 @@
     }
   
   img {
-    margin: -10vh;
+      margin-bottom: -10vh;
       max-width: 25vh;
       display: flex;
       justify-content: space-evenly;
@@ -47,8 +47,9 @@
     }
   
     .answer {
+      margin-top: 5vh;
       justify-content: center;
       display: flex;
-      width: 45%;
+      width: 50%;
     }
   
