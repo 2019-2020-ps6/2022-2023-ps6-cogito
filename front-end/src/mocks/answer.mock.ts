@@ -228,3 +228,82 @@ export const FOOT_Q1: Answer[] = [FOOT_Q1_1, FOOT_Q1_2, FOOT_Q1_3, FOOT_Q1_4];
 export const FOOT_Q2: Answer[] = [FOOT_Q1_5, FOOT_Q1_6, FOOT_Q1_4, FOOT_Q1_3];
 
 export const FOOT_Q3: Answer[] = [FOOT_Q1_7, FOOT_Q1_2, FOOT_Q1_5, FOOT_Q1_4];
+
+
+export const RUGBY_Q1_1: Answer = {
+    id: 32,
+    value: "La rose",
+    isCorrect: true,
+};
+
+export const RUGBY_Q1_2: Answer = {
+    id: 33,
+    value: "Le coq",
+    isCorrect: false,
+};
+
+export const RUGBY_Q1_3: Answer = {
+    id: 34,
+    value: "Le dragon",
+    isCorrect: false,
+};
+
+export const RUGBY_Q1_4: Answer = {
+    id: 35,
+    value: "Le lion",
+    isCorrect: false,
+};
+
+export const RUGBY_Q1: Answer[] = [RUGBY_Q1_1, RUGBY_Q1_2, RUGBY_Q1_3, RUGBY_Q1_4];
+
+export const RUGBY_Q2_1: Answer = {
+    id: 36,
+    value: "La France",
+    isCorrect: false,
+};
+
+export const RUGBY_Q2_2: Answer = {
+    id: 37,
+    value: "L'Angleterre",
+    isCorrect: false,
+};
+
+export const RUGBY_Q2_3: Answer = {
+    id: 38,
+    value: "L'Afrique du Sud",
+    isCorrect: false,
+};
+
+export const RUGBY_Q2_4: Answer = {
+    id: 39,
+    value: "La Nouvelle-Zélande",
+    isCorrect: true,
+};
+
+export const RUGBY_Q2: Answer[] = [RUGBY_Q2_1, RUGBY_Q2_2, RUGBY_Q2_3, RUGBY_Q2_4];
+
+export const RUGBY_Q3_1: Answer = {
+    id: 40,
+    value: "Jonah Lomu",
+    isCorrect: true,
+};
+
+export const RUGBY_Q3_2: Answer = {
+    id: 41,
+    value: "Richie McCaw",
+    isCorrect: false,
+};
+
+export const RUGBY_Q3_3: Answer = {
+    id: 42,
+    value: "Dan Carter",
+    isCorrect: false,
+};
+
+export const RUGBY_Q3_4: Answer = {
+    id: 43,
+    value: "Sebastien Chabal",
+    isCorrect: false,
+};
+
+export const RUGBY_Q3: Answer[] = [RUGBY_Q3_1, RUGBY_Q3_2, RUGBY_Q3_3, RUGBY_Q3_4];

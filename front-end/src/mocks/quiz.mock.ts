@@ -1,5 +1,5 @@
 import { Quiz } from "../models/quiz.model";
-import { QUESTIONS_CHA, QUESTIONS_ECH, QUESTIONS_FOOT, QUESTIONS_INS } from "./question.mock";
+import { QUESTIONS_CHA, QUESTIONS_ECH, QUESTIONS_FOOT, QUESTIONS_INS, QUESTIONS_RUGBY } from "./question.mock";
  
 export const QUIZ_INSTRUMENTS: Quiz = {
     id: 1,
@@ -32,7 +32,18 @@ export const QUIZ_FOOT: Quiz = {
     questionList: QUESTIONS_FOOT
 };
 
-export const QUIZZES_SPORT: Quiz[] = [QUIZ_FOOT, QUIZ_ECHECS];
+export const QUIZ_RUGBY: Quiz = {
+    id: 11,
+    title: "Rugby",
+    picture: "https://www.rugbyrama.fr/rugby/top-14/2018-2019/top-14-2018-2019-les-10-joueurs-les-mieux-payes-du-championnat_sto7254142/story.jpg",
+    questionList: QUESTIONS_RUGBY
+};
+
+
+
+export const QUIZZES_SPORT: Quiz[] = [QUIZ_FOOT, QUIZ_ECHECS, QUIZ_RUGBY];
+
+
 
 
 export const QUIZZES_ALL: Quiz[] = QUIZZES_MUSIQUE.concat(QUIZZES_SPORT);

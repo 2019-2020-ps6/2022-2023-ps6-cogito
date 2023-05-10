@@ -1,5 +1,5 @@
 import { Difficulty, MediaType, Question } from "../models/question.model";
-import { CHA_Q1, CHA_Q2, ECH_Q1, ECH_Q2, FOOT_Q1, FOOT_Q2, FOOT_Q3, INS_Q1, INS_Q2, INS_Q3, INS_Q4 } from "./answer.mock";
+import { CHA_Q1, CHA_Q2, ECH_Q1, ECH_Q2, FOOT_Q1, FOOT_Q2, FOOT_Q3, INS_Q1, INS_Q2, INS_Q3, INS_Q4, RUGBY_Q1, RUGBY_Q2, RUGBY_Q3 } from "./answer.mock";
 import { CORR_QUESTION_INS } from "./correcting.mock";
 
 export const QUESTION_INS1: Question = {
@@ -114,3 +114,34 @@ export const QUESTION_FOOT3: Question = {
 };
 
 export const QUESTIONS_FOOT: Question[] = [QUESTION_FOOT1, QUESTION_FOOT2, QUESTION_FOOT3];
+
+
+export const QUESTION_RUGBY1: Question = {
+    id: 11,
+    title: "Quel est le signe des anglais au rugby ?",
+    difficulty: Difficulty.facile,
+    answerList: RUGBY_Q1,
+    defaultMediaType: MediaType.text,
+    defaultAnswersMediaType: MediaType.text
+};
+
+export const QUESTION_RUGBY2: Question = {
+    id: 12,
+    title: "Quel est l'équipe la plus titrée ?",
+    difficulty: Difficulty.facile,
+    answerList: RUGBY_Q2,
+    defaultMediaType: MediaType.text,
+    defaultAnswersMediaType: MediaType.text
+};
+
+export const QUESTION_RUGBY3: Question = {
+    id: 13,
+    title: "Quel est le meilleur joueur de tous les temps ?",
+    difficulty: Difficulty.facile,
+    answerList: RUGBY_Q3,
+    defaultMediaType: MediaType.text,
+    defaultAnswersMediaType: MediaType.text
+};
+
+export const QUESTIONS_RUGBY: Question[] = [QUESTION_RUGBY1, QUESTION_RUGBY2, QUESTION_RUGBY3];
+
