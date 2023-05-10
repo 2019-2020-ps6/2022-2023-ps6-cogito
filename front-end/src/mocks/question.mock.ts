@@ -22,7 +22,8 @@ export const QUESTION_INS2: Question = {
     defaultMediaType: MediaType.picture,
     defaultAnswersMediaType: MediaType.text,
     picture:"https://www.guillaume-kessler.fr/wp-content/uploads/2017/11/violon-passion-tradition-mirecourt-trois-quart-carre.jpg",
-    correcting: CORR_QUESTION_INS
+    correcting: CORR_QUESTION_INS,
+    hint: "C'est un instrument à corde"
 };
 
 export const QUESTION_INS3: Question = {
@@ -41,7 +42,9 @@ export const QUESTION_INS4: Question = {
     answerList: INS_Q4,
     defaultMediaType: MediaType.sound,
     defaultAnswersMediaType: MediaType.picture,
-    sound:"/assets/sounds/neMeQuittePas.mp3"
+    sound:"/assets/sounds/neMeQuittePas.mp3",
+    hint: "C'est un instrument à corde"
+
 };
 
 export const QUESTIONS_INS: Question[] = [QUESTION_INS1, QUESTION_INS2, QUESTION_INS3,QUESTION_INS4];
@@ -53,7 +56,8 @@ export const QUESTION_CHA1: Question = {
     difficulty: Difficulty.difficile,
     answerList: CHA_Q1,
     defaultMediaType: MediaType.text,
-    defaultAnswersMediaType: MediaType.text
+    defaultAnswersMediaType: MediaType.text,
+    hint: "C'est un instrument à corde"
 };
 
 export const QUESTION_CHA2: Question = {

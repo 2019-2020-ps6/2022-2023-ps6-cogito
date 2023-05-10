@@ -17,4 +17,10 @@
           <corrWindow [corrDisplayed]="corrDisplayed" [lastAnswer]="lastAnswer" (clickOnContinue)="clickOnCorrWindow($event)"></corrWindow>
         </div>
       </div>
+
+      <div *ngIf="result" class="modal-overlay">
+        <div class="modal-window">
+            <quizResult *ngIf="result"></quizResult>
+        </div>
+      </div>
 </section>
