@@ -625,13 +625,13 @@ export const ECH_H1: Answer[] = [ECH_H1_1, ECH_H1_2];
 export const ECH_H2_1: Answer = {
     id: 2510,
     value: "Après un repas",
-    isCorrect: true
+    isCorrect: false
 };
 
 export const ECH_H2_2: Answer = {
     id: 2610,
     value: "Avant un repas",
-    isCorrect: false
+    isCorrect: true
 };
 
 export const ECH_H2: Answer[] = [ECH_H2_1, ECH_H2_2];
@@ -669,5 +669,5 @@ export const CALC_Q2_3: Answer = {
     isCorrect: false
 };
 
-export const CALC_Q2: Answer[] = [CALC_Q2_1, CALC_Q2_3,CALC_Q2_3];
+export const CALC_Q2: Answer[] = [CALC_Q2_1, CALC_Q2_2,CALC_Q2_3];
 
