@@ -37,10 +37,11 @@
 .ans-picture-present {
   background-repeat: no-repeat;
     background-position: center center;
-    background-size: cover;
+    background-size: contain; /* taille de l'image : 100% de la largeur et hauteur auto */
 
     h1 {
       background-color: yellow;
+      font-size: 20px;
     }
 
 }
