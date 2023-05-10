@@ -1,5 +1,5 @@
 <section class="questionPage">
-    <div *ngIf="question" class="questionTitle">
+    <div *ngIf="question" class="questionTitle mt-3 d-flex flex-row justifiy-content-center">
         <h2>
             {{question.title}}
         </h2>
@@ -15,11 +15,6 @@
     <div *ngIf="corrDisplayed" class="modal-overlay">
         <div class="modal-window">
           <corrWindow [corrDisplayed]="corrDisplayed" [lastAnswer]="lastAnswer" (clickOnContinue)="clickOnCorrWindow($event)"></corrWindow>
-        </div>
-      </div>
-      <div *ngIf="result" class="modal-overlay">
-        <div class="modal-window">
-            <quizResult *ngIf="result"></quizResult>
         </div>
       </div>
 </section>

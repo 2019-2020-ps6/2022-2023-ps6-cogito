@@ -1,5 +1,7 @@
 import { Difficulty, MediaType, Question } from "../models/question.model";
-import { CHA_Q1, CHA_Q2, ECH_Q1, ECH_Q2, FOOT_Q1, FOOT_Q2, FOOT_Q3, INS_Q1, INS_Q2, INS_Q3, INS_Q4, RUGBY_Q1, RUGBY_Q2, RUGBY_Q3 } from "./answer.mock";
+
+import { CHA_Q1, CHA_Q2, ECH_Q1, ECH_Q2, FOOT_Q1, FOOT_Q2, FOOT_Q3, INS_Q1, INS_Q2, INS_Q3, INS_Q4, RUGBY_Q1, RUGBY_Q2, RUGBY_Q3, ECH_H1 } from "./answer.mock";
+
 import { CORR_QUESTION_INS } from "./correcting.mock";
 
 export const QUESTION_INS1: Question = {
@@ -145,3 +147,13 @@ export const QUESTION_RUGBY3: Question = {
 
 export const QUESTIONS_RUGBY: Question[] = [QUESTION_RUGBY1, QUESTION_RUGBY2, QUESTION_RUGBY3];
 
+export const QUESTION_HYGIENE1: Question = {
+    id: 8,
+    title: "Il faut se laver les dents avec ...",
+    difficulty: Difficulty.facile,
+    answerList: ECH_H1,
+    defaultMediaType: MediaType.text,
+    defaultAnswersMediaType: MediaType.text
+};  
+  
+export const QUESTIONS_HYGIENE: Question[] = [QUESTION_HYGIENE1];

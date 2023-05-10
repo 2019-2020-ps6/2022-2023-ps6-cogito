@@ -15,6 +15,7 @@ import { PatientService } from "./patient.service";
 import { QuizService } from "./quiz.service";
 import { QuizSoundService } from "./gameSound.service";
 import { read } from "fs-extra";
+import { GameQuestionComponent } from "src/app/game/question/question.component";
 
 @Injectable({
     providedIn: "root"
@@ -308,4 +309,29 @@ export class idList {
             this.router.navigateByUrl("/quiz-page");
         }
     }
+
+    selectQuestionForExample(question : Question){
+        let q : GameQuestion = {
+            id: question.id,
+            questionId: question.id,
+            title: question.title,
+            answersMediaType: question.defaultAnswersMediaType,
+            displayedHint: false,
+            startTime: new Date(),
+            endTime: new Date(),
+            answerList: question.answerList,
+            picture: question.picture,
+            sound: question.sound,
+        }
+        this.currentQuestion$.next(q);
+    }
+
+    exampleNoMore(){
+        this.currentQuestion = undefined;
+    }
+
+    getCurrentQuestion(): GameQuestion|undefined{
+        return this.currentQuestion;
+    }
+
 }

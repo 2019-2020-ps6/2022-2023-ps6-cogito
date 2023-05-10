@@ -307,3 +307,24 @@ export const RUGBY_Q3_4: Answer = {
 };
 
 export const RUGBY_Q3: Answer[] = [RUGBY_Q3_1, RUGBY_Q3_2, RUGBY_Q3_3, RUGBY_Q3_4];
+
+
+export const ECH_H1_1: Answer = {
+    id: 25,
+    value: "Du savon",
+    isCorrect: false
+};
+
+export const ECH_H1_2: Answer = {
+    id: 26,
+    value: "Du dentifrice",
+    isCorrect: true
+};
+
+export const ECH_H1_3: Answer = {
+    id: 27,
+    value: "Du shampoing",
+    isCorrect: false
+};
+
+export const ECH_H1: Answer[] = [ECH_H1_1, ECH_H1_2, ECH_H1_3];

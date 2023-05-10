@@ -1,43 +1,50 @@
 @import "/src/styles/variables";
-.questionContent {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    margin-top: 1rem;
-    align-items: center;
-    .row {
-      width: 75%;
-      display: flex;
-      justify-content: center;
-    }
   
+  .content-question{
+    height: 90%;
+    
+    .row{
+      height: 80%;
+      width: 100%;
+      justify-content: center;
+      margin:0px;
+    }
+
+    img{
+      width: 20%;
+      height: auto;
+    }
+
     button{
+      width: 90%;
+      height: 90%;
       background-color: yellow;
     }
     button:hover{
       background-color: lightyellow;
     }
+}
+
+.optional-content{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  padding-bottom: 1%;
+}
+
+
   
+.ans-picture-present {
+  background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+
+    h1 {
+      background-color: yellow;
     }
-  
-  .ans-picture-present {
-      background-size: cover; /* Ajuste la taille de l'image pour couvrir le bouton */
-      background-position: center; /* Centre l'image horizontalement et verticalement */
-      text-shadow: -1px -1px 0 $yellow, 1px -1px 0 $yellow, -1px 1px 0 $yellow, 1px 1px 0 $yellow;
-      height: 20vh;
-      width: 20vh;
-      padding-top: 2vh
-    }
-  
+}
     .ans-picture-present:hover {
       opacity: 0.5;
-    }
-  
-  img {
-    margin: -10vh;
-      max-width: 25vh;
-      display: flex;
-      justify-content: space-evenly;
       
     }
   
