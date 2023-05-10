@@ -473,7 +473,7 @@ export const GEO_Q3_3: Answer = {
 };
 
 export const GEO_Q3: Answer[] = [GEO_Q3_1, GEO_Q3_2, GEO_Q3_3];
-=======
+
 export const FOOT_Q1_1: Answer = {
     id: 500,
     value: "France",
