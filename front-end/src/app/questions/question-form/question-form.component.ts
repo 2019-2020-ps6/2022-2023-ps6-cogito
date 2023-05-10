@@ -22,6 +22,7 @@ export class QuestionFormComponent implements OnInit {
     ngOnInit(): void {
         this.quizService.getSelectedQuestion().subscribe(question => {
             this.question = JSON.parse(JSON.stringify(question)) ;
+            console.log(this.question);
         });
     }
 
