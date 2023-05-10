@@ -14,6 +14,9 @@ export class ResultQuestionComponent {
   questionStats: any;
   compteur: number;
   quiztitle: string = "";
+  data: any;
+  printMessage: string = "";
+  falseCpt: number = 0;
 
   constructor(private route: ActivatedRoute) {
     this.compteur = 0;
@@ -35,7 +38,30 @@ export class ResultQuestionComponent {
   if (this.patient.questionResult.get(this.id - 0) !== undefined) {
       this.questionStats = this.patient.questionResult.get(this.id - 0);
     }
+
+    this.data = this.patient.questionResult.get(this.id - 0);
+    if (this.data[this.data.length - 1] === false) {
+      this.falseCpt++;
+    } 
+    if (this.data[this.data.length - 2] === false) {
+      this.falseCpt++;
+    }
+    if (this.data[this.data.length - 3] === false) {
+      this.falseCpt++;
+    }
+    if (this.data[this.data.length - 4] === false) {
+      this.falseCpt++;
+    }
+    if (this.data[this.data.length - 5] === false) {
+      this.falseCpt++;
+    }
+    if (this.falseCpt >= 4) {
+      this.printMessage = "Il faudrait probablement supprimer le quiz pour ce patient";
+    }
+
+
   }
+
   addOne(): number {
     return this.compteur + 1;
   }
