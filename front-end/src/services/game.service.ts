@@ -330,5 +330,8 @@ export class idList {
         this.currentQuestion = undefined;
     }
 
+    getCurrentQuestion(): GameQuestion|undefined{
+        return this.currentQuestion;
+    }
 
 }

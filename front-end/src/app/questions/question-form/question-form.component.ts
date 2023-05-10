@@ -18,7 +18,11 @@ import { idList } from "src/services/game.service";
 export class QuestionFormComponent implements OnInit {
     question?: Question;
     originalQuestion?: Question;
+    currentQuestion?: GameQuestion;
+    public lastAnswer: boolean = false;
     Show: boolean = false;
+    public corrDisplayed: boolean = false;
+
 
     constructor(private quizService: QuizService,private gameService: idList) {}
 
@@ -27,6 +31,10 @@ export class QuestionFormComponent implements OnInit {
             this.question = JSON.parse(JSON.stringify(question)) ;
             this.gameService.selectQuestionForExample(this.question as Question);
         });
+        this.gameService.currentQuestion$.subscribe((question?: GameQuestion): void => {
+            this.currentQuestion = question;
+        }
+        );
     }
 
     addAnswerToForm(): void {
@@ -89,7 +97,23 @@ export class QuestionFormComponent implements OnInit {
     displayPopUp(): void {
         this.Show = !this.Show;
         this.gameService.selectQuestionForExample(this.question as Question);
+        this.corrDisplayed=false;
     }
 
-  
+    clickOnCorrWindow(clickOnQuitt: boolean){
+        this.corrDisplayed=false;
+    }
+
+    corrAnswerWindow(question?:GameQuestion): void { 
+        if (question){
+            this.lastAnswer=this.gameService.finalScore().get(question)||false;
+            console.log(this.lastAnswer);
+                this.corrDisplayed=!this.corrDisplayed;  
+        }
+    }
+
+
+    clickOnCheckAnswer(answer: Answer): void{
+        this.corrAnswerWindow(this.currentQuestion);
+    }
 }

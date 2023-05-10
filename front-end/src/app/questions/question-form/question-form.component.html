@@ -199,11 +199,19 @@
 
 <div class="popup"  *ngIf="Show">
     <div class="popup-container">
+        <div class="buttonContainer mb-3">
+            <a (click)="displayPopUp()" class="btn btn-sm btn-danger buttonClose">X</a>
+        </div>
         <div *ngIf="question" class="questionTitle">
             <h2>
                 {{question.title}}
             </h2>
         </div>
-        <question-compo></question-compo>
+        <question-compo class="questionContent" (clickOncheckAnswer)="clickOnCheckAnswer($event)"></question-compo>
+        <div  *ngIf="corrDisplayed" class="content {{lastAnswer ? 'green-background' : 'wrong-background'}}">
+            <p class="textdescription">{{question?.correcting?.description}}</p>
+            <img [src]="question?.correcting?.picture" class="correctionDisplayImg">
+        </div>
     </div>
 </div>
+
