@@ -87,7 +87,7 @@ export const QUESTION_ECH2: Question = {
 export const QUESTIONS_ECH: Question[] = [QUESTION_ECH1, QUESTION_ECH2];
 
 export const QUESTION_FOOT1: Question = {
-    id: 8,
+    id: 18,
     title: "Qui a gagné la coupe du monde 2018 ?",
     difficulty: Difficulty.facile,
     answerList: FOOT_Q1,
@@ -96,7 +96,7 @@ export const QUESTION_FOOT1: Question = {
 };
 
 export const QUESTION_FOOT2: Question = {
-    id: 9,
+    id: 19,
     title: "Qui a gagné la coupe du monde 2014 ?",
     difficulty: Difficulty.facile,
     answerList: FOOT_Q2,
@@ -105,7 +105,7 @@ export const QUESTION_FOOT2: Question = {
 };
 
 export const QUESTION_FOOT3: Question = {
-    id: 10,
+    id: 20,
     title: "Qui a gagné la coupe du monde 2010 ?",
     difficulty: Difficulty.facile,
     answerList: FOOT_Q3,
@@ -117,7 +117,7 @@ export const QUESTIONS_FOOT: Question[] = [QUESTION_FOOT1, QUESTION_FOOT2, QUEST
 
 
 export const QUESTION_RUGBY1: Question = {
-    id: 11,
+    id: 21,
     title: "Quel est le signe des anglais au rugby ?",
     difficulty: Difficulty.facile,
     answerList: RUGBY_Q1,
@@ -126,7 +126,7 @@ export const QUESTION_RUGBY1: Question = {
 };
 
 export const QUESTION_RUGBY2: Question = {
-    id: 12,
+    id: 22,
     title: "Quel est l'équipe la plus titrée ?",
     difficulty: Difficulty.facile,
     answerList: RUGBY_Q2,
@@ -135,7 +135,7 @@ export const QUESTION_RUGBY2: Question = {
 };
 
 export const QUESTION_RUGBY3: Question = {
-    id: 13,
+    id: 23,
     title: "Quel est le meilleur joueur de tous les temps ?",
     difficulty: Difficulty.facile,
     answerList: RUGBY_Q3,

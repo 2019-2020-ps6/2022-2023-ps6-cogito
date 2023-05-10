@@ -182,43 +182,43 @@ export const ECH_Q2_3: Answer = {
 export const ECH_Q2: Answer[] = [ECH_Q2_1, ECH_Q2_2, ECH_Q2_3];
 
 export const FOOT_Q1_1: Answer = {
-    id: 25,
+    id: 50,
     value: "France",
     isCorrect: true,
 };
 
 export const FOOT_Q1_2: Answer = {
-    id: 26,
+    id: 51,
     value: "Allemagne",
     isCorrect: false,
 };
 
 export const FOOT_Q1_3: Answer = {
-    id: 27,
+    id: 52,
     value: "Espagne",
     isCorrect: false,
 };
 
 export const FOOT_Q1_4: Answer = {
-    id: 28,
+    id: 53,
     value: "Italie",
     isCorrect: false,
 };
 
 export const FOOT_Q1_5: Answer = {
-    id: 29,
+    id: 54,
     value: "Portugal",
     isCorrect: false,
 };
 
 export const FOOT_Q1_6: Answer = {
-    id: 30,
+    id: 55,
     value: "Allemagne",
     isCorrect: true,
 };
 
 export const FOOT_Q1_7: Answer = {
-    id: 31,
+    id: 56,
     value: "Espagne",
     isCorrect: true,
 };
@@ -231,25 +231,25 @@ export const FOOT_Q3: Answer[] = [FOOT_Q1_7, FOOT_Q1_2, FOOT_Q1_5, FOOT_Q1_4];
 
 
 export const RUGBY_Q1_1: Answer = {
-    id: 32,
+    id: 57,
     value: "La rose",
     isCorrect: true,
 };
 
 export const RUGBY_Q1_2: Answer = {
-    id: 33,
+    id: 58,
     value: "Le coq",
     isCorrect: false,
 };
 
 export const RUGBY_Q1_3: Answer = {
-    id: 34,
+    id: 59,
     value: "Le dragon",
     isCorrect: false,
 };
 
 export const RUGBY_Q1_4: Answer = {
-    id: 35,
+    id: 60,
     value: "Le lion",
     isCorrect: false,
 };
@@ -257,25 +257,25 @@ export const RUGBY_Q1_4: Answer = {
 export const RUGBY_Q1: Answer[] = [RUGBY_Q1_1, RUGBY_Q1_2, RUGBY_Q1_3, RUGBY_Q1_4];
 
 export const RUGBY_Q2_1: Answer = {
-    id: 36,
+    id: 61,
     value: "La France",
     isCorrect: false,
 };
 
 export const RUGBY_Q2_2: Answer = {
-    id: 37,
+    id: 62,
     value: "L'Angleterre",
     isCorrect: false,
 };
 
 export const RUGBY_Q2_3: Answer = {
-    id: 38,
+    id: 63,
     value: "L'Afrique du Sud",
     isCorrect: false,
 };
 
 export const RUGBY_Q2_4: Answer = {
-    id: 39,
+    id: 64,
     value: "La Nouvelle-Zélande",
     isCorrect: true,
 };
@@ -283,25 +283,25 @@ export const RUGBY_Q2_4: Answer = {
 export const RUGBY_Q2: Answer[] = [RUGBY_Q2_1, RUGBY_Q2_2, RUGBY_Q2_3, RUGBY_Q2_4];
 
 export const RUGBY_Q3_1: Answer = {
-    id: 40,
+    id: 65,
     value: "Jonah Lomu",
     isCorrect: true,
 };
 
 export const RUGBY_Q3_2: Answer = {
-    id: 41,
+    id: 66,
     value: "Richie McCaw",
     isCorrect: false,
 };
 
 export const RUGBY_Q3_3: Answer = {
-    id: 42,
+    id: 67,
     value: "Dan Carter",
     isCorrect: false,
 };
 
 export const RUGBY_Q3_4: Answer = {
-    id: 43,
+    id: 68,
     value: "Sebastien Chabal",
     isCorrect: false,
 };
