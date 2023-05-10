@@ -15,7 +15,7 @@ export const  CORR_QUESTION_FOOT1: Correcting = {
 export const  CORR_QUESTION_FOOT2: Correcting = {
     id: 11,
     description: "C'est l'Allemagne qui a gagné la coupe du monde de football en 2014",
-    picture: "X75LW3MKZBAMBKEL2AXANGEZ7A.avif"
+    picture: "https://imgresizer.eurosport.com/unsafe/1200x0/filters:format(jpeg):focal(1206x424:1208x422)/origin-imgresizer.eurosport.com/2022/11/23/3495500-71257168-2560-1440.jpg"
 }
 
 export const  CORR_QUESTION_FOOT3: Correcting = {
