@@ -1,6 +1,6 @@
 import { Theme } from "../models/theme.model";
 
-import { QUIZ_ECHECS, QUIZZES_CINEMA, QUIZZES_CUISINE, QUIZZES_GEO, QUIZZES_MUSIQUE, QUIZZES_SPORT, QUIZZES_QUOTIDIEN } from "./quiz.mock";
+import { QUIZ_ECHECS, QUIZZES_CINEMA, QUIZZES_CUISINE, QUIZZES_GEO, QUIZZES_MUSIQUE, QUIZZES_SPORT, QUIZZES_QUOTIDIEN, QUIZZES_CALCUL } from "./quiz.mock";
 
 export const THEME_MUSIQUE: Theme = {
     id: 1,
@@ -44,4 +44,11 @@ export const THEME_QUOTIDIEN: Theme = {
     quizList: QUIZZES_QUOTIDIEN
 };
 
-export const THEME_LIST: Theme[] = [THEME_MUSIQUE, THEME_SPORT, THEME_CINEMA,THEME_CUISINE, THEME_GEOGRAPHIE, THEME_QUOTIDIEN];
+export const THEME_MATHEMATIQUE: Theme = {
+    id: 7,
+    title: "Mahematiques",
+    picture: "https://la1ere.francetvinfo.fr/image/YujSOf-uUaeUmjjZnQuYJ03SdxY/600x400/outremer/2022/03/28/62421efbe5164_images-4.jfif",
+    quizList: QUIZZES_CALCUL
+};
+
+export const THEME_LIST: Theme[] = [THEME_MUSIQUE, THEME_SPORT, THEME_CINEMA,THEME_CUISINE, THEME_GEOGRAPHIE, THEME_QUOTIDIEN,THEME_MATHEMATIQUE];

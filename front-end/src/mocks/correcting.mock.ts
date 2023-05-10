@@ -53,3 +53,19 @@ export const CORR_QUESTION_HYGIENE1: Correcting = {
     description: "Il faut se laver les mains avec du savon",
     picture: "https://remeng.rosselcdn.net/sites/default/files/dpistyles_v2/rem_16_9_1124w/2020/03/05/node_136509/11576673/public/2020/03/05/B9722822728Z.1_20200305205431_000%2BGBKFLQFMT.1-0.jpg?itok=4ynvFijT1583501827"
 };
+
+export const CORR_QUESTION_HYGIENE2: Correcting = {
+    id: 25,
+    description: "Il faut se laver les dents après avoir mangé.",
+    picture: "https://remeng.rosselcdn.net/sites/default/files/dpistyles_v2/rem_16_9_1124w/2020/03/05/node_136509/11576673/public/2020/03/05/B9722822728Z.1_20200305205431_000%2BGBKFLQFMT.1-0.jpg?itok=4ynvFijT1583501827"
+};
+
+export const CORR_QUESTION_CALCUL1: Correcting = {
+    id: 26,
+    description: "3 + 3 = 6"
+};
+
+export const CORR_QUESTION_CALCUL2: Correcting = {
+    id: 27,
+    description: "3 x 9 = 27"
+};

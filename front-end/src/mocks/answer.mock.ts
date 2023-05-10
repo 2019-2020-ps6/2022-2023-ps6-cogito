@@ -621,3 +621,53 @@ export const ECH_H1_3: Answer = {
 };
 
 export const ECH_H1: Answer[] = [ECH_H1_1, ECH_H1_2, ECH_H1_3];
+
+export const ECH_H2_1: Answer = {
+    id: 2510,
+    value: "Aprés un repas",
+    isCorrect: true
+};
+
+export const ECH_H2_2: Answer = {
+    id: 2610,
+    value: "Avant un repas",
+    isCorrect: false
+};
+
+export const ECH_H2: Answer[] = [ECH_H2_1, ECH_H2_2];
+
+
+export const CALC_Q1_1: Answer = {
+    id: 2501,
+    value: "9",
+    isCorrect: false
+};
+
+export const CALC_Q1_2: Answer = {
+    id: 2601,
+    value: "6",
+    isCorrect: true
+};
+
+export const CALC_Q1: Answer[] = [CALC_Q1_1, CALC_Q1_2];
+
+export const CALC_Q2_1: Answer = {
+    id: 2502,
+    value: "27",
+    isCorrect: true
+};
+
+export const CALC_Q2_2: Answer = {
+    id: 2602,
+    value: "28",
+    isCorrect: false
+};
+
+export const CALC_Q2_3: Answer = {
+    id: 2602,
+    value: "29",
+    isCorrect: false
+};
+
+export const CALC_Q2: Answer[] = [CALC_Q2_1, CALC_Q2_3,CALC_Q2_3];
+
