@@ -2,10 +2,10 @@ import { Difficulty, MediaType, Question } from "../models/question.model";
 
 
 import { CHA_Q1, CHA_Q2, CINFR_Q1, CINFR_Q2, CINFR_Q3, CINHO_Q1, CINHO_Q2, CINHO_Q3, CUIS_Q1, CUIS_Q2, CUIS_Q3, GEO_Q1, GEO_Q2, GEO_Q3,
-        ECH_Q1, ECH_Q2, FOOT_Q1, FOOT_Q2, FOOT_Q3, INS_Q1, INS_Q2, INS_Q3, INS_Q4, RUGBY_Q1, RUGBY_Q2, RUGBY_Q3, ECH_H1 } from "./answer.mock";
+        ECH_Q1, ECH_Q2, FOOT_Q1, FOOT_Q2, FOOT_Q3, INS_Q1, INS_Q2, INS_Q3, INS_Q4, RUGBY_Q1, RUGBY_Q2, RUGBY_Q3, ECH_H1, ECH_H2, CALC_Q1, CALC_Q2 } from "./answer.mock";
 
 import { CORR_QUESTION_INS, CORR_QUESTION_FOOT1, CORR_QUESTION_FOOT2, CORR_QUESTION_FOOT3, CORR_QUESTION_RUGBY1,
-     CORR_QUESTION_RUGBY2, CORR_QUESTION_RUGBY3, CORR_QUESTION_HYGIENE1, CORR_CINFR2 } from "./correcting.mock";
+     CORR_QUESTION_RUGBY2, CORR_QUESTION_RUGBY3, CORR_QUESTION_HYGIENE1, CORR_CINFR2, CORR_QUESTION_HYGIENE2, CORR_QUESTION_CALCUL1, CORR_QUESTION_CALCUL2 } from "./correcting.mock";
 
 export const QUESTION_INS1: Question = {
     id: 1,
@@ -309,13 +309,45 @@ export const QUESTION_RUGBY3: Question = {
 export const QUESTIONS_RUGBY: Question[] = [QUESTION_RUGBY1, QUESTION_RUGBY2, QUESTION_RUGBY3];
 
 export const QUESTION_HYGIENE1: Question = {
-    id: 8,
+    id: 24,
     title: "Il faut se laver les dents avec ...",
     difficulty: Difficulty.facile,
     answerList: ECH_H1,
     defaultMediaType: MediaType.text,
     defaultAnswersMediaType: MediaType.text,
     correcting: CORR_QUESTION_HYGIENE1
+};
+
+export const QUESTION_HYGIENE2: Question = {
+    id: 25,
+    title: "Quand doit on se laver les mains ?",
+    difficulty: Difficulty.facile,
+    answerList: ECH_H2,
+    defaultMediaType: MediaType.text,
+    defaultAnswersMediaType: MediaType.text,
+    correcting: CORR_QUESTION_HYGIENE2
 };  
   
-export const QUESTIONS_HYGIENE: Question[] = [QUESTION_HYGIENE1];
+export const QUESTIONS_HYGIENE: Question[] = [QUESTION_HYGIENE1,QUESTION_HYGIENE2];
+
+export const QUESTION_CALCUL1: Question = {
+    id: 26,
+    title: "3 + 3 = ?",
+    difficulty: Difficulty.facile,
+    answerList: CALC_Q1,
+    defaultMediaType: MediaType.text,
+    defaultAnswersMediaType: MediaType.text,
+    correcting: CORR_QUESTION_CALCUL1
+};
+
+export const QUESTION_CALCUL2: Question = {
+    id: 27,
+    title: "3 x 9 = ?",
+    difficulty: Difficulty.moyenne,
+    answerList: CALC_Q2,
+    defaultMediaType: MediaType.text,
+    defaultAnswersMediaType: MediaType.text,
+    correcting: CORR_QUESTION_CALCUL2
+};  
+  
+export const QUESTIONS_CALCUL: Question[] = [QUESTION_CALCUL1,QUESTION_CALCUL2];

@@ -1,7 +1,7 @@
 import { Quiz } from "../models/quiz.model";
 
 import { QUESTIONS_CHA, QUESTIONS_CINFR, QUESTIONS_CINHO, QUESTIONS_CUIS, QUESTIONS_ECH, QUESTIONS_FOOT, QUESTIONS_GEO,
-        QUESTIONS_INS, QUESTIONS_RUGBY , QUESTIONS_HYGIENE} from "./question.mock"
+        QUESTIONS_INS, QUESTIONS_RUGBY , QUESTIONS_HYGIENE, QUESTIONS_CALCUL} from "./question.mock"
  
 export const QUIZ_INSTRUMENTS: Quiz = {
     id: 1,
@@ -88,5 +88,14 @@ export const QUIZ_GEO1: Quiz = {
 
 export const QUIZZES_GEO: Quiz[] = [QUIZ_GEO1];
 
-export const QUIZZES_ALL: Quiz[] = QUIZZES_MUSIQUE.concat(QUIZZES_SPORT).concat(QUIZZES_CINEMA).concat(QUIZZES_CUISINE).concat(QUIZZES_GEO).concat(QUIZZES_QUOTIDIEN);
+export const QUIZ_CALCUL: Quiz = {
+    id: 8,
+    title: "Calculs",
+    picture: "https://www.enigme-facile.fr/wp-content/uploads/enigme-moitie-de-2-plus-2.jpg",
+    questionList: QUESTIONS_CALCUL
+};
+
+export const QUIZZES_CALCUL: Quiz[] = [QUIZ_CALCUL];
+
+export const QUIZZES_ALL: Quiz[] = QUIZZES_MUSIQUE.concat(QUIZZES_SPORT).concat(QUIZZES_CINEMA).concat(QUIZZES_CUISINE).concat(QUIZZES_GEO).concat(QUIZZES_QUOTIDIEN).concat(QUIZZES_CALCUL);
 
