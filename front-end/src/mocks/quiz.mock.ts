@@ -45,7 +45,7 @@ export const QUIZZES_SPORT: Quiz[] = [QUIZ_ECHECS, QUIZ_FOOT, QUIZ_RUGBY];
 
 
 export const QUIZ_QUOTIDIEN: Quiz = {
-    id: 4,
+    id: 14,
     title: "Hygiène",
     picture: "https://www.mmj.fr/sites/default/files/public/images/shutterstock_1661809672-laver_mains.jpg",
     questionList: QUESTIONS_HYGIENE

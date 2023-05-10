@@ -60,14 +60,17 @@ export class GameQuestionComponent {
         }
         else {
             if(answer.isCorrect){
+                this.gameService.checkAnswer(answer,this.question);
                 console.log('réponse juste du premier coup');
                 this.clickOncheckAnswer.emit(answer);
                 this.hintIsShow = false;
             }
             else{
+                this.gameService.checkAnswer(answer,this.question);
                 console.log(this.hintIsShow)
                 this.hintIsShow = true;
             }
+            console.log(this.gameService.finalScore())
         }
     }
 }

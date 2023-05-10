@@ -605,13 +605,13 @@ export const RUGBY_Q3: Answer[] = [RUGBY_Q3_1, RUGBY_Q3_2, RUGBY_Q3_3, RUGBY_Q3_
 export const ECH_H1_1: Answer = {
     id: 2500,
     value: "Du savon",
-    isCorrect: false
+    isCorrect: true
 };
 
 export const ECH_H1_2: Answer = {
     id: 2600,
     value: "Du dentifrice",
-    isCorrect: true
+    isCorrect: false
 };
 
 export const ECH_H1_3: Answer = {

@@ -212,16 +212,17 @@ export class idList {
 
     checkAnswer(answer?: Answer, question?: GameQuestion): void {
         if (question){
-            if (answer){
+            if (answer && answer.isCorrect){
                 this.resultQuiz.set(question,answer.isCorrect);
             }
-            else if (this.resultQuiz.get(question)==undefined){
+            else {
                 this.resultQuiz.set(question,false);
                 let occur = this.questionList.reduce((acc, curr) => curr === question ? acc + 1 : acc, 0);
                 if (occur && occur <2)
                     this.questionList.push(question);
                 }
             }
+            console.log(this.questionList);
     }
 
     finalScore():  Map<GameQuestion,boolean> {

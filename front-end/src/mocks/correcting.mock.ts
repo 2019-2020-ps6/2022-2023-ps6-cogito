@@ -51,13 +51,13 @@ export const CORR_QUESTION_RUGBY3: Correcting = {
 export const CORR_QUESTION_HYGIENE1: Correcting = {
     id: 24,
     description: "Il faut se laver les mains avec du savon",
-    picture: "https://remeng.rosselcdn.net/sites/default/files/dpistyles_v2/rem_16_9_1124w/2020/03/05/node_136509/11576673/public/2020/03/05/B9722822728Z.1_20200305205431_000%2BGBKFLQFMT.1-0.jpg?itok=4ynvFijT1583501827"
+    picture: "https://www.cebelia.paris/9-home_default/savon-douceur-nettoyage.jpg"
 };
 
 export const CORR_QUESTION_HYGIENE2: Correcting = {
     id: 25,
     description: "Il faut se laver les dents après avoir mangé.",
-    picture: "https://remeng.rosselcdn.net/sites/default/files/dpistyles_v2/rem_16_9_1124w/2020/03/05/node_136509/11576673/public/2020/03/05/B9722822728Z.1_20200305205431_000%2BGBKFLQFMT.1-0.jpg?itok=4ynvFijT1583501827"
+    picture: "https://cdn.shopify.com/s/files/1/0069/1067/2978/products/PAGE_PDT_DENTIFRICE_SOIN_COMPLET_1_630x.png?v=1674485453"
 };
 
 export const CORR_QUESTION_CALCUL1: Correcting = {

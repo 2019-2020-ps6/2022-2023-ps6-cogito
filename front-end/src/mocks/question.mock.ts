@@ -310,7 +310,7 @@ export const QUESTIONS_RUGBY: Question[] = [QUESTION_RUGBY1, QUESTION_RUGBY2, QU
 
 export const QUESTION_HYGIENE1: Question = {
     id: 24,
-    title: "Il faut se laver les dents avec ...",
+    title: "Il faut se laver les mains avec ...",
     difficulty: Difficulty.facile,
     answerList: ECH_H1,
     defaultMediaType: MediaType.text,
