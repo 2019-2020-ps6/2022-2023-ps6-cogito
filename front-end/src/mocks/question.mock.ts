@@ -118,6 +118,7 @@ export const QUESTION_CINFR2: Question = {
     answerList: CINFR_Q2,
     defaultMediaType: MediaType.picture,
     defaultAnswersMediaType: MediaType.text,
+    hint: "C'est un film muet",
     picture: "https://www.culturequizz.com/wp-content/uploads/406f2a78e4f4fd9cb0b9b9244e6bda73-338x500.jpeg",
     correcting: CORR_CINFR2
 }

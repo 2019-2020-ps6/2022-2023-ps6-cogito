@@ -1,8 +1,8 @@
 @import "/src/styles/variables";
   
   .content-question{
-    height: 90%;
-    
+    height: 70vh;
+    max-height: 70vh;
     .row{
       height: 80%;
       width: 100%;
@@ -11,8 +11,8 @@
     }
 
     img{
-      width: 20%;
-      height: auto;
+      width: auto;
+      height: 200px;
     }
 
     button{
