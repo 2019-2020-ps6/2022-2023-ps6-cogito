@@ -41,7 +41,7 @@ export const QUIZ_RUGBY: Quiz = {
 };
 
 
-export const QUIZZES_SPORT: Quiz[] = [QUIZ_FOOT, QUIZ_ECHECS, QUIZ_RUGBY];
+export const QUIZZES_SPORT: Quiz[] = [QUIZ_ECHECS, QUIZ_FOOT, QUIZ_RUGBY];
 
 
 export const QUIZ_QUOTIDIEN: Quiz = {
