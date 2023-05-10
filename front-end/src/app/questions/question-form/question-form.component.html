@@ -208,7 +208,7 @@
             </h2>
         </div>
         <question-compo class="questionContent" (clickOncheckAnswer)="clickOnCheckAnswer($event)"></question-compo>
-        <div  *ngIf="corrDisplayed" class="content {{lastAnswer ? 'green-background' : 'wrong-background'}}">
+        <div  *ngIf="corrDisplayed" class="popup content {{lastAnswer ? 'green-background' : 'wrong-background'}}">
             <p class="textdescription">{{question?.correcting?.description}}</p>
             <img [src]="question?.correcting?.picture" class="correctionDisplayImg">
         </div>
