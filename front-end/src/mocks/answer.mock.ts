@@ -221,7 +221,7 @@ export const CINFR_Q2_3: Answer = {
 
 export const CINFR_Q2_4: Answer = {
     id: 30,
-    value: "Les petits mouchois",
+    value: "Les petits mouchoirs",
     isCorrect: false
 };
 

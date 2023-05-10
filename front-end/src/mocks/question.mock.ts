@@ -108,7 +108,11 @@ export const QUESTION_CINFR1: Question = {
     defaultMediaType: MediaType.sound,
     defaultAnswersMediaType: MediaType.text,
     sound: "/assets/sounds/laValseDAmelie.mp3",
-    correcting: CORR_QUESTION_INS
+    correcting: {
+        id: 1,
+        description: "C'était la valse d'Amélie Poulain, issu du film du même nom réalisé par Jean-Pierre Jeunet en 2001.",
+        picture :"https://fr.web.img4.acsta.net/medias/nmedia/00/02/24/66/69198162_af.jpg",
+    }
 };
 
 export const QUESTION_CINFR2: Question = {
@@ -130,7 +134,11 @@ export const QUESTION_CINFR3: Question = {
     answerList: CINFR_Q3,
     defaultMediaType: MediaType.text,
     defaultAnswersMediaType: MediaType.picture,
-    correcting: CORR_QUESTION_INS
+    correcting: {
+        id: 1,
+        description: "Olivier Baroux a réalisé les films Les Tuche en 2011 et 2016.",
+        picture: "https://www.premiere.fr/sites/default/files/styles/scale_crop_1280x720/public/2020-03/olivier.jpg"
+    }
 }
 
 export const QUESTIONS_CINFR: Question[] = [QUESTION_CINFR1, QUESTION_CINFR2, QUESTION_CINFR3];
