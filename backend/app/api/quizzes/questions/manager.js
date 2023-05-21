@@ -12,9 +12,12 @@ const NotFoundError = require('../../../utils/errors/not-found-error.js')
  * @param quizId
  */
 const filterQuestionsFromQuizz = (quizId) => {
-  const questions = Question.get()
   const parsedId = parseInt(quizId, 10)
-  return questions.filter((question) => question.quizId === parsedId)
+  const quiz = Quiz.getById(parsedId)
+  const questions = Question.get()
+  console.log(questions)
+  const filteredQuestions = questions.filter((question) => quiz.questionList.includes(question.id))
+  return filteredQuestions
 }
 
 /**

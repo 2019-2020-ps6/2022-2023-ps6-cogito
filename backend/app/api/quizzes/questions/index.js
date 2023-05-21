@@ -8,6 +8,7 @@ const { filterQuestionsFromQuizz, getQuestionFromQuiz } = require('./manager')
 const router = new Router({ mergeParams: true })
 
 router.get('/', (req, res) => {
+  console.log(req.params.quizId)
   try {
     // Check if quizId exists, if not it will throw a NotFoundError
     Quiz.getById(req.params.quizId)
@@ -27,18 +28,17 @@ router.get('/:questionId', (req, res) => {
 })
 
 router.post('/', (req, res) => {
+  console.log(req.body)
   try {
     // Check if quizId exists, if not it will throw a NotFoundError
-    Quiz.getById(req.params.quizId)
-    const quizId = parseInt(req.params.quizId, 10)
-    let question = Question.create({ label: req.body.label, quizId })
-    // If answers have been provided in the request, we create the answer and update the response to send.
-    if (req.body.answers && req.body.answers.length > 0) {
-      const answers = req.body.answers.map((answer) => Answer.create({ ...answer, questionId: question.id }))
-      question = { ...question, answers }
-    }
-    res.status(201).json(question)
+    const quiz = Quiz.getById(req.params.quizId)
+    
+    let question = Question.create({ ...req.body })
+    quiz.questionList.push(question.id)
+    Quiz.update(quiz.id,quiz)
+    res.status(201).json(quiz)
   } catch (err) {
+    console.log(err)
     manageAllErrors(res, err)
   }
 })
