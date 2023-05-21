@@ -21,7 +21,7 @@ export class CreationPatientComponent implements OnInit {
 
     constructor(private patientService: PatientService, private router: Router, private route: ActivatedRoute) {
     }
-    
+
     ngOnInit(): void {
         this.patientService.patientList$.subscribe((patientList: Patient[]): void => {
             this.patientList = patientList;
@@ -47,6 +47,6 @@ export class CreationPatientComponent implements OnInit {
     }
 
     checkPatientValidity(): boolean {
-        return this.patient?.name !== "" && this.patient?.age !== undefined && this.patient?.stage !== undefined && this.patient?.quizIdList !== undefined;
-    }  
+        return this.patient?.name !== "" && this.patient?.birthdate !== undefined && this.patient?.stage !== undefined && this.patient?.quizIdList !== undefined;
+    }
 }

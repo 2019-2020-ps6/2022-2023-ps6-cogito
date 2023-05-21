@@ -51,7 +51,7 @@ export class PatientService {
         let newPatient: Patient = {
             id: newId,
             name: "",
-            age: 0,
+            birthdate: new Date(),
             stage: 0,
             picture: "",
             statistics: {
@@ -86,7 +86,7 @@ export class PatientService {
             this.patientList$.next(this.patientList);
             console.log("Patient updated : ", patient.name);
         }
-        
+
     }
 
     getSelectedPatient(): BehaviorSubject<Patient | undefined> {

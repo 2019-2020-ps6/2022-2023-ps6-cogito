@@ -7,7 +7,7 @@
                         <label class="col-form-label">Nom :</label>
                     </div>
                     <div class="col">
-                        <input type="text" class="form-control" name="title" [(ngModel)]="patient === undefined ? '' : patient.name">
+                        <input type="text" class="form-control" name="title" [ngModel]="patient === undefined ? '' :patient?.name">
                     </div>
                 </div>
                 <div class="row g-3 align-items-center mb-1">
@@ -23,7 +23,7 @@
                         </span>
                     </div>
                 </div>
-                  
+
                   <div class="row g-3 align-items-center mb-1">
                     <div class="col-auto">
                       <label class="form-label">Stade :</label>
@@ -39,28 +39,28 @@
                       <span class="form-text">Choisir le stade du patient</span>
                     </div>
                   </div>
-                
+
                 <div class="row g-3 align-items-center mb-3">
                     <div class="col-auto">
-                        <label class="col-form-label">Age :</label>
+                        <label class="col-form-label">Anniversaire :</label>
                     </div>
                     <div class="col">
-                        <input type="number" class="form-control" name="hint" [(ngModel)]="patient === undefined ? '' : patient.age">
+                        <input type="date" class="form-control" name="hint" [(ngModel)]="patient === undefined ? ''
+                         : patient.birthdate">
                     </div>
                 </div>
             </div>
-    
+
         </div>
-    
+
         <div class="side-content">
             <button (click)="savePatient()" [routerLink]="['/profil-list']" [disabled]="!checkPatientValidity()">Enregistrer</button>
-            
+
             <div *ngIf="this.data === 'Modifier les Informations du Profil'">
                 <button [routerLink]="['/profil']">Annuler</button>
             </div>
             <div *ngIf="this.data === 'Créer un Nouveau Profil'">
-                <button [routerLink]="['/profil-list
-                .']">Annuler</button>
+                <button [routerLink]="['/profil-list.']">Annuler</button>
 
             </div>
         </div>
