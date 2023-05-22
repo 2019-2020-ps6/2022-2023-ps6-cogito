@@ -7,8 +7,6 @@ const { buildQuizz, buildQuizzes } = require('./manager')
 
 const router = new Router()
 
-router.use('/:quizId/questions', QuestionsRouter)
-
 router.get('/', (req, res) => {
   try {
     const quizzes = buildQuizzes()
@@ -20,9 +18,10 @@ router.get('/', (req, res) => {
 
 router.get('/:quizId', (req, res) => {
   try {
-    const quizz = buildQuizz(req.params.quizId)
-    res.status(200).json(quizz)
+    const quiz =  Quiz.getById(req.params.quizId)
+    res.status(200).json(quiz)
   } catch (err) {
+    console.log(err);
     manageAllErrors(res, err)
   }
 })
