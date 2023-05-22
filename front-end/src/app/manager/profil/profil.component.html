@@ -3,27 +3,27 @@
         <div class="profil">
                 <!-- <li *ngFor="let elements of patient">
                     {{elements}}
-                    bonjour 
+                    bonjour
                     <br>
                 </li> -->
             <div id="txt">
-                {{Patient.name}} 
+                Nom : {{Patient.name}}
                 <br>
-                {{Patient.age + " ans"}}
+                Naissance : {{Patient.birthdate | date:"dd-MM-YYYY"}}
                 <br>
-                {{"Stade approximatif : " + Patient.stage}}
+                Stade approximatif : {{Patient.stage}}
             </div>
-                
+
                 <div class="button-result-quiz d-flex flex-column align-items-center">
                     <button type="submit" class="btn btn-primary mb-1" [routerLink]="['/modification-patient-page']"> Changer les informations</button>
                     <button type="submit" class="btn btn-primary result" [routerLink]="['/results']"> Voir les résultats</button>
                 </div>
         </div>
-        
+
         <div class="bg-primary pic">
-            <img src="{{Patient.picture}}" alt="Photo du patient"> 
+            <img src="{{Patient.picture}}" alt="Photo du patient">
         </div>
-        
+
         <button type="submit" class="btn btn-primary btnchoose" [routerLink]="['/configuration']"> Choisir la configuration</button>
         <button type="submit" class="button-back" [routerLink]="['/profil-list']"> RETOUR </button>
 
