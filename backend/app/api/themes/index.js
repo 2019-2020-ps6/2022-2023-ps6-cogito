@@ -2,7 +2,7 @@ const { Router } = require('express')
 
 const { Theme } = require('../../models')
 const manageAllErrors = require('../../utils/routes/error-management')
-const QuizzesRouter = require('./quizzes')
+const QuizzesRouter = require('../quizzes')
 const { buildTheme, buildThemes } = require('./manager')
 
 const router = new Router()
