@@ -45,10 +45,16 @@ router.post('/', (req, res) => {
 
 router.put('/:questionId', (req, res) => {
   try {
-    const question = getQuestionFromQuiz(req.params.quizId, req.params.questionId)
-    const updatedQuestion = Question.update(req.params.questionId, { label: req.body.label, quizId: question.quizId })
-    res.status(200).json(updatedQuestion)
+    const quiz = Quiz.getById(req.params.quizId)
+    const question = Question.getById(req.params.questionId)
+    console.log(typeof quiz.questionList[0], typeof req.params.questionId, question.id)
+    if(!quiz.questionList.includes(question.id)) manageAllErrors(res, {name: "NotFoundError"})
+    else {
+      Question.update(req.params.questionId, req.body)
+      res.status(200).json(quiz)
+    }
   } catch (err) {
+    console.log(err);
     manageAllErrors(res, err)
   }
 })

@@ -35,6 +35,7 @@ const getQuestionFromQuiz = (quizId, questionId) => {
   return question
 }
 
+
 module.exports = {
   filterQuestionsFromQuizz,
   getQuestionFromQuiz,
