@@ -1,27 +1,27 @@
 const { Router } = require('express')
 
-const { Configuration } = require('../../../models')
-const manageAllErrors = require('../../../utils/routes/error-management')
+const { Configuration } = require('../../models')
+const manageAllErrors = require('../../utils/routes/error-management')
 
 
 const router = new Router({ mergeParams: true })
 
-router.get('/', (res) => {
+router.get('/', (req, res) => {
+    console.log(Configuration.get())
     try {
         res.status(200).json(Configuration.get())
     } catch (err) {
+        console.log(err)
         manageAllErrors(res, err)
     }
 })
 
-router.get('/:configurationName', (req, res) => {
+router.get('/:configurationId', (req, res) => {
     try {
-        console.log(req.params.configurationName)
-        res.status(200).json(Configuration.getById(req.params.configurationName))
+        res.status(200).json(Configuration.getById(req.params.configurationId))
     } catch (err) {
         manageAllErrors(res, err)
     }
-    
 })
 
 router.post('/', (req, res) => {
@@ -34,19 +34,17 @@ router.post('/', (req, res) => {
     }
 })
 
-router.put('/:configurationName', (req, res) => {
+router.put('/:configurationId', (req, res) => {
     try {
-        console.log(req.params.configurationName)
-        res.status(200).json(Configuration.update(req.params.configurationName, req.body))
+        res.status(200).json(Configuration.update(req.params.configurationId, req.body))
     } catch (err) {
         manageAllErrors(res, err)
     }
 })
 
-router.delete('/:configurationName', (req, res) => {
+router.delete('/:configurationId', (req, res) => {
     try {
-        console.log(req.params.configurationName)
-        Configuration.delete(req.params.configurationName)
+        Configuration.delete(req.params.configurationId)
         res.status(204).end()
     } catch (err) {
         manageAllErrors(res, err)
