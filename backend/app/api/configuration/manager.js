@@ -7,6 +7,7 @@ import { Configuration } from '../../models'
  */
 const buildConfiguration = (configurationName) => {
   const configuration = Configuration.getById(configurationName)
+  console.log(configuration)
   return  {...configuration}
 }
 
@@ -15,8 +16,9 @@ const buildConfiguration = (configurationName) => {
  * This function aggregates the questions and answers from the database to build entire quizzes.
  */
 const buildConfigurations = () => {
-  const configurations = Configuration.get()
-  return configurations.map((configuration) => buildQuizz(configuration.name))
+    const configurations = Configuration.get()
+    console.log(configurations)
+    return configurations.map((configuration) => buildQuizz(configuration.name))
 }
 
 export default {
