@@ -7,4 +7,7 @@ module.exports = new BaseModel('Patient', {
   birthdate: Joi.date().max('now').required(),
   stage: Joi.number().min(3).max(5).required(),
   picture: Joi.string().min(2).required(),
+  themeIdList: Joi.array().items(Joi.number()).required(),
+  quizIdList: Joi.array().items(Joi.number()).required(),
+  quizToPlayList: Joi.array().items(Joi.number()).required(),
 })
