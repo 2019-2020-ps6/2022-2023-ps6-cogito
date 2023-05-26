@@ -281,7 +281,11 @@ export class idList {
             }
             this.emptyGame();
             console.log("Game finished");
-            this.router.navigateByUrl("/patient-page");
+            if (this.selectedPatient.stage < 5) {
+                this.router.navigateByUrl("/quiz-page");
+            } else {
+                this.router.navigateByUrl("/patient-page");
+            }
         }
     }
 
