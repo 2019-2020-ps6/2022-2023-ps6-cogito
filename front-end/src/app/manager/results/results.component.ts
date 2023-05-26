@@ -1,7 +1,8 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
-import { Patient } from 'src/models/patient.model';
 import { PATIENT_ANDREA } from 'src/mocks/patient.mock';
 import { QUIZZES_ALL } from 'src/mocks/quiz.mock';
+import { Quiz } from "../../../models/quiz.model";
+import { Statistics } from "../../../models/statistics.model";
 
 
 @Component({
@@ -10,37 +11,30 @@ import { QUIZZES_ALL } from 'src/mocks/quiz.mock';
   styleUrls: ['./results.component.scss']
 })
 export class ResultsComponent implements OnInit{
-  Patient!: Patient;
-  quizList: any[] = [];
+  stats!: Statistics;
+  quizList: Quiz[] = [];
 
   constructor(private cdr: ChangeDetectorRef) {
-    this.Patient = PATIENT_ANDREA;
-    // je veux faire pareil mais avec la méthode getQuizById du service quiz
-    for (let quizId of this.Patient.quizIdList) {
-      let index: number = QUIZZES_ALL.findIndex((quiz: any): boolean => quiz.id === quizId);
-      if (index !== -1) {
-        this.quizList.push(QUIZZES_ALL[index]);
-      }
-    }
+    this.stats = PATIENT_ANDREA.statistics;
+
+    this.initQuizzes();
     console.log(this.quizList);
   }
 
-  deleteQuiz(quizId: number) {
-    let index: number = this.Patient.quizIdList.findIndex((id: number): boolean => id === quizId);
-    if (index !== -1) {
-      this.Patient.quizIdList.splice(index, 1);
-    }
+  initQuizzes() {
     this.quizList = [];
-    for (let quizId of this.Patient.quizIdList) {
-      let index: number = QUIZZES_ALL.findIndex((quiz: any): boolean => quiz.id === quizId);
-      if (index !== -1) {
-        this.quizList.push(QUIZZES_ALL[index]);
+    for (let quiz of QUIZZES_ALL) {
+      if (this.stats.playedQuizList.has(quiz.id)) {
+        this.quizList.push(quiz);
       }
     }
+  }
+
+  deleteQuiz(quizId: number) {
+    this.stats.playedQuizList.delete(quizId);
+    this.initQuizzes();
     this.cdr.detectChanges();
   }
 
-  ngOnInit() {
-  }
-
+  ngOnInit() { }
 }
