@@ -4,6 +4,7 @@ import { Quiz } from 'src/models/quiz.model';
 import { MediaType, Question } from 'src/models/question.model';
 import {QUIZZES_ALL} from 'src/mocks/quiz.mock';
 import {HttpClient} from '@angular/common/http';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -35,6 +36,7 @@ export class QuizService {
 
   selectQuizById(id: number): void {
     const urlWithId = '/' + id;
+    console.log("selectQuizById")
     this.http.get<Quiz>(urlWithId).subscribe((quiz) => {
       this.selectedQuiz=quiz;
       this.oldSelectedQuiz = JSON.parse(JSON.stringify(this.selectedQuiz)) as Quiz;

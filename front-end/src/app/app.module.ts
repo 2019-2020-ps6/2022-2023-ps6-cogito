@@ -38,6 +38,8 @@ import { GameResultComponent } from "./game/result/result.component";
 import { GameQuestionComponent } from "./game/question/question.component";
 import { ListThemeQuizPageComponent } from './manager/list-theme-quiz-page/list-theme-quiz-page.component';
 
+import { HttpClientModule } from '@angular/common/http';
+
 
 
 @NgModule({
@@ -79,7 +81,8 @@ import { ListThemeQuizPageComponent } from './manager/list-theme-quiz-page/list-
         BrowserModule,
         AppRoutingModule,
         FormsModule,
-        BrowserAnimationsModule
+        BrowserAnimationsModule,
+        HttpClientModule
     ],
     providers: [],
     bootstrap: [AppComponent]
