@@ -3,7 +3,7 @@ import { Observable, BehaviorSubject } from 'rxjs';
 import { Quiz } from 'src/models/quiz.model';
 import { MediaType, Question } from 'src/models/question.model';
 import {QUIZZES_ALL} from 'src/mocks/quiz.mock';
-
+import {HttpClient} from '@angular/common/http';
 @Injectable({
   providedIn: 'root'
 })
@@ -24,7 +24,7 @@ export class QuizService {
 
   private typeOfForm: string = "creation";
 
-  constructor() { 
+  constructor(private http: HttpClient) { 
     this.selectionQuizSubject.next(this.selectedQuiz as Quiz);
     this.selectionQuestionSubject.next(this.selectedQuestion as Question);
   }
@@ -34,9 +34,13 @@ export class QuizService {
   }
 
   selectQuizById(id: number): void {
-    this.selectedQuiz = this.quizList.find(quiz => quiz.id === id);
-    this.oldSelectedQuiz = JSON.parse(JSON.stringify(this.selectedQuiz)) as Quiz;
-    this.selectionQuizSubject?.next(this.selectedQuiz as Quiz);
+    const urlWithId = '/' + id;
+    this.http.get<Quiz>(urlWithId).subscribe((quiz) => {
+      this.selectedQuiz=quiz;
+      this.oldSelectedQuiz = JSON.parse(JSON.stringify(this.selectedQuiz)) as Quiz;
+      this.selectionQuizSubject?.next(this.selectedQuiz as Quiz);
+    });
+    
   }
 
   selectQuiz(quiz?: Quiz): void { 
