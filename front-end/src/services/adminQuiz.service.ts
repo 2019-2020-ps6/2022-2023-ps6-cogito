@@ -2,14 +2,13 @@ import { Injectable } from '@angular/core';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { Quiz } from 'src/models/quiz.model';
 import { MediaType, Question } from 'src/models/question.model';
-import {QUIZZES_ALL} from 'src/mocks/quiz.mock';
 import {HttpClient} from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class QuizService {
-  private quizList: Quiz[] = QUIZZES_ALL;
+  private quizList: Quiz[]=[];
 
   private selectedQuiz: Quiz | undefined;
   private selectionQuizSubject: BehaviorSubject<Quiz> = new BehaviorSubject<Quiz>({} as Quiz);
@@ -25,9 +24,14 @@ export class QuizService {
 
   private typeOfForm: string = "creation";
 
+  private urlApi: string = 'http://localhost:9428/api'
+
   constructor(private http: HttpClient) { 
-    this.selectionQuizSubject.next(this.selectedQuiz as Quiz);
-    this.selectionQuestionSubject.next(this.selectedQuestion as Question);
+    this.http.get<Quiz[]>(this.urlApi+'/quizzes').subscribe((quizzes)=> {
+      this.quizList=quizzes;
+      this.selectionQuizSubject.next(this.selectedQuiz as Quiz);
+      this.selectionQuestionSubject.next(this.selectedQuestion as Question);
+    })
   }
 
   getQuizList(): Observable<Quiz[]> {
@@ -35,7 +39,7 @@ export class QuizService {
   }
 
   selectQuizById(id: number): void {
-    const urlWithId = '/' + id;
+    const urlWithId = this.urlApi+'/quizzes/' + id;
     console.log("selectQuizById")
     this.http.get<Quiz>(urlWithId).subscribe((quiz) => {
       this.selectedQuiz=quiz;
