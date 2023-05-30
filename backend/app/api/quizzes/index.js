@@ -9,9 +9,11 @@ const router = new Router()
 
 router.get('/', (req, res) => {
   try {
+    console.log("get all quiz")
     const quizzes = buildQuizzes()
     res.status(200).json(quizzes)
   } catch (err) {
+    console.log(err)
     manageAllErrors(res, err)
   }
 })
