@@ -3,6 +3,7 @@ import { Observable, BehaviorSubject } from 'rxjs';
 import { Quiz } from 'src/models/quiz.model';
 import { MediaType, Question } from 'src/models/question.model';
 import {HttpClient} from '@angular/common/http';
+import { controllers } from 'chart.js';
 
 @Injectable({
   providedIn: 'root'
@@ -183,22 +184,23 @@ export class QuizService {
   updateQuizList(quiz: Quiz): void {
     if(quiz.title ==='')
       quiz.title = 'Nouveau quiz';
-    const index = this.quizList.findIndex(q => q.id === quiz.id);
-    if (index !== undefined && index >= 0) {
-      const updatedQuizList = [...this.quizList];
-      updatedQuizList[index] = quiz;
-      this.quizList = updatedQuizList;
+    if (quiz.id !== undefined && quiz.id >= 0) {
+      this.http.put<Quiz>(this.urlApi+'/quizzes/'+quiz.id,quiz).subscribe((q) => console.log('put'));
+      console.log("update quiz");
     }
     else {
       console.log(quiz);
-      this.quizList.push(quiz);
+      if (quiz.questionList===undefined)
+        quiz.questionList=[]
+      this.http.post<Quiz>(this.urlApi+'/quizzes/',quiz).subscribe((q) => console.log('post'));
     }
     this.quizListSubject.next(this.quizList);
   }
 
   removeQuiz(quiz: Quiz): void {
     const index = this.quizList.findIndex(q => q.id === quiz.id);
-    if (index !== undefined && index >= 0) {
+    if (quiz.id !== undefined && quiz.id >= 0) {
+      this.http.delete<Quiz>(this.urlApi+'/quizzes/'+quiz.id);
       const updatedQuizList = [...this.quizList];
       updatedQuizList.splice(index, 1);
       this.quizList = updatedQuizList;

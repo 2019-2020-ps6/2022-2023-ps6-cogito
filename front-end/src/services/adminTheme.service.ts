@@ -132,7 +132,7 @@ export class ThemeService {
     this.selectedTheme = {...this.selectedTheme, quizList: updatedQuizList} as Theme;
     this.selectionThemeSubject.next(this.selectedTheme as Theme);
     this.updateThemeList(this.selectedTheme);
-    this.quizService.updateQuizList(quiz);
+    //this.quizService.updateQuizList(quiz);
   }
 
   addTheme(theme: Theme): void {
