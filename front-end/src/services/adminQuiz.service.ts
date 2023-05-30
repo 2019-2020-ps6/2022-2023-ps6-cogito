@@ -28,19 +28,21 @@ export class QuizService {
 
   constructor(private http: HttpClient) { 
     this.http.get<Quiz[]>(this.urlApi+'/quizzes').subscribe((quizzes)=> {
+      console.log("quizzes", quizzes)
       this.quizList=quizzes;
-      this.selectionQuizSubject.next(this.selectedQuiz as Quiz);
-      this.selectionQuestionSubject.next(this.selectedQuestion as Question);
+      this.quizListSubject.next(this.quizList);
+      console.log("selectionQuizSubject", this.quizList)
     })
   }
 
   getQuizList(): Observable<Quiz[]> {
+    console.log("getQuizList", this.quizList);
     return this.quizListSubject.asObservable();
   }
 
   selectQuizById(id: number): void {
     const urlWithId = this.urlApi+'/quizzes/' + id;
-    console.log("selectQuizById")
+    console.log("urlWithId : " + urlWithId);
     this.http.get<Quiz>(urlWithId).subscribe((quiz) => {
       this.selectedQuiz=quiz;
       this.oldSelectedQuiz = JSON.parse(JSON.stringify(this.selectedQuiz)) as Quiz;

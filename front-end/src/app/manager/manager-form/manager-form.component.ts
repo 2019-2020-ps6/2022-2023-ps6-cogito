@@ -29,10 +29,11 @@ export class ManagerFormComponent implements OnInit{
   ngOnInit(): void {
 
     this.element = window.location.href.split('/')[3];
-    const elementId = +this.route.snapshot.params['id'];
+    const elementId = this.route.snapshot.params['id'];
     if(this.element){
       if(this.element == 'quiz-form'){
         // subscribe to quizService
+        console.log(elementId)
         this.quizService.selectQuizById(elementId);
         this.quizService.getSelectedQuiz().subscribe(quiz => {
           this.quiz = JSON.parse(JSON.stringify(quiz)) ;
