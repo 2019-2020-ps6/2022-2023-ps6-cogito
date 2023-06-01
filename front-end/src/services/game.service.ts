@@ -243,7 +243,7 @@ export class idList {
     }
 
     activeCorrWindow(): boolean {
-        return this.selectedPatient?.configuration.correctAnswerWindow||this.selectedPatient?.configuration.falseAnswerWindow||false;
+        return this.selectedPatient?.configuration.correctAnswerWindow||this.selectedPatient?.configuration.wrongAnswerWindow||false;
     }
 
     activeCorrTrueWindow(): boolean {
@@ -251,7 +251,7 @@ export class idList {
     }
 
     activeCorrFalseWindow(): boolean {
-        return this.selectedPatient?.configuration.falseAnswerWindow||false;
+        return this.selectedPatient?.configuration.wrongAnswerWindow||false;
     }
 
     getConfig(): Configuration|undefined {
