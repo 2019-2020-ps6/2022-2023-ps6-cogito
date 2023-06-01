@@ -6,6 +6,9 @@ const manageAllErrors = require('../../utils/routes/error-management')
 
 const router = new Router({ mergeParams: true })
 
+/**
+ * Get all configurations
+ */
 router.get('/', (req, res) => {
     console.log(Configuration.get())
     try {
@@ -16,6 +19,11 @@ router.get('/', (req, res) => {
     }
 })
 
+/**
+ * Get one configuration
+ * TODO : link when to click on the button "Choisir cette configuration"
+ * We need to apply the configuration to the game
+ */
 router.get('/:configurationId', (req, res) => {
     try {
         res.status(200).json(Configuration.getById(req.params.configurationId))
@@ -24,6 +32,11 @@ router.get('/:configurationId', (req, res) => {
     }
 })
 
+
+/**
+ * Create a configuration
+ * Done, it works
+*/
 router.post('/', (req, res) => {
     try {
         const configuration = Configuration.create({ ...req.body })
@@ -34,6 +47,9 @@ router.post('/', (req, res) => {
     }
 })
 
+/**
+ * Update one configuration
+ */
 router.put('/:configurationId', (req, res) => {
     try {
         res.status(200).json(Configuration.update(req.params.configurationId, req.body))
@@ -42,6 +58,11 @@ router.put('/:configurationId', (req, res) => {
     }
 })
 
+/**
+ * Delete one configuration
+ * Useless for the moment, we don't have anything to delete configurations ?
+ * Check if it could be really useful ?
+ */
 router.delete('/:configurationId', (req, res) => {
     try {
         Configuration.delete(req.params.configurationId)
