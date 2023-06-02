@@ -11,9 +11,6 @@ export interface Patient {
     statistics: Statistics;
     configuration: Configuration;
 
-    // quizResult: Map<number, number[]>;
-    // questionResult: Map<number, boolean[]>;
-
     themeIdList: number[];
     quizIdList: number[];
     quizToPlayList: number[];
