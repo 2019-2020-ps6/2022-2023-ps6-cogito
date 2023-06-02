@@ -7,11 +7,11 @@
                     <br>
                 </li> -->
             <div id="txt">
-                Nom : {{Patient.name}}
+                Nom : {{patient.name}}
                 <br>
-                Naissance : {{Patient.birthdate | date:"dd-MM-YYYY"}}
+                Naissance : {{patient.birthdate | date:"dd-MM-YYYY"}}
                 <br>
-                Stade approximatif : {{Patient.stage}}
+                Stade approximatif : {{patient.stage}}
             </div>
 
                 <div class="button-result-quiz d-flex flex-column align-items-center">
@@ -21,7 +21,7 @@
         </div>
 
         <div class="bg-primary pic">
-            <img src="{{Patient.picture}}" alt="Photo du patient">
+            <img src="{{patient.picture}}" alt="Photo du patient">
         </div>
 
         <button type="submit" class="btn btn-primary btnchoose" [routerLink]="['/configuration']"> Choisir la configuration</button>
