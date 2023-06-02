@@ -61,9 +61,6 @@ export class PatientService {
             },
             configuration: CONFIG_DEFAULT_3,
 
-            quizResult: new Map<number, number[]>(),
-            questionResult: new Map<number, boolean[]>(),
-
             themeIdList: [],
             quizIdList: [],
             quizToPlayList: [],
