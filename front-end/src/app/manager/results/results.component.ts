@@ -1,40 +1,53 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
-import { PATIENT_ANDREA } from 'src/mocks/patient.mock';
-import { QUIZZES_ALL } from 'src/mocks/quiz.mock';
+import { Component, OnInit, ChangeDetectorRef } from "@angular/core";
+import { PATIENT_ANDREA } from "src/mocks/patient.mock";
+import { QUIZZES_ALL } from "src/mocks/quiz.mock";
+import { Patient } from "../../../models/patient.model";
 import { Quiz } from "../../../models/quiz.model";
 import { Statistics } from "../../../models/statistics.model";
+import { PatientService } from "../../../services/patient.service";
 
 
 @Component({
-  selector: 'app-results',
-  templateUrl: './results.component.html',
-  styleUrls: ['./results.component.scss']
+    selector: "app-results",
+    templateUrl: "./results.component.html",
+    styleUrls: ["./results.component.scss"]
 })
-export class ResultsComponent implements OnInit{
-  stats!: Statistics;
-  quizList: Quiz[] = [];
+export class ResultsComponent implements OnInit {
+    patient: Patient;
+    stats: Statistics;
+    quizList: Quiz[] = [];
 
-  constructor(private cdr: ChangeDetectorRef) {
-    this.stats = PATIENT_ANDREA.statistics;
+    constructor(private cdr: ChangeDetectorRef, private patientService: PatientService) {
+        this.patient = PATIENT_ANDREA;
+        this.stats = PATIENT_ANDREA.statistics;
 
-    this.initQuizzes();
-    console.log(this.quizList);
-  }
+        this.patientService.selectedPatient$.subscribe((patient?: Patient): void => {
+            if (patient !== undefined) {
+                this.patient = patient;
+                this.stats = patient.statistics;
+            }
+        });
 
-  initQuizzes() {
-    this.quizList = [];
-    for (let quiz of QUIZZES_ALL) {
-      if (this.stats.playedQuizList.has(quiz.id)) {
-        this.quizList.push(quiz);
-      }
+        this.initQuizzes();
     }
-  }
 
-  deleteQuiz(quizId: number) {
-    this.stats.playedQuizList.delete(quizId);
-    this.initQuizzes();
-    this.cdr.detectChanges();
-  }
+    ngOnInit(): void { }
 
-  ngOnInit() { }
+    initQuizzes() {
+        this.quizList = [];
+        for (let quiz of QUIZZES_ALL) {
+            if (this.stats.playedQuizList.has(quiz.id)) {
+                this.quizList.push(quiz);
+            }
+        }
+    }
+
+    deleteQuiz(quizId: number) {
+        let index = this.patient.quizIdList.findIndex(value => value === quizId);
+        if (index !== -1) {
+            this.patient.quizIdList.splice(index, 1);
+        }
+        this.initQuizzes();
+        this.cdr.detectChanges();
+    }
 }
