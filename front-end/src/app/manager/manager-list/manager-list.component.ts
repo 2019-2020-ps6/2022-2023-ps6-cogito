@@ -5,7 +5,6 @@ import { Quiz } from 'src/models/quiz.model';
 import { Theme } from 'src/models/theme.model';
 import { ThemeService } from 'src/services/adminTheme.service';
 import { QuizService } from 'src/services/adminQuiz.service';
-import { Location } from 'src/services/location.service';
 
 @Component({
   selector: 'app-manager-list',
