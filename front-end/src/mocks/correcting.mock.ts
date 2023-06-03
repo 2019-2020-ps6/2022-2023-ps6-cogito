@@ -44,7 +44,7 @@ export const CORR_QUESTION_RUGBY2: Correcting = {
 
 export const CORR_QUESTION_RUGBY3: Correcting = {
     id: 23,
-    description: "Le meilleur joueur de tous les temps est Richie McCaw",
+    description: "Le meilleur joueur de tous les temps est Jonah Lomu",
     picture: "https://www.rugbyworldcup.com/img/icons/flags/nzl.svg"
 };
 

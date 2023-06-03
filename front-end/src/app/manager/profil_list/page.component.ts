@@ -18,8 +18,10 @@ export class PatientPageListComponent implements OnInit {
     private size!: number;
 
     constructor(private patientService: PatientService, private router: Router) {
-        this.patientService.patientList$.subscribe((patientList: Patient[]): void => {
-            this.patientList = patientList;
+        this.patientService.patientList$.subscribe((patients: Patient[]): void => {
+            this.patientList = patients;
+            this.startDisplayInd = -1;
+            this.nextDisplayPatients();
         });
         this.maxMargin();
         this.currentSize();
@@ -45,7 +47,7 @@ export class PatientPageListComponent implements OnInit {
         return Math.max(1, Math.floor((window.innerWidth * 0.6) / this.size));
     }
 
-    numberColPatients(): number { 
+    numberColPatients(): number {
         if (window.innerWidth < 700) {
             return 1;
         }
@@ -53,6 +55,7 @@ export class PatientPageListComponent implements OnInit {
     }
 
     ngOnInit(): void {
+        this.startDisplayInd = -1;
         this.nextDisplayPatients();
     }
 
@@ -97,12 +100,7 @@ export class PatientPageListComponent implements OnInit {
 
     selectPatient(patient: Patient): void {
         this.patientService.selectPatient(patient);
-        let stage: number = patient.stage;
         this.router.navigateByUrl("/profil");
-    }
-
-    createNewPatient(): void {
-        this.patientService.createNewPatient();
     }
 
     refreshList(): void {

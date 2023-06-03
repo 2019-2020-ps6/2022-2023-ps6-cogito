@@ -2,7 +2,6 @@ import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 
 import { Patient } from "src/models/patient.model";
-import { PatientPageListComponent } from "../profil_list/page.component";
 import { PatientService } from "src/services/patient.service";
 
 
@@ -12,41 +11,32 @@ import { PatientService } from "src/services/patient.service";
     styleUrls: ["./page.component.scss"]
 })
 export class CreationPatientComponent implements OnInit {
-    patient?: Patient;
-    originalpatient?: Patient;
-    private patientList!: Patient[];
+    patientToCreate = {
+        name: "",
+        birthdate: "",
+        stage: 0,
+        picture: "",
+        themeIdList: [],
+        quizIdList: [],
+        quizToPlayList: []
+    };
+    data: string = "";
+    maxDate: Date = new Date();
 
-    data: any;
+    constructor(private patientService: PatientService, private router: Router, private route: ActivatedRoute) { }
 
-
-    constructor(private patientService: PatientService, private router: Router, private route: ActivatedRoute) {
-    }
-    
     ngOnInit(): void {
-        this.patientService.patientList$.subscribe((patientList: Patient[]): void => {
-            this.patientList = patientList;
-        });
-        this.patientService.selectedPatient$.subscribe((patient?: Patient): void => {
-            if (patient !== undefined) {
-                this.patient = patient;
-                this.originalpatient = JSON.parse(JSON.stringify(patient));
-            }
-        }
-        );
+        this.maxDate = new Date();
         this.data = this.route.snapshot.data['title'];
     }
 
-
     savePatient(): void {
-        if(!this.checkPatientValidity()){
-            console.log("Question is not valid");
-        }
-        else {
-            this.patientService.addPatient(this.patient as Patient);
-        }
+        this.patientToCreate.stage = Number.parseInt(this.patientToCreate.stage.toString());
+        this.patientService.addPatient(this.patientToCreate);
+        this.router.navigateByUrl("/profil-list");
     }
 
     checkPatientValidity(): boolean {
-        return this.patient?.name !== "" && this.patient?.age !== undefined && this.patient?.stage !== undefined && this.patient?.quizIdList !== undefined;
-    }  
+        return this.patientToCreate.name !== "" && this.patientToCreate.birthdate !== "" && this.patientToCreate.stage > 0;
+    }
 }
