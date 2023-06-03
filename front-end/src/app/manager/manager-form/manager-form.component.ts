@@ -66,6 +66,8 @@ export class ManagerFormComponent implements OnInit{
       }
       else if(this.element === 'theme-form'){
         // subscribe to themeService
+        console.log("LOOOOOOOOOK",this.theme);
+        this.themeService.addTheme(this.theme as Theme);
         this.themeService.updateThemeList(this.theme as Theme);
         this.themeService.deselectTheme();
       }

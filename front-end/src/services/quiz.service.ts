@@ -51,7 +51,7 @@ export class QuizService {
 
             function patientQuizList(patient: Patient, theme: Theme): Quiz[] {
                 let quizList: Quiz[] = [];
-                let themeQuizzes: Quiz[] = theme.quizList;
+                let themeQuizzes: Quiz[] = theme.quizzesList;
 
                 for (let quizId of patient.quizIdList) {
                     let index: number = themeQuizzes.findIndex((quiz: Quiz): boolean => quiz.id === quizId);
