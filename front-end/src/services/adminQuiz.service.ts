@@ -4,6 +4,7 @@ import { Quiz } from 'src/models/quiz.model';
 import { MediaType, Question } from 'src/models/question.model';
 import {HttpClient} from '@angular/common/http';
 import { controllers } from 'chart.js';
+import { environment } from '../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -25,7 +26,7 @@ export class QuizService {
 
   private typeOfForm: string = "creation";
 
-  private urlApi: string = 'http://localhost:9428/api'
+  private urlApi: string = environment.apiUrl;
 
   constructor(private http: HttpClient) { 
     this.http.get<Quiz[]>(this.urlApi+'/quizzes').subscribe((quizzes)=> {
@@ -219,6 +220,15 @@ export class QuizService {
       this.selectionQuizSubject.next(this.selectedQuiz as Quiz);
       this.updateQuizList(this.selectedQuiz as Quiz);
     }
+  }
+
+
+  getAllQuestionsOfAQuiz(quiz : Quiz){
+    console.log(quiz);
+    const url = `${this.urlApi}/questions/quiz/${quiz.id}`;
+    const questions = this.http.get<Question[]>(url);
+    console.log(questions);
+    return questions ;
   }
 
 }

@@ -12,13 +12,19 @@ import { QuizService } from "src/services/adminQuiz.service";
 export class QuestionsListComponent implements OnInit {
     public quiz?: Quiz;
 
+    public questions?: Question[] = [];
+
     constructor(private quizService: QuizService) {}
 
-    ngOnInit(): void {
+        ngOnInit(): void {
         this.quizService.getSelectedQuiz().subscribe(quiz => {
-            this.quiz = quiz;
+          this.quiz = quiz;
+          this.quizService.getAllQuestionsOfAQuiz(this.quiz).subscribe(questions => {
+            this.questions = questions;
+          });
         });
-    }
+      }
+
 
     editQuestion(question: Question): void {
         this.quizService.selectQuestion(question);
