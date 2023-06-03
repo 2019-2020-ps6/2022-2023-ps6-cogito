@@ -2,6 +2,7 @@ import { Component } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import { PATIENT_ANDREA } from "src/mocks/patient.mock";
 import { QUIZZES_ALL } from "src/mocks/quiz.mock";
+import { STAT_GOOD_3 } from "../../../mocks/statistics.mock";
 import { GameQuestion } from "../../../models/gameQuestion.model";
 import { GameQuiz } from "../../../models/gameQuiz.model";
 import { Patient } from "../../../models/patient.model";
@@ -15,7 +16,7 @@ import { PatientService } from "../../../services/patient.service";
 })
 export class ResultQuestionComponent {
     id: number = -1;
-    stats: Statistics = PATIENT_ANDREA.statistics;
+    stats: Statistics = STAT_GOOD_3;
     questionStats: GameQuestion[] = [];
     compteur: number;
     quiztitle: string = "";
@@ -26,7 +27,7 @@ export class ResultQuestionComponent {
         this.compteur = 0;
         this.patientService.selectedPatient$.subscribe((patient?: Patient): void => {
             if (patient !== undefined) {
-                this.stats = patient.statistics;
+                this.stats = STAT_GOOD_3;
             }
         });
     }

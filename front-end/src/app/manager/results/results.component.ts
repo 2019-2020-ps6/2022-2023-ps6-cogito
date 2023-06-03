@@ -1,6 +1,7 @@
 import { Component, OnInit, ChangeDetectorRef } from "@angular/core";
 import { PATIENT_ANDREA } from "src/mocks/patient.mock";
 import { QUIZZES_ALL } from "src/mocks/quiz.mock";
+import { STAT_GOOD_3 } from "../../../mocks/statistics.mock";
 import { Patient } from "../../../models/patient.model";
 import { Quiz } from "../../../models/quiz.model";
 import { Statistics } from "../../../models/statistics.model";
@@ -19,12 +20,12 @@ export class ResultsComponent implements OnInit {
 
     constructor(private cdr: ChangeDetectorRef, private patientService: PatientService) {
         this.patient = PATIENT_ANDREA;
-        this.stats = PATIENT_ANDREA.statistics;
+        this.stats = STAT_GOOD_3;
 
         this.patientService.selectedPatient$.subscribe((patient?: Patient): void => {
             if (patient !== undefined) {
                 this.patient = patient;
-                this.stats = patient.statistics;
+                this.stats = STAT_GOOD_3;
             }
         });
 

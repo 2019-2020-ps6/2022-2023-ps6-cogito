@@ -3,6 +3,7 @@ import { ActivatedRoute } from "@angular/router";
 import { QUIZZES_ALL } from "src/mocks/quiz.mock";
 import { Chart } from "chart.js/auto";
 import { PATIENT_ANDREA } from "../../../mocks/patient.mock";
+import { STAT_GOOD_3 } from "../../../mocks/statistics.mock";
 import { GameQuiz } from "../../../models/gameQuiz.model";
 import { Patient } from "../../../models/patient.model";
 import { Statistics } from "../../../models/statistics.model";
@@ -23,12 +24,12 @@ export class ResultQuizComponent implements OnInit {
 
     constructor(private route: ActivatedRoute, private patientService: PatientService) {
         this.patient = PATIENT_ANDREA;
-        this.stats = PATIENT_ANDREA.statistics;
+        this.stats = STAT_GOOD_3;
 
         this.patientService.selectedPatient$.subscribe((patient?: Patient): void => {
             if (patient !== undefined) {
                 this.patient = patient;
-                this.stats = patient.statistics;
+                this.stats = STAT_GOOD_3;
             }
         });
     }
