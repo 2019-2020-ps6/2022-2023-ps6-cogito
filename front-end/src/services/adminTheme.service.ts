@@ -64,7 +64,11 @@ export class ThemeService {
 
 
   selectThemeById(id: number): void {
+    console.log("selectThemeById");
+    console.log(id);
+    console.log(this.themeList);
     this.selectedTheme = this.themeList.find(quiz => quiz.id === id);
+    console.log(this.selectedTheme);
     this.oldSelectionTheme = JSON.parse(JSON.stringify(this.selectedTheme)) as Theme;
     this.selectionThemeSubject?.next(this.selectedTheme as Theme);
   }
@@ -140,15 +144,13 @@ export class ThemeService {
   }
 
   addTheme(theme: Theme): void {
+    if(theme.title === '')
+    theme.title = 'Nouveau thème';  
     this.addThemeB(theme);
-    const updatedThemeList = [...this.themeList];
-    updatedThemeList.push(theme);
-    this.themeList = updatedThemeList;
-    this.themeListSubject.next(this.themeList);
+    console.log("AEFZEFGZEFE",this.themeList);
   }
 
   addThemeB(theme: {}): void {
-    console.log("addThemeB",theme);
     const urlWithId = serverUrl + "/themes/";
     this.http.post<Theme>(urlWithId, theme, httpOptionsBase).subscribe(() =>
         this.retrieveThemeList()
@@ -172,16 +174,17 @@ export class ThemeService {
   }
 
   updateThemeList(theme: Theme): void {
+    console.log("updateThemeList",this.themeList);
+    console.log("TEHME",theme);
+    console.log(this.themeList.includes(theme));
+
     if(theme.title === '')
       theme.title = 'Nouveau thème';
-    const index = this.themeList.findIndex(q => q.id === theme.id);
-    if (index !== undefined && index >= 0) {
-      const updatedThemeList = [...this.themeList];
-      updatedThemeList[index] = theme;
-      this.themeList = updatedThemeList;
+    if(this.themeList.includes(theme)){
+      this.updateTheme(theme);
     }
     else {
-      this.themeList.push(theme);
+      this.addThemeB(theme);
     }
     this.themeListSubject.next(this.themeList);
   }
@@ -222,8 +225,22 @@ export class ThemeService {
     this.addTheme(theme);
     this.selectTheme(theme);
     this.typeOfForm = "creation";
-    console.log(theme);
   }
+
+  updateTheme(theme: Theme) {
+    let index: number = this.themeList.findIndex(
+        (themeInList: Theme): boolean => themeInList.id === theme.id);
+    if (index !== -1) {
+      const urlWithId = serverUrl + "/themes/";
+      this.http.put<Theme>(urlWithId, theme, httpOptionsBase).subscribe(() =>
+      this.retrieveThemeList()
+  );
+        this.themeList.sort((a, b) => a.title.localeCompare(b.title));
+        this.themeListSubject.next(this.themeList);
+        console.log("Patient updated : ", theme.title);
+    }
+
+}
 
   deselectTheme(): void {
     this.selectedTheme = undefined;
@@ -232,8 +249,9 @@ export class ThemeService {
 
   retrieveThemeList(): void {
     const urlWithId = serverUrl + "/themes/";
-    this.http.get<Theme[]>(urlWithId).subscribe(themes => {
+    this.http.get<Theme[]>(urlWithId).subscribe(themes => {        
         this.themeList = themes;
+        this.themeListSubject.next(this.themeList);
     });
   }
 
