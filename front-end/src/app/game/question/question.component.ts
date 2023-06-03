@@ -44,7 +44,7 @@ export class GameQuestionComponent {
             this.imageUrl="./assets/pictures/audio-on.png"
         }
     }
-    
+
     setAudioOff(): void {
         this.gameService.stopSound();
         this.imageUrl="./assets/pictures/audio-off.png";
@@ -70,7 +70,6 @@ export class GameQuestionComponent {
                 console.log(this.hintIsShow)
                 this.hintIsShow = true;
             }
-            console.log(this.gameService.finalScore())
         }
     }
 }

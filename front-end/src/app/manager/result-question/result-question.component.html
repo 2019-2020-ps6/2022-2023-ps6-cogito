@@ -1,12 +1,13 @@
 <body>
         <p>Résultat du dernier essai du quiz : {{this.quiztitle}}  </p>
         <br> <br>
-        <div id="boucle" *ngFor="let result of this.questionStats; let i = index" [ngStyle]="getStyle(result)">
-            Question {{i + 1}} : {{result}} 
-            <br> 
+        <div id="boucle" *ngFor="let result of questionStats;"
+             [ngStyle]="getStyle(result)">
+            {{result.title}} : {{(result.selectedAnswer?.isCorrect) ? "Vrai" : "Faux"}}
+            <br>
             <br>
         </div>
         <p id="message"> {{this.printMessage}} </p>
     <button type="submit" class="button-back" [routerLink]="['/results']" > RETOUR </button>
 
- </body>    
+ </body>

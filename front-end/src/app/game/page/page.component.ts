@@ -42,13 +42,6 @@ export class GamePageComponent {
         }
     }
 
-    finishGame(): void {
-        this.lastQuestion = false;
-        this.gameService.stopSound();
-        console.log(this.gameService.finalScore());
-        this.gameService.finishGame();
-    }
-
     leavePage(): void {
         this.gameService.stopSound();
         this.gameService.leaveGame();

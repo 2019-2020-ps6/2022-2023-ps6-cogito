@@ -5,7 +5,6 @@ import { Quiz } from 'src/models/quiz.model';
 import { Theme } from 'src/models/theme.model';
 import { QuizService } from 'src/services/adminQuiz.service';
 import { ThemeService } from 'src/services/adminTheme.service';
-import { Location } from '@angular/common';
 
 
 @Component({
@@ -22,9 +21,7 @@ export class ManagerFormComponent implements OnInit{
   public theme : Theme | undefined;
 
   public selectedOption : string | undefined = 'general';
-
-  public previousRoute : string | undefined;
-  constructor(private quizService: QuizService,private themeService: ThemeService, private route: ActivatedRoute, private location: Location ) { }
+  constructor(private quizService: QuizService,private themeService: ThemeService, private route: ActivatedRoute ) { }
 
   ngOnInit(): void {
 
