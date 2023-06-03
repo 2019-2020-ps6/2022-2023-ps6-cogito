@@ -19,14 +19,13 @@ export class PatientPageComponent implements OnInit {
     private nbDisplayPatients: number = 0;
     private margin!: number;
     private size!: number;
-    configurationService: any;
 
-    constructor(private patientService: PatientService, private router: Router, configurationService: ConfigurationService) {
-        this.patientService.patientList$.subscribe((patientList: Patient[]): void => {
-            this.patientList = patientList;
+    constructor(private patientService: PatientService, private router: Router, private configurationService: ConfigurationService) {
+        this.patientService.patientList$.subscribe((patients: Patient[]): void => {
+            this.patientList = patients;
+            this.startDisplayInd = -1;
             this.nextDisplayPatients();
         });
-        this.configurationService = configurationService;
         this.maxMargin();
         this.currentSize();
         this.nbDisplayPatients = this.numberRowPatients() * this.numberColPatients();
@@ -59,6 +58,7 @@ export class PatientPageComponent implements OnInit {
     }
 
     ngOnInit(): void {
+        this.startDisplayInd = -1;
         this.nextDisplayPatients();
         this.configurationService.setGlobalFont(CONFIG_DEFAULT_3.fontFamily);
         this.configurationService.setGlobalSize(CONFIG_DEFAULT_3.fontSize);
