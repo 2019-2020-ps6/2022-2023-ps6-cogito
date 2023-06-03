@@ -1,11 +1,7 @@
-import { Configuration } from "./configuration.model";
-import { Quiz } from "./quiz.model";
-import { Statistics } from "./statistics.model";
-
 export interface Patient {
     id: number;
     name: string;
-    birthdate: Date;
+    birthdate: string;
     stage: number;
     picture: string;
 
