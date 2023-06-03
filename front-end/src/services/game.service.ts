@@ -1,8 +1,10 @@
 import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
 import { BehaviorSubject } from "rxjs";
+import { CONFIG_DEFAULT_3 } from "../mocks/configuration.mock";
 
 import { QUIZZES_ALL } from "../mocks/quiz.mock";
+import { STAT_GOOD_3 } from "../mocks/statistics.mock";
 import { Answer } from "../models/answer.model";
 import { Configuration } from "../models/configuration.model";
 import { GameQuestion } from "../models/gameQuestion.model";
@@ -56,7 +58,7 @@ export class idList {
                 if (this.gameQuiz == undefined || this.gameQuiz.quizId !== quiz.id) {
                     this.emptyGame();
                     this.gameQuizInit(quiz.id);
-                    this.getQuestionsList(this.selectedPatient.configuration, quiz);
+                    this.getQuestionsList(CONFIG_DEFAULT_3, quiz); // change by back-end config
                     this.nextQuestion();
                 }
             }
@@ -246,27 +248,26 @@ export class idList {
     }
 
     activeCorrWindow(): boolean {
-        return this.selectedPatient?.configuration.correctAnswerWindow || this.selectedPatient?.configuration.falseAnswerWindow || false;
+        return CONFIG_DEFAULT_3.correctAnswerWindow || CONFIG_DEFAULT_3.falseAnswerWindow || false;
     }
 
     activeCorrTrueWindow(): boolean {
-        return this.selectedPatient?.configuration.correctAnswerWindow || false;
+        return CONFIG_DEFAULT_3.correctAnswerWindow || false;
     }
 
     activeCorrFalseWindow(): boolean {
-        return this.selectedPatient?.configuration.falseAnswerWindow || false;
+        return CONFIG_DEFAULT_3.falseAnswerWindow || false;
     }
 
     getConfig(): Configuration | undefined {
-        return this.selectedPatient?.configuration || undefined;
+        return CONFIG_DEFAULT_3 || undefined;
     }
 
     finishGame(): void {
         if (this.currentQuestion != undefined && this.gameQuiz != undefined && this.selectedPatient != undefined) {
-            // this.gameQuiz.questionList.push(this.currentQuestion);
             this.gameQuiz.endTime = new Date();
 
-            let stats: Statistics = this.selectedPatient.statistics;
+            let stats: Statistics = STAT_GOOD_3;
             if (stats.playedQuizList.has(this.gameQuiz.quizId)) {
                 // @ts-ignore
                 stats.playedQuizList.get(this.gameQuiz.quizId).push(this.gameQuiz);

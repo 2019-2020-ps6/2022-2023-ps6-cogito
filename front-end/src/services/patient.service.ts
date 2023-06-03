@@ -54,12 +54,6 @@ export class PatientService {
             birthdate: new Date(),
             stage: 0,
             picture: "",
-            statistics: {
-                id: -1,
-                // playedQuizList as a void Map<number, GameQuiz[]>
-                playedQuizList: new Map<number, GameQuiz[]>(),
-            },
-            configuration: CONFIG_DEFAULT_3,
 
             themeIdList: [],
             quizIdList: [],
