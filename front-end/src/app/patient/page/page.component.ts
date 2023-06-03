@@ -24,6 +24,7 @@ export class PatientPageComponent implements OnInit {
     constructor(private patientService: PatientService, private router: Router, configurationService: ConfigurationService) {
         this.patientService.patientList$.subscribe((patientList: Patient[]): void => {
             this.patientList = patientList;
+            this.nextDisplayPatients();
         });
         this.configurationService = configurationService;
         this.maxMargin();
@@ -61,7 +62,6 @@ export class PatientPageComponent implements OnInit {
         this.nextDisplayPatients();
         this.configurationService.setGlobalFont(CONFIG_DEFAULT_3.fontFamily);
         this.configurationService.setGlobalSize(CONFIG_DEFAULT_3.fontSize);
-        console.log("PatientPageComponent");
     }
 
     @HostListener("window:resize")
