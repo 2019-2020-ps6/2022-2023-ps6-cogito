@@ -8,8 +8,6 @@ export interface Patient {
     birthdate: Date;
     stage: number;
     picture: string;
-    statistics: Statistics;
-    configuration: Configuration;
 
     themeIdList: number[];
     quizIdList: number[];
