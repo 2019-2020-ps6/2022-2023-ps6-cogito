@@ -34,14 +34,18 @@ export class ThemeService {
         console.log("Theme selected : ", theme.title);
     }
 
-    retrievePatientThemes(patient:Patient): BehaviorSubject<Theme[]> {
+    retrievePThemes(patient:Patient): void {
         const urlWithId = serverUrl + "/themes/patient/" + patient.id.toString();
+        let themesT: Theme[] = [];
         this.http.get<Theme[]>(urlWithId).subscribe(themes => {
             themes.sort((a, b) => a.title.localeCompare(b.title));
             this.themeList = themes;
             this.themeList$.next(themes);
-            console.log("Themes retrieved : ", themes);
         });
+    }
+
+    retrievePatientThemes(patient:Patient): BehaviorSubject<Theme[]> {
+        this.retrievePThemes(patient);
         return this.themeList$;
     }
 }
