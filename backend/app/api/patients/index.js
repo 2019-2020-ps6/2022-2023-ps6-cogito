@@ -47,6 +47,4 @@ router.delete('/:patientId', (req, res) => {
   }
 })
 
-router.use('/:patientId/statistics', StatisticsRouter)
-
 module.exports = router
