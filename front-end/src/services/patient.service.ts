@@ -59,10 +59,5 @@ export class PatientService {
             this.patientList$.next(this.patientList);
             console.log("Patient updated : ", patient.name);
         }
-
-    }
-
-    getSelectedPatient(): BehaviorSubject<Patient | undefined> {
-        return this.selectedPatient$;
     }
 }
