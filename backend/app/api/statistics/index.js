@@ -32,4 +32,13 @@ router.post('/', (req, res) => {
   }
 })
 
+router.delete('/:statisticId', (req, res) => {
+  try {
+    Statistic.delete(req.params.statisticId)
+    res.status(204).end()
+  } catch (err) {
+    manageAllErrors(res, err)
+  }
+})
+
 module.exports = router
