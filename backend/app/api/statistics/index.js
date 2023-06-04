@@ -32,6 +32,14 @@ router.post('/', (req, res) => {
   }
 })
 
+router.put('/:statisticId', (req, res) => {
+  try {
+    res.status(200).json(Statistic.update(req.params.statisticId, req.body))
+  } catch (err) {
+    manageAllErrors(res, err)
+  }
+})
+
 router.delete('/:statisticId', (req, res) => {
   try {
     Statistic.delete(req.params.statisticId)
