@@ -40,6 +40,7 @@ export class PatientService {
         this.http.post<Patient>(this.patientURL, patient, httpOptionsBase).subscribe(patient => {
             this.retrievePatients();
             this.selectedPatient$.next(patient);
+            console.log("Patient added : ", patient);
         });
     }
 

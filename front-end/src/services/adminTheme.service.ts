@@ -15,6 +15,8 @@ export class ThemeService {
 
   private selectedTheme: Theme | undefined;
   private selectionThemeSubject: BehaviorSubject<Theme> = new BehaviorSubject<Theme>({} as Theme);
+  private themeAdded$: BehaviorSubject<Theme> = new BehaviorSubject<Theme>({} as Theme);
+
   private oldSelectionTheme: Theme | undefined;
 
   private selectedQuiz: Quiz | undefined;
@@ -144,17 +146,19 @@ export class ThemeService {
   }
 
   addTheme(theme: Theme): void {
-    if(theme.title === '')
-    theme.title = 'Nouveau thème';  
+    if(theme.title === ""){
+      theme.title = "NOUVEAU"
+    }
     this.addThemeB(theme);
-    console.log("AEFZEFGZEFE",this.themeList);
   }
 
   addThemeB(theme: {}): void {
     const urlWithId = serverUrl + "/themes/";
-    this.http.post<Theme>(urlWithId, theme, httpOptionsBase).subscribe(() =>
-        this.retrieveThemeList()
-    );
+    this.http.post<Theme>(urlWithId, theme, httpOptionsBase).subscribe(themeb => {
+        this.retrieveThemeList();
+        this.themeAdded$.next(themeb);
+        this.selectionThemeSubject.next(themeb);
+    });
 }
 
   createAndSelectNewQuiz(): void {
@@ -174,13 +178,10 @@ export class ThemeService {
   }
 
   updateThemeList(theme: Theme): void {
-    console.log("updateThemeList",this.themeList);
-    console.log("TEHME",theme);
-    console.log(this.themeList.includes(theme));
-
+    let themeIndex = this.themeList[this.themeList.findIndex(q => q.id === theme.id)];
     if(theme.title === '')
       theme.title = 'Nouveau thème';
-    if(this.themeList.includes(theme)){
+    if(themeIndex.id === theme.id){
       this.updateTheme(theme);
     }
     else {
@@ -206,38 +207,31 @@ export class ThemeService {
     }
   }
 
-  getIdOfNewTheme(): number{
-    let id = 0;
-    this.themeList?.forEach(theme => {
-      if(theme.id > id){
-        id = theme.id;
-      }
-    });
-    //console.log(id + 1);
-    return id + 1;
-  }
-
-  createAndSelectNewTheme(): void {
+  createAndSelectNewTheme(): number {
     const theme = {} as Theme;
-    theme.id = this.getIdOfNewTheme();
     theme.title = "";
     theme.quizzesList = [];
     this.addTheme(theme);
-    this.selectTheme(theme);
     this.typeOfForm = "creation";
+    return this.getIdOfNewTheme();
+  }
+
+  getIdOfNewTheme(): number{
+    console.log(this.themeAdded$.getValue().id);
+    return this.themeAdded$.getValue().id;
   }
 
   updateTheme(theme: Theme) {
-    let index: number = this.themeList.findIndex(
-        (themeInList: Theme): boolean => themeInList.id === theme.id);
-    if (index !== -1) {
-      const urlWithId = serverUrl + "/themes/";
+    let index: string = this.themeList[this.themeList.findIndex(
+        (themeInList: Theme): boolean => themeInList.id === theme.id)].id.toString();
+    if (index !== "") {
+      const urlWithId = serverUrl + "/themes/"+index;
       this.http.put<Theme>(urlWithId, theme, httpOptionsBase).subscribe(() =>
       this.retrieveThemeList()
   );
         this.themeList.sort((a, b) => a.title.localeCompare(b.title));
         this.themeListSubject.next(this.themeList);
-        console.log("Patient updated : ", theme.title);
+        console.log("Patient updated : ", theme);
     }
 
 }
