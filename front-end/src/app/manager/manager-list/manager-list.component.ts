@@ -5,7 +5,6 @@ import { Quiz } from 'src/models/quiz.model';
 import { Theme } from 'src/models/theme.model';
 import { ThemeService } from 'src/services/adminTheme.service';
 import { QuizService } from 'src/services/adminQuiz.service';
-import { Location } from 'src/services/location.service';
 
 @Component({
   selector: 'app-manager-list',
@@ -35,7 +34,7 @@ export class ManagerListComponent implements OnInit{
 
   ngOnInit(): void {
     // check the url to know which element is selected
-    console.log(this.element, this.elementId);
+    //console.log(this.element, this.elementId);
 
     if(!this.element){ // if the element is not defined, it means that the list is displayed from the menu
       this.element = window.location.href.split('/')[3];
@@ -43,7 +42,7 @@ export class ManagerListComponent implements OnInit{
     }
 
     if(!this.elementId && this.elementId !== 0){ 
-      console.log("ici");
+      //console.log("ici");
       this.elementId = +this.route.snapshot.params['id'];
     }
 
@@ -54,7 +53,7 @@ export class ManagerListComponent implements OnInit{
           this.quizService.getQuizList().subscribe(quizList => {
             this.quizList = JSON.parse(JSON.stringify(quizList)) ;
             this.listToDisplay = this.quizList;
-            console.log(this.listToDisplay);
+            //console.log(this.listToDisplay);
           }
           );
         }
@@ -93,6 +92,7 @@ export class ManagerListComponent implements OnInit{
   }
 
   createNewElement() : void{
+    //console.log("create new element", this.themeService.getThemeList());
     if(this.element){
       if(this.element == 'quiz-list'){
         // subscribe to quizService
@@ -113,7 +113,7 @@ export class ManagerListComponent implements OnInit{
       }
       else if(this.element === 'theme-list'){
         // subscribe to themeService
-        return this.themeService.getIdOfNewTheme();
+        //return this.themeService.getIdOfNewTheme();
       }
     }
     return 0;

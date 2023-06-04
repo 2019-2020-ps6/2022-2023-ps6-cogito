@@ -3,6 +3,7 @@ import { Router } from "@angular/router";
 
 import { ThemeService } from "src/services/theme.service";
 import { Theme } from "src/models/theme.model";
+import { CONFIG_DEFAULT_3 } from "../../../mocks/configuration.mock";
 import { Patient } from "../../../models/patient.model";
 import { PatientService } from "../../../services/patient.service";
 
@@ -55,14 +56,15 @@ export class ThemePageComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.nextDisplayThemes();
-        this.patientService.getSelectedPatient().subscribe(patient => {
+        this.patientService.selectedPatient$.subscribe(patient => {
             this.patientSelected = patient;
-            document.documentElement.style.setProperty('--font-family', this.patientSelected?.configuration?.fontFamily as string);
-            document.documentElement.style.setProperty('--font-size', this.patientSelected?.configuration?.fontSize as number + "px");
-        }
-        );
-
+            document.documentElement.style.setProperty('--font-family', CONFIG_DEFAULT_3.fontFamily as string);
+            document.documentElement.style.setProperty('--font-size', CONFIG_DEFAULT_3.fontSize as number + "px");
+            this.themeService.retrievePatientThemes(this.patientSelected as Patient).subscribe((themes: Theme[]) => {
+                this.themeList = themes;
+            });
+        });
+        this.nextDisplayThemes();
     }
 
     @HostListener("window:resize")
@@ -79,6 +81,7 @@ export class ThemePageComponent implements OnInit {
     }
 
     nextDisplayThemes(): void {
+        console.log("Themes retrieved : ", this.themeList);
         if (this.startDisplayInd == -1 || (this.startDisplayInd + this.nbDisplayThemes > this.themeList.length)) {
             this.startDisplayInd = 0;
         }

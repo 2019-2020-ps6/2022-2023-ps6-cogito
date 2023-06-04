@@ -1,10 +1,11 @@
 import { NgModule } from "@angular/core";
 import { BrowserModule } from "@angular/platform-browser";
 import { FormsModule } from "@angular/forms";
-import { HttpClientModule} from "@angular/common/http";
-
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
+
 import { HeaderComponent } from "./header/header.component";
 import { HomePageComponent } from "./home-page/home-page.component";
 import { PatientPageComponent } from "./patient/page/page.component";
@@ -18,9 +19,6 @@ import { QuizComponent } from "./quiz/quiz/quiz.component";
 import { GamePageComponent } from "./game/page/page.component";
 import { QuestionsListComponent } from './questions/questions-list/questions-list.component';
 import { QuestionFormComponent } from './questions/question-form/question-form.component';
-
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
 import { MenuComponent } from './manager/menu/menu.component';
 import { ProfilComponent } from './manager/profil/profil.component';
 import { PatientPageListComponent } from "./manager/profil_list/page.component";

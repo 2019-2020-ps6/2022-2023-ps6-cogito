@@ -4,15 +4,21 @@ import { Quiz } from 'src/models/quiz.model';
 import { Theme } from 'src/models/theme.model';
 import {THEME_LIST} from 'src/mocks/theme.mock';
 import { QuizService } from './adminQuiz.service';
+import { serverUrl, httpOptionsBase } from "../configs/server.config";
+import { HttpClient } from '@angular/common/http';
+import { ActivatedRoute, Router } from "@angular/router";
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class ThemeService {
-  private themeList: Theme[] = THEME_LIST;
+  private themeList: Theme[] = [];
 
   private selectedTheme: Theme | undefined;
   private selectionThemeSubject: BehaviorSubject<Theme> = new BehaviorSubject<Theme>({} as Theme);
+  private themeAdded$: BehaviorSubject<Theme> = new BehaviorSubject<Theme>({} as Theme);
+
   private oldSelectionTheme: Theme | undefined;
 
   private selectedQuiz: Quiz | undefined;
@@ -25,9 +31,9 @@ export class ThemeService {
   private allQuizList: Quiz[] = [];
 
   // behaviourSubject of themeList
-  private themeListSubject: BehaviorSubject<Theme[]> = new BehaviorSubject<Theme[]>(this.themeList);
+  private themeListSubject: BehaviorSubject<Theme[]> = new BehaviorSubject<Theme[]>([] as Theme[]);
 
-  constructor(private quizService: QuizService) { 
+  constructor(private quizService: QuizService, private http: HttpClient,private router: Router, private route: ActivatedRoute) { 
     this.selectionThemeSubject.next(this.selectedTheme as Theme);
     this.quizService.getSelectedQuiz().subscribe((quiz: Quiz) => {
         this.selectedQuiz = quiz;
@@ -41,6 +47,8 @@ export class ThemeService {
   }
 
     getThemeList(): Observable<Theme[]> {
+        this.retrieveThemeList();
+        this.themeListSubject.next(this.themeList);
         return this.themeListSubject.asObservable();
     }
 
@@ -48,7 +56,7 @@ export class ThemeService {
         // return all the quiz from allQuizList which are in the theme with id = id
         let theme = this.themeList.find(theme => theme.id === id);
         let quizList: Quiz[] = [];
-        theme?.quizList.forEach(quiz => {
+        theme?.quizzesList.forEach(quiz => {
             let tmpQuiz = this.allQuizList.find(q => q.id === quiz.id);
             if(tmpQuiz !== undefined) {
                 quizList.push(tmpQuiz);
@@ -60,7 +68,11 @@ export class ThemeService {
 
 
   selectThemeById(id: number): void {
+    console.log("selectThemeById");
+    console.log(id);
+    console.log(this.themeList);
     this.selectedTheme = this.themeList.find(quiz => quiz.id === id);
+    console.log(this.selectedTheme);
     this.oldSelectionTheme = JSON.parse(JSON.stringify(this.selectedTheme)) as Theme;
     this.selectionThemeSubject?.next(this.selectedTheme as Theme);
   }
@@ -104,8 +116,8 @@ export class ThemeService {
     else{
       this.selectedTheme = JSON.parse(JSON.stringify(this.oldSelectionTheme)) as Theme;
       console.log(this.selectedTheme);
-      for(let i = 0; i < this.selectedTheme?.quizList.length; i++){
-        this.quizService.updateQuizList(this.selectedTheme?.quizList[i]);
+      for(let i = 0; i < this.selectedTheme?.quizzesList.length; i++){
+        this.quizService.updateQuizList(this.selectedTheme?.quizzesList[i]);
       }
       this.selectionThemeSubject.next(this.selectedTheme as Theme);
       this.updateThemeList(this.selectedTheme);
@@ -114,7 +126,7 @@ export class ThemeService {
   
   getIdOfNewQuiz(): number{
     let id = 0;
-    this.selectedTheme?.quizList?.forEach(quiz => {
+    this.selectedTheme?.quizzesList?.forEach(quiz => {
       if(quiz.id > id){
         id = quiz.id;
       }
@@ -127,20 +139,29 @@ export class ThemeService {
     add a quiz to selectedTheme
   */
   addQuiz(quiz: Quiz): void {
-    const updatedQuizList = [...this.selectedTheme?.quizList as Quiz[]];
+    const updatedQuizList = [...this.selectedTheme?.quizzesList as Quiz[]];
     updatedQuizList.push(quiz);
-    this.selectedTheme = {...this.selectedTheme, quizList: updatedQuizList} as Theme;
+    this.selectedTheme = {...this.selectedTheme, quizzesList: updatedQuizList} as Theme;
     this.selectionThemeSubject.next(this.selectedTheme as Theme);
     this.updateThemeList(this.selectedTheme);
     this.quizService.updateQuizList(quiz);
   }
 
   addTheme(theme: Theme): void {
-    const updatedThemeList = [...this.themeList];
-    updatedThemeList.push(theme);
-    this.themeList = updatedThemeList;
-    this.themeListSubject.next(this.themeList);
+    if(theme.title === ""){
+      theme.title = "NOUVEAU"
+    }
+    this.addThemeB(theme);
   }
+
+  addThemeB(theme: {}): void {
+    const urlWithId = serverUrl + "/themes/";
+    this.http.post<Theme>(urlWithId, theme, httpOptionsBase).subscribe(themeb => {
+        this.retrieveThemeList();
+        this.themeAdded$.next(themeb);
+        this.selectionThemeSubject.next(themeb);
+    });
+}
 
   createAndSelectNewQuiz(): void {
     const quiz = {} as Quiz;
@@ -159,16 +180,14 @@ export class ThemeService {
   }
 
   updateThemeList(theme: Theme): void {
+    let themeIndex = this.themeList[this.themeList.findIndex(q => q.id === theme.id)];
     if(theme.title === '')
       theme.title = 'Nouveau thème';
-    const index = this.themeList.findIndex(q => q.id === theme.id);
-    if (index !== undefined && index >= 0) {
-      const updatedThemeList = [...this.themeList];
-      updatedThemeList[index] = theme;
-      this.themeList = updatedThemeList;
+    if(themeIndex.id === theme.id){
+      this.updateTheme(theme);
     }
     else {
-      this.themeList.push(theme);
+      this.addThemeB(theme);
     }
     this.themeListSubject.next(this.themeList);
   }
@@ -177,48 +196,70 @@ export class ThemeService {
   removeTheme(theme: Theme): void {
     const index = this.themeList.findIndex(q => q.id === theme.id);
     if (index !== undefined && index >= 0) {
-      const updatedThemeList = [...this.themeList];
-      updatedThemeList.splice(index, 1);
-      this.themeList = updatedThemeList;
+      const urlWithId = serverUrl + "/themes/";
+        this.http.delete(urlWithId + theme.id).subscribe(() =>
+            this.retrieveThemeList()
+        );
+
       this.themeListSubject.next(this.themeList);
-      theme.quizList.forEach(quiz => {
+      theme.quizzesList.forEach(quiz => {
         this.quizService.removeQuiz(quiz);
       }
       );
     }
   }
 
-  getIdOfNewTheme(): number{
-    let id = 0;
-    this.themeList?.forEach(theme => {
-      if(theme.id > id){
-        id = theme.id;
-      }
-    });
-    console.log(id + 1);
-    return id + 1;
-  }
-
   createAndSelectNewTheme(): void {
     const theme = {} as Theme;
-    theme.id = this.getIdOfNewTheme();
     theme.title = "";
-    theme.quizList = [];
+    theme.quizzesList = [];
     this.addTheme(theme);
-    this.selectTheme(theme);
     this.typeOfForm = "creation";
-    console.log(theme);
+    this.getIdOfNewTheme();
   }
+
+  getIdOfNewTheme(): void{
+    console.log(this.themeList);
+    console.log(this.themeAdded$.getValue().id);
+    this.router.navigate(["/theme-form/"+ this.themeAdded$.getValue().id]);
+  }
+
+  updateTheme(theme: Theme) {
+    let index: string = this.themeList[this.themeList.findIndex(
+        (themeInList: Theme): boolean => themeInList.id === theme.id)].id.toString();
+    if (index !== "") {
+      const urlWithId = serverUrl + "/themes/"+index;
+      this.http.put<Theme>(urlWithId, theme, httpOptionsBase).subscribe(() =>
+      this.retrieveThemeList()
+  );
+        this.themeList.sort((a, b) => a.title.localeCompare(b.title));
+        this.themeListSubject.next(this.themeList);
+        console.log("Patient updated : ", theme);
+    }
+
+}
 
   deselectTheme(): void {
     this.selectedTheme = undefined;
     this.selectionThemeSubject.next(this.selectedTheme as unknown as Theme);
   }
 
+  retrieveThemeList(): void {
+    const urlWithId = serverUrl + "/themes/";
+    this.http.get<Theme[]>(urlWithId).subscribe(themes => {        
+        this.themeList = themes;
+        this.themeListSubject.next(this.themeList);
+    });
+  }
 
   findInWhichThemeIsQuiz(id: number): Theme | undefined{
-    let theme = this.themeList.find(theme => theme.quizList.find(q => q.id === id) !== undefined);
+    let theme = this.themeList.find(theme => theme.quizzesList.find(q => q.id === id) !== undefined);
     return theme;
   }
 
 }
+
+
+
+
+

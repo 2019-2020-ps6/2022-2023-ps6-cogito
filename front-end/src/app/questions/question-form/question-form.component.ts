@@ -33,8 +33,7 @@ export class QuestionFormComponent implements OnInit {
         });
         this.gameService.currentQuestion$.subscribe((question?: GameQuestion): void => {
             this.currentQuestion = question;
-        }
-        );
+        });
     }
 
     addAnswerToForm(): void {
@@ -104,11 +103,11 @@ export class QuestionFormComponent implements OnInit {
         this.corrDisplayed=false;
     }
 
-    corrAnswerWindow(question?:GameQuestion): void { 
+    corrAnswerWindow(question?:GameQuestion): void {
         if (question){
             this.lastAnswer=this.gameService.finalScore().get(question)||false;
             console.log(this.lastAnswer);
-                this.corrDisplayed=!this.corrDisplayed;  
+            this.corrDisplayed=!this.corrDisplayed;
         }
     }
 

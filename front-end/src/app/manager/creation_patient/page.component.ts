@@ -1,9 +1,8 @@
 import { Component, OnInit } from "@angular/core";
-import { ActivatedRoute, Router } from "@angular/router";
+import { Router } from "@angular/router";
 
-import { Patient } from "src/models/patient.model";
-import { PatientPageListComponent } from "../profil_list/page.component";
 import { PatientService } from "src/services/patient.service";
+import { Patient } from "../../../models/patient.model";
 
 
 @Component({
@@ -12,41 +11,54 @@ import { PatientService } from "src/services/patient.service";
     styleUrls: ["./page.component.scss"]
 })
 export class CreationPatientComponent implements OnInit {
-    patient?: Patient;
-    originalpatient?: Patient;
-    private patientList!: Patient[];
+    patientToCreate = {
+        name: "",
+        birthdate: "",
+        stage: 0,
+        picture: "",
+        themeIdList: [0],
+        quizIdList: [0],
+        quizToPlayList: [0]
+    };
+    patientToUpdate?: Patient;
+    create: boolean = false;
+    maxDate: Date = new Date();
 
-    data: any;
+    constructor(private patientService: PatientService, private router: Router) {
+        this.create = this.router.url.endsWith("/creation-patient-page");
+        this.patientToCreate.themeIdList = [];
+        this.patientToCreate.quizIdList = [];
+        this.patientToCreate.quizToPlayList = [];
 
-
-    constructor(private patientService: PatientService, private router: Router, private route: ActivatedRoute) {
+        if (!this.create) {
+            this.patientService.selectedPatient$.subscribe(patient => {
+                this.patientToUpdate = patient;
+            });
+        }
     }
-    
+
     ngOnInit(): void {
-        this.patientService.patientList$.subscribe((patientList: Patient[]): void => {
-            this.patientList = patientList;
-        });
-        this.patientService.selectedPatient$.subscribe((patient?: Patient): void => {
-            if (patient !== undefined) {
-                this.patient = patient;
-                this.originalpatient = JSON.parse(JSON.stringify(patient));
-            }
-        }
-        );
-        this.data = this.route.snapshot.data['title'];
+        this.maxDate = new Date();
     }
 
+    createPatient(): void {
+        this.patientToCreate.stage = Number.parseInt(this.patientToCreate.stage.toString());
+        this.patientService.addPatient(this.patientToCreate);
+        this.router.navigateByUrl("/profil");
+    }
 
-    savePatient(): void {
-        if(!this.checkPatientValidity()){
-            console.log("Question is not valid");
-        }
-        else {
-            this.patientService.addPatient(this.patient as Patient);
+    updatePatient(): void {
+        if (this.patientToUpdate) {
+            this.patientToUpdate.stage = Number.parseInt(this.patientToUpdate.stage.toString());
+            this.patientService.updatePatient(this.patientToUpdate);
+            this.router.navigateByUrl("/profil");
         }
     }
 
     checkPatientValidity(): boolean {
-        return this.patient?.name !== "" && this.patient?.age !== undefined && this.patient?.stage !== undefined && this.patient?.quizIdList !== undefined;
-    }  
+        if (this.patientToUpdate) {
+            return this.patientToUpdate.name !== "" && this.patientToUpdate.birthdate !== "" && this.patientToUpdate.stage > 0;
+        }
+        return this.patientToCreate.name !== "" && this.patientToCreate.birthdate !== "" && this.patientToCreate.stage > 0;
+    }
 }

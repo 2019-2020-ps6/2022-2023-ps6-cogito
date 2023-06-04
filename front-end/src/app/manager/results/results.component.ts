@@ -1,46 +1,54 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
-import { Patient } from 'src/models/patient.model';
-import { PATIENT_ANDREA } from 'src/mocks/patient.mock';
-import { QUIZZES_ALL } from 'src/mocks/quiz.mock';
+import { Component, OnInit, ChangeDetectorRef } from "@angular/core";
+import { PATIENT_ANDREA } from "src/mocks/patient.mock";
+import { QUIZZES_ALL } from "src/mocks/quiz.mock";
+import { STAT_GOOD_3 } from "../../../mocks/statistics.mock";
+import { Patient } from "../../../models/patient.model";
+import { Quiz } from "../../../models/quiz.model";
+import { Statistics } from "../../../models/statistics.model";
+import { PatientService } from "../../../services/patient.service";
 
 
 @Component({
-  selector: 'app-results',
-  templateUrl: './results.component.html',
-  styleUrls: ['./results.component.scss']
+    selector: "app-results",
+    templateUrl: "./results.component.html",
+    styleUrls: ["./results.component.scss"]
 })
-export class ResultsComponent implements OnInit{
-  Patient!: Patient;
-  quizList: any[] = [];
+export class ResultsComponent implements OnInit {
+    patient: Patient;
+    stats: Statistics;
+    quizList: Quiz[] = [];
 
-  constructor(private cdr: ChangeDetectorRef) {
-    this.Patient = PATIENT_ANDREA;
-    // je veux faire pareil mais avec la méthode getQuizById du service quiz
-    for (let quizId of this.Patient.quizIdList) {
-      let index: number = QUIZZES_ALL.findIndex((quiz: any): boolean => quiz.id === quizId);
-      if (index !== -1) {
-        this.quizList.push(QUIZZES_ALL[index]);
-      }
+    constructor(private cdr: ChangeDetectorRef, private patientService: PatientService) {
+        this.patient = PATIENT_ANDREA;
+        this.stats = STAT_GOOD_3;
+
+        this.patientService.selectedPatient$.subscribe((patient?: Patient): void => {
+            if (patient !== undefined) {
+                this.patient = patient;
+                this.stats = STAT_GOOD_3;
+            }
+        });
+
+        this.initQuizzes();
     }
-    console.log(this.quizList);
-  }
 
-  deleteQuiz(quizId: number) {
-    let index: number = this.Patient.quizIdList.findIndex((id: number): boolean => id === quizId);
-    if (index !== -1) {
-      this.Patient.quizIdList.splice(index, 1);
+    ngOnInit(): void { }
+
+    initQuizzes() {
+        this.quizList = [];
+        for (let quiz of QUIZZES_ALL) {
+            if (this.stats.playedQuizList.has(quiz.id)) {
+                this.quizList.push(quiz);
+            }
+        }
     }
-    this.quizList = [];
-    for (let quizId of this.Patient.quizIdList) {
-      let index: number = QUIZZES_ALL.findIndex((quiz: any): boolean => quiz.id === quizId);
-      if (index !== -1) {
-        this.quizList.push(QUIZZES_ALL[index]);
-      }
+
+    deleteQuiz(quizId: number) {
+        let index = this.patient.quizIdList.findIndex(value => value === quizId);
+        if (index !== -1) {
+            this.patient.quizIdList.splice(index, 1);
+        }
+        this.initQuizzes();
+        this.cdr.detectChanges();
     }
-    this.cdr.detectChanges();
-  }
-
-  ngOnInit() {
-  }
-
 }
