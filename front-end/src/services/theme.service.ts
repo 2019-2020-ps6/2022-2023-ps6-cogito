@@ -15,12 +15,12 @@ import { serverUrl, httpOptionsBase } from "../configs/server.config";
     providedIn: "root"
 })
 export class ThemeService {
-    private themeList: Theme[] = [];
     public themeList$: BehaviorSubject<Theme[]> = new BehaviorSubject<Theme[]>([]);
     private selectedPatient?: Patient;
     public selectedTheme$: BehaviorSubject<Theme | undefined> = new BehaviorSubject<Theme | undefined>(undefined);
+    private baseURL: string = serverUrl + "/themes/patient/";
 
-    constructor(private patientService: PatientService, private router: Router,private http: HttpClient) {
+    constructor(private patientService: PatientService, private router: Router, private http: HttpClient) {
         this.patientService.selectedPatient$.subscribe((patient: Patient | undefined): void => {
             if (this.router.url.includes("/theme-page") && patient === undefined) {
                 this.router.navigateByUrl("/patient-page");
@@ -34,17 +34,21 @@ export class ThemeService {
         console.log("Theme selected : ", theme.title);
     }
 
-    retrievePThemes(patient:Patient): void {
-        const urlWithId = serverUrl + "/themes/patient/" + patient.id.toString();
-        let themesT: Theme[] = [];
-        this.http.get<Theme[]>(urlWithId).subscribe(themes => {
+    retrieveAllThemes(): void {
+        this.http.get<Theme[]>(this.baseURL).subscribe(themes => {
             themes.sort((a, b) => a.title.localeCompare(b.title));
-            this.themeList = themes;
             this.themeList$.next(themes);
         });
     }
 
-    retrievePatientThemes(patient:Patient): BehaviorSubject<Theme[]> {
+    retrievePThemes(patient: Patient): void {
+        this.http.get<Theme[]>(this.baseURL + patient.id).subscribe(themes => {
+            themes.sort((a, b) => a.title.localeCompare(b.title));
+            this.themeList$.next(themes);
+        });
+    }
+
+    retrievePatientThemes(patient: Patient): BehaviorSubject<Theme[]> {
         this.retrievePThemes(patient);
         return this.themeList$;
     }
