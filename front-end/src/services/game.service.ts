@@ -248,7 +248,7 @@ export class idList {
     }
 
     activeCorrWindow(): boolean {
-        return CONFIG_DEFAULT_3.correctAnswerWindow || CONFIG_DEFAULT_3.falseAnswerWindow || false;
+        return CONFIG_DEFAULT_3.correctAnswerWindow || CONFIG_DEFAULT_3.wrongAnswerWindow || false;
     }
 
     activeCorrTrueWindow(): boolean {
@@ -256,7 +256,7 @@ export class idList {
     }
 
     activeCorrFalseWindow(): boolean {
-        return CONFIG_DEFAULT_3.falseAnswerWindow || false;
+        return CONFIG_DEFAULT_3.wrongAnswerWindow || false;
     }
 
     getConfig(): Configuration | undefined {
