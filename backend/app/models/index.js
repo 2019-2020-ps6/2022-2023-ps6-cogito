@@ -1,14 +1,15 @@
-const Answer = require('./answer.model.js')
-const Question = require('./question.model.js')
-
-const Quiz = require('./quiz.model.js')
-const Patient = require('./patient.model.js')
 const Theme = require('./theme.model.js')
+const Quiz = require('./quiz.model.js')
+const Question = require('./question.model.js')
+const Answer = require('./answer.model.js')
+const Patient = require('./patient.model')
+const Statistic = require('./statistic.model')
 
 module.exports = {
-  Answer,
-  Question,
-  Quiz,
-  Patient,
   Theme,
+  Quiz,
+  Question,
+  Answer,
+  Patient,
+  Statistic,
 }
