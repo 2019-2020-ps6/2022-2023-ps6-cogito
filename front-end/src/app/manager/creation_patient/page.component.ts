@@ -32,6 +32,7 @@ export class CreationPatientComponent implements OnInit {
 
     savePatient(): void {
         this.patientToCreate.stage = Number.parseInt(this.patientToCreate.stage.toString());
+        console.log("AAAAAAAAAAAAA",this.patientToCreate);
         this.patientService.addPatient(this.patientToCreate);
         this.router.navigateByUrl("/profil");
     }
