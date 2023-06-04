@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Configuration } from 'src/models/configuration.model';
 import { ConfigurationService } from 'src/services/configuration.service';
+import { FormsModule} from '@angular/forms';
 
 @Component({
   selector: 'app-answer-configuration',

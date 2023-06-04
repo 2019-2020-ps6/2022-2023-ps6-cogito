@@ -1,10 +1,14 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { Configuration } from 'src/models/configuration.model';
 import { CONFIG_DEFAULT_3, CONFIG_DEFAULT_4, CONFIG_DEFAULT_5} from 'src/mocks/configuration.mock';
 import { BehaviorSubject, Observable } from 'rxjs';
 
+import { serverUrl, httpOptionsBase } from '../configs/server.config';
+
+
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root"
 })
 export class ConfigurationService {
   selectedConfig: BehaviorSubject<Configuration> = new BehaviorSubject<Configuration>({} as Configuration);
@@ -32,21 +36,79 @@ export class ConfigurationService {
 
     correctAnswerWindow: false,
     correctDescription: false,
-    correctImage: false,
+    correctPicture: false,
     correctSound: false,
 
-    falseAnswerWindow: false,
-    falseDescription: false,
-    falseImage: false,
-    falseSound: false
+    wrongAnswerWindow: false,
+    wrongDescription: false,
+    wrongPicture: false,
+    wrongSound: false
 
   } as Configuration;
 
-  public static liste : Configuration[] = [CONFIG_DEFAULT_3, CONFIG_DEFAULT_4, CONFIG_DEFAULT_5];
+  defaultConfig: Configuration = {
+    id: 0,
+    name: 'Default',
+    description: 'None',
 
-  constructor() {
+    fontFamily: 'Arial',
+    fontSize: 20,
+    theme: '',
+
+    pictures: true,
+    sounds: false,
+    multipleAnswers: true,
+    hints: false,
+    timeDisplayHint: 10,
+    difficulty: 3,
+    againFalseQuestion: false,
+
+    correctAnswerWindow: true,
+    correctDescription: true,
+    correctPicture: true,
+    correctSound: true,
+
+    wrongAnswerWindow: true,
+    wrongDescription: false,
+    wrongPicture: false,
+    wrongSound: false
+
+  } as Configuration;
+
+  liste : Configuration[] = [CONFIG_DEFAULT_3, CONFIG_DEFAULT_4, CONFIG_DEFAULT_5];
+
+  private configurationUrl = serverUrl + '/configuration';
+  private configurationPath = 'configuration';
+
+  private httpOptions = httpOptionsBase;
+
+  constructor(private http: HttpClient) {
+    this.retrieveConfiguration();
     this.setConfigToDefault();
   }
+
+  retrieveConfiguration() {
+    this.http.get<Configuration[]>(this.configurationUrl).subscribe((configurationList) => {
+      this.liste = configurationList;
+    });
+  }
+
+  setSelectedConfiguration(configurationId: string): void {
+    const urlWithId = this.configurationUrl + '/' + configurationId;
+    this.http.get<Configuration>(urlWithId).subscribe((configuration) => {
+      this.selectedConfig.next(configuration);
+    });
+  }
+
+  addNewConfig(){
+    this.http.post<Configuration>(this.configurationUrl, this.newConfig.value, this.httpOptions).subscribe(() => this.retrieveConfiguration());
+    this.newConfig = new BehaviorSubject<Configuration>({} as Configuration);
+    this.newConfig.next(this.defaultConfig);
+  }
+
+
+
+
 
   getSelectedConfig(): Observable<Configuration> {
     return this.selectedConfig.asObservable();
@@ -66,13 +128,9 @@ export class ConfigurationService {
 
   updateConfig(){};
 
-  addNewConfig(){
-    ConfigurationService.liste.push(this.newConfig.value);
-    this.newConfig = new BehaviorSubject<Configuration>({} as Configuration);
-  }
 
   getListe(){
-    return ConfigurationService.liste;
+    return this.liste;
   }
   
   setNewFontFamily(s: string){
