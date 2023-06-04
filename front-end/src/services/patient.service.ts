@@ -20,6 +20,7 @@ export class PatientService {
 
     retrievePatients(): void {
         this.http.get<Patient[]>(this.patientURL).subscribe(patients => {
+            patients.sort((a, b) => a.name.localeCompare(b.name))
             this.patientList$.next(patients);
         });
     }
