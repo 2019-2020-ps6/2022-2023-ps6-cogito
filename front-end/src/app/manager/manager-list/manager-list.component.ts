@@ -51,6 +51,7 @@ export class ManagerListComponent implements OnInit{
         // subscribe to quizService
         if(!this.elementId){
           this.quizService.getQuizList().subscribe(quizList => {
+            console.log(quizList)
             this.quizList = JSON.parse(JSON.stringify(quizList)) ;
             this.listToDisplay = this.quizList;
             //console.log(this.listToDisplay);

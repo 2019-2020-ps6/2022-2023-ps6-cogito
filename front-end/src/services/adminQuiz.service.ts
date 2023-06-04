@@ -2,13 +2,15 @@ import { Injectable } from '@angular/core';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { Quiz } from 'src/models/quiz.model';
 import { MediaType, Question } from 'src/models/question.model';
-import {QUIZZES_ALL} from 'src/mocks/quiz.mock';
+import {HttpClient} from '@angular/common/http';
+import { controllers } from 'chart.js';
+import { environment } from '../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class QuizService {
-  private quizList: Quiz[] = QUIZZES_ALL;
+  private quizList: Quiz[]=[];
 
   private selectedQuiz: Quiz | undefined;
   private selectionQuizSubject: BehaviorSubject<Quiz> = new BehaviorSubject<Quiz>({} as Quiz);
@@ -24,19 +26,31 @@ export class QuizService {
 
   private typeOfForm: string = "creation";
 
-  constructor() { 
-    this.selectionQuizSubject.next(this.selectedQuiz as Quiz);
-    this.selectionQuestionSubject.next(this.selectedQuestion as Question);
+  private urlApi: string = environment.apiUrl;
+
+  constructor(private http: HttpClient) { 
+    this.http.get<Quiz[]>(this.urlApi+'/quizzes').subscribe((quizzes)=> {
+      console.log("quizzes", quizzes)
+      this.quizList=quizzes;
+      this.quizListSubject.next(this.quizList);
+      console.log("selectionQuizSubject", this.quizList)
+    })
   }
 
   getQuizList(): Observable<Quiz[]> {
+    console.log("getQuizList", this.quizList);
     return this.quizListSubject.asObservable();
   }
 
   selectQuizById(id: number): void {
-    this.selectedQuiz = this.quizList.find(quiz => quiz.id === id);
-    this.oldSelectedQuiz = JSON.parse(JSON.stringify(this.selectedQuiz)) as Quiz;
-    this.selectionQuizSubject?.next(this.selectedQuiz as Quiz);
+    const urlWithId = this.urlApi+'/quizzes/' + id;
+    console.log("urlWithId : " + urlWithId);
+    this.http.get<Quiz>(urlWithId).subscribe((quiz) => {
+      this.selectedQuiz=quiz;
+      this.oldSelectedQuiz = JSON.parse(JSON.stringify(this.selectedQuiz)) as Quiz;
+      this.selectionQuizSubject?.next(this.selectedQuiz as Quiz);
+    });
+    
   }
 
   selectQuiz(quiz?: Quiz): void { 
@@ -171,22 +185,23 @@ export class QuizService {
   updateQuizList(quiz: Quiz): void {
     if(quiz.title ==='')
       quiz.title = 'Nouveau quiz';
-    const index = this.quizList.findIndex(q => q.id === quiz.id);
-    if (index !== undefined && index >= 0) {
-      const updatedQuizList = [...this.quizList];
-      updatedQuizList[index] = quiz;
-      this.quizList = updatedQuizList;
+    if (quiz.id !== undefined && quiz.id >= 0) {
+      this.http.put<Quiz>(this.urlApi+'/quizzes/'+quiz.id,quiz).subscribe((q) => console.log('put'));
+      console.log("update quiz");
     }
     else {
       console.log(quiz);
-      this.quizList.push(quiz);
+      if (quiz.questionList===undefined)
+        quiz.questionList=[]
+      this.http.post<Quiz>(this.urlApi+'/quizzes/',quiz).subscribe((q) => console.log('post'));
     }
     this.quizListSubject.next(this.quizList);
   }
 
   removeQuiz(quiz: Quiz): void {
     const index = this.quizList.findIndex(q => q.id === quiz.id);
-    if (index !== undefined && index >= 0) {
+    if (quiz.id !== undefined && quiz.id >= 0) {
+      this.http.delete<Quiz>(this.urlApi+'/quizzes/'+quiz.id);
       const updatedQuizList = [...this.quizList];
       updatedQuizList.splice(index, 1);
       this.quizList = updatedQuizList;
@@ -205,6 +220,15 @@ export class QuizService {
       this.selectionQuizSubject.next(this.selectedQuiz as Quiz);
       this.updateQuizList(this.selectedQuiz as Quiz);
     }
+  }
+
+
+  getAllQuestionsOfAQuiz(quiz : Quiz){
+    console.log(quiz);
+    const url = `${this.urlApi}/questions/quiz/${quiz.id}`;
+    const questions = this.http.get<Question[]>(url);
+    console.log(questions);
+    return questions ;
   }
 
 }
