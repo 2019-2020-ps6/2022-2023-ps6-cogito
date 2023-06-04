@@ -113,7 +113,7 @@ export class ManagerListComponent implements OnInit{
       }
       else if(this.element === 'theme-list'){
         // subscribe to themeService
-        return this.themeService.getIdOfNewTheme();
+        //return this.themeService.getIdOfNewTheme();
       }
     }
     return 0;
