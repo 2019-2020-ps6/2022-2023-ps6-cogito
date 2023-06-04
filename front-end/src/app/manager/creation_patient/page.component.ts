@@ -1,8 +1,8 @@
 import { Component, OnInit } from "@angular/core";
-import { ActivatedRoute, Router } from "@angular/router";
+import { Router } from "@angular/router";
 
-import { Patient } from "src/models/patient.model";
 import { PatientService } from "src/services/patient.service";
+import { Patient } from "../../../models/patient.model";
 
 
 @Component({
@@ -16,28 +16,49 @@ export class CreationPatientComponent implements OnInit {
         birthdate: "",
         stage: 0,
         picture: "",
-        themeIdList: [],
-        quizIdList: [],
-        quizToPlayList: []
+        themeIdList: [0],
+        quizIdList: [0],
+        quizToPlayList: [0]
     };
-    data: string = "";
+    patientToUpdate?: Patient;
+    create: boolean = false;
     maxDate: Date = new Date();
 
-    constructor(private patientService: PatientService, private router: Router, private route: ActivatedRoute) { }
+    constructor(private patientService: PatientService, private router: Router) {
+        this.create = this.router.url.endsWith("/creation-patient-page");
+        this.patientToCreate.themeIdList = [];
+        this.patientToCreate.quizIdList = [];
+        this.patientToCreate.quizToPlayList = [];
+
+        if (!this.create) {
+            this.patientService.selectedPatient$.subscribe(patient => {
+                this.patientToUpdate = patient;
+            });
+        }
+    }
 
     ngOnInit(): void {
         this.maxDate = new Date();
-        this.data = this.route.snapshot.data['title'];
     }
 
-    savePatient(): void {
+    createPatient(): void {
         this.patientToCreate.stage = Number.parseInt(this.patientToCreate.stage.toString());
-        console.log("AAAAAAAAAAAAA",this.patientToCreate);
         this.patientService.addPatient(this.patientToCreate);
         this.router.navigateByUrl("/profil");
     }
 
+    updatePatient(): void {
+        if (this.patientToUpdate) {
+            this.patientToUpdate.stage = Number.parseInt(this.patientToUpdate.stage.toString());
+            this.patientService.updatePatient(this.patientToUpdate);
+            this.router.navigateByUrl("/profil");
+        }
+    }
+
     checkPatientValidity(): boolean {
+        if (this.patientToUpdate) {
+            return this.patientToUpdate.name !== "" && this.patientToUpdate.birthdate !== "" && this.patientToUpdate.stage > 0;
+        }
         return this.patientToCreate.name !== "" && this.patientToCreate.birthdate !== "" && this.patientToCreate.stage > 0;
     }
 }

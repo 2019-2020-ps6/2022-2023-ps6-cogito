@@ -7,8 +7,8 @@
                         <label class="col-form-label">Nom :</label>
                     </div>
                     <div class="col">
-                        <input type="text" class="form-control" name="name" [(ngModel)]="patientToCreate === undefined ?
-                        '' :patientToCreate.name">
+                        <input type="text" class="form-control" name="name" [(ngModel)]="patientToUpdate === undefined
+                        ? patientToCreate.name : patientToUpdate.name">
                     </div>
                 </div>
                 <div class="row g-3 align-items-center mb-1">
@@ -16,7 +16,8 @@
                         <label class="col-form-label">Photo :</label>
                     </div>
                     <div class="col-auto">
-                        <input type="text" class="form-control" name="picture" [(ngModel)]="patientToCreate === undefined ? '' : patientToCreate.picture">
+                        <input type="text" class="form-control" name="picture" [(ngModel)]="patientToUpdate === undefined
+                        ? patientToCreate.picture : patientToUpdate.picture">
                     </div>
                     <div class="col-auto">
                         <span class="form-text">
@@ -30,8 +31,8 @@
                       <label class="form-label">Stade :</label>
                     </div>
                     <div class="col-auto">
-                      <select name="stage" class="form-select" [(ngModel)]="patientToCreate === undefined ? 0 :
-                      patientToCreate.stage">
+                      <select name="stage" class="form-select" [(ngModel)]="patientToUpdate === undefined
+                        ? patientToCreate.stage : patientToUpdate.stage">
                         <option value="3">3</option>
                         <option value="4">4</option>
                         <option value="5">5</option>
@@ -47,8 +48,9 @@
                         <label class="col-form-label">Anniversaire :</label>
                     </div>
                     <div class="col">
-                        <input type="date" class="form-control" name="birthdate" max="{{maxDate | date: 'yyyy-MM-dd'}}"
-                               [(ngModel)]="patientToCreate === undefined ? '' : patientToCreate.birthdate">
+                        <input type="date" class="form-control" name="birthdate"
+                               max="{{maxDate | date: 'yyyy-MM-dd'}}" [(ngModel)]="patientToUpdate === undefined
+                        ? patientToCreate.birthdate : patientToUpdate.birthdate">
                     </div>
                 </div>
             </div>
@@ -56,14 +58,19 @@
         </div>
 
         <div class="side-content">
-            <button (click)="savePatient()" [disabled]="!checkPatientValidity()">Enregistrer</button>
+            <button *ngIf="create;else update" (click)="createPatient()" [disabled]="!checkPatientValidity()">Ajouter
+            </button>
+            <ng-template #update>
+                <button (click)="updatePatient()" [disabled]="!checkPatientValidity()">Enregistrer</button>
+            </ng-template>
 
-            <div *ngIf="this.data === 'Modifier les Informations du Profil'">
+            <div *ngIf="create;else cancelModify">
                 <button [routerLink]="['/profil']">Annuler</button>
             </div>
-            <div *ngIf="this.data === 'Créer un Nouveau Profil'">
-                <button [routerLink]="['/profil-list']">Annuler</button>
-
-            </div>
+            <ng-template #cancelModify>
+                <div>
+                    <button [routerLink]="['/profil-list']">Annuler</button>
+                </div>
+            </ng-template>
         </div>
 </form>

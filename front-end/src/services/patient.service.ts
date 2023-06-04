@@ -9,7 +9,6 @@ import { serverUrl, httpOptionsBase } from "../configs/server.config";
     providedIn: "root"
 })
 export class PatientService {
-    private patientList: Patient[] = [];
     public patientList$: BehaviorSubject<Patient[]> = new BehaviorSubject<Patient[]>([]);
     public selectedPatient$: BehaviorSubject<Patient | undefined>
         = new BehaviorSubject<Patient | undefined>(undefined);
@@ -21,7 +20,6 @@ export class PatientService {
 
     retrievePatients(): void {
         this.http.get<Patient[]>(this.patientURL).subscribe(patients => {
-            this.patientList = patients;
             this.patientList$.next(patients);
         });
     }
@@ -44,20 +42,18 @@ export class PatientService {
         });
     }
 
-    deletePatient(patient: Patient) {
-        this.http.delete(this.patientURL + patient.id).subscribe(() =>
-            this.retrievePatients()
-        );
+    deletePatient(patient: Patient): void {
+        this.http.delete(this.patientURL + patient.id).subscribe(() => {
+            this.retrievePatients();
+            console.log("Patient deleted");
+        });
     }
 
-    updatePatient(patient: Patient) {
-        let index: number = this.patientList.findIndex(
-            (patientInList: Patient): boolean => patientInList.id === patient.id);
-        if (index !== -1) {
-            this.patientList[index] = patient;
-            this.patientList.sort((a, b) => a.name.localeCompare(b.name));
-            this.patientList$.next(this.patientList);
-            console.log("Patient updated : ", patient.name);
-        }
+    updatePatient(patient: Patient): void {
+        this.http.put<Patient>(this.patientURL + patient.id, patient, httpOptionsBase).subscribe(patient => {
+            this.retrievePatients();
+            this.selectedPatient$.next(patient);
+            console.log("Patient updated: " + patient.name);
+        });
     }
 }
