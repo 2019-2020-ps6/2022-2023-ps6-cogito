@@ -33,7 +33,7 @@ export class CreationPatientComponent implements OnInit {
     savePatient(): void {
         this.patientToCreate.stage = Number.parseInt(this.patientToCreate.stage.toString());
         this.patientService.addPatient(this.patientToCreate);
-        this.router.navigateByUrl("/profil-list");
+        this.router.navigateByUrl("/profil");
     }
 
     checkPatientValidity(): boolean {

@@ -37,9 +37,10 @@ export class PatientService {
     }
 
     addPatient(patient: {}): void {
-        this.http.post<Patient>(this.patientURL, patient, httpOptionsBase).subscribe(() =>
-            this.retrievePatients()
-        );
+        this.http.post<Patient>(this.patientURL, patient, httpOptionsBase).subscribe(patient => {
+            this.retrievePatients();
+            this.selectedPatient$.next(patient);
+        });
     }
 
     deletePatient(patient: Patient) {
