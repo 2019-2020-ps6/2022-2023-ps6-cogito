@@ -43,13 +43,17 @@ export class PatientService {
         });
     }
 
-    deletePatient(patient: Patient) {
+    deletePatient(patient: Patient): void {
         this.http.delete(this.patientURL + patient.id).subscribe(() =>
             this.retrievePatients()
         );
     }
 
-    updatePatient(patient: Patient) {
+    updatePatient(patient: Patient): void {
+        this.http.put<Patient>(this.patientURL + patient.id, patient, httpOptionsBase).subscribe(patient => {
+            this.retrievePatients();
+            this.selectedPatient$.next(patient);
+        });/*
         let index: number = this.patientList.findIndex(
             (patientInList: Patient): boolean => patientInList.id === patient.id);
         if (index !== -1) {
@@ -57,6 +61,6 @@ export class PatientService {
             this.patientList.sort((a, b) => a.name.localeCompare(b.name));
             this.patientList$.next(this.patientList);
             console.log("Patient updated : ", patient.name);
-        }
+        }*/
     }
 }
