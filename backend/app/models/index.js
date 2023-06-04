@@ -3,7 +3,6 @@ const Quiz = require('./quiz.model.js')
 const Question = require('./question.model.js')
 const Answer = require('./answer.model.js')
 const Patient = require('./patient.model')
-const Statistic = require('./statistic.model')
 const GameQuiz = require('./gameQuiz.model')
 
 module.exports = {
@@ -12,6 +11,5 @@ module.exports = {
   Question,
   Answer,
   Patient,
-  Statistic,
   GameQuiz,
 }
