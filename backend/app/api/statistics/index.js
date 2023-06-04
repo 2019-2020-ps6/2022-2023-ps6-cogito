@@ -13,4 +13,13 @@ router.get('/', (req, res) => {
   }
 })
 
+router.post('/', (req, res) => {
+  try {
+    const statistic = Statistic.create({ ...req.body })
+    res.status(201).json(statistic)
+  } catch (err) {
+    manageAllErrors(res, err)
+  }
+})
+
 module.exports = router
