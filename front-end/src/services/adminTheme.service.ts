@@ -6,6 +6,8 @@ import {THEME_LIST} from 'src/mocks/theme.mock';
 import { QuizService } from './adminQuiz.service';
 import { serverUrl, httpOptionsBase } from "../configs/server.config";
 import { HttpClient } from '@angular/common/http';
+import { ActivatedRoute, Router } from "@angular/router";
+
 
 @Injectable({
   providedIn: 'root'
@@ -31,7 +33,7 @@ export class ThemeService {
   // behaviourSubject of themeList
   private themeListSubject: BehaviorSubject<Theme[]> = new BehaviorSubject<Theme[]>([] as Theme[]);
 
-  constructor(private quizService: QuizService, private http: HttpClient) { 
+  constructor(private quizService: QuizService, private http: HttpClient,private router: Router, private route: ActivatedRoute) { 
     this.selectionThemeSubject.next(this.selectedTheme as Theme);
     this.quizService.getSelectedQuiz().subscribe((quiz: Quiz) => {
         this.selectedQuiz = quiz;
@@ -207,18 +209,19 @@ export class ThemeService {
     }
   }
 
-  createAndSelectNewTheme(): number {
+  createAndSelectNewTheme(): void {
     const theme = {} as Theme;
     theme.title = "";
     theme.quizzesList = [];
     this.addTheme(theme);
     this.typeOfForm = "creation";
-    return this.getIdOfNewTheme();
+    this.getIdOfNewTheme();
   }
 
-  getIdOfNewTheme(): number{
+  getIdOfNewTheme(): void{
+    console.log(this.themeList);
     console.log(this.themeAdded$.getValue().id);
-    return this.themeAdded$.getValue().id;
+    this.router.navigate(["/theme-form/"+ this.themeAdded$.getValue().id]);
   }
 
   updateTheme(theme: Theme) {
