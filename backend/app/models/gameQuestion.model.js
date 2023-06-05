@@ -13,6 +13,6 @@ module.exports = new BaseModel('GameQuestion', {
   sound: Joi.string().min(2),
   startTime: Joi.date().max('now').required(),
   endTime: Joi.date().max('now').required(),
-  displayedHint: Joi.boolean().required(),
+  displayedHint: Joi.boolean(),
   selectedAnswer: Joi.number(),
 })
