@@ -1,6 +1,10 @@
 const GameQuiz = require('../../models/gameQuiz.model')
+const { findGameQuestionsByGameQuiz } = require('./gameQuestions/manager')
 
-const buildGameQuiz = (gameQuiz) => ({ ...gameQuiz, questionList: [0] })
+const buildGameQuiz = (gameQuiz) => {
+  const gameQuestionList = findGameQuestionsByGameQuiz(gameQuiz.id.toString())
+  return { ...gameQuiz, questionList: gameQuestionList }
+}
 
 const getAllGameQuiz = () => {
   const gameQuizList = GameQuiz.get()
