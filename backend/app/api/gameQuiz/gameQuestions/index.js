@@ -60,7 +60,7 @@ router.put('/:gameQuestionId', (req, res) => {
 router.delete('/:gameQuestionId', (req, res) => {
   try {
     GameQuestion.delete(req.params.gameQuestionId)
-    res.status(204)
+    res.status(204).end()
   } catch (err) {
     manageAllErrors(res, err)
   }
