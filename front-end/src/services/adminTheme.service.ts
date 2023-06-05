@@ -71,7 +71,14 @@ export class ThemeService {
     console.log("selectThemeById");
     console.log(id);
     console.log(this.themeList);
-    this.selectedTheme = this.themeList.find(quiz => quiz.id === id);
+    for(let i = 0; i < this.themeList.length; i++){
+      console.log(this.themeList[i].id);
+      console.log(id);
+      if(this.themeList[i].id.toString() === id.toString()){
+        this.selectedTheme = this.themeList[i];
+        break;
+      }
+    }
     console.log(this.selectedTheme);
     this.oldSelectionTheme = JSON.parse(JSON.stringify(this.selectedTheme)) as Theme;
     this.selectionThemeSubject?.next(this.selectedTheme as Theme);
@@ -102,9 +109,9 @@ export class ThemeService {
   }
 
   resetSelectedQuiz(): void{
-    console.log("resetSelectedQuiz");
+    //console.log("resetSelectedQuiz");
     this.selectedQuiz = JSON.parse(JSON.stringify(this.oldSelectionQuiz)) as Quiz;
-    console.log(this.selectedQuiz);
+    //console.log(this.selectedQuiz);
     this.quizService.selectQuiz(this.selectedQuiz);
   }
 
@@ -115,7 +122,7 @@ export class ThemeService {
     }
     else{
       this.selectedTheme = JSON.parse(JSON.stringify(this.oldSelectionTheme)) as Theme;
-      console.log(this.selectedTheme);
+      //console.log(this.selectedTheme);
       for(let i = 0; i < this.selectedTheme?.quizzesList.length; i++){
         this.quizService.updateQuizList(this.selectedTheme?.quizzesList[i]);
       }
@@ -144,7 +151,7 @@ export class ThemeService {
     this.selectedTheme = {...this.selectedTheme, quizzesList: updatedQuizList} as Theme;
     this.selectionThemeSubject.next(this.selectedTheme as Theme);
     this.updateThemeList(this.selectedTheme);
-    //this.quizService.updateQuizList(quiz);
+    this.quizService.updateQuizList(quiz);
   }
 
   addTheme(theme: Theme): void {
@@ -157,9 +164,12 @@ export class ThemeService {
   addThemeB(theme: {}): void {
     const urlWithId = serverUrl + "/themes/";
     this.http.post<Theme>(urlWithId, theme, httpOptionsBase).subscribe(themeb => {
-        this.retrieveThemeList();
+        this.themeList.push(themeb);
         this.themeAdded$.next(themeb);
         this.selectionThemeSubject.next(themeb);
+        this.typeOfForm = "creation";
+        console.log("/theme-form/"+ themeb.id);
+        this.router.navigate(["/theme-form/"+ themeb.id]);
     });
 }
 
@@ -172,7 +182,7 @@ export class ThemeService {
     this.addQuiz(quiz);
     this.selectQuiz(quiz);
     this.typeOfForm = "creation";
-    console.log(quiz);
+    //console.log(quiz);
   }
 
   getTypeOfForm(): string{
@@ -214,14 +224,6 @@ export class ThemeService {
     theme.title = "";
     theme.quizzesList = [];
     this.addTheme(theme);
-    this.typeOfForm = "creation";
-    this.getIdOfNewTheme();
-  }
-
-  getIdOfNewTheme(): void{
-    console.log(this.themeList);
-    console.log(this.themeAdded$.getValue().id);
-    this.router.navigate(["/theme-form/"+ this.themeAdded$.getValue().id]);
   }
 
   updateTheme(theme: Theme) {
@@ -234,7 +236,7 @@ export class ThemeService {
   );
         this.themeList.sort((a, b) => a.title.localeCompare(b.title));
         this.themeListSubject.next(this.themeList);
-        console.log("Patient updated : ", theme);
+        //console.log("Patient updated : ", theme);
     }
 
 }
