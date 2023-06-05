@@ -48,4 +48,13 @@ router.post('/', (req, res) => {
   }
 })
 
+router.put('/:gameQuestionId', (req, res) => {
+  try {
+    const gameQuestion = GameQuestion.update(req.params.gameQuestionId, req.body)
+    res.status(200).json(buildGameQuestion(gameQuestion))
+  } catch (err) {
+    manageAllErrors(res, err)
+  }
+})
+
 module.exports = router
