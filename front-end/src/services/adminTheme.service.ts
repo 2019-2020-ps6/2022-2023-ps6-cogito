@@ -248,7 +248,8 @@ export class ThemeService {
 
   retrieveThemeList(): void {
     const urlWithId = serverUrl + "/themes/";
-    this.http.get<Theme[]>(urlWithId).subscribe(themes => {        
+    this.http.get<Theme[]>(urlWithId).subscribe(themes => {       
+        themes.sort((a, b) => a.title.localeCompare(b.title)); 
         this.themeList = themes;
         this.themeListSubject.next(this.themeList);
     });
