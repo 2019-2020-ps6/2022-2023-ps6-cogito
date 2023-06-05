@@ -71,11 +71,11 @@
             </ng-template>
 
             <div *ngIf="create;else cancelModify">
-                <button [routerLink]="['/profil']">Annuler</button>
+                <button [routerLink]="['/profil-list']">Annuler</button>
             </div>
             <ng-template #cancelModify>
                 <div>
-                    <button [routerLink]="['/profil-list']">Annuler</button>
+                    <button [routerLink]="['/profil']">Annuler</button>
                 </div>
             </ng-template>
         </div>
