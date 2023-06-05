@@ -11,28 +11,27 @@ import { Patient } from "../../../models/patient.model";
     styleUrls: ["./page.component.scss"]
 })
 export class CreationPatientComponent implements OnInit {
-    patientToCreate = {
+    patient: Patient = {
+        id: 0,
         name: "",
         birthdate: "",
         stage: 0,
         picture: "",
-        themeIdList: [0],
-        quizIdList: [0],
-        quizToPlayList: [0]
+        themeIdList: [],
+        quizIdList: [],
+        quizToPlayList: []
     };
-    patientToUpdate?: Patient;
     create: boolean = false;
     maxDate: Date = new Date();
 
     constructor(private patientService: PatientService, private router: Router) {
         this.create = this.router.url.endsWith("/creation-patient-page");
-        this.patientToCreate.themeIdList = [];
-        this.patientToCreate.quizIdList = [];
-        this.patientToCreate.quizToPlayList = [];
 
         if (!this.create) {
             this.patientService.selectedPatient$.subscribe(patient => {
-                this.patientToUpdate = patient;
+                if (patient) {
+                    this.patient = patient;
+                }
             });
         }
     }
@@ -42,23 +41,20 @@ export class CreationPatientComponent implements OnInit {
     }
 
     createPatient(): void {
-        this.patientToCreate.stage = Number.parseInt(this.patientToCreate.stage.toString());
-        this.patientService.addPatient(this.patientToCreate);
+        this.patient.stage = Number.parseInt(this.patient.stage.toString());
+        this.patientService.addPatient(this.patient);
         this.router.navigateByUrl("/profil");
     }
 
     updatePatient(): void {
-        if (this.patientToUpdate) {
-            this.patientToUpdate.stage = Number.parseInt(this.patientToUpdate.stage.toString());
-            this.patientService.updatePatient(this.patientToUpdate);
+        if (!this.create) {
+            this.patient.stage = Number.parseInt(this.patient.stage.toString());
+            this.patientService.updatePatient(this.patient);
             this.router.navigateByUrl("/profil");
         }
     }
 
     checkPatientValidity(): boolean {
-        if (this.patientToUpdate) {
-            return this.patientToUpdate.name !== "" && this.patientToUpdate.birthdate !== "" && this.patientToUpdate.stage > 0;
-        }
-        return this.patientToCreate.name !== "" && this.patientToCreate.birthdate !== "" && this.patientToCreate.stage > 0;
+        return this.patient.name !== "" && this.patient.birthdate !== "" && this.patient.stage > 0;
     }
 }

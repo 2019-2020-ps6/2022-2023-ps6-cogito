@@ -7,9 +7,7 @@
                         <label class="col-form-label">Nom :</label>
                     </div>
                     <div class="col">
-                        <input type="text" *ngIf="patientToUpdate !== undefined" class="form-control" name="name" [(ngModel)]="patientToUpdate.name">
-                        <input type="text" *ngIf="patientToUpdate === undefined" class="form-control" name="name" [(ngModel)]="patientToCreate.name">
-
+                        <input type="text" class="form-control" name="name" [(ngModel)]="patient.name">
                     </div>
                 </div>
                 <div class="row g-3 align-items-center mb-1">
@@ -17,8 +15,7 @@
                         <label class="col-form-label">Photo :</label>
                     </div>
                     <div class="col-auto">
-                        <input *ngIf="patientToUpdate !== undefined" type="text" class="form-control" name="picture" [(ngModel)]="patientToUpdate.picture">
-                        <input *ngIf="patientToUpdate === undefined" type="text" class="form-control" name="picture" [(ngModel)]="patientToCreate.picture">
+                        <input type="text" class="form-control" name="picture" [(ngModel)]="patient.picture">
                     </div>
                     <div class="col-auto">
                         <span class="form-text">
@@ -32,16 +29,11 @@
                       <label class="form-label">Stade :</label>
                     </div>
                     <div class="col-auto">
-                    <select *ngIf="patientToUpdate === undefined" name="stage" class="form-select" [(ngModel)]="patientToCreate.stage">
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
-                      </select>
-                      <select *ngIf="patientToUpdate !== undefined" name="stage" class="form-select" [(ngModel)]="patientToUpdate.stage">
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
-                      </select>
+                        <select name="stage" class="form-select" [(ngModel)]="patient.stage">
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                        </select>
                     </div>
                     <div class="col-auto">
                       <span class="form-text">Choisir le stade du patient</span>
@@ -53,10 +45,8 @@
                         <label class="col-form-label">Anniversaire :</label>
                     </div>
                     <div class="col">
-                        <input *ngIf="patientToUpdate !== undefined" type="date" class="form-control" name="birthdate"
-                               max="{{maxDate | date: 'yyyy-MM-dd'}}" [(ngModel)]="patientToUpdate.birthdate">
-                        <input *ngIf="patientToUpdate === undefined" type="date" class="form-control" name="birthdate"
-                               max="{{maxDate | date: 'yyyy-MM-dd'}}" [(ngModel)]="patientToCreate.birthdate">
+                        <input type="date" class="form-control" name="birthdate"
+                               max="{{maxDate | date: 'yyyy-MM-dd'}}" [(ngModel)]="patient.birthdate">
                     </div>
                 </div>
             </div>

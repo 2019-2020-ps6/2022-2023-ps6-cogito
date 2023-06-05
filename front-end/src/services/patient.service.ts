@@ -35,7 +35,7 @@ export class PatientService {
         console.log("Patient unselected");
     }
 
-    addPatient(patient: {}): void {
+    addPatient(patient: Patient): void {
         this.http.post<Patient>(this.patientURL, patient, httpOptionsBase).subscribe(patient => {
             this.retrievePatients();
             this.selectedPatient$.next(patient);
