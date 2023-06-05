@@ -2,18 +2,18 @@ const GameQuestion = require('../../../models/gameQuestion.model')
 
 const buildGameQuestion = (gameQuestion) => ({ ...gameQuestion, answerList: [0] })
 
-const getAllGameQuestion = () => {
+const getAllGameQuestions = () => {
   const gameQuestionList = GameQuestion.get()
   return gameQuestionList.map((gameQuestion) => buildGameQuestion(gameQuestion))
 }
 
-const findGameQuestionByGameQuiz = (gameQuizId) => {
+const findGameQuestionsByGameQuiz = (gameQuizId) => {
   const gameQuestionList = GameQuestion.get()
   const gameQuestions = gameQuestionList.filter((gameQuestion) => gameQuestion.gameQuizId.toString() === gameQuizId)
   return gameQuestions.map((gameQuestion) => buildGameQuestion(gameQuestion))
 }
 
-const findGameQuestionByGameQuizAndQuestion = (gameQuizId, questionId) => {
+const findGameQuestionsByGameQuizAndQuestion = (gameQuizId, questionId) => {
   const gameQuestionList = GameQuestion.get()
   const gameQuestions = gameQuestionList.filter((gameQuestion) => gameQuestion.gameQuizId.toString() === gameQuizId && gameQuestion.questionId.toString() === questionId)
   return gameQuestions.map((gameQuestion) => buildGameQuestion(gameQuestion))
@@ -21,7 +21,7 @@ const findGameQuestionByGameQuizAndQuestion = (gameQuizId, questionId) => {
 
 module.exports = {
   buildGameQuestion,
-  getAllGameQuestion,
-  findGameQuestionByGameQuiz,
-  findGameQuestionByGameQuizAndQuestion,
+  getAllGameQuestions,
+  findGameQuestionsByGameQuiz,
+  findGameQuestionsByGameQuizAndQuestion,
 }
