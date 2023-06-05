@@ -57,4 +57,13 @@ router.put('/:gameQuestionId', (req, res) => {
   }
 })
 
+router.delete('/:gameQuestionId', (req, res) => {
+  try {
+    GameQuestion.delete(req.params.gameQuestionId)
+    res.status(204)
+  } catch (err) {
+    manageAllErrors(res, err)
+  }
+})
+
 module.exports = router
