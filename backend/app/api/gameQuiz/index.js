@@ -23,7 +23,7 @@ router.get('/:gameQuizId', (req, res) => {
   }
 })
 
-router.get('/:patientId', (req, res) => {
+router.get('/patient/:patientId', (req, res) => {
   try {
     res.status(200).json(findGameQuizByPatient(req.params.patientId))
   } catch (err) {
@@ -31,7 +31,7 @@ router.get('/:patientId', (req, res) => {
   }
 })
 
-router.get('/:patientId/quiz/:quizId', (req, res) => {
+router.get('/patient/:patientId/quiz/:quizId', (req, res) => {
   try {
     res.status(200).json(findGameQuizByPatientAndQuiz(req.params.patientId, req.params.quizId))
   } catch (err) {
