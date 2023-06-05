@@ -2,6 +2,7 @@ import { GameQuiz } from "../models/gameQuiz.model";
 
 export const GAMEQUIZ_3_QUIZ2: GameQuiz = {
     id: 1,
+    patientId: 1,
     quizId: 2,
     questionList: [],
 
@@ -11,6 +12,7 @@ export const GAMEQUIZ_3_QUIZ2: GameQuiz = {
 
 export const GAMEQUIZ_4_QUIZ3: GameQuiz = {
     id: 3,
+    patientId: 1,
     quizId: 3,
     questionList: [],
 
@@ -20,6 +22,7 @@ export const GAMEQUIZ_4_QUIZ3: GameQuiz = {
 
 export const GAMEQUIZ_5_QUIZ1: GameQuiz = {
     id: 3,
+    patientId: 1,
     quizId: 1,
     questionList: [],
 
@@ -29,6 +32,7 @@ export const GAMEQUIZ_5_QUIZ1: GameQuiz = {
 
 export const GAMEQUIZ_3_QUIZ3: GameQuiz = {
     id: 4,
+    patientId: 1,
     quizId: 3,
     questionList: [],
 
