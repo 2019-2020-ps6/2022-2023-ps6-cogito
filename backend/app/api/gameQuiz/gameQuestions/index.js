@@ -2,13 +2,13 @@ const { Router } = require('express')
 
 const manageAllErrors = require('../../../utils/routes/error-management')
 const { GameQuestion } = require('../../../models')
+const { getAllGameQuestion } = require('./manager')
 
 const router = new Router({ mergeParams: true })
 
 router.get('/', (req, res) => {
   try {
-    console.log(req.params.gameQuizId)
-    res.status(200).json(GameQuestion.get())
+    res.status(200).json(getAllGameQuestion())
   } catch (err) {
     manageAllErrors(res, err)
   }
