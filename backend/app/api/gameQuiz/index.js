@@ -14,6 +14,15 @@ router.get('/', (req, res) => {
   }
 })
 
+router.get('/:gameQuizId', (req, res) => {
+  try {
+    const gameQuiz = GameQuiz.getById(req.params.gameQuizId)
+    res.status(200).json(buildGameQuiz(gameQuiz))
+  } catch (err) {
+    manageAllErrors(res, err)
+  }
+})
+
 router.get('/:patientId', (req, res) => {
   try {
     res.status(200).json(findGameQuizByPatient(req.params.patientId))
