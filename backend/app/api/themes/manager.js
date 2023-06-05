@@ -1,4 +1,4 @@
-const { Theme, User, Patient } = require('../../models')
+const { Theme, Patient } = require('../../models')
 
 /**
  * Function buildTheme.
