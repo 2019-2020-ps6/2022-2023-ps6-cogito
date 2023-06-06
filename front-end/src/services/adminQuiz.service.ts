@@ -3,7 +3,6 @@ import { Observable, BehaviorSubject } from 'rxjs';
 import { Quiz } from 'src/models/quiz.model';
 import { MediaType, Question } from 'src/models/question.model';
 import {HttpClient} from '@angular/common/http';
-import { controllers } from 'chart.js';
 import { environment } from '../environments/environment';
 
 @Injectable({
