@@ -4,13 +4,13 @@ import { STAT_GOOD_3, STAT_GOOD_4, STAT_GOOD_5 } from "./statistics.mock";
 import { QUIZZES_ALL } from "./quiz.mock";
 import { Quiz } from "src/models/quiz.model";
 
-let myMap = new Map<number, number[]>([
+export const myMap = new Map<number, number[]>([
     [QUIZZES_ALL[0].id, [8, 9, 7, 8, 8]],
     [QUIZZES_ALL[1].id, [7, 7, 9, 8, 10]],
     [QUIZZES_ALL[2].id, [8, 8, 6, 4, 3]]
 ]);
 
-let myMap2 = new Map<number, boolean[]>([
+export const myMap2 = new Map<number, boolean[]>([
     [QUIZZES_ALL[0].id, [true, true, false, true, true, true, true, false, true, true]],
     [QUIZZES_ALL[1].id, [true, true, true, true, true, true, true, true, true, true]],
     [QUIZZES_ALL[2].id, [true, true, false, false, true, false, false, false, false]]
@@ -30,6 +30,7 @@ export const PATIENT_ANDREA: Patient = {
 
     quizResult: myMap,
     questionResult: myMap2,
+
 
     themeIdList: [1, 2, 3, 4],
     quizIdList: [9],
@@ -52,7 +53,7 @@ export const PATIENT_BOB: Patient = {
 
 
     themeIdList: [1, 2, 7],
-    quizIdList: [1, 3, 4, 8, 11], 
+    quizIdList: [1, 3, 4, 8, 11],
     quizToPlayList: []
 }
 
@@ -210,7 +211,7 @@ export const PATIENT_LAETICIA: Patient = {
 export const PATIENT_MAURICE: Patient = {
     id: 11,
     name: "Maurice5",
- 
+
     birthdate: "01/01/1950",
     age: 92,
     stage: 5,
