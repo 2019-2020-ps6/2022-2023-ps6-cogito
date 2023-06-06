@@ -54,6 +54,7 @@ export class PatientService {
             age: 0,
             stage: 0,
             picture: "",
+            birthdate: "",
             statistics: {
                 id: -1,
                 // playedQuizList as a void Map<number, GameQuiz[]>

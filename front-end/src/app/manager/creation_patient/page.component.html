@@ -45,7 +45,9 @@
                         <label class="col-form-label">Age :</label>
                     </div>
                     <div class="col">
-                        <input type="number" class="form-control" name="hint" [(ngModel)]="patient === undefined ? '' : patient.age">
+                        
+                        <input type="date" class="form-control" name="age" [(ngModel)]="patient === undefined ? '' : patient.birthdate">                     
+                        <!--<input type="number" class="form-control" name="hint" [(ngModel)]="patient === undefined ? '' : patient.age">-->
                     </div>
                 </div>
             </div>

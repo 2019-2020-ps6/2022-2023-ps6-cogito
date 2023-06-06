@@ -6,6 +6,7 @@ export interface Patient {
     id: number;
     name: string;
     age: number;
+    birthdate: string,
     stage: number;
     picture: string;
     statistics: Statistics;
