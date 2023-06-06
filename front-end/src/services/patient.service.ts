@@ -7,6 +7,10 @@ import { GameQuiz } from "src/models/gameQuiz.model";
 
 import { CONFIG_DEFAULT_3} from "../mocks/configuration.mock";
 
+import { ThemeService } from 'src/services/adminTheme.service';
+import {Quiz} from 'src/models/quiz.model';
+
+
 @Injectable({
     providedIn: "root"
 })
@@ -17,11 +21,41 @@ export class PatientService {
     public selectedPatient$: BehaviorSubject<Patient | undefined>
         = new BehaviorSubject<Patient | undefined>(undefined);
 
-    constructor() {}
+    constructor(private themeService: ThemeService,) {}
 
     selectPatient(patient: Patient): void {
-        this.selectedPatient$.next(patient);
-        console.log("Patient selected : ", patient.name);
+ 
+        const pa = JSON.parse(JSON.stringify(patient));
+
+        console.log(pa);
+        let p = this.addQuizToPatient(patient);
+        console.log(p);
+        this.selectedPatient$.next(p);
+
+    }
+
+    addQuizToPatient(patient: Patient): Patient {
+        let quiz : number[];
+        console.log("themes : ", patient.themeIdList);
+        for(let theme in patient.themeIdList){
+            console.log("theme : ", theme);
+            let themeId = parseInt(theme);
+            this.themeService.getQuizListByThemeId(themeId);
+            quiz = this.themeService.getQuizIdListByThemeId(themeId);
+            console.log(quiz);
+            for(let i = 0 ; i < quiz.length ; i++){
+                console.log("quiz",quiz[i], quiz);
+                let quizId = quiz[i];
+                console.log(patient.quizIdList.indexOf(quiz[i]))
+                if(patient.quizIdList.indexOf(quiz[i]) === -1){
+                    console.log("patient ajout quiz : ", patient, quizId);
+                    patient.quizIdList.push(quizId);
+                }
+            }
+
+            
+        }
+        return patient;
     }
 
     noSelectedPatient(): void {

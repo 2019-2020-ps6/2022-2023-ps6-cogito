@@ -32,7 +32,7 @@ export const PATIENT_ANDREA: Patient = {
     questionResult: myMap2,
 
     themeIdList: [1, 2, 3, 4],
-    quizIdList: [1, 2, 3],
+    quizIdList: [9],
     quizToPlayList: []
 }
 

@@ -44,6 +44,22 @@ export class ThemeService {
         return this.themeListSubject.asObservable();
     }
 
+    getQuizIdListByThemeId(id: number): number[]{
+      let theme = this.themeList.find(theme => theme.id === id);
+ 
+      let quizIdList: number[] = [];
+      theme?.quizList.forEach(quiz => {
+        let tmpQuiz = this.allQuizList.find(q => q.id === quiz.id);
+        if(tmpQuiz !== undefined) {
+          quizIdList.push(tmpQuiz.id);
+        }
+      }
+      );
+      return quizIdList;
+
+      
+    }
+
     getQuizListByThemeId(id: number): Observable<Quiz[]> {
         // return all the quiz from allQuizList which are in the theme with id = id
         let theme = this.themeList.find(theme => theme.id === id);
