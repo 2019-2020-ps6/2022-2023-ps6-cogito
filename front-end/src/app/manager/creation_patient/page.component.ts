@@ -2,6 +2,9 @@ import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 
 import { Patient } from "src/models/patient.model";
+import { CONFIG_DEFAULT_3 } from "../../../mocks/configuration.mock";
+import { Configuration } from "../../../models/configuration.model";
+import { Statistics } from "../../../models/statistics.model";
 import { PatientPageListComponent } from "../profil_list/page.component";
 import { PatientService } from "src/services/patient.service";
 
@@ -12,7 +15,23 @@ import { PatientService } from "src/services/patient.service";
     styleUrls: ["./page.component.scss"]
 })
 export class CreationPatientComponent implements OnInit {
-    patient?: Patient;
+    patient: Patient = {
+        id: 0,
+        name: "",
+        age: 0,
+        birthdate: "",
+        stage: 0,
+        picture: "",
+        statistics: {} as Statistics,
+        configuration: {} as Configuration,
+
+        quizResult: new Map<number, number[]>(),
+        questionResult: new Map<number, boolean[]>(),
+
+        themeIdList: [],
+        quizIdList: [],
+        quizToPlayList: [],
+    };
     originalpatient?: Patient;
     private patientList!: Patient[];
 
@@ -21,7 +40,7 @@ export class CreationPatientComponent implements OnInit {
 
     constructor(private patientService: PatientService, private router: Router, private route: ActivatedRoute) {
     }
-    
+
     ngOnInit(): void {
         this.patientService.patientList$.subscribe((patientList: Patient[]): void => {
             this.patientList = patientList;
@@ -47,6 +66,6 @@ export class CreationPatientComponent implements OnInit {
     }
 
     checkPatientValidity(): boolean {
-        return this.patient?.name !== "" && this.patient?.age !== undefined && this.patient?.stage !== undefined && this.patient?.quizIdList !== undefined;
-    }  
+        return this.patient.name !== "" && this.patient.birthdate !== "" && this.patient.stage >= 3 && this.patient.stage <= 5;
+    }
 }
