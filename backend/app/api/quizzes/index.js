@@ -4,7 +4,7 @@ const { Quiz } = require('../../models')
 const manageAllErrors = require('../../utils/routes/error-management')
 const { buildQuiz, buildQuizzes, findThemeQuizzes } = require('./manager')
 
-const router = new Router()
+const router = new Router({ mergeParams: true })
 
 router.get('/', (req, res) => {
   try {
