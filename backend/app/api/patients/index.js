@@ -23,8 +23,7 @@ router.get('/:patientId', (req, res) => {
 
 router.post('/', (req, res) => {
   try {
-    const patient = Patient.create({ ...req.body })
-    res.status(201).json(patient)
+    res.status(201).json(Patient.create({ ...req.body }))
   } catch (err) {
     manageAllErrors(res, err)
   }
@@ -40,7 +39,7 @@ router.put('/:patientId', (req, res) => {
 
 router.delete('/:patientId', (req, res) => {
   try {
-    Patient.delete(req.params.patientId) // peut-être renvoyer la nouvelle liste des patients
+    Patient.delete(req.params.patientId)
     res.status(204).end()
   } catch (err) {
     manageAllErrors(res, err)
