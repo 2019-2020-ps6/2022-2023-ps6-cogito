@@ -3,18 +3,14 @@ const { findQuestionAnswers } = require('../../quizzes/questions/answers/manager
 const { Question, Answer, GameQuiz } = require('../../../models')
 
 const buildGameQuestion = (gameQuestion) => {
-  let newGameQuestion
-  const answerList = findQuestionAnswers(gameQuestion.questionId.toString())
+  const answerList = findQuestionAnswers(gameQuestion.questionId)
 
   // Add missing properties in backend GameQuestion to fit frontend model
-  if (gameQuestion.selectedAnswerId) {
-    const answerId = answerList.findIndex((answer) => answer.id === gameQuestion.selectedAnswerId)
-    const { selectedAnswerId, ...notAnswer } = gameQuestion
-    newGameQuestion = { ...notAnswer, answerList, selectedAnswer: answerList[answerId] }
-  } else {
-    newGameQuestion = { ...gameQuestion, answerList }
-  }
-  return newGameQuestion
+  let selectedAnswer
+  if (gameQuestion.selectedAnswerId) selectedAnswer = Answer.getById(gameQuestion.selectedAnswerId)
+  const { selectedAnswerId, ...noAnswer } = gameQuestion
+
+  return { ...noAnswer, answerList, selectedAnswer }
 }
 
 const getAllGameQuestions = () => {
