@@ -1,4 +1,5 @@
 const { Quiz, Theme } = require('../../models')
+const { findQuizQuestions } = require('./questions/manager')
 
 const checkQuiz = (quiz) => {
   const { themeId } = quiz
@@ -10,7 +11,10 @@ const checkQuiz = (quiz) => {
  * This function add a questionList to the quiz to fit frontend model.
  * @param quiz the backed quiz to build
  */
-const buildQuiz = (quiz) => ({ ...quiz, questionList: [0] })
+const buildQuiz = (quiz) => {
+  const questionList = findQuizQuestions(quiz.id.toString())
+  return { ...quiz, questionList }
+}
 
 /**
  * Function buildQuizzes.
