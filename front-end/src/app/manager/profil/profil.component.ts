@@ -2,7 +2,6 @@ import { Component, OnInit } from "@angular/core";
 import { Patient } from "src/models/patient.model";
 import { PATIENT_ANDREA } from "src/mocks/patient.mock";
 import { PatientService } from "src/services/patient.service";
-import { Router } from "@angular/router";
 
 
 @Component({
