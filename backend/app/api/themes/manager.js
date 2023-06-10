@@ -1,14 +1,11 @@
-const { Theme, User, Patient } = require('../../models')
+const { Theme, Patient } = require('../../models')
 
 /**
  * Function buildTheme.
  * This function aggregates the questions and answers from the database to build a Theme with all the data needed by the clients.
  * @param themeId
  */
-const buildTheme = (themeId) => {
-  const theme = Theme.getById(themeId)
-  return theme
-}
+const buildTheme = (themeId) => Theme.getById(themeId)
 
 /**
  * Function buildThemes.
@@ -25,12 +22,9 @@ const buildThemes = () => {
  * @param patientId
  */
 const filterThemesFromPatient = (patientId) => {
-  const parsedId = parseInt(patientId, 10)
-  const patient = Patient.getById(parsedId)
+  const patient = Patient.getById(patientId)
   const themes = Theme.get()
-  console.log(themes)
-  const filteredThemes = themes.filter((theme) => patient.themeIdList.includes(theme.id))
-  return filteredThemes
+  return themes.filter((theme) => patient.themeIdList.includes(theme.id))
 }
 
 module.exports = {

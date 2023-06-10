@@ -3,7 +3,7 @@ const { Router } = require('express')
 const { Theme, Patient } = require('../../models')
 const manageAllErrors = require('../../utils/routes/error-management')
 const QuizzesRouter = require('../quizzes')
-const { buildTheme, buildThemes,filterThemesFromPatient } = require('./manager')
+const { buildTheme, buildThemes, filterThemesFromPatient } = require('./manager')
 
 const router = new Router()
 
@@ -14,12 +14,9 @@ router.use('/:themeId/quizzes', QuizzesRouter)
  */
 
 router.get('/patient/:patientId', (req, res) => {
-  console.log(req.params)
   try {
-    Patient.getById(req.params.patientId)
     res.status(200).json(filterThemesFromPatient(req.params.patientId))
   } catch (err) {
-    console.log(err);
     manageAllErrors(res, err)
   }
 })
@@ -44,7 +41,6 @@ router.get('/:themeId', (req, res) => {
 
 router.post('/', (req, res) => {
   try {
-    console.log("post theme")
     const theme = Theme.create({ ...req.body })
     res.status(201).json(theme)
   } catch (err) {
