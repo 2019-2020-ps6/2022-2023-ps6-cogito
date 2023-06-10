@@ -2,7 +2,14 @@ const { Router } = require('express')
 
 const manageAllErrors = require('../../../utils/routes/error-management')
 const { GameQuestion } = require('../../../models')
-const { buildGameQuestion, getAllGameQuestions, findGameQuizGameQuestions, findGameQuizAndQuestionGameQuestions, createGameQuestion, updateGameQuestion } = require('./manager')
+const {
+  buildGameQuestion,
+  getAllGameQuestions,
+  findGameQuizGameQuestions,
+  findGameQuizAndQuestionGameQuestions,
+  createGameQuestion,
+  updateGameQuestion,
+} = require('./manager')
 
 const router = new Router({ mergeParams: true })
 

@@ -23,17 +23,21 @@ const getAllGameQuestions = () => {
 }
 
 const findGameQuizGameQuestions = (gameQuizId) => {
-  const newGameQuizId = (typeof gameQuizId === 'number') ? gameQuizId.toString() : gameQuizId
+  // Check parameters type
+  const newGameQuizId = (typeof gameQuizId === 'string') ? parseInt(gameQuizId, 10) : gameQuizId
+
   const gameQuestionList = GameQuestion.get()
-  const gameQuestions = gameQuestionList.filter((gameQuestion) => gameQuestion.gameQuizId.toString() === newGameQuizId)
+  const gameQuestions = gameQuestionList.filter((gameQuestion) => gameQuestion.gameQuizId === newGameQuizId)
   return gameQuestions.map((gameQuestion) => buildGameQuestion(gameQuestion))
 }
 
 const findGameQuizAndQuestionGameQuestions = (gameQuizId, questionId) => {
-  const newGameQuizId = (typeof gameQuizId === 'number') ? gameQuizId.toString() : gameQuizId
-  const newQuestionId = (typeof questionId === 'number') ? questionId.toString() : questionId
+  // Check parameters type
+  const newGameQuizId = (typeof gameQuizId === 'string') ? parseInt(gameQuizId, 10) : gameQuizId
+  const newQuestionId = (typeof questionId === 'string') ? parseInt(questionId, 10) : questionId
+
   const gameQuestionList = GameQuestion.get()
-  const gameQuestions = gameQuestionList.filter((gameQuestion) => gameQuestion.gameQuizId.toString() === newGameQuizId && gameQuestion.questionId.toString() === newQuestionId)
+  const gameQuestions = gameQuestionList.filter((gameQuestion) => gameQuestion.gameQuizId === newGameQuizId && gameQuestion.questionId === newQuestionId)
   return gameQuestions.map((gameQuestion) => buildGameQuestion(gameQuestion))
 }
 
