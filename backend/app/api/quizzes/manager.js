@@ -1,18 +1,13 @@
 const { Quiz, Theme } = require('../../models')
 const { findQuizQuestions } = require('./questions/manager')
 
-const checkQuiz = (quiz) => {
-  const { themeId } = quiz
-  if (themeId) Theme.getById(themeId)
-}
-
 /**
  * Function buildQuiz.
  * This function add a questionList to the quiz to fit frontend model.
  * @param quiz the backed quiz to build
  */
 const buildQuiz = (quiz) => {
-  const questionList = findQuizQuestions(quiz.id.toString())
+  const questionList = findQuizQuestions(quiz.id)
   return { ...quiz, questionList }
 }
 
@@ -31,9 +26,29 @@ const findThemeQuizzes = (themeId) => {
   return quizzes.map((quiz) => buildQuiz(quiz))
 }
 
+const checkQuiz = (quiz) => {
+  // Check if existing properties are correct
+  if (quiz.themeId) Theme.getById(quiz.themeId)
+
+  // Remove properties that are not in backend Question
+  const { questionList, ...newQuiz } = quiz
+  return newQuiz
+}
+
+const createQuiz = (quiz) => {
+  const newQuiz = checkQuiz(quiz)
+  return buildQuiz(Quiz.create(newQuiz))
+}
+
+const updateQuiz = (quizId, quiz) => {
+  const newQuiz = checkQuiz(quiz)
+  return buildQuiz(Quiz.update(quizId, newQuiz))
+}
+
 module.exports = {
-  checkQuiz,
   buildQuiz,
   buildQuizzes,
   findThemeQuizzes,
+  createQuiz,
+  updateQuiz,
 }
