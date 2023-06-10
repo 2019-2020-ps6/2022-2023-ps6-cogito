@@ -3,7 +3,7 @@ const { Router } = require('express')
 const { Theme } = require('../../models')
 const manageAllErrors = require('../../utils/routes/error-management')
 const QuizzesRouter = require('../quizzes')
-const { buildTheme, buildThemes, filterThemesFromPatient } = require('./manager')
+const { buildTheme, buildThemes, findPatientThemes } = require('./manager')
 
 const router = new Router()
 
@@ -37,7 +37,7 @@ router.get('/:themeId', (req, res) => {
  */
 router.get('/patient/:patientId', (req, res) => {
   try {
-    res.status(200).json(filterThemesFromPatient(req.params.patientId))
+    res.status(200).json(findPatientThemes(req.params.patientId))
   } catch (err) {
     manageAllErrors(res, err)
   }

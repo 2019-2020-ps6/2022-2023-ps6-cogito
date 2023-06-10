@@ -30,5 +30,5 @@ const findPatientThemes = (patientId) => {
 module.exports = {
   buildTheme,
   buildThemes,
-  filterThemesFromPatient: findPatientThemes,
+  findPatientThemes,
 }
