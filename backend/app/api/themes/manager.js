@@ -7,8 +7,8 @@ const { findThemeQuizzes } = require('../quizzes/manager')
  * @param theme the backend theme to build
  */
 const buildTheme = (theme) => {
-  const quizList = findThemeQuizzes(theme.id.toString())
-  return { ...theme, quizzesList: quizList }
+  const quizzesList = findThemeQuizzes(theme.id.toString())
+  return { ...theme, quizzesList }
 }
 
 /**
