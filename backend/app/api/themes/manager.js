@@ -1,7 +1,4 @@
-const { Theme, Patient,
-  Quiz,
-  Question
-} = require('../../models')
+const { Theme, Patient } = require('../../models')
 const { findThemeQuizzes } = require('../quizzes/manager')
 
 /**
