@@ -33,6 +33,7 @@ export class ManagerListComponent implements OnInit{
   }
 
   ngOnInit(): void {
+    console.log("LAAA",this.route.snapshot.params['id']);
     // check the url to know which element is selected
     //console.log(this.element, this.elementId);
 
@@ -42,7 +43,6 @@ export class ManagerListComponent implements OnInit{
     }
 
     if(!this.elementId && this.elementId !== 0){ 
-      //console.log("ici");
       this.elementId = +this.route.snapshot.params['id'];
     }
 

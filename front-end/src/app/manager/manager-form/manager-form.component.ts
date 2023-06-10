@@ -83,6 +83,7 @@ export class ManagerFormComponent implements OnInit{
       else if(this.element === 'theme-form'){
         // subscribe to themeService
         this.themeService.resetSelectedTheme();
+        this.themeService.removeTheme(this.theme as Theme);
       }
     }
   }
