@@ -1,4 +1,11 @@
-const { Question } = require('../../../models')
+const { Question, Quiz } = require('../../../models')
+
+const checkQuestion = (question) => {
+  const { quizId } = question
+  if (quizId) {
+    Quiz.getById(quizId)
+  }
+}
 
 const buildQuestion = (question) => ({ ...question, answerList: [0] })
 
@@ -14,6 +21,7 @@ const findQuizQuestions = (quizId) => {
 }
 
 module.exports = {
+  checkQuestion,
   buildQuestion,
   buildQuestions,
   findQuizQuestions,
