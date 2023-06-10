@@ -1,4 +1,9 @@
-const { Quiz } = require('../../models')
+const { Quiz, Theme } = require('../../models')
+
+const checkQuiz = (quiz) => {
+  const { themeId } = quiz
+  if (themeId) Theme.getById(themeId)
+}
 
 /**
  * Function buildQuiz.
@@ -23,6 +28,7 @@ const findThemeQuizzes = (themeId) => {
 }
 
 module.exports = {
+  checkQuiz,
   buildQuiz,
   buildQuizzes,
   findThemeQuizzes,
