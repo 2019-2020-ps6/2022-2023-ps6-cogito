@@ -14,8 +14,7 @@ router.use('/:themeId/quizzes', QuizzesRouter)
  */
 router.get('/', (req, res) => {
   try {
-    const themes = buildThemes()
-    res.status(200).json(themes)
+    res.status(200).json(buildThemes())
   } catch (err) {
     manageAllErrors(res, err)
   }
