@@ -2,7 +2,7 @@ const { Router } = require('express')
 
 const manageAllErrors = require('../../../utils/routes/error-management')
 const { GameQuestion } = require('../../../models')
-const { buildGameQuestion, getAllGameQuestions, findGameQuestionsByGameQuiz, findGameQuestionsByGameQuizAndQuestion, createGameQuestion, updateGameQuestion } = require('./manager')
+const { buildGameQuestion, getAllGameQuestions, findGameQuizGameQuestions, findGameQuizAndQuestionGameQuestions, createGameQuestion, updateGameQuestion } = require('./manager')
 
 const router = new Router({ mergeParams: true })
 
@@ -25,7 +25,7 @@ router.get('/:gameQuestionId', (req, res) => {
 
 router.get('/gameQuiz/:gameQuizId', (req, res) => {
   try {
-    res.status(200).json(findGameQuestionsByGameQuiz(req.params.gameQuizId))
+    res.status(200).json(findGameQuizGameQuestions(req.params.gameQuizId))
   } catch (err) {
     manageAllErrors(res, err)
   }
@@ -33,7 +33,7 @@ router.get('/gameQuiz/:gameQuizId', (req, res) => {
 
 router.get('/gameQuiz/:gameQuizId/question/:questionId', (req, res) => {
   try {
-    res.status(200).json(findGameQuestionsByGameQuizAndQuestion(req.params.gameQuizId, req.params.questionId))
+    res.status(200).json(findGameQuizAndQuestionGameQuestions(req.params.gameQuizId, req.params.questionId))
   } catch (err) {
     manageAllErrors(res, err)
   }

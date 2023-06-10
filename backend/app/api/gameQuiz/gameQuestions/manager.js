@@ -22,20 +22,23 @@ const getAllGameQuestions = () => {
   return gameQuestionList.map((gameQuestion) => buildGameQuestion(gameQuestion))
 }
 
-const findGameQuestionsByGameQuiz = (gameQuizId) => {
+const findGameQuizGameQuestions = (gameQuizId) => {
   const newGameQuizId = (typeof gameQuizId === 'number') ? gameQuizId.toString() : gameQuizId
   const gameQuestionList = GameQuestion.get()
   const gameQuestions = gameQuestionList.filter((gameQuestion) => gameQuestion.gameQuizId.toString() === newGameQuizId)
   return gameQuestions.map((gameQuestion) => buildGameQuestion(gameQuestion))
 }
 
-const findGameQuestionsByGameQuizAndQuestion = (gameQuizId, questionId) => {
+const findGameQuizAndQuestionGameQuestions = (gameQuizId, questionId) => {
+  const newGameQuizId = (typeof gameQuizId === 'number') ? gameQuizId.toString() : gameQuizId
+  const newQuestionId = (typeof questionId === 'number') ? questionId.toString() : questionId
   const gameQuestionList = GameQuestion.get()
-  const gameQuestions = gameQuestionList.filter((gameQuestion) => gameQuestion.gameQuizId.toString() === gameQuizId && gameQuestion.questionId.toString() === questionId)
+  const gameQuestions = gameQuestionList.filter((gameQuestion) => gameQuestion.gameQuizId.toString() === newGameQuizId && gameQuestion.questionId.toString() === newQuestionId)
   return gameQuestions.map((gameQuestion) => buildGameQuestion(gameQuestion))
 }
 
 const checkGameQuestion = (gameQuestion) => {
+  // Check if existing properties are correct
   if (gameQuestion.gameQuizId) GameQuiz.getById(gameQuestion.gameQuizId)
   if (gameQuestion.questionId) Question.getById(gameQuestion.questionId)
   const selectedAnswerId = gameQuestion.selectedAnswer.id
@@ -59,8 +62,8 @@ const updateGameQuestion = (gameQuestion) => {
 module.exports = {
   buildGameQuestion,
   getAllGameQuestions,
-  findGameQuestionsByGameQuiz,
-  findGameQuestionsByGameQuizAndQuestion,
+  findGameQuizGameQuestions,
+  findGameQuizAndQuestionGameQuestions,
   createGameQuestion,
   updateGameQuestion,
 }
