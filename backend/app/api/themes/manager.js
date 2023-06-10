@@ -1,11 +1,15 @@
 const { Theme, Patient } = require('../../models')
+const { findThemeQuizzes } = require('../quizzes/manager')
 
 /**
  * Function buildTheme.
  * This function add a quizList to the theme to fit frontend model.
  * @param theme the backend theme to build
  */
-const buildTheme = (theme) => ({ ...theme, quizzesList: [0] })
+const buildTheme = (theme) => {
+  const quizList = findThemeQuizzes(theme.id.toString())
+  return { ...theme, quizzesList: quizList }
+}
 
 /**
  * Function buildThemes.

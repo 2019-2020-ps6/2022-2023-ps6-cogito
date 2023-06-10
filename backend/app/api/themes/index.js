@@ -5,9 +5,7 @@ const manageAllErrors = require('../../utils/routes/error-management')
 const QuizzesRouter = require('../quizzes')
 const { buildTheme, buildThemes, findPatientThemes } = require('./manager')
 
-const router = new Router()
-
-router.use('/:themeId/quizzes', QuizzesRouter)
+const router = new Router({ mergeParams: true })
 
 /**
  * Get all themes
