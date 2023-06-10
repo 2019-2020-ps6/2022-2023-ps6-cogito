@@ -21,8 +21,11 @@ const buildQuizzes = () => {
 }
 
 const findThemeQuizzes = (themeId) => {
+  // Check parameters type
+  const newThemeId = (typeof themeId === 'string') ? parseInt(themeId, 10) : themeId
+
   const quizList = Quiz.get()
-  const quizzes = quizList.filter((quiz) => quiz.themeId.toString() === themeId)
+  const quizzes = quizList.filter((quiz) => quiz.themeId === newThemeId)
   return quizzes.map((quiz) => buildQuiz(quiz))
 }
 
