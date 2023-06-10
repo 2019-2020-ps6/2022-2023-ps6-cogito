@@ -2,9 +2,7 @@ const { Question, Quiz } = require('../../../models')
 
 const checkQuestion = (question) => {
   const { quizId } = question
-  if (quizId) {
-    Quiz.getById(quizId)
-  }
+  if (quizId) Quiz.getById(quizId)
 }
 
 const buildQuestion = (question) => ({ ...question, answerList: [0] })
