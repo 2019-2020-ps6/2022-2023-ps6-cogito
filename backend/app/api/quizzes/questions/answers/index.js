@@ -2,7 +2,11 @@ const { Router } = require('express')
 
 const { Answer } = require('../../../../models')
 const manageAllErrors = require('../../../../utils/routes/error-management')
-const { checkAnswer, findQuestionAnswers } = require('./manager')
+const {
+  findQuestionAnswers,
+  createAnswer,
+  updateAnswer,
+} = require('./manager')
 
 const router = new Router({ mergeParams: true })
 
@@ -32,8 +36,7 @@ router.get('/question/:questionId', (req, res) => {
 
 router.post('/', (req, res) => {
   try {
-    checkAnswer({ ...req.body })
-    res.status(201).json(Answer.create({ ...req.body }))
+    res.status(201).json(createAnswer({ ...req.body }))
   } catch (err) {
     manageAllErrors(res, err)
   }
@@ -41,8 +44,7 @@ router.post('/', (req, res) => {
 
 router.put('/:answerId', (req, res) => {
   try {
-    checkAnswer({ ...req.body })
-    res.status(200).json(Answer.update(req.params.answerId, req.body))
+    res.status(200).json(updateAnswer(req.params.answerId, req.body))
   } catch (err) {
     manageAllErrors(res, err)
   }
