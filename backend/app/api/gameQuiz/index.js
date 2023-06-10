@@ -2,7 +2,14 @@ const { Router } = require('express')
 
 const manageAllErrors = require('../../utils/routes/error-management')
 const { GameQuiz } = require('../../models')
-const { buildGameQuiz, getAllGameQuiz, findGameQuizByPatient, findGameQuizByPatientAndQuiz } = require('./manager')
+const {
+  buildGameQuiz,
+  getAllGameQuiz,
+  findPatientGameQuiz,
+  findPatientAndQuizGameQuiz,
+  createGameQuiz,
+  updateGameQuiz,
+} = require('./manager')
 
 const router = new Router({ mergeParams: true })
 
@@ -25,7 +32,7 @@ router.get('/:gameQuizId', (req, res) => {
 
 router.get('/patient/:patientId', (req, res) => {
   try {
-    res.status(200).json(findGameQuizByPatient(req.params.patientId))
+    res.status(200).json(findPatientGameQuiz(req.params.patientId))
   } catch (err) {
     manageAllErrors(res, err)
   }
@@ -33,7 +40,7 @@ router.get('/patient/:patientId', (req, res) => {
 
 router.get('/patient/:patientId/quiz/:quizId', (req, res) => {
   try {
-    res.status(200).json(findGameQuizByPatientAndQuiz(req.params.patientId, req.params.quizId))
+    res.status(200).json(findPatientAndQuizGameQuiz(req.params.patientId, req.params.quizId))
   } catch (err) {
     manageAllErrors(res, err)
   }
@@ -41,8 +48,7 @@ router.get('/patient/:patientId/quiz/:quizId', (req, res) => {
 
 router.post('/', (req, res) => {
   try {
-    const gameQuiz = GameQuiz.create({ ...req.body })
-    res.status(201).json(buildGameQuiz(gameQuiz))
+    res.status(201).json(createGameQuiz({ ...req.body }))
   } catch (err) {
     manageAllErrors(res, err)
   }
@@ -50,8 +56,7 @@ router.post('/', (req, res) => {
 
 router.put('/:gameQuizId', (req, res) => {
   try {
-    const gameQuiz = GameQuiz.update(req.params.gameQuizId, req.body)
-    res.status(201).json(buildGameQuiz(gameQuiz))
+    res.status(201).json(updateGameQuiz(req.params.gameQuizId, req.body))
   } catch (err) {
     manageAllErrors(res, err)
   }
