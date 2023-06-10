@@ -49,7 +49,7 @@ router.post('/', (req, res) => {
 
 router.put('/:gameQuestionId', (req, res) => {
   try {
-    res.status(200).json(updateGameQuestion({ ...req.body }))
+    res.status(200).json(updateGameQuestion(req.params.gameQuestionId, req.body))
   } catch (err) {
     manageAllErrors(res, err)
   }
