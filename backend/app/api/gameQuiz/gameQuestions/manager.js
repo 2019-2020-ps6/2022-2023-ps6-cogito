@@ -45,8 +45,11 @@ const checkGameQuestion = (gameQuestion) => {
   // Check if existing properties are correct
   if (gameQuestion.gameQuizId) GameQuiz.getById(gameQuestion.gameQuizId)
   if (gameQuestion.questionId) Question.getById(gameQuestion.questionId)
-  const selectedAnswerId = gameQuestion.selectedAnswer.id
-  if (selectedAnswerId) Answer.getById(selectedAnswerId)
+  let selectedAnswerId
+  if (gameQuestion.selectedAnswer) {
+    selectedAnswerId = gameQuestion.selectedAnswer.id
+    Answer.getById(selectedAnswerId)
+  }
 
   // Remove properties that are not in backend GameQuestion
   const { answerList, correcting, selectedAnswer, ...newGameQuestion } = gameQuestion
@@ -58,9 +61,9 @@ const createGameQuestion = (gameQuestion) => {
   return buildGameQuestion(GameQuestion.create(newGameQuestion))
 }
 
-const updateGameQuestion = (gameQuestion) => {
+const updateGameQuestion = (gameQuestionId, gameQuestion) => {
   const newGameQuestion = checkGameQuestion(gameQuestion)
-  return buildGameQuestion(GameQuestion.update(newGameQuestion))
+  return buildGameQuestion(GameQuestion.update(gameQuestionId, newGameQuestion))
 }
 
 module.exports = {
