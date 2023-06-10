@@ -1,11 +1,15 @@
 const { Question, Quiz } = require('../../../models')
+const { findQuestionAnswers } = require('./answers/manager')
 
 const checkQuestion = (question) => {
   const { quizId } = question
   if (quizId) Quiz.getById(quizId)
 }
 
-const buildQuestion = (question) => ({ ...question, answerList: [0] })
+const buildQuestion = (question) => {
+  const answerList = findQuestionAnswers(question.id.toString())
+  return { ...question, answerList }
+}
 
 const buildQuestions = () => {
   const questions = Question.get()
