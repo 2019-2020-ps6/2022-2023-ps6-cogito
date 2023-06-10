@@ -2,26 +2,26 @@ const { Theme, Patient } = require('../../models')
 
 /**
  * Function buildTheme.
- * This function aggregates the questions and answers from the database to build a Theme with all the data needed by the clients.
- * @param themeId
+ * This function add a quizList to the theme to fit frontend model.
+ * @param theme the backend theme to build
  */
-const buildTheme = (themeId) => Theme.getById(themeId)
+const buildTheme = (theme) => ({ ...theme, quizzesList: [0] })
 
 /**
  * Function buildThemes.
- * This function aggregates the questions and answers from the database to build entire themes.
+ * This function get all themes from database and build it to fit frontend theme.
  */
 const buildThemes = () => {
   const themes = Theme.get()
-  return themes.map((theme) => buildTheme(theme.id))
+  return themes.map((theme) => buildTheme(theme))
 }
 
 /**
- * filterThemesFromPatient.
- * This function filters among the themes to return only the themes linked with the given patientId.
- * @param patientId
+ * Function findPatientThemes.
+ * This function get all themes from a patient.
+ * @param patientId the id of the patient
  */
-const filterThemesFromPatient = (patientId) => {
+const findPatientThemes = (patientId) => {
   const patient = Patient.getById(patientId)
   const themes = Theme.get()
   return themes.filter((theme) => patient.themeIdList.includes(theme.id))
@@ -30,5 +30,5 @@ const filterThemesFromPatient = (patientId) => {
 module.exports = {
   buildTheme,
   buildThemes,
-  filterThemesFromPatient,
+  filterThemesFromPatient: findPatientThemes,
 }
