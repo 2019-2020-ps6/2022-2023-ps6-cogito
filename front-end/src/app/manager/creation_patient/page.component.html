@@ -1,72 +1,42 @@
-<form>
-        <div class="overflow-auto">
-            <div class="question-part mb-3 border-bottom">
-                <h3>Informations</h3>
-                <div class="row g-3 align-items-center mb-1">
-                    <div class="col-auto">
-                        <label class="col-form-label">Nom :</label>
-                    </div>
-                    <div class="col">
-                        <input type="text" class="form-control" name="name" [(ngModel)]="patient.name">
-                    </div>
-                </div>
-                <div class="row g-3 align-items-center mb-1">
-                    <div class="col-auto">
-                        <label class="col-form-label">Photo :</label>
-                    </div>
-                    <div class="col-auto">
-                        <input type="text" class="form-control" name="picture" [(ngModel)]="patient.picture">
-                    </div>
-                    <div class="col-auto">
-                        <span class="form-text">
-                            Vous pouvez mettre une photo du patient
-                        </span>
-                    </div>
-                </div>
+<section>
+    <div class="sideButtons">
+        <button class="addButton" *ngIf="create;else update" (click)="createPatient()" [disabled]="!checkPatientValidity()">Ajouter
+        </button>
+        <ng-template #update>
+            <button class="addButton" (click)="updatePatient()" [disabled]="!checkPatientValidity()">Enregistrer</button>
+        </ng-template>
 
-                  <div class="row g-3 align-items-center mb-1">
-                    <div class="col-auto">
-                      <label class="form-label">Stade :</label>
-                    </div>
-                    <div class="col-auto">
-                        <select name="stage" class="form-select" [(ngModel)]="patient.stage">
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
-                        </select>
-                    </div>
-                    <div class="col-auto">
-                      <span class="form-text">Choisir le stade du patient</span>
-                    </div>
-                  </div>
+        <button *ngIf="create;else cancelModify" [routerLink]="['/profil-list']">Annuler</button>
+        <ng-template #cancelModify>
+            <button [routerLink]="['/profil']">Annuler</button>
+        </ng-template>
+    </div>
 
-                <div class="row g-3 align-items-center mb-3">
-                    <div class="col-auto">
-                        <label class="col-form-label">Anniversaire :</label>
-                    </div>
-                    <div class="col">
-                        <input type="date" class="form-control" name="birthdate"
-                               max="{{maxDate | date: 'yyyy-MM-dd'}}" [(ngModel)]="patient.birthdate">
-                    </div>
-                </div>
+    <form>
+        <div id="informationForm">
+            <h3>Informations</h3>
+            <div class="rowInput">
+                <label for="patientName">Nom :</label>
+                <input id="patientName" type="text" name="name" [(ngModel)]="patient.name">
             </div>
-
-        </div>
-
-        <div class="side-content">
-            <button *ngIf="create;else update" (click)="createPatient()" [disabled]="!checkPatientValidity()">Ajouter
-            </button>
-            <ng-template #update>
-                <button (click)="updatePatient()" [disabled]="!checkPatientValidity()">Enregistrer</button>
-            </ng-template>
-
-            <div *ngIf="create;else cancelModify">
-                <button [routerLink]="['/profil-list']">Annuler</button>
+            <div class="rowInput">
+                <label for="patientPicture">Photo :</label>
+                <input id="patientPicture" type="url" name="picture" [(ngModel)]="patient.picture">
+                <span>Vous pouvez mettre une photo du patient</span>
             </div>
-            <ng-template #cancelModify>
-                <div>
-                    <button [routerLink]="['/profil']">Annuler</button>
-                </div>
-            </ng-template>
+            <div class="rowInput">
+                <label for="patientStage">Stade :</label>
+                <select id="patientStage" name="stage" [(ngModel)]="patient.stage">
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                </select>
+                <span>Veuillez sélectionner le stade du patient</span>
+            </div>
+            <div class="rowInput">
+                <label for="patientBirthdate">Anniversaire :</label>
+                <input id="patientBirthdate" type="date" name="birthdate" [(ngModel)]="patient.birthdate">
+            </div>
         </div>
-</form>
+    </form>
+</section>

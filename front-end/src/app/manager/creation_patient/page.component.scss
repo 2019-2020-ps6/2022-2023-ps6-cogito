@@ -1,93 +1,63 @@
 @import "/src/styles/variables.scss";
 
-.main-content{
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
-    padding: 20px;
-    width: 80%;
-    background-color: $grey;
-    margin: 20px;
-    border-radius: 100px;
-}
-
-.side-content{
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    margin: 30px;
-}
-
-form{
-    display: flex;
-    flex-direction: row-reverse;
-    height: 80%;
-}
-
-label {
-    display: flex;
-    flex-direction: column;
-}
-
-.img-question {
-    max-width: 100px;
-    height: auto;
-}
-
-li {
-    list-style-type: none;
-    
-}
-
-li .card{
-    width: 300px;
-    height: 500px;
-}
-
-li .card .card-body{
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-}
-
-ul {
+section {
     display: flex;
     flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: space-evenly;
-    padding: 0;
+    height: 80vh;
 }
 
-.overflow-auto{
-    max-height: 90%;
-    padding: 20px;
-    width: 80%;
+.sideButtons {
+    width: 15vw;
+    padding-left: 1vw;
+    padding-bottom: 3vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+
+    & button {
+        margin-top: min(3vh, 3vw);
+    }
+}
+
+form {
+    width: 65vw;
+    display: flex;
+    flex-direction: column;
+    margin: 5vh auto;
+    padding: 3vh 1vw;
     background-color: $grey;
-    margin: 20px;
     border-radius: 5px;
 }
 
-.answer-header{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-}
+#informationForm {
+    border-bottom: 1px solid whitesmoke;
+    padding-bottom: 2vh;
 
-.answer-picture{
-    height: 200px;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: left;
-}
+    & div {
+        display: flex;
+        flex-direction: row;
+        margin: 1vh 1vw;
 
-.answer-picture img{
-    object-fit: contain;
-    max-height: 60%;
-    max-width: 100%;
-    align-items: center;
-    margin-top: 10px;
+        & * {
+            padding: 7px 0;
+        }
+
+        & label {
+            width: 8vw;
+        }
+
+        & input, & select {
+            padding-left: 15px;
+            padding-right: 15px;
+            width: 30vw;
+            border-radius: 5px;
+            border: none;
+            background-color: $white_input_form;
+        }
+
+        & span {
+            margin-left: 1vw;
+            color: $grey_span_form;
+        }
+    }
 }
-  
