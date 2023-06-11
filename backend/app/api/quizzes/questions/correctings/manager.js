@@ -1,11 +1,13 @@
 const { Correcting, Question } = require('../../../../models')
 
-const findQuestionCorrectings = (questionId) => {
+const findQuestionCorrecting = (questionId) => {
   // Check parameters type
   const newQuestionId = (typeof questionId === 'string') ? parseInt(questionId, 10) : questionId
 
   const correctingList = Correcting.get()
-  return correctingList.filter((correcting) => correcting.questionId === newQuestionId)
+  const index = correctingList.findIndex((correcting) => correcting.questionId === newQuestionId)
+  if (index !== -1) return correctingList[index]
+  return undefined
 }
 
 const checkCorrecting = (correcting) => {
@@ -25,7 +27,7 @@ const updateCorrecting = (correctingId, correcting) => {
 }
 
 module.exports = {
-  findQuestionCorrectings,
+  findQuestionCorrecting,
   createCorrecting,
   updateCorrecting,
 }

@@ -3,7 +3,7 @@ const { Router } = require('express')
 const { Correcting } = require('../../../../models')
 const manageAllErrors = require('../../../../utils/routes/error-management')
 const {
-  findQuestionCorrectings,
+  findQuestionCorrecting,
   createCorrecting,
   updateCorrecting,
 } = require('./manager')
@@ -28,7 +28,7 @@ router.get('/:correctingId', (req, res) => {
 
 router.get('/question/:questionId', (req, res) => {
   try {
-    res.status(200).json(findQuestionCorrectings(req.params.questionId))
+    res.status(200).json(findQuestionCorrecting(req.params.questionId))
   } catch (err) {
     manageAllErrors(res, err)
   }
