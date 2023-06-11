@@ -13,7 +13,7 @@
     </div>
 
     <form>
-        <div id="informationForm">
+        <div id="patientInformationForm">
             <h3>Informations</h3>
             <div class="rowInput">
                 <label for="patientName">Nom :</label>
@@ -37,6 +37,23 @@
                 <label for="patientBirthdate">Anniversaire :</label>
                 <input id="patientBirthdate" type="date" name="birthdate" [(ngModel)]="patient.birthdate">
             </div>
+        </div>
+
+        <div id="patientQuizForm">
+            <ul>
+                <h6>Liste des thèmes :</h6>
+                <div class="scrollList">
+                    <li *ngFor="let theme of themeList"
+                        [ngClass]="{'selected' : patient.themeIdList.includes(theme.id)}">{{theme.title}}</li>
+                </div>
+            </ul>
+
+            <ul>
+                <h6>Liste des quiz :</h6>
+                <div class="scrollList">
+                    <li *ngFor="let theme of themeList">{{theme.title}}</li>
+                </div>
+            </ul>
         </div>
     </form>
 </section>

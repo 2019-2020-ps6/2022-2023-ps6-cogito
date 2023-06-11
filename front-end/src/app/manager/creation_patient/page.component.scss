@@ -29,7 +29,7 @@ form {
     border-radius: 5px;
 }
 
-#informationForm {
+#patientInformationForm {
     border-bottom: 1px solid whitesmoke;
     padding-bottom: 2vh;
 
@@ -39,7 +39,7 @@ form {
         margin: 1vh 1vw;
 
         & * {
-            padding: 7px 0;
+            padding: 5px 0;
         }
 
         & label {
@@ -58,6 +58,52 @@ form {
         & span {
             margin-left: 1vw;
             color: $grey_span_form;
+        }
+    }
+}
+
+#patientQuizForm {
+    padding-top: 2vh;
+    display: flex;
+    justify-content: space-evenly;
+
+    & ul {
+        width: 47%;
+        padding: 0;
+        border-radius: 5px;
+
+        & h6 {
+            border-top-left-radius: 5px;
+            border-top-right-radius: 5px;
+            margin: 0;
+            padding: min(2vh, 2vw);
+            background-color: $h2_light_blue;
+            border: 1px solid lightblue;
+        }
+
+        & li {
+            padding: min(1vh, 1vw);
+            background-color: $white_input_form;
+            list-style-type: none;
+            border: 1px solid lightgrey;
+
+            &:last-child {
+                border-bottom-left-radius: 5px;
+                border-bottom-right-radius: 5px;
+            }
+
+            &:hover {
+                cursor: pointer;
+                background-color: #F1F0F0;
+            }
+
+            &.selected {
+                background-color: $light-green;
+
+                &:hover {
+                    background-color: #8DF593;
+                }
+            }
         }
     }
 }

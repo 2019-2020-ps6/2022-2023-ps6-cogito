@@ -3,6 +3,9 @@ import { Router } from "@angular/router";
 
 import { PatientService } from "src/services/patient.service";
 import { Patient } from "../../../models/patient.model";
+import { Theme } from "../../../models/theme.model";
+import { QuizService } from "../../../services/quiz.service";
+import { ThemeService } from "../../../services/theme.service";
 
 
 @Component({
@@ -21,10 +24,11 @@ export class CreationPatientComponent implements OnInit {
         quizIdList: [],
         quizToPlayList: []
     };
+    themeList: Theme[] = []
     create: boolean = false;
     maxDate: Date = new Date();
 
-    constructor(private patientService: PatientService, private router: Router) {
+    constructor(private patientService: PatientService, private themeService: ThemeService, private quizService: QuizService, private router: Router) {
         this.create = this.router.url.endsWith("/creation-patient-page");
 
         if (!this.create) {
@@ -34,6 +38,13 @@ export class CreationPatientComponent implements OnInit {
                 }
             });
         }
+
+        this.themeService.retrieveAllThemes();
+        this.themeService.themeList$.subscribe(themeList => {
+            this.themeList = themeList;
+        })
+
+        // make the same with quizzes
     }
 
     ngOnInit(): void {
