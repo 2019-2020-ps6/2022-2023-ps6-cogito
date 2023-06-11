@@ -1,30 +1,29 @@
+<section>
+    <div class="profil_container">
+        <figure id="profilPic">
+            <div>
+                <img src="{{patient.picture}}" alt="Photo du patient">
+            </div>
+        </figure>
 
-<body>
         <div class="profil">
-                <!-- <li *ngFor="let elements of patient">
-                    {{elements}}
-                    bonjour
-                    <br>
-                </li> -->
-            <div id="txt">
-                Nom : {{patient.name}}
-                <br>
-                Naissance : {{patient.birthdate | date:"dd-MM-YYYY"}}
-                <br>
-                Stade approximatif : {{patient.stage}}
+            <div id="infos">
+                <p>Nom : {{patient.name}}</p>
+                <p>Naissance : {{patient.birthdate | date:"dd-MM-YYYY"}}</p>
+                <p>Stade : {{patient.stage}}</p>
             </div>
 
-                <div class="button-result-quiz d-flex flex-column align-items-center">
-                    <button type="submit" class="btn btn-primary mb-1" [routerLink]="['/modification-patient-page']"> Changer les informations</button>
-                    <button type="submit" class="btn btn-primary result" [routerLink]="['/results']"> Voir les résultats</button>
+            <div id="profilButtons">
+                <div>
+                    <button class="chooseButton" routerLink="//modification-patient-page">Changer les informations</button>
+                    <button class="chooseButton" routerLink="/configuration">Choisir la configuration</button>
                 </div>
+                <button class="chooseButton" routerLink="/results">Voir les résultats</button>
+            </div>
         </div>
+    </div>
 
-        <div class="bg-primary pic">
-            <img src="{{patient.picture}}" alt="Photo du patient">
-        </div>
-
-        <button type="submit" class="btn btn-primary btnchoose" [routerLink]="['/configuration']"> Choisir la configuration</button>
-        <button type="submit" class="button-back" [routerLink]="['/profil-list']"> RETOUR </button>
-
-</body>
+    <div class="buttons">
+        <button class="backButton" routerLink="/profil-list"> RETOUR </button>
+    </div>
+</section>
