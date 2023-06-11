@@ -1,9 +1,11 @@
 const { Question, Quiz } = require('../../../models')
 const { findQuestionAnswers } = require('./answers/manager')
+const { findQuestionCorrecting } = require('./correctings/manager')
 
 const buildQuestion = (question) => {
   const answerList = findQuestionAnswers(question.id)
-  return { ...question, answerList }
+  const correcting = findQuestionCorrecting(question.id)
+  return { ...question, answerList, correcting }
 }
 
 const buildQuestions = () => {
