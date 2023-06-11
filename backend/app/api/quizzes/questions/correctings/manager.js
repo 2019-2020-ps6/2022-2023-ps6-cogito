@@ -1,7 +1,4 @@
-const { Correcting,
-  Question,
-  Answer
-} = require('../../../../models')
+const { Correcting, Question } = require('../../../../models')
 
 const findQuestionCorrectings = (questionId) => {
   // Check parameters type
