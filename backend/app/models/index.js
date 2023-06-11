@@ -6,6 +6,7 @@ const Answer = require('./answer.model')
 const Patient = require('./patient.model')
 const GameQuiz = require('./gameQuiz.model')
 const GameQuestion = require('./gameQuestion.model')
+const Correcting = require('./correcting.model')
 
 module.exports = {
   Theme,
@@ -16,4 +17,5 @@ module.exports = {
   Patient,
   GameQuiz,
   GameQuestion,
+  Correcting,
 }
