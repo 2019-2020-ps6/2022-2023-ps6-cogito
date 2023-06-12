@@ -122,9 +122,14 @@ export class ManagerListComponent implements OnInit{
 
   selectElement(id : number) : void{
     if(this.element){
+      const e = this.listToDisplay?.filter((e) => e.id === id)[0];
+      console.log(e);
       if(this.element == 'quiz-list'){
+        if(e.themeId !== undefined){
+          this.themeService.selectThemeById(e.themeId)
+        }
         // subscribe to quizService
-        this.themeService.selectTheme(this.themeService.findInWhichThemeIsQuiz(id))
+        //this.themeService.selectTheme(this.themeService.findInWhichThemeIsQuiz(id))
       }
       else{
         if(this.type === 'selector'){
