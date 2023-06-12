@@ -24,11 +24,12 @@ export class CreationPatientComponent implements OnInit {
         quizIdList: [],
         quizToPlayList: []
     };
-    themeList: Theme[] = []
+    themeList: Theme[] = [];
     create: boolean = false;
     maxDate: Date = new Date();
 
-    constructor(private patientService: PatientService, private themeService: ThemeService, private quizService: QuizService, private router: Router) {
+    constructor(private patientService: PatientService, private themeService: ThemeService,
+                private quizService: QuizService, private router: Router) {
         this.create = this.router.url.endsWith("/creation-patient-page");
 
         if (!this.create) {
@@ -42,13 +43,42 @@ export class CreationPatientComponent implements OnInit {
         this.themeService.retrieveAllThemes();
         this.themeService.themeList$.subscribe(themeList => {
             this.themeList = themeList;
-        })
+        });
 
         // make the same with quizzes
     }
 
     ngOnInit(): void {
         this.maxDate = new Date();
+    }
+
+    selectTheme(theme: Theme): void {
+        let index = this.patient.themeIdList.indexOf(theme.id);
+        if (index !== -1) {
+            this.patient.themeIdList.splice(index, 1);
+            this.removeThemeQuizzes(theme);
+        }
+        else {
+            this.patient.themeIdList.push(theme.id);
+            this.addThemeQuizzes(theme);
+        }
+    }
+
+    private removeThemeQuizzes(theme: Theme) {
+        for (let quiz of theme.quizzesList) {
+            let index = this.patient.quizIdList.indexOf(quiz.id);
+            if (index !== -1) {
+                this.patient.quizIdList.splice(index, 1);
+            }
+        }
+    }
+
+    private addThemeQuizzes(theme: Theme) {
+        for (let quiz of theme.quizzesList) {
+            if (!this.patient.quizIdList.includes(quiz.id)) {
+                this.patient.quizIdList.push(quiz.id);
+            }
+        }
     }
 
     createPatient(): void {

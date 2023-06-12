@@ -43,29 +43,7 @@
             <ul>
                 <h6>Liste des thèmes :</h6>
                 <div class="scrollList">
-                    <li *ngFor="let theme of themeList"
-                        [ngClass]="{'selectedLightGreen' : patient.themeIdList.includes(theme.id)}">{{theme.title}}</li>
-                    <li *ngFor="let theme of themeList"
-                        [ngClass]="{'selectedLightGreen' : patient.themeIdList.includes(theme.id)}">{{theme.title}}</li>
-                    <li *ngFor="let theme of themeList"
-                        [ngClass]="{'selectedLightGreen' : patient.themeIdList.includes(theme.id)}">{{theme.title}}</li>
-                    <li *ngFor="let theme of themeList"
-                        [ngClass]="{'selectedLightGreen' : patient.themeIdList.includes(theme.id)}">{{theme.title}}</li>
-                    <li *ngFor="let theme of themeList"
-                        [ngClass]="{'selectedLightGreen' : patient.themeIdList.includes(theme.id)}">{{theme.title}}</li>
-                    <li *ngFor="let theme of themeList"
-                        [ngClass]="{'selectedLightGreen' : patient.themeIdList.includes(theme.id)}">{{theme.title}}</li>
-                    <li *ngFor="let theme of themeList"
-                        [ngClass]="{'selectedLightGreen' : patient.themeIdList.includes(theme.id)}">{{theme.title}}</li>
-                    <li *ngFor="let theme of themeList"
-                        [ngClass]="{'selectedLightGreen' : patient.themeIdList.includes(theme.id)}">{{theme.title}}</li>
-                    <li *ngFor="let theme of themeList"
-                        [ngClass]="{'selectedLightGreen' : patient.themeIdList.includes(theme.id)}">{{theme.title}}</li>
-                    <li *ngFor="let theme of themeList"
-                        [ngClass]="{'selectedLightGreen' : patient.themeIdList.includes(theme.id)}">{{theme.title}}</li>
-                    <li *ngFor="let theme of themeList"
-                        [ngClass]="{'selectedLightGreen' : patient.themeIdList.includes(theme.id)}">{{theme.title}}</li>
-                    <li *ngFor="let theme of themeList"
+                    <li *ngFor="let theme of themeList" (click)="selectTheme(theme)"
                         [ngClass]="{'selectedLightGreen' : patient.themeIdList.includes(theme.id)}">{{theme.title}}</li>
                 </div>
             </ul>
