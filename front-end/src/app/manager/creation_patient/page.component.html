@@ -1,6 +1,6 @@
 <section>
     <div class="sideButtons">
-        <button class="addButton" *ngIf="create;else update" (click)="createPatient()" [disabled]="!checkPatientValidity()">Ajouter
+        <button class="addButton" id="addButton" *ngIf="create;else update" (click)="createPatient()" [disabled]="!checkPatientValidity()">Ajouter
         </button>
         <ng-template #update>
             <button class="addButton" (click)="updatePatient()" [disabled]="!checkPatientValidity()">Enregistrer</button>
@@ -43,15 +43,8 @@
             <ul>
                 <h6>Liste des thèmes :</h6>
                 <div class="scrollList">
-                    <li *ngFor="let theme of themeList"
-                        [ngClass]="{'selected' : patient.themeIdList.includes(theme.id)}">{{theme.title}}</li>
-                </div>
-            </ul>
-
-            <ul>
-                <h6>Liste des quiz :</h6>
-                <div class="scrollList">
-                    <li *ngFor="let theme of themeList">{{theme.title}}</li>
+                    <li *ngFor="let theme of themeList" (click)="selectTheme(theme)"
+                        [ngClass]="{'selectedLightGreen' : patient.themeIdList.includes(theme.id)}">{{theme.title}}</li>
                 </div>
             </ul>
         </div>
