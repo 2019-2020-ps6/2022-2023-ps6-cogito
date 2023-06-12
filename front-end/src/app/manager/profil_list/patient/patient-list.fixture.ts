@@ -8,6 +8,5 @@ export class PatientListFixture extends E2EComponentFixture {
         return this.page.waitForSelector(`a#delete_${patientName.replace(' ', '_')}`);
     }
       
-      
 
 }
