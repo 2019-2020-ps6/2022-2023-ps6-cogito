@@ -16,6 +16,8 @@ export class ManagerFormComponent implements OnInit{
 
   public element : string | undefined;
 
+  public elementBool : string | undefined;
+
   public quiz : Quiz | undefined;
 
   public theme : Theme | undefined;
@@ -27,6 +29,7 @@ export class ManagerFormComponent implements OnInit{
 
     this.element = window.location.href.split('/')[3];
     const elementId = this.route.snapshot.params['id'];
+    this.elementBool = this.route.snapshot.params['bool'];
     if(this.element){
       if(this.element == 'quiz-form'){
         // subscribe to quizService
@@ -83,7 +86,8 @@ export class ManagerFormComponent implements OnInit{
       else if(this.element === 'theme-form'){
         // subscribe to themeService
         this.themeService.resetSelectedTheme();
-        this.themeService.removeTheme(this.theme as Theme);
+        if(this.elementBool)
+          this.themeService.removeTheme(this.theme as Theme);
       }
     }
   }
