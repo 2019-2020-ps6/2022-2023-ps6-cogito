@@ -4,6 +4,8 @@ import { Quiz } from 'src/models/quiz.model';
 import { MediaType, Question } from 'src/models/question.model';
 import {HttpClient} from '@angular/common/http';
 import { environment } from '../environments/environment';
+import { Router } from "@angular/router";
+
 
 @Injectable({
   providedIn: 'root'
@@ -27,7 +29,7 @@ export class QuizService {
 
   private urlApi: string = environment.apiUrl;
 
-  constructor(private http: HttpClient) { 
+  constructor(private http: HttpClient, private router: Router) { 
     this.http.get<Quiz[]>(this.urlApi+'/quizzes').subscribe((quizzes)=> {
       console.log("quizzes", quizzes)
       this.quizList=quizzes;
@@ -169,13 +171,28 @@ export class QuizService {
 
   createAndSelectNewQuiz() : void{
     const quiz = {} as Quiz;
-    quiz.id = this.getIdOfNewQuiz();
     quiz.title = "";
     quiz.questionList = [];
-    this.quizList.push(quiz);
-    this.selectQuiz(quiz);
+    //this.quizList.push(quiz);
+    //this.selectQuiz(quiz);
     this.typeOfForm = "creation";
+    this.addQuiz(quiz);
   }
+
+  addQuiz(quiz: Quiz): void {
+    if(quiz.title === ""){
+      quiz.title = "NOUVEAU QUIZ"
+      
+    }
+    this.http.post<Quiz>(this.urlApi + '/quizzes', quiz).subscribe(quiz => {
+        this.quizList.push(quiz);
+        this.selectionQuizSubject.next(quiz);
+        this.typeOfForm = "creation";
+        this.router.navigate(["/quiz-form/"+ quiz.id + '/true']);
+    });
+
+  }
+
 
   getTypeOfForm(): string{
     return this.typeOfForm;
@@ -194,7 +211,6 @@ export class QuizService {
       );
     }
     else {
-      console.log(quiz);
       if (quiz.questionList===undefined)
         quiz.questionList=[]
       this.http.post<Quiz>(this.urlApi+'/quizzes/',quiz).subscribe((q) => {
@@ -207,7 +223,10 @@ export class QuizService {
   removeQuiz(quiz: Quiz): void {
     const index = this.quizList.findIndex(q => q.id === quiz.id);
     if (quiz.id !== undefined && quiz.id >= 0) {
-      this.http.delete<Quiz>(this.urlApi+'/quizzes/'+quiz.id);
+      console.log("remove quiz", quiz);
+      this.http.delete<Quiz>(this.urlApi+'/quizzes/'+quiz.id).subscribe((e) => {
+        console.log("delete", e);
+      });
       const updatedQuizList = [...this.quizList];
       updatedQuizList.splice(index, 1);
       this.quizList = updatedQuizList;
