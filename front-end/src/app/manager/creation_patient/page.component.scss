@@ -24,7 +24,7 @@ form {
     display: flex;
     flex-direction: column;
     margin: 5vh auto;
-    padding: 3vh 1vw;
+    padding: 2vh 1vw;
     background-color: $grey;
     border-radius: 5px;
 }
@@ -66,12 +66,14 @@ form {
 }
 
 #patientQuizForm {
+    height: 43%;
     padding-top: 2vh;
     display: flex;
     justify-content: space-evenly;
 
     & ul {
         width: 100%;
+        margin: 0;
         padding: 0;
         border-radius: 5px;
 
@@ -79,7 +81,7 @@ form {
             border-top-left-radius: 5px;
             border-top-right-radius: 5px;
             margin: 0;
-            padding: min(2vh, 2vw);
+            padding: min(1.5vh, 1.5vw);
             background-color: $h2_light_blue;
             border: 1px solid lightblue;
         }
@@ -87,9 +89,12 @@ form {
         & .scrollList {
             display: flex;
             flex-wrap: wrap;
+            max-height: 80%;
+            overflow-y: scroll;
         }
 
         & li {
+            height: calc(32px + min(1vh, 1vw) * 2 + 2px);
             width: calc(100% / 3);
             padding: min(1vh, 1vw);
             background-color: $white_input_form;
