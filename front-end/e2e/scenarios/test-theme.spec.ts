@@ -1,8 +1,12 @@
 import { test, expect } from '@playwright/test';
 import { testUrl } from 'e2e/e2e.config';
+const { CreateThemeFixture } = require('src/app/theme/e2e-component.fixture Theme');
 
 test.describe('Theme feature', () => {
   test('Create theme sucessfully', async ({ page }) => {
+
+    const ThemeFixture = new CreateThemeFixture(page);
+
     await page.goto(testUrl);
 
     // Vérifier que vous êtes sur la page "home"
@@ -10,10 +14,8 @@ test.describe('Theme feature', () => {
       const currentUrl = await page.url();
       expect(currentUrl).toContain('home-page');
     });
-    
-    await test.step('Click on Commencer', async () => {
-      await page.getByRole('button', { name: 'COMMENCER' }).click();
-    });
+
+    await ThemeFixture.clickCommencer();
 
     // Vérifier que vous êtes sur la page "patient"
     await test.step('Verify current page is patient-page', async () => {
@@ -80,6 +82,7 @@ test.describe('Theme feature', () => {
 
     await test.step('Click on editObject', async () => {
       await page.click('a#editObject');
+
     });
 
     // Vérifier que vous êtes sur la page "theme-form"
