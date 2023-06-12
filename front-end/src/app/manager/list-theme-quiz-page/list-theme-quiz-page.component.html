@@ -1,21 +1,14 @@
-<div class="page">
-        <div class="side-content">
-            <button class="btn btn-warning btn-outline-dark" [routerLink]="['/menu/']">Retour au menu principal</button>
-        </div>
-        <div class="main-content">
-            <div class="content">
-                <h5>Choisissez un thème à modifier ou à supprimer : </h5>
-                <div class="overflow-auto">
-                    <app-manager-list element="theme-list"></app-manager-list>
-                </div>
-            </div>
-            <div class="content ">
-                <h5>Choisissez un quiz à modifier ou à supprimer :</h5>
-                <div class="overflow-auto">
-                    <app-manager-list element="quiz-list"></app-manager-list>
-                </div>
-            </div>
-        
-        </div>
-</div>
+<section>
+    <div class="buttons">
+        <button class="backButton" routerLink="/menu">RETOUR</button>
+    </div>
 
+    <div class="main-content">
+        <div class="content">
+            <app-manager-list element="theme-list"></app-manager-list>
+        </div>
+        <div class="content ">
+            <app-manager-list element="quiz-list"></app-manager-list>
+        </div>
+    </div>
+</section>
