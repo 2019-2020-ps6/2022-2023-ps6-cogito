@@ -13,8 +13,6 @@ export class CreatePatientFixture extends E2EComponentFixture {
         return this.page.getByRole('button', { name: 'Create' });
     }
 
-
-
     /**
     getAllAnswersInputs(type: string) {
         const selector = `app-question-form .answer-form input[type="${type}"]`;
