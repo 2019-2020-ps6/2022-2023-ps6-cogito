@@ -1,15 +1,20 @@
-<body>
+<section>
     <div class="box">
-        <div class="quiz" *ngFor="let quiz of quizList">
-            <!--Inputs & Output allow communication between parent & child components.-->
-            <!--More information: https://angular.io/guide/component-interaction-->
+        <ul>
+            <li class="quiz" *ngFor="let quiz of quizList">
+                <span>{{quiz.title}}</span>
+                <button class="chooseButton" [queryParams]="{id: quiz.id}" routerLink="/result-quiz"> Score quiz </button>
+                <button class="chooseButton" [queryParams]="{id: quiz.id}" routerLink="/result-question"> Score questions </button>
+                <button class="delete" (click)="deleteQuiz(quiz.id)"> Supprimer </button>
+            </li>
+        </ul>
+        <!--<div class="quiz" *ngFor="let quiz of quizList">
             {{quiz.title}}
-            <button type="submit" class="button-card1" [queryParams]="{id: quiz.id}"
+            <button type="submit" class="chooseButton" [queryParams]="{id: quiz.id}"
                     [routerLink]="['/result-quiz']"> Score quiz </button>
-            <button type="submit" class="button-card2" [queryParams]="{id: quiz.id}" [routerLink]="['/result-question']"> Score questions </button>
+            <button type="submit" class="chooseButton" [queryParams]="{id: quiz.id}" [routerLink]="['/result-question']"> Score questions </button>
             <button type="submit" class="delete" (click)="deleteQuiz(quiz.id)"> Supprimer </button>
-        </div>
-
-    <button type="submit" class="button-back" [routerLink]="['/profil']"> RETOUR </button>
+        </div>-->
     </div>
- </body>
+    <button class="backButton" routerLink="/profil"> RETOUR </button>
+ </section>

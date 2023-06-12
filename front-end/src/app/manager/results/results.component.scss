@@ -1,72 +1,51 @@
-@import '../../../styles/variables.scss';  
-  
-.button-card1{
-    background-color: $orange;
-    width: 14vw;
-    border: 1px solid black;
-    padding: 10px 20px;
-    border-radius: 5px;
-    margin-left: 7vw;
-    &:hover {
-      background-color: red;
-      border-color: black;
+@import "../../../styles/variables.scss";
+
+
+.box {
+    height: max(250px, 55vh);
+    border: 2px solid black;
+    margin: 5vh 5vw;
+    background-color: lightgray;
+
+    & ul {
+        height: 100%;
+        width: 100%;
+        padding: 3vh;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
     }
-  }
-  
-  .button-card2{
-    background-color: $orange;
-    width: 18vw;
-    border: 1px solid black;
-    padding: 10px 20px;
+}
+
+.quiz {
+    width: 90%;
+    border: 2px solid grey;
+    background-color: white;
+    margin: 1vh;
+    padding: 2vh 1vw;
+    display: grid;
+    grid-template-columns: auto 15vw 15vw 10vw
+}
+
+.quiz span {
+    align-self: center;
+}
+
+.chooseButton {
+    width: 12vw;
+}
+
+.delete {
+    border: 2px solid red;
+    color: red;
+    width: 10vw;
     border-radius: 5px;
-    margin-left: 7vw;
-    &:hover {
-      background-color: red;
-      border-color: black;
-    }
-  }
-  .quiz{
-      margin-top : 20px;;
-      border: 2px solid grey;
-      background-color: white;
-      padding: 10px 0px 10px 0px;
-      text-align: center;
-      margin-left: 15vw;
-      margin-right: 5vw;
-      font-size: 1.5rem;
-  }
-  
-  .quiz:first-child {
-    margin-top: 7vh;
-  }
-  
-  .button-back {
-    background-color: $orange;
-    border: 1px solid black;
-    padding: 10px 20px;
-    border-radius: 5px;
+    background-color: rgb(255, 192, 192);
+}
+
+.backButton {
     position: absolute;
     left: 1vw;
     bottom: 3vh;
-  }
-  
-  .box {
-    border: 2px solid black;
-    margin-top: 5vh;
-    margin-left: 5vw;
-    margin-right: 5vw;
-    background-color: lightgray;
-    padding-bottom: 50px;
-  }
-
-
-.delete {
-  border: 2px solid red;
-  color: red;
-  width: 10vw;
-  margin-right: 0px;
-  margin-left: 2vw;
-  border-radius: 5px;
-  background-color: rgb(255, 192, 192);
 }
-   
