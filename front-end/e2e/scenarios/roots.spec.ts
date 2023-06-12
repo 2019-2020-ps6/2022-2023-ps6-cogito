@@ -50,4 +50,45 @@ test.describe('Root to list-theme-quiz-page', () => {
     expect(headerText).toBe('Liste des thèmes et quiz');
 
   })
+
+  test('Site tour',async ({page}) => {
+    await page.goto(testUrl);
+    
+    // Go to menu page
+
+    await page.getByRole('button',{name: 'COMMENCER'}).click();
+    await page.click("figure#adminAccount");
+
+    await test.step('Click on profilList', async () => {
+      await page.click('p#profilList');
+    });
+
+    //complete tour in profil
+
+    await page.getByRole('button',{name: 'RETOUR'}).click();
+
+    await test.step('Click on quizAndTheme', async () => {
+      await page.click('p#quizAndTheme');
+    });
+
+    //complete tour in quizAndTheme
+
+    await page.getByRole('button',{name: 'Retour au menu principal'}).click();
+
+    await page.getByRole('button',{name: 'RETOUR'}).click();
+
+    //complete tour in game
+
+    await page.getByRole('button',{name: 'RETOUR'}).click();
+
+    const pageTitle = await page.$eval('h2', (element) => element.innerText);
+    const headerElement = await page.$('header');
+    const headerText = await headerElement?.innerText();
+    
+    expect(pageTitle).toBe('Bienvenue sur Cogito Quiz !');
+    expect(headerText).toBe('Accueil');
+    expect(await headerElement?.isVisible()).toBe(true);
+
+
+  })
 });
