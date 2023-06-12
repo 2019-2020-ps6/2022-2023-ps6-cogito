@@ -38,6 +38,7 @@ test.describe('Root to list-theme-quiz-page', () => {
   test('Go to admin + gerer les quiz',async ({page}) => {
     await page.goto(patientPageUrl);
     await page.click("figure#adminAccount");
+    
 
     await test.step('Click on quizAndTheme', async () => {
         await page.click('p#quizAndTheme');
