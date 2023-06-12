@@ -1,8 +1,7 @@
 <div>
     <div class="box">
-        <br>
         <canvas id="myChart"></canvas>
         <p *ngIf="printMessage">Il faudrait probablement supprimer le quiz pour ce patient</p>
     </div>
-    <button type="submit" class="button-back" [routerLink]="['/results']" > RETOUR </button>
+    <button class="backButton" [routerLink]="['/results']">RETOUR</button>
  </div>
