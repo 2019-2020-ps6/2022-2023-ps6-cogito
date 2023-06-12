@@ -7,14 +7,13 @@
                 <button class="chooseButton" [queryParams]="{id: quiz.id}" routerLink="/result-question"> Score questions </button>
                 <button class="delete" (click)="deleteQuiz(quiz.id)"> Supprimer </button>
             </li>
+            <li class="quiz" *ngFor="let quiz of quizList">
+                <span>{{quiz.title}}</span>
+                <button class="chooseButton" [queryParams]="{id: quiz.id}" routerLink="/result-quiz"> Score quiz </button>
+                <button class="chooseButton" [queryParams]="{id: quiz.id}" routerLink="/result-question"> Score questions </button>
+                <button class="delete" (click)="deleteQuiz(quiz.id)"> Supprimer </button>
+            </li>
         </ul>
-        <!--<div class="quiz" *ngFor="let quiz of quizList">
-            {{quiz.title}}
-            <button type="submit" class="chooseButton" [queryParams]="{id: quiz.id}"
-                    [routerLink]="['/result-quiz']"> Score quiz </button>
-            <button type="submit" class="chooseButton" [queryParams]="{id: quiz.id}" [routerLink]="['/result-question']"> Score questions </button>
-            <button type="submit" class="delete" (click)="deleteQuiz(quiz.id)"> Supprimer </button>
-        </div>-->
     </div>
     <button class="backButton" routerLink="/profil"> RETOUR </button>
  </section>
