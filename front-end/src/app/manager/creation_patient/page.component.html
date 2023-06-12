@@ -6,9 +6,9 @@
             <button class="addButton" (click)="updatePatient()" [disabled]="!checkPatientValidity()">Enregistrer</button>
         </ng-template>
 
-        <button *ngIf="create;else cancelModify" [routerLink]="['/profil-list']">Annuler</button>
+        <button class="backButton" *ngIf="create;else cancelModify" [routerLink]="['/profil-list']">ANNULER</button>
         <ng-template #cancelModify>
-            <button [routerLink]="['/profil']">Annuler</button>
+            <button class="backButton" [routerLink]="['/profil']">ANNULER</button>
         </ng-template>
     </div>
 
