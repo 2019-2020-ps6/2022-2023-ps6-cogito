@@ -1,7 +1,10 @@
 import { createEnvironmentInjector } from '@angular/core';
 import { test, expect } from '@playwright/test';
-import { createPatientUrl } from 'e2e/e2e.config';
+import { createPatientUrl, profilListUrl } from 'e2e/e2e.config';
 import { CreatePatientFixture } from 'src/app/manager/creation_patient/create-patient.fixture';
+import { ProfilListFixture } from 'src/app/manager/profil_list/profil-list.fixture';
+import { PatientListFixture } from 'src/app/manager/profil_list/patient/patient-list.fixture';
+import { CreationPatientComponent } from 'src/app/manager/creation_patient/page.component';
 
 
 
@@ -12,6 +15,7 @@ test.describe('Quiz Feature', () => {
         await page.goto(createPatientUrl);
 
         const createPatientFixture = new CreatePatientFixture(page);
+
 
         await expect(page).toHaveURL("http://localhost:4200/creation-patient-page");
 
@@ -42,6 +46,21 @@ test.describe('Quiz Feature', () => {
 
             await expect(page).toHaveURL("http://localhost:4200/profil");
 
+            // Need to check if the patient created contains the good informations
+
         });
     });
-});
+    
+    test('Delete Quiz', async ({ page }) => {
+        const patientListFixture = new PatientListFixture(page);
+        await page.goto(profilListUrl);
+        const johnDoeElement = await page.$('body:has-text("John Doe")');
+        expect(johnDoeElement).toBeTruthy();  
+        
+        /**
+        const deleteButton = await patientListFixture.getDeleteButton("John Doe");
+        await deleteButton.click();
+        expect(johnDoeElement).not.toBeTruthy();
+        */
+    });
+}); 

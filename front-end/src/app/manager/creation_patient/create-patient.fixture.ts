@@ -1,6 +1,8 @@
 import { E2EComponentFixture } from "e2e/e2e-component.fixture";
+import { PatientListFixture } from "src/app/manager/profil_list/patient/patient-list.fixture";
 
 export class CreatePatientFixture extends E2EComponentFixture {
+
     getLabelInput() {
         return this.page.waitForSelector('app-question-form input[id="patientName"]');
     }
