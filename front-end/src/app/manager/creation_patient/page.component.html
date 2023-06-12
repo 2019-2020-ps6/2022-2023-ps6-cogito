@@ -44,14 +44,13 @@
                 <h6>Liste des thèmes :</h6>
                 <div class="scrollList">
                     <li *ngFor="let theme of themeList"
-                        [ngClass]="{'selected' : patient.themeIdList.includes(theme.id)}">{{theme.title}}</li>
-                </div>
-            </ul>
-
-            <ul>
-                <h6>Liste des quiz :</h6>
-                <div class="scrollList">
-                    <li *ngFor="let theme of themeList">{{theme.title}}</li>
+                        [ngClass]="{'selectedLightGreen' : patient.themeIdList.includes(theme.id)}">{{theme.title}}</li>
+                    <li *ngFor="let theme of themeList"
+                        [ngClass]="{'selectedLightGreen' : patient.themeIdList.includes(theme.id)}">{{theme.title}}</li>
+                    <li *ngFor="let theme of themeList"
+                        [ngClass]="{'selectedLightGreen' : patient.themeIdList.includes(theme.id)}">{{theme.title}}</li>
+                    <li *ngFor="let theme of themeList"
+                        [ngClass]="{'selectedLightGreen' : patient.themeIdList.includes(theme.id)}">{{theme.title}}</li>
                 </div>
             </ul>
         </div>
