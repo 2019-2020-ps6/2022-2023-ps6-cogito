@@ -169,7 +169,7 @@ export class ThemeService {
         this.selectionThemeSubject.next(themeb);
         this.typeOfForm = "creation";
         console.log("/theme-form/"+ themeb.id);
-        this.router.navigate(["/theme-form/"+ themeb.id]);
+        this.router.navigate(["/theme-form/"+ themeb.id + "/"+"true"]);
     });
 }
 
