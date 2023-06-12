@@ -185,16 +185,23 @@ export class QuizService {
     if(quiz.title ==='')
       quiz.title = 'Nouveau quiz';
     if (quiz.id !== undefined && quiz.id >= 0) {
-      this.http.put<Quiz>(this.urlApi+'/quizzes/'+quiz.id,quiz).subscribe((q) => console.log('put'));
-      console.log("update quiz");
+      this.http.put<Quiz>(this.urlApi+'/quizzes/'+quiz.id,quiz).subscribe((q) => {
+        const index = this.quizList.findIndex((e) => e.id === q.id);
+        this.quizList[index] = q;
+        this.quizListSubject.next(this.quizList);
+      }
+        
+      );
     }
     else {
       console.log(quiz);
       if (quiz.questionList===undefined)
         quiz.questionList=[]
-      this.http.post<Quiz>(this.urlApi+'/quizzes/',quiz).subscribe((q) => console.log('post'));
+      this.http.post<Quiz>(this.urlApi+'/quizzes/',quiz).subscribe((q) => {
+        this.quizList.push(q);
+        this.quizListSubject.next(this.quizList);
+      });
     }
-    this.quizListSubject.next(this.quizList);
   }
 
   removeQuiz(quiz: Quiz): void {
