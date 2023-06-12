@@ -57,23 +57,14 @@ test.describe('Quiz Feature', () => {
         const johnDoeElement = await page.$('body:has-text("John Doe")');
         expect(johnDoeElement).toBeTruthy(); 
         
-        
-        const elements = document.querySelectorAll('app-patient-patient-delete');
-
-        let targetElement;
-        elements.forEach(element => {
-        const text = element.textContent?.trim();
-        if (text === 'John Doe') {
-            targetElement = element;
-        }
-        });
-});
-
-        
-        /**
+        /** 
         const deleteButton = await patientListFixture.getDeleteButton("John Doe");
         await deleteButton.click();
         expect(johnDoeElement).not.toBeTruthy();
         */
+        
+
+
+
     });
 }); 

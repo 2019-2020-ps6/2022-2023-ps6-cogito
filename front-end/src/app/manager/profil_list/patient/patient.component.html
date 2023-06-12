@@ -5,7 +5,7 @@
         </div>
         <figcaption>{{patient.name}}</figcaption>
     </figure>
-    <a class="btn btn-danger" (click)="afficher()" routerLink="/profil-list">X</a>
+    <a id="delete_{{patient.name.replace(' ', '_')}}" class="btn btn-danger" (click)="afficher()" routerLink="/profil-list">X</a>
 </div>
 
 <div class="popup"  *ngIf="Show">
