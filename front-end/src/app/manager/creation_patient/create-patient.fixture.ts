@@ -9,8 +9,8 @@ export class CreatePatientFixture extends E2EComponentFixture {
         return this.page.getByRole('button', { name: 'Ajouter' });
     }
 
-    getCreateButton() {
-        return this.page.getByRole('button', { name: 'Create' });
+    clickAddButton(numberOfClick = 1) {
+        return this.getAddButton().click({ clickCount: numberOfClick });
     }
 
     /**
@@ -23,8 +23,35 @@ export class CreatePatientFixture extends E2EComponentFixture {
 
     */
 
+    getCancelButton() {
+        return this.page.waitForSelector('button[routerLink="/profil-list"]');
+    }
 
-    clickCreateButton(numberOfClick = 1) {
-        return this.getCreateButton().click({ clickCount: numberOfClick });
+    getNameInput() {
+        return this.page.waitForSelector('input#patientName');
+    }
+
+    getPictureInput() {
+        return this.page.waitForSelector('input#patientPicture');
+    }
+
+    getStageSelect() {
+        return this.page.waitForSelector('select#patientStage');
+    }
+
+    getBirthdateInput() {
+        return this.page.waitForSelector('input#patientBirthdate');
+    }
+
+    getThemeListItems() {
+        return this.page.$$('div.scrollList li');
+    }
+
+    createPatient() {
+        return this.getAddButton().click();
+    }
+
+    updatePatient() {
+        return this.getAddButton().click();
     }
 }
