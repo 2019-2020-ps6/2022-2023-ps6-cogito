@@ -3,9 +3,9 @@ import { BrowserModule } from "@angular/platform-browser";
 import { FormsModule } from "@angular/forms";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
-
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
+
 import { HeaderComponent } from "./header/header.component";
 import { HomePageComponent } from "./home-page/home-page.component";
 import { PatientPageComponent } from "./patient/page/page.component";
@@ -36,6 +36,7 @@ import { GameQuestionResultComponent } from "./game/corrWindow/corrWindow.compon
 import { GameResultComponent } from "./game/result/result.component";
 import { GameQuestionComponent } from "./game/question/question.component";
 import { ListThemeQuizPageComponent } from './manager/list-theme-quiz-page/list-theme-quiz-page.component';
+
 
 
 
@@ -72,7 +73,6 @@ import { ListThemeQuizPageComponent } from './manager/list-theme-quiz-page/list-
         GameQuestionResultComponent,
         GameResultComponent,
         GameQuestionComponent
-
     ],
     imports: [
         BrowserModule,

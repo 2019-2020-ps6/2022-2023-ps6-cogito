@@ -1,4 +1,4 @@
-import { Input, OnInit } from '@angular/core';
+import { OnInit } from '@angular/core';
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Quiz } from 'src/models/quiz.model';
@@ -26,10 +26,11 @@ export class ManagerFormComponent implements OnInit{
   ngOnInit(): void {
 
     this.element = window.location.href.split('/')[3];
-    const elementId = +this.route.snapshot.params['id'];
+    const elementId = this.route.snapshot.params['id'];
     if(this.element){
       if(this.element == 'quiz-form'){
         // subscribe to quizService
+        console.log(elementId)
         this.quizService.selectQuizById(elementId);
         this.quizService.getSelectedQuiz().subscribe(quiz => {
           this.quiz = JSON.parse(JSON.stringify(quiz)) ;
@@ -82,6 +83,7 @@ export class ManagerFormComponent implements OnInit{
       else if(this.element === 'theme-form'){
         // subscribe to themeService
         this.themeService.resetSelectedTheme();
+        this.themeService.removeTheme(this.theme as Theme);
       }
     }
   }

@@ -1,26 +1,26 @@
 const { Router } = require('express')
 
-const { Answer } = require('../../../../models')
+const { Correcting } = require('../../../../models')
 const manageAllErrors = require('../../../../utils/routes/error-management')
 const {
-  findQuestionAnswers,
-  createAnswer,
-  updateAnswer,
+  findQuestionCorrecting,
+  createCorrecting,
+  updateCorrecting,
 } = require('./manager')
 
 const router = new Router({ mergeParams: true })
 
 router.get('/', (req, res) => {
   try {
-    res.status(200).json(Answer.get())
+    res.status(200).json(Correcting.get())
   } catch (err) {
     manageAllErrors(res, err)
   }
 })
 
-router.get('/:answerId', (req, res) => {
+router.get('/:correctingId', (req, res) => {
   try {
-    res.status(200).json(Answer.getById(req.params.answerId))
+    res.status(200).json(Correcting.getById(req.params.correctingId))
   } catch (err) {
     manageAllErrors(res, err)
   }
@@ -28,7 +28,7 @@ router.get('/:answerId', (req, res) => {
 
 router.get('/question/:questionId', (req, res) => {
   try {
-    res.status(200).json(findQuestionAnswers(req.params.questionId))
+    res.status(200).json(findQuestionCorrecting(req.params.questionId))
   } catch (err) {
     manageAllErrors(res, err)
   }
@@ -36,23 +36,23 @@ router.get('/question/:questionId', (req, res) => {
 
 router.post('/', (req, res) => {
   try {
-    res.status(201).json(createAnswer({ ...req.body }))
+    res.status(201).json(createCorrecting({ ...req.body }))
   } catch (err) {
     manageAllErrors(res, err)
   }
 })
 
-router.put('/:answerId', (req, res) => {
+router.put('/:correctingId', (req, res) => {
   try {
-    res.status(200).json(updateAnswer(req.params.answerId, req.body))
+    res.status(200).json(updateCorrecting(req.params.correctingId, req.body))
   } catch (err) {
     manageAllErrors(res, err)
   }
 })
 
-router.delete('/:answerId', (req, res) => {
+router.delete('/:correctingId', (req, res) => {
   try {
-    Answer.delete(req.params.answerId)
+    Correcting.delete(req.params.correctingId)
     res.status(204).end()
   } catch (err) {
     manageAllErrors(res, err)

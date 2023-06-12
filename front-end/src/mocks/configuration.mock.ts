@@ -3,8 +3,6 @@ import { Difficulty } from "../models/question.model";
 
 let listeConfiguration: Configuration[] = [];
 
-
-
 export const CONFIG_DEFAULT_3: Configuration = {
     id: 1,
     name: "Défaut stade 3",
@@ -12,7 +10,6 @@ export const CONFIG_DEFAULT_3: Configuration = {
 
     fontFamily: "Roboto",
     fontSize: 16,
-    theme: "Clair",
 
     pictures: true,
     sounds: true,
@@ -23,13 +20,13 @@ export const CONFIG_DEFAULT_3: Configuration = {
 
     correctAnswerWindow: true,
     correctDescription: true,
-    correctImage: true,
+    correctPicture: true,
     correctSound: true,
 
-    falseAnswerWindow: true,
-    falseDescription: true,
-    falseImage: true,
-    falseSound: true
+    wrongAnswerWindow: true,
+    wrongDescription: true,
+    wrongPicture: true,
+    wrongSound: true
 }
 
 export const CONFIG_DEFAULT_4: Configuration = {
@@ -39,7 +36,6 @@ export const CONFIG_DEFAULT_4: Configuration = {
 
     fontFamily: "Century Gothic",
     fontSize: 20,
-    theme: "Clair",
 
     pictures: true,
     sounds: true,
@@ -51,13 +47,13 @@ export const CONFIG_DEFAULT_4: Configuration = {
 
     correctAnswerWindow: true,
     correctDescription: true,
-    correctImage: true,
+    correctPicture: true,
     correctSound: true,
 
-    falseAnswerWindow: true,
-    falseDescription: true,
-    falseImage: true,
-    falseSound: true
+    wrongAnswerWindow: true,
+    wrongDescription: true,
+    wrongPicture: true,
+    wrongSound: true
 }
 
 export const CONFIG_DEFAULT_5: Configuration = {
@@ -67,7 +63,6 @@ export const CONFIG_DEFAULT_5: Configuration = {
 
     fontFamily: "Arial",
     fontSize: 22,
-    theme: "Clair",
 
     pictures: true,
     sounds: true,
@@ -79,13 +74,40 @@ export const CONFIG_DEFAULT_5: Configuration = {
 
     correctAnswerWindow: true,
     correctDescription: false,
-    correctImage: true,
+    correctPicture: true,
     correctSound: true,
 
-    falseAnswerWindow: false,
-    falseDescription: false,
-    falseImage: true,
-    falseSound: true
+    wrongAnswerWindow: false,
+    wrongDescription: false,
+    wrongPicture: true,
+    wrongSound: true
+}
+
+export const TEST_CONFIG: Configuration = {
+    id: 10,
+    name: "Configuration de test",
+    description: "Configuration de test",
+
+    fontFamily: "Arial",
+    fontSize: 22,
+
+    pictures: true,
+    sounds: true,
+    multipleAnswers: true,
+    hints: true,
+    timeDisplayHint: 240,
+    difficulty: Difficulty.facile,
+    againFalseQuestion: true,
+
+    correctAnswerWindow: true,
+    correctDescription: true,
+    correctPicture: true,
+    correctSound: true,
+
+    wrongAnswerWindow: true,
+    wrongDescription: true,
+    wrongPicture: true,
+    wrongSound: true
 }
 
 listeConfiguration.push(CONFIG_DEFAULT_3, CONFIG_DEFAULT_4, CONFIG_DEFAULT_5);

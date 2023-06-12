@@ -5,7 +5,6 @@ import { QuizService } from "src/services/adminQuiz.service";
 
 
 import { Correcting } from "src/models/correcting.model";
-import { GamePageComponent } from "src/app/game/page/page.component";
 import { GameQuestion } from "src/models/gameQuestion.model";
 import { idList } from "src/services/game.service";
 

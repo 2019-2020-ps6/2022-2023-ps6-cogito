@@ -1,8 +1,11 @@
 import { Component, OnInit } from "@angular/core";
-import { ActivatedRoute, Router } from "@angular/router";
+import { Router } from "@angular/router";
 
-import { Patient } from "src/models/patient.model";
 import { PatientService } from "src/services/patient.service";
+import { Patient } from "../../../models/patient.model";
+import { Theme } from "../../../models/theme.model";
+import { QuizService } from "../../../services/quiz.service";
+import { ThemeService } from "../../../services/theme.service";
 
 
 @Component({
@@ -11,7 +14,8 @@ import { PatientService } from "src/services/patient.service";
     styleUrls: ["./page.component.scss"]
 })
 export class CreationPatientComponent implements OnInit {
-    patientToCreate = {
+    patient: Patient = {
+        id: 0,
         name: "",
         birthdate: "",
         stage: 0,
@@ -20,23 +24,48 @@ export class CreationPatientComponent implements OnInit {
         quizIdList: [],
         quizToPlayList: []
     };
-    data: string = "";
+    themeList: Theme[] = []
+    create: boolean = false;
     maxDate: Date = new Date();
 
-    constructor(private patientService: PatientService, private router: Router, private route: ActivatedRoute) { }
+    constructor(private patientService: PatientService, private themeService: ThemeService, private quizService: QuizService, private router: Router) {
+        this.create = this.router.url.endsWith("/creation-patient-page");
+
+        if (!this.create) {
+            this.patientService.selectedPatient$.subscribe(patient => {
+                if (patient) {
+                    this.patient = patient;
+                }
+            });
+        }
+
+        this.themeService.retrieveAllThemes();
+        this.themeService.themeList$.subscribe(themeList => {
+            this.themeList = themeList;
+        })
+
+        // make the same with quizzes
+    }
 
     ngOnInit(): void {
         this.maxDate = new Date();
-        this.data = this.route.snapshot.data['title'];
     }
 
-    savePatient(): void {
-        this.patientToCreate.stage = Number.parseInt(this.patientToCreate.stage.toString());
-        this.patientService.addPatient(this.patientToCreate);
-        this.router.navigateByUrl("/profil-list");
+    createPatient(): void {
+        this.patient.stage = Number.parseInt(this.patient.stage.toString());
+        this.patientService.addPatient(this.patient);
+        this.router.navigateByUrl("/profil");
+    }
+
+    updatePatient(): void {
+        if (!this.create) {
+            this.patient.stage = Number.parseInt(this.patient.stage.toString());
+            this.patientService.updatePatient(this.patient);
+            this.router.navigateByUrl("/profil");
+        }
     }
 
     checkPatientValidity(): boolean {
-        return this.patientToCreate.name !== "" && this.patientToCreate.birthdate !== "" && this.patientToCreate.stage > 0;
+        return this.patient.name !== "" && this.patient.birthdate !== "" && this.patient.stage > 0;
     }
 }

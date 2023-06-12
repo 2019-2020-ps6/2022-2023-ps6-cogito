@@ -48,6 +48,7 @@ export class GamePageComponent {
     }
 
     clickOnCheckAnswer(answer: Answer): void{
+        this.gameService.stopSound();
         if (this.gameService.activeCorrWindow())
         this.corrAnswerWindow(this.question);
         else

@@ -3,12 +3,12 @@ const BaseModel = require('../utils/base-model.js')
 
 module.exports = new BaseModel('Question', {
   id: Joi.number().required(),
-  title: Joi.string().required(),
-  answersList: Joi.array().items(Joi.number()).required(),
-  defaultMediaType: Joi.number().required(), // id of the media
-  defaultAnswersMediaType: Joi.number().required(), // id of the anzwers media
-  correcting: Joi.string(),
-  hint: Joi.string(),
-  picture: Joi.string(),
-  sound: Joi.string(),
+  quizId: Joi.number().required(),
+  title: Joi.string().min(2).required(),
+  difficulty: Joi.number().min(1).max(3).required(),
+  defaultMediaType: Joi.number().min(0).max(2).required(),
+  defaultAnswersMediaType: Joi.number().min(0).max(2).required(),
+  hint: Joi.string().min(2),
+  picture: Joi.string().min(2),
+  sound: Joi.string().min(2),
 })

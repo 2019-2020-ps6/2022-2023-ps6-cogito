@@ -57,7 +57,7 @@ export class idList {
                 console.log("gameQuiz: " + this.gameQuiz);
                 if (this.gameQuiz == undefined || this.gameQuiz.quizId !== quiz.id) {
                     this.emptyGame();
-                    this.gameQuizInit(quiz.id);
+                    this.gameQuizInit(quiz.id, this.selectedPatient.id);
                     this.getQuestionsList(CONFIG_DEFAULT_3, quiz); // change by back-end config
                     this.nextQuestion();
                 }
@@ -80,9 +80,10 @@ export class idList {
         return QUIZZES_ALL[ind];
     }
 
-    private gameQuizInit(quizId: number): void {
+    private gameQuizInit(quizId: number, patientId: number): void {
         this.gameQuiz = {
             id: -1,
+            patientId: patientId,
             quizId: quizId,
             questionList: [],
             startTime: new Date()
@@ -248,7 +249,7 @@ export class idList {
     }
 
     activeCorrWindow(): boolean {
-        return CONFIG_DEFAULT_3.correctAnswerWindow || CONFIG_DEFAULT_3.falseAnswerWindow || false;
+        return CONFIG_DEFAULT_3.correctAnswerWindow || CONFIG_DEFAULT_3.wrongAnswerWindow || false;
     }
 
     activeCorrTrueWindow(): boolean {
@@ -256,7 +257,7 @@ export class idList {
     }
 
     activeCorrFalseWindow(): boolean {
-        return CONFIG_DEFAULT_3.falseAnswerWindow || false;
+        return CONFIG_DEFAULT_3.wrongAnswerWindow || false;
     }
 
     getConfig(): Configuration | undefined {

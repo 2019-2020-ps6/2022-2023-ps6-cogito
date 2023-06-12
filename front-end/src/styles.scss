@@ -1,15 +1,13 @@
 @import "/src/styles/variables";
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap");
 
-$font-family: Arial;
-$font-size: 20;
 
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: var(--font-family);;
-    font-size: var(--font-size);
+    font-family: Roboto, $font-family;
+    font-size: $text_size;
 }
 
 html {
@@ -41,6 +39,10 @@ h2 {
     border: $h2_border;
 }
 
+figure {
+    margin: 0;
+}
+
 .divButtons {
     height: 15vh;
     width: 90vw;
@@ -50,16 +52,40 @@ h2 {
 }
 
 button {
-    font-size: $normal_size;
+    font-size: $text_size;
     height: $button_height;
     width: $button_width;
     min-height: 40px;
     min-width: 120px;
     background-color: $orange;
     border: $button_border;
+    border-radius: $button_border_radius;
+
+    &:hover {
+        background-color: $hover_light-orange;
+        cursor: pointer;
+    }
 }
 
-button:hover {
-    background-color: $hover_light-orange;
-    cursor: pointer;
+.backButton {
+    font-size: $normal_size;
+    font-weight: 400;
+}
+
+.chooseButton {
+    color: white;
+    background-color: $chooseButton_blue;
+    border: none;
+
+    &:hover {
+        background-color: $chooseButton_hover_blue;
+    }
+}
+
+.addButton {
+    background-color: $yellow;
+
+    &:hover {
+        background-color: $dark_yellow;
+    }
 }
