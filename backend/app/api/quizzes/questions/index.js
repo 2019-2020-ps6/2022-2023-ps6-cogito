@@ -134,7 +134,8 @@ router.delete('/:questionId', (req, res) => {
     }
     if(correcting)
       Correcting.delete(correcting.id);
-    res.status(204).json(buildQuestions());
+    console.log(Question.get());
+    res.status(204).end();
   } catch (err) {
     console.log(err);
     manageAllErrors(res, err)

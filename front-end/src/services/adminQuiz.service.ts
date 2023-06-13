@@ -89,27 +89,6 @@ export class QuizService {
   }
 
   updateQuestion(question: Question): void {
-    /*
-    const bodyQuestion = {
-      quizId : this.selectedQuiz?.id,
-      title: question.title,
-      difficulty: question.difficulty,
-      defaultMediaType: question.defaultMediaType,
-      defaultAnswerMediaType: question.defaultAnswersMediaType,
-      hint: question.hint,
-      picture: question.picture,
-      question: question.sound
-    }
-    const correcting = question.correcting;
-    const answer
-
-    /*
-      id: Joi.number().required(),
-  questionId: Joi.number().required(),
-  description: Joi.string().min(2).required(),
-  picture: Joi.string().min(2),
-  sound: Joi.string().min(2),
-    */
    console.log(question);
 
    let q = question as any;
@@ -124,36 +103,6 @@ export class QuizService {
    this.http.post<Question>(this.urlApi+'/questions/', q).subscribe((e) => {
     console.log(e);
    })
-    /*if(question.id){ // put Question
-      this.http.put<Question>(this.urlApi + '/questions/' + question.id, question).subscribe((question) => {
-        // add question to selected quiz
-        const quiz = this.selectedQuiz;
- 
-        const index = this.selectedQuiz?.questionList?.findIndex(q => q.id === question.id);
-        if (index !== undefined && index >= 0) {
-          if(this.selectedQuiz && this.selectedQuiz?.questionList){
-            this.selectedQuiz.questionList[index] = question as Question;
-            this.selectionQuizSubject.next(this.selectedQuiz);
-          }
-        }
-      })
-    }
-    else{ // post a question
-      this.http.post<Question>(this.urlApi + '/questions', {question, quizId: this.selectedQuiz?.id}).subscribe((question) => {
-
-      })
-    }
-    
-    
-    /*const index = this.selectedQuiz?.questionList?.findIndex(q => q.id === question.id);
-    if (index !== undefined && index >= 0) {
-      const updatedQuestionList = [...this.selectedQuiz?.questionList as Question[]];
-      updatedQuestionList[index] = question;
-      this.selectedQuiz = {...this.selectedQuiz, questionList: updatedQuestionList} as Quiz;
-      this.selectionQuizSubject.next(this.selectedQuiz as Quiz);
-      this.updateQuizList(this.selectedQuiz);
-      console.log(this.selectedQuiz);
-    }*/
   }
 
   resetSelectedQuestion(): void{
@@ -194,14 +143,15 @@ export class QuizService {
   }
 
   removeQuestion(question: Question): void {
-    const index = this.selectedQuiz?.questionList?.findIndex(q => q.id === question.id);
-    if (index !== undefined && index >= 0) {
-      const updatedQuestionList = [...this.selectedQuiz?.questionList as Question[]];
-      updatedQuestionList.splice(index, 1);
-      this.selectedQuiz = {...this.selectedQuiz, questionList: updatedQuestionList} as Quiz;
-      this.selectionQuizSubject.next(this.selectedQuiz as Quiz);
-      this.updateQuizList(this.selectedQuiz);
-    }
+    this.http.delete<Question>(this.urlApi+'/questions/'+question.id).subscribe((e) => {
+      console.log(e);
+      this.http.get<Question[]>(this.urlApi+'/questions/quiz/' + this.selectedQuiz?.id).subscribe((questions) => {
+        if(this.selectedQuiz && this.selectedQuiz.questionList){
+          this.selectedQuiz.questionList = questions;
+          this.selectionQuizSubject.next(this.selectedQuiz);
+        }
+      })
+    })
   }
 
   addQuestion(question: Question): void {
