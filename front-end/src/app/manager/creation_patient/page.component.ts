@@ -82,14 +82,14 @@ export class CreationPatientComponent implements OnInit {
     }
 
     createPatient(): void {
-        this.patient.stage = Number.parseInt(this.patient.stage.toString());
+        this.patient.stage = parseInt(this.patient.stage.toString(), 10);
         this.patientService.addPatient(this.patient);
         this.router.navigateByUrl("/profil");
     }
 
     updatePatient(): void {
         if (!this.create) {
-            this.patient.stage = Number.parseInt(this.patient.stage.toString());
+            this.patient.stage = parseInt(this.patient.stage.toString(), 10);
             this.patientService.updatePatient(this.patient);
             this.router.navigateByUrl("/profil");
         }
