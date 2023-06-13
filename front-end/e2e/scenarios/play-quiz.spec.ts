@@ -23,14 +23,37 @@ import { patientPageUrl } from 'e2e/e2e.config';
     await page.locator("app-quiz-quiz:first-child").click();
 
 
-    await page.locator("button#true").click();
+    await page.locator("button#false").click();
+
+    const corrFalse = await page.locator('corrwindow h3');
+    const corrFalseText = await corrFalse?.innerHTML();
+
+    await page.locator("corrwindow button").click();
 
     await page.locator("button#true").click();
+
+    await page.locator("corrwindow button").click();
+
+    await page.locator("button#true").click();
+
+    const corrTrue = await page.locator('corrwindow h3');
+    const corrTrueText = await corrFalse?.innerHTML();
+
+    expect(corrTrueText).toBe(corrFalseText);
+
+    await page.locator("corrwindow button").click();
 
     const resultElement = await page.locator('quizresult .game-result-content h1');
     const resulText = await resultElement?.innerText();
 
     expect(resulText).toBe('Félicitations vous avez fini le quiz !');
+
+    await page.locator('.game-result-content button').click();
+
+    const headerElement = await page.locator('header');
+    const headerText = await headerElement?.innerText();
+
+    expect(headerText).toBe('Choisissez un quiz');
     
 
   })
