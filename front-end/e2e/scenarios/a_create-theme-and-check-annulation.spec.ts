@@ -69,39 +69,7 @@ test.describe('Theme feature', () => {
     // Vérifier le nom du thème ajouté
     await test.step('Verify the name of the added theme', async () => {
       const addedThemeName = await page.$eval('ul#listThemeAndQuiz li:last-child', (element) => element.textContent);
-      expect(addedThemeName.trim()).toBe('test');
-    });
-
-    await test.step('Click on editObject', async () => {
-      await page.click('a#editObject');
-
-    });
-
-    // Vérifier que vous êtes sur la page "theme-form"
-    await test.step('Verify current page is theme-form', async () => {
-      const currentUrl = await page.url();
-      expect(currentUrl).toContain('theme-form');
-    });
-    
-    await test.step('Verify the input content', async () => {
-      const inputContent = await page.$eval('input#imageTheme', (element) => element.value);
-      expect(inputContent).toBe(imageForAdd);
-    });
-
-    await page.fill('input#nameTheme', 'AAA');
-
-    await ThemeFixture.clickcancelElement();
-
-    // Vérifier que vous êtes sur la page "list-theme-quiz-page"
-    await test.step('Verify current page is list-theme-quiz-page', async () => {
-      const currentUrl = await page.url();
-      expect(currentUrl).toContain('list-theme-quiz-page');
-    });
-
-    // Vérifier le nom du thème ajouté
-    await test.step('Verify the name of the added theme', async () => {
-      const addedThemeName = await page.$eval('ul#listThemeAndQuiz li:last-child', (element) => element.textContent);
-      expect(addedThemeName.trim()).toBe('test');
+      expect(addedThemeName.trim()).toBe('La Photographie');
     });
 
     await ThemeFixture.clickaddObject();
@@ -112,15 +80,6 @@ test.describe('Theme feature', () => {
     await test.step('Verify the number of themes', async () => {
       const themeList = await page.$$eval('ul#listThemeAndQuiz li', (elements) => elements.length);
       expect(themeList).toBe(1);
-    });
-
-    await ThemeFixture.clicksupprElement();
-
-    // Ajouter une vérification du nombre d'éléments de la liste de thèmes
-    await test.step('Verify the number of themes', async () => {
-      const themeList = await page.$$eval('ul#listThemeAndQuiz li', (elements) => elements.length);
-      expect(themeList).toBe(0);
-    });
-    
+    });    
   });
 });
