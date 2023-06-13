@@ -2,7 +2,7 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { BehaviorSubject, Observable } from "rxjs";
 
-import { CONFIG_DEFAULT_3, CONFIG_DEFAULT_4, CONFIG_DEFAULT_5 } from "src/mocks/configuration.mock";
+import { ALL_CONFIGS, CONFIG_DEFAULT_3, CONFIG_DEFAULT_4, CONFIG_DEFAULT_5 } from "src/mocks/configuration.mock";
 import { Configuration } from "src/models/configuration.model";
 import { httpOptionsBase, serverUrl } from "../configs/server.config";
 
@@ -42,7 +42,8 @@ export class ConfigurationService {
 
     };
     newConfig: BehaviorSubject<Configuration> = new BehaviorSubject<Configuration>(this.defaultConfig);
-    liste: Configuration[] = [CONFIG_DEFAULT_3, CONFIG_DEFAULT_4, CONFIG_DEFAULT_5];
+    liste: Configuration[] = ALL_CONFIGS
+    liste$: BehaviorSubject<Configuration[]> = new BehaviorSubject(ALL_CONFIGS);
 
     private configurationUrl = serverUrl + "/configuration";
 
@@ -56,6 +57,7 @@ export class ConfigurationService {
     retrieveAllConfigurations() {
         this.http.get<Configuration[]>(this.configurationUrl).subscribe((configurationList: Configuration[]) => {
             this.liste = configurationList;
+            this.liste$.next(configurationList);
         });
         this.checkDefaultConfigs();
         return this.liste;
@@ -86,7 +88,10 @@ export class ConfigurationService {
 
     addConfig(config: Configuration): void {
         this.http.post<Configuration[]>(this.configurationUrl, config, this.httpOptions)
-            .subscribe((configList) => this.liste = configList);
+            .subscribe((configList) => {
+                this.liste = configList;
+                this.liste$.next(configList);
+            });
     }
 
     getNewConfig(): Observable<Configuration> {

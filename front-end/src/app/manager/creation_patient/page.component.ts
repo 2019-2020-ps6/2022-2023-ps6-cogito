@@ -30,6 +30,7 @@ export class CreationPatientComponent implements OnInit {
     themeList: Theme[] = [];
     create: boolean = false;
     maxDate: Date = new Date();
+    private configList: Configuration[] = [];
 
     constructor(private patientService: PatientService, private themeService: ThemeService,
                 private configurationService: ConfigurationService, private router: Router) {
@@ -42,6 +43,10 @@ export class CreationPatientComponent implements OnInit {
                 }
             });
         }
+
+        this.configurationService.liste$.subscribe(configList => {
+            this.configList = configList;
+        })
 
         this.themeService.retrieveAllThemes();
         this.themeService.themeList$.subscribe(themeList => {
@@ -92,19 +97,19 @@ export class CreationPatientComponent implements OnInit {
     }
 
     addDefaultConfig() {
-        let configList: Configuration[] = this.configurationService.retrieveAllConfigurations();
+        this.configurationService.retrieveAllConfigurations();
         let index: number;
 
         if (this.patient.stage === 3) {
-            index = configList.findIndex(config => config.name === CONFIG_DEFAULT_3.name);
+            index = this.configList.findIndex(config => config.name === CONFIG_DEFAULT_3.name);
         } else if (this.patient.stage === 4) {
-            index = configList.findIndex(config => config.name === CONFIG_DEFAULT_4.name);
+            index = this.configList.findIndex(config => config.name === CONFIG_DEFAULT_4.name);
         } else {
-            index = configList.findIndex(config => config.name === CONFIG_DEFAULT_5.name);
+            index = this.configList.findIndex(config => config.name === CONFIG_DEFAULT_5.name);
         }
         console.log("index config: " + index);
 
-        this.patient.configuration = configList[index];
+        this.patient.configuration = this.configList[index];
     }
 
     updatePatient(): void {
