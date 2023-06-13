@@ -1,10 +1,13 @@
 import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
+import { Config } from "@playwright/test";
 
 import { PatientService } from "src/services/patient.service";
+import { CONFIG_DEFAULT_3, CONFIG_DEFAULT_4, CONFIG_DEFAULT_5 } from "../../../mocks/configuration.mock";
+import { Configuration } from "../../../models/configuration.model";
 import { Patient } from "../../../models/patient.model";
 import { Theme } from "../../../models/theme.model";
-import { QuizService } from "../../../services/quiz.service";
+import { ConfigurationService } from "../../../services/configuration.service";
 import { ThemeService } from "../../../services/theme.service";
 
 
@@ -20,6 +23,7 @@ export class CreationPatientComponent implements OnInit {
         birthdate: "",
         stage: 0,
         picture: "",
+        configuration: {} as Configuration,
         themeIdList: [],
         quizIdList: [],
         quizToPlayList: []
@@ -29,7 +33,7 @@ export class CreationPatientComponent implements OnInit {
     maxDate: Date = new Date();
 
     constructor(private patientService: PatientService, private themeService: ThemeService,
-                private quizService: QuizService, private router: Router) {
+                private configurationService: ConfigurationService, private router: Router) {
         this.create = this.router.url.endsWith("/creation-patient-page");
 
         if (!this.create) {
@@ -84,7 +88,23 @@ export class CreationPatientComponent implements OnInit {
     createPatient(): void {
         this.patient.stage = parseInt(this.patient.stage.toString(), 10);
         this.patientService.addPatient(this.patient);
+        this.addDefaultConfig();
         this.router.navigateByUrl("/profil");
+    }
+
+    addDefaultConfig() {
+        let configList: Configuration[] = this.configurationService.retrieveAllConfigurations();
+        let index: number;
+
+        if (this.patient.stage === 3) {
+            index = configList.findIndex(config => config.name === CONFIG_DEFAULT_3.name);
+        } else if (this.patient.stage === 4) {
+            index = configList.findIndex(config => config.name === CONFIG_DEFAULT_4.name);
+        } else {
+            index = configList.findIndex(config => config.name === CONFIG_DEFAULT_5.name);
+        }
+
+        this.patient.configuration = configList[index];
     }
 
     updatePatient(): void {
