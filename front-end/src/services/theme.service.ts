@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
-import { BehaviorSubject, Observable, of } from "rxjs";
+import { BehaviorSubject, map, Observable, of } from "rxjs";
 import { HttpClient } from "@angular/common/http";
 
 import { Patient } from "../models/patient.model";
@@ -41,12 +41,13 @@ export class ThemeService {
         });
     }
 
-    retrieveQuizOfTheme(themeId: number): Quiz[]{
-        const themeList = this.themeList$.getValue();
-        const theme = themeList.find(theme => theme.id === themeId);
-        console.log(theme);
-        return theme?.quizzesList as Quiz[];
-    }
+    retrieveQuizOfTheme(themeId: number): Observable<Quiz[]> {
+        return this.http.get<Quiz[]>(serverUrl+'/quizzes/theme/' + themeId).pipe(
+          map((quizzes) => {
+            return quizzes;
+          })
+        );
+      }
 
     retrievePThemes(patient: Patient): void {
         this.http.get<Theme[]>(this.baseURL + "patient/" + patient.id).subscribe(themes => {

@@ -1,8 +1,10 @@
+import { Theme } from './../../../models/theme.model';
 import { Component, HostListener, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 
 import { Quiz } from "src/models/quiz.model";
 import { QuizService } from "src/services/quiz.service";
+import { ThemeService} from "src/services/theme.service"
 
 @Component({
     selector: "app-quiz-page",
@@ -17,13 +19,16 @@ export class QuizPageComponent implements OnInit {
     private margin!: number;
     private size!: number;
 
-    constructor(private quizService: QuizService, private router: Router) {
+    constructor(private quizService: QuizService, private router: Router, private themeService : ThemeService) {
         const themeId = window.location.href.split('/')[4];
         console.log(themeId);
-        //this.quizList = this.quizService.getQuizzesOfTheme(parseInt(themeId));
-        this.quizService.quizList$.subscribe((quizList: Quiz[]): void => {
-            this.quizList = quizList;
+        this.themeService.retrieveQuizOfTheme(parseInt(themeId)).subscribe((quizzes) => {
+            this.quizList = quizzes;
+            this.displayQuizList = this.quizList;
         });
+        /*this.quizService.quizList$.subscribe((quizList: Quiz[]): void => {
+            this.quizList = quizList;
+        });*/
         console.log(this.quizList);
         this.maxMargin();
         this.currentSize();
@@ -57,6 +62,7 @@ export class QuizPageComponent implements OnInit {
 
     ngOnInit(): void {
         this.nextDisplayQuizzes();
+        this.onWindowResize();
     }
 
     @HostListener("window:resize")

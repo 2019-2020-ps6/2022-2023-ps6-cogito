@@ -51,9 +51,11 @@ export class QuizService {
         this.themeService.selectedTheme$.subscribe((theme?: Theme): void => {
             console.log("this.themeservice selected theme")
             this.selectedTheme = theme;
-            const quizL = this.themeService.retrieveQuizOfTheme(this.selectedTheme?.id as number);
-            this.quizList$.next(quizL);
-            console.log(quizL);
+
+            this.themeService.retrieveQuizOfTheme(this.selectedTheme?.id as number).subscribe((quizzes) => {
+                this.quizList$.next(quizzes);
+            })
+
 
             /*this.selectedTheme = theme;
 
