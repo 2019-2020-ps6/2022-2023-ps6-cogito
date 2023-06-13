@@ -7,6 +7,7 @@ import { QuizService } from 'src/services/adminQuiz.service';
 import { ThemeService } from 'src/services/adminTheme.service';
 
 
+
 @Component({
   selector: 'app-manager-form',
   templateUrl: './manager-form.component.html',
@@ -23,7 +24,7 @@ export class ManagerFormComponent implements OnInit{
   public theme : Theme | undefined;
 
   public selectedOption : string | undefined = 'general';
-  constructor(private quizService: QuizService,private themeService: ThemeService, private route: ActivatedRoute ) { }
+  constructor(private quizService: QuizService,private themeService: ThemeService, private route: ActivatedRoute) {}
 
   ngOnInit(): void {
 
@@ -39,7 +40,6 @@ export class ManagerFormComponent implements OnInit{
           this.quiz = JSON.parse(JSON.stringify(quiz)) ;
         }
         );
-        console.log(this.theme);
         this.themeService.getSelectedTheme().subscribe(theme => {
           this.theme = JSON.parse(JSON.stringify(theme)) ;
         }
@@ -63,10 +63,6 @@ export class ManagerFormComponent implements OnInit{
         // subscribe to quizService
         //this.themeService.updateQuiz(this.quiz as Quiz);
         this.quizService.updateQuizList(this.quiz as Quiz);
-        if(this.theme){
-          this.themeService.addQuiz(this.quiz as Quiz);
-          this.themeService.updateThemeList(this.theme);
-        }
       }
       else if(this.element === 'theme-form'){
         // subscribe to themeService
@@ -82,6 +78,9 @@ export class ManagerFormComponent implements OnInit{
       if(this.element === 'quiz-form'){
         // subscribe to quizService
         this.quizService.resetSelectedQuiz();
+        if(this.elementBool){
+          this.quizService.removeQuiz(this.quiz as Quiz);
+        }
       }
       else if(this.element === 'theme-form'){
         // subscribe to themeService

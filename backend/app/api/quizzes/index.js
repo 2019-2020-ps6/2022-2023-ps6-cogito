@@ -39,6 +39,9 @@ router.get('/theme/:themeId', (req, res) => {
 
 router.post('/', (req, res) => {
   try {
+    if(req.body.themeId === undefined){
+      req.body.themeId = 0;
+    }
     res.status(201).json(createQuiz({ ...req.body }))
   } catch (err) {
     manageAllErrors(res, err)

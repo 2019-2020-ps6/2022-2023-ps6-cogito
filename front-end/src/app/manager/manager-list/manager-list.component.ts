@@ -54,7 +54,6 @@ export class ManagerListComponent implements OnInit{
             console.log(quizList)
             this.quizList = JSON.parse(JSON.stringify(quizList)) ;
             this.listToDisplay = this.quizList;
-            //console.log(this.listToDisplay);
           }
           );
         }
@@ -122,9 +121,12 @@ export class ManagerListComponent implements OnInit{
 
   selectElement(id : number) : void{
     if(this.element){
+      const e = this.listToDisplay?.filter((e) => e.id === id)[0];
+      console.log(e);
       if(this.element == 'quiz-list'){
-        // subscribe to quizService
-        this.themeService.selectTheme(this.themeService.findInWhichThemeIsQuiz(id))
+        if(e.themeId !== undefined){
+          this.themeService.selectThemeById(e.themeId)
+        }
       }
       else{
         if(this.type === 'selector'){

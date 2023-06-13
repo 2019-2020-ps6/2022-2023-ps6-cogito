@@ -34,22 +34,6 @@ router.get('/question/:questionId', (req, res) => {
   }
 })
 
-router.post('/', (req, res) => {
-  try {
-    res.status(201).json(createCorrecting({ ...req.body }))
-  } catch (err) {
-    manageAllErrors(res, err)
-  }
-})
-
-router.put('/:correctingId', (req, res) => {
-  try {
-    res.status(200).json(updateCorrecting(req.params.correctingId, req.body))
-  } catch (err) {
-    manageAllErrors(res, err)
-  }
-})
-
 router.delete('/:correctingId', (req, res) => {
   try {
     Correcting.delete(req.params.correctingId)
