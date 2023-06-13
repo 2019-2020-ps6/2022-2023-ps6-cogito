@@ -4,7 +4,7 @@ import { Difficulty } from "../models/question.model";
 let listeConfiguration: Configuration[] = [];
 
 export const CONFIG_DEFAULT_3: Configuration = {
-    id: 1,
+    id: 0,
     name: "Défaut stade 3",
     description: "Configuration par défaut pour le stade 3",
 
@@ -30,7 +30,7 @@ export const CONFIG_DEFAULT_3: Configuration = {
 }
 
 export const CONFIG_DEFAULT_4: Configuration = {
-    id: 2,
+    id: 0,
     name: "Défaut stade 4",
     description: "Configuration par défaut pour le stade 4",
 
@@ -57,7 +57,7 @@ export const CONFIG_DEFAULT_4: Configuration = {
 }
 
 export const CONFIG_DEFAULT_5: Configuration = {
-    id: 3,
+    id: 0,
     name: "Défaut stade 5",
     description: "Configuration par défaut pour le stade 5",
 
