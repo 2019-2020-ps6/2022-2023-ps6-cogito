@@ -2,14 +2,16 @@ const { Router } = require('express')
 
 const { Question } = require('../../../models')
 const manageAllErrors = require('../../../utils/routes/error-management')
-const { createAnswer } = require('./answers/manager')
-const { createCorrecting } = require('./correctings/manager')
+const { createAnswer, updateAnswer } = require('./answers/manager')  
+const { createCorrecting, updateCorrecting, findQuestionCorrecting } = require('./correctings/manager')
+
 const {
   buildQuestion,
   buildQuestions,
   findQuizQuestions,
   createQuestion,
   updateQuestion,
+
 } = require('./manager')
 
 const router = new Router({ mergeParams: true })
@@ -82,8 +84,38 @@ router.post('/', (req, res) => {
 
 router.put('/:questionId', (req, res) => {
   try {
-    res.status(200).json(updateQuestion(req.params.questionId, req.body))
+    const question = {
+      quizId: req.body.quizId,
+      title: req.body.title,
+      difficulty: req.body.difficulty,
+      defaultMediaType: req.body.defaultMediaType,
+      defaultAnswersMediaType: req.body.defaultAnswersMediaType,
+      hint: req.body.hint,
+      picture: req.body.picture,
+      sound: req.body.sound,
+    };
+    const resQuestion = updateQuestion(req.params.questionId, question);
+    const answers = req.body.answerList.map((answer) => {
+      answer.questionId = resQuestion.id;
+      return answer;
+    });
+    const resAnswers = [];
+
+    answers.forEach(answer => {
+      console.log(answer)
+      resAnswers.push(updateAnswer(answer.id, answer));
+    });
+
+    resQuestion.answerList = resAnswers;
+    if(req.body.correcting){
+      const correcting = req.body.correcting;
+      correcting.questionId = resQuestion.id
+      const resCorrecting = updateCorrecting(correcting.id, correcting);
+      resQuestion.correcting = resCorrecting;
+    }
+    res.status(200).json(resQuestion)
   } catch (err) {
+    console.log(err);
     manageAllErrors(res, err)
   }
 })
