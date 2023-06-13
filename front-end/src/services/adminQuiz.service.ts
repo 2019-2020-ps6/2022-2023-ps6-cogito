@@ -1,3 +1,4 @@
+import { ThemeService } from './adminTheme.service';
 import { Question, Difficulty } from './../models/question.model';
 import { Injectable } from '@angular/core';
 import { Observable, BehaviorSubject } from 'rxjs';
@@ -161,22 +162,23 @@ export class QuizService {
     })
   }
 
-  addQuestion(question: Question): void {
+  addQuestion(question: Question, themeId : number): void {
     const updatedQuestionList = [...this.selectedQuiz?.questionList as Question[]];
     updatedQuestionList.push(question);
     this.selectedQuiz = {...this.selectedQuiz, questionList: updatedQuestionList} as Quiz;
     this.selectionQuizSubject.next(this.selectedQuiz as Quiz);
-    this.updateQuizList(this.selectedQuiz);
+    console.log(this.selectedQuiz);
+    this.updateQuizList(this.selectedQuiz, themeId);
   }
 
-  createAndSelectNewQuestion(): void {
+  createAndSelectNewQuestion(themeId : number): void {
     const question = {} as Question;
     question.title = "";
     question.answerList = [];
     question.sound = "";
     question.defaultMediaType = MediaType.text;
     question.picture = "";
-    this.addQuestion(question);
+    this.addQuestion(question, themeId);
     this.selectQuestion(question);
     this.typeOfForm = "creation";
     console.log(question)
@@ -208,22 +210,27 @@ export class QuizService {
     return this.typeOfForm;
   }
 
-  updateQuizList(quiz: Quiz): void {
-    if(quiz.title ==='')
-      quiz.title = 'Nouveau quiz';
-    if (quiz.id !== undefined && quiz.id >= 0) {
-      this.http.put<Quiz>(this.urlApi+'/quizzes/'+quiz.id,quiz).subscribe((q) => {
+  updateQuizList(quiz: Quiz, themeId: number): void {
+    console.log(quiz);
+    let qu : any = quiz;
+    qu.themeId = themeId;
+    console.log(qu);
+    if(qu.title ==='')
+      qu.title = 'Nouveau quiz';
+    if (qu.id !== undefined && qu.id >= 0) {
+      this.http.put<Quiz>(this.urlApi+'/quizzes/'+qu.id,qu).subscribe((q) => {
         const index = this.quizList.findIndex((e) => e.id === q.id);
         this.quizList[index] = q;
         this.quizListSubject.next(this.quizList);
+        console.log(q);
       }
         
       );
     }
     else {
-      if (quiz.questionList===undefined)
-        quiz.questionList=[]
-      this.http.post<Quiz>(this.urlApi+'/quizzes/',quiz).subscribe((q) => {
+      if (qu.questionList===undefined)
+        qu.questionList=[]
+      this.http.post<Quiz>(this.urlApi+'/quizzes/',qu).subscribe((q) => {
         this.quizList.push(q);
         this.quizListSubject.next(this.quizList);
       });
@@ -244,7 +251,7 @@ export class QuizService {
     }
   }
 
-  resetSelectedQuiz(): void {
+  resetSelectedQuiz(themeId: number): void {
     console.log(this.typeOfForm)
     if(this.oldSelectedQuiz?.title === ''){
       this.removeQuiz(this.selectedQuiz as Quiz);
@@ -253,7 +260,7 @@ export class QuizService {
       this.selectedQuiz = this.oldSelectedQuiz as Quiz;
       console.log(this.selectedQuiz);
       this.selectionQuizSubject.next(this.selectedQuiz as Quiz);
-      this.updateQuizList(this.selectedQuiz as Quiz);
+      this.updateQuizList(this.selectedQuiz as Quiz, themeId);
     }
   }
 

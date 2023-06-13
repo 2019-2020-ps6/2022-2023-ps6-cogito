@@ -44,6 +44,8 @@ export class ManagerFormComponent implements OnInit{
           this.theme = JSON.parse(JSON.stringify(theme)) ;
         }
         );
+
+
       }
       else if(this.element === 'theme-form'){
         // subscribe to themeService
@@ -61,8 +63,8 @@ export class ManagerFormComponent implements OnInit{
     if(this.element){
       if(this.element == 'quiz-form'){
         // subscribe to quizService
-        //this.themeService.updateQuiz(this.quiz as Quiz);
-        this.quizService.updateQuizList(this.quiz as Quiz);
+        console.log(this.theme);
+        this.quizService.updateQuizList(this.quiz as Quiz, this.theme?.id as number);
       }
       else if(this.element === 'theme-form'){
         // subscribe to themeService
@@ -77,7 +79,7 @@ export class ManagerFormComponent implements OnInit{
     if(this.element){
       if(this.element === 'quiz-form'){
         // subscribe to quizService
-        this.quizService.resetSelectedQuiz();
+        this.quizService.resetSelectedQuiz(this.theme?.id as number);
         if(this.elementBool){
           this.quizService.removeQuiz(this.quiz as Quiz);
         }

@@ -32,6 +32,7 @@
         { path: "patient-page", component: PatientPageComponent, data: { title: "Qui êtes-vous ?" } },
         { path: "profil-list", component: PatientPageListComponent, data: { title: "Liste des patients" } },
         { path: "theme-page", component: ThemePageComponent, data: { title: "Choisissez un thème" } },
+        { path: "quiz-page/:themeId", component: QuizPageComponent, data: { title: "Choisissez un quiz" }},
         { path: "quiz-page", component: QuizPageComponent, data: { title: "Choisissez un quiz" } },
         { path: "game-page", component: GamePageComponent },
         { path: "questions-list", component: QuestionsListComponent, data: { title: "Modification de question" } },
