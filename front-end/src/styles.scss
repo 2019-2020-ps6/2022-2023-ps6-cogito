@@ -51,6 +51,20 @@ figure {
     align-items: center;
 }
 
+.sideButtons {
+    height: 80vh;
+    width: 17vw;
+    padding-left: 1vw;
+    padding-bottom: 3vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+
+    & button {
+        margin-top: min(2vh, 2vw);
+    }
+}
+
 button {
     font-size: $text_size;
     height: $button_height;

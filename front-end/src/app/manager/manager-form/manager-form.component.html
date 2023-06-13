@@ -25,8 +25,8 @@
             </div>
         </div>
         <div class="exiting-buttons">
-            <button class="btn btn-warning btn-outline-dark" (click)="saveElement()" [routerLink]="['/list-theme-quiz-page/']">Sauvegarder</button>
-            <button class="btn btn-danger btn-outline-dark" (click)="resetElement()" [routerLink]="['/list-theme-quiz-page/']">Annuler</button>
+            <button id= saveElement class="btn btn-warning btn-outline-dark" (click)="saveElement()"[routerLink]="['/list-theme-quiz-page/']">Sauvegarder</button>
+            <button id= annulerElement class="btn btn-danger btn-outline-dark" (click)="resetElement()" [routerLink]="['/list-theme-quiz-page/']">Annuler</button>
         </div>
     </div>
       
@@ -38,7 +38,7 @@
                 </div>
                 <div class="col-auto">
                     <input *ngIf="element === 'quiz-form'" type="text" class="form-control" name="description"  [(ngModel)]="quiz === undefined ? '' : quiz.title">           
-                    <input *ngIf="element === 'theme-form'" type="text" class="form-control" name="description"  [(ngModel)]="theme === undefined ? '' : theme.title">
+                    <input id=nameTheme *ngIf="element === 'theme-form'" type="text" class="form-control" name="description"  [(ngModel)]="theme === undefined ? '' : theme.title">
                 </div>
             </div>
             <div class="row g-3 align-items-center mb-3">
@@ -47,7 +47,7 @@
                 </div>
                 <div class="col-auto">
                     <input *ngIf="element==='quiz-form'"type="text" class="form-control" name="description" [(ngModel)]=" quiz === undefined ? '' : quiz.picture ">
-                    <input *ngIf="element==='theme-form'"type="text" class="form-control" name="description" [(ngModel)]="theme === undefined ? '' : theme.picture">
+                    <input id=imageTheme *ngIf="element==='theme-form'"type="text" class="form-control" name="description" [(ngModel)]="theme === undefined ? '' : theme.picture">
                 </div>
                 <div class="col-auto">
                     <span class="form-text">

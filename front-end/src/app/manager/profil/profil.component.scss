@@ -48,6 +48,7 @@
     align-items: center;
 
     & button {
+        width: max(250px, $button_width);
         margin: min(2vh, 2vw);
         margin-bottom: 0;
     }

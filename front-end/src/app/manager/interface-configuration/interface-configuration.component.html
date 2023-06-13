@@ -1,22 +1,20 @@
-
-
         <label id="label">Style de la police : </label>
         
         <div class="buttonsFont">
-            <span class="button" id="button1font" (click)="setFontFamily('Roboto'); lastFontFamilySelected('button1font')">Test</span>
-            <span class="button" id="button2font" (click)="setFontFamily('Century Gothic'); lastFontFamilySelected('button2font')">Test</span>
-            <span class="button" id="button3font" (click)="setFontFamily('Arial'); lastFontFamilySelected('button3font')">Test</span>
+            <button class="button" id="button1font" (click)="setFontFamily('Roboto'); lastFontFamilySelected('button1font')">Test</button>
+            <button class="button" id="button2font" (click)="setFontFamily('Century Gothic'); lastFontFamilySelected('button2font')">Test</button>
+            <button class="button" id="button3font" (click)="setFontFamily('Arial'); lastFontFamilySelected('button3font')">Test</button>
         </div>
-        
+
         <div class="test1" id="test1" [ngStyle]="{'font-family': configuration?.fontFamily || 'Arial'}">Ceci est un test</div>
 
         <br>
           
         <label id="label">Taille de la police : </label>
         <div class="buttons">
-            <span class="button" id="button1size" (click)="setFontSize('16px'); lastFontSizeSelected('button1size')">Test</span>
-            <span class="button" id="button2size" (click)="setFontSize('20px'); lastFontSizeSelected('button2size')">Test</span>
-            <span class="button" id="button3size" (click)="setFontSize('26px'); lastFontSizeSelected('button3size')">Test</span>
+            <button class="button" id="button1size" (click)="setFontSize('16px'); lastFontSizeSelected('button1size')">Test</button>
+            <button class="button" id="button2size" (click)="setFontSize('20px'); lastFontSizeSelected('button2size')">Test</button>
+            <button class="button" id="button3size" (click)="setFontSize('26px'); lastFontSizeSelected('button3size')">Test</button>
         </div>
 
         <div class="test2" id="test2" [ngStyle]="{'font-family': configuration?.fontSize || '20px'}">Ceci est un test</div>
