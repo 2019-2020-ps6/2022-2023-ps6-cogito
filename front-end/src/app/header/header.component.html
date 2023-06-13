@@ -1,7 +1,11 @@
 <header *ngIf="!noHeader">
     <figure id="logoAcceuil" routerLink="/home-page">
-        <div>
-            <img src="assets/pictures/COGITOOO.png" alt="Logo Acceuil">
+        <div class="image-container">
+          <img src="assets/pictures/COGITOOO.png" alt="Logo Accueil">
+          <div class="text-overlay">
+            <p>ACCUEIL</p>
+          </div>
         </div>
-    </figure>    <h1>{{title}}</h1>
+    </figure>      
+    <h1>{{title}}</h1>
 </header>
