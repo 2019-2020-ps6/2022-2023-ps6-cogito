@@ -39,7 +39,25 @@ test.describe('Theme feature', () => {
       expect(currentUrl).toContain('list-theme-quiz-page');
     });
 
-    await ThemeFixture.clicksupprElement();
+    const themeListNb = await page.$$eval('ul#listThemeAndQuiz li', (elements) => elements.length);
+
+    await test.step('Verify', async () => {
+      const themeElements = await page.$$('ul#listThemeAndQuiz li');
+      let bool = false;
+      for (const element of themeElements) {
+        const themeName = await element.textContent();
+        if (themeName.trim() === "La Photographie") {
+          const deleteLink = await element.$('div.buttons-side a#supprObject');
+          if (deleteLink) {
+            await deleteLink.click();
+            bool = true;
+            break;
+          }
+        }
+      }
+      expect(bool).toBeTruthy();
+    });
+    
 
     // Vérifier que vous êtes sur la page "list-theme-quiz-page"
     await test.step('Verify current page is list-theme-quiz-page', async () => {
@@ -50,7 +68,7 @@ test.describe('Theme feature', () => {
     // Ajouter une vérification du nombre d'éléments de la liste de thèmes
     await test.step('Verify the number of themes', async () => {
       const themeList = await page.$$eval('ul#listThemeAndQuiz li', (elements) => elements.length);
-      expect(themeList).toBe(0);
+      expect(themeList).toBe(themeListNb - 1);
     });
 
     await ThemeFixture.clickaddObject();

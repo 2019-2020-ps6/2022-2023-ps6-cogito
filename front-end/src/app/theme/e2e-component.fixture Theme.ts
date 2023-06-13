@@ -1,4 +1,6 @@
 import { E2EComponentFixture } from "e2e/e2e-component.fixture";
+import { Page } from '@playwright/test';
+
 
 export class CreateThemeFixture extends E2EComponentFixture {
 
@@ -36,6 +38,11 @@ export class CreateThemeFixture extends E2EComponentFixture {
 
     clicksupprElement() {
         return this.page.click('a#supprObject');
+    }
+    
+
+    clickEditElement() {
+        return this.page.click('a#editObject');
     }
 
     fillNameTheme() {
