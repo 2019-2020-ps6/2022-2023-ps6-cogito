@@ -23,8 +23,8 @@
 
     <div class="navbuttons">
     <button type="submit" class="button {{state === 'general' ? 'active' : ''}}"  (click)="changeState('general')"> General </button>
-    <button type="submit" class="button {{state === 'interface' ? 'active' : ''}}" (click)="changeState('interface')"> Interface </button>
-    <button type="submit" class="button {{state === 'questions' ? 'active' : ''}}" (click)="changeState('questions')"> Questions </button>
+    <button id="interface" type="submit" class="button {{state === 'interface' ? 'active' : ''}}" (click)="changeState('interface')"> Interface </button>
+    <button id="questions" type="submit" class="button {{state === 'questions' ? 'active' : ''}}" (click)="changeState('questions')"> Questions </button>
     <button type="submit" class="button {{state === 'answers' ? 'active' : ''}}" (click)="changeState('answers')"> Réponses </button>
     </div>
 
