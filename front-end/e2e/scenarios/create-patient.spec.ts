@@ -24,7 +24,7 @@ test.describe('Patient Feature', () => {
             const patientName = "John Doe";
             const patientPicture = "https://media.istockphoto.com/id/153011771/fr/photo/joyeux-homme-senior.jpg?s=612x612&w=0&k=20&c=ZZaVlCF_-H5IcH2stl7ySuXBH7MLccgnuMnInd1DpRM=";
             const patientStage = "4";
-            const patientBirthdate = "1940-01-01";
+            const patientBirthdate = "24-05-1940";
 
             // Fill patient form
             const inputName = await createPatientFixture.getNameInput();
