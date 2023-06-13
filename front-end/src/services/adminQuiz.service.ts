@@ -89,20 +89,27 @@ export class QuizService {
   }
 
   updateQuestion(question: Question): void {
-   console.log(question);
-
-   let q = question as any;
-   q.quizId = this.selectedQuiz?.id;
-   q.defaultAnswersMediaType = 0;
-   if(question.sound === "") delete question.sound;
-   if(question.picture === "") delete question.picture;
-   question.answerList.forEach((answer) => {
-    if(answer.sound === "") delete answer.sound;
-    if(answer.picture === "") delete answer.picture;
-   })
-   this.http.post<Question>(this.urlApi+'/questions/', q).subscribe((e) => {
-    console.log(e);
-   })
+    let q = question as any;
+    q.quizId = this.selectedQuiz?.id;
+    q.defaultAnswersMediaType = 0;
+    if(question.sound === "") delete question.sound;
+    if(question.picture === "") delete question.picture;
+    question.answerList.forEach((answer) => {
+      if(answer.sound === "") delete answer.sound;
+      if(answer.picture === "") delete answer.picture;
+    })
+    if(question.id){ // put question
+      console.log("put a question");
+      this.http.put<Question>(this.urlApi+'/questions/'+question.id, q).subscribe((e) => {
+        console.log(e);
+      })
+    }
+    else{
+      console.log("post a question");
+      this.http.post<Question>(this.urlApi+'/questions/', q).subscribe((e) => {
+        console.log(e);
+      })
+    }
   }
 
   resetSelectedQuestion(): void{
@@ -179,8 +186,6 @@ export class QuizService {
     const quiz = {} as Quiz;
     quiz.title = "";
     quiz.questionList = [];
-    //this.quizList.push(quiz);
-    //this.selectQuiz(quiz);
     this.typeOfForm = "creation";
     this.addQuiz(quiz);
   }
