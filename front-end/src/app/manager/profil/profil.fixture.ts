@@ -4,16 +4,8 @@ import { Page } from '@playwright/test';
 export class ProfilFixture extends E2EComponentFixture {
 
     // BUTTONS
-    getChangesInfosButtons() {
-        return this.page.getByTestId('changeInfos');
-    }
-
     getChooseConfigButton() {
         return this.page.getByTestId('chooseConfig');    
-    }
-
-    getResultsButton(){
-        return this.page.getByTestId('results');
     }
 
     clickChooseConfig(numberOfClick = 1){

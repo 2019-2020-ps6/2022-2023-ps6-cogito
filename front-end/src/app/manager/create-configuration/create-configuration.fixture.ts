@@ -19,7 +19,7 @@ export class CreateConfigurationFixture extends E2EComponentFixture {
         return this.page.getByRole('button', { name: 'Réponses' });
     }
 
-
+    
     // INPUTS
     getNameInput() {
         return this.page.waitForSelector('input#name');
