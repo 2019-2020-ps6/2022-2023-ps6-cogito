@@ -9,9 +9,9 @@ import { CreationPatientComponent } from 'src/app/manager/creation_patient/page.
 
 
 // test.describe is a hook that creates a test group and lets you define lifecycle stages such as beforeEach.
-test.describe('Quiz Feature', () => {
+test.describe('Patient Feature', () => {
 
-    test('Quiz Creation', async ({ page }) => {
+    test('Patient Creation', async ({ page }) => {
         await page.goto(createPatientUrl);
 
         const createPatientFixture = new CreatePatientFixture(page);
@@ -24,7 +24,7 @@ test.describe('Quiz Feature', () => {
             const patientName = "John Doe";
             const patientPicture = "https://media.istockphoto.com/id/153011771/fr/photo/joyeux-homme-senior.jpg?s=612x612&w=0&k=20&c=ZZaVlCF_-H5IcH2stl7ySuXBH7MLccgnuMnInd1DpRM=";
             const patientStage = "4";
-            const patientBirthdate = "1940-01-01";
+            const patientBirthdate = "24-05-1940";
 
             // Fill patient form
             const inputName = await createPatientFixture.getNameInput();
@@ -51,7 +51,7 @@ test.describe('Quiz Feature', () => {
         });
     });
     
-    test('Delete Quiz', async ({ page }) => {
+    test('Delete Patient', async ({ page }) => {
         const patientListFixture = new PatientListFixture(page);
         await page.goto(profilListUrl);
         const johnDoeElement = await page.$('body:has-text("John Doe")');
