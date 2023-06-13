@@ -5,7 +5,7 @@
     </div>
     <div class="row d-flex">
         <div class="answer col-md-6" *ngFor="let answer of question.answerList; let i = index;">
-            <button [ngClass]="{'ans-picture-present d-flex flex-column justifiy-content-center align-items-center': answer.picture}" (click)="checkAnswer(answer)" class="" [style.background-image]="'url(' + answer.picture + ')'"><h1>{{answer.value}}</h1></button>
+            <button id="{{answer.isCorrect}}"[ngClass]="{'ans-picture-present d-flex flex-column justifiy-content-center align-items-center': answer.picture}" (click)="checkAnswer(answer)" class="" [style.background-image]="'url(' + answer.picture + ')'"><h1>{{answer.value}}</h1></button>
         </div>
     </div>
     <div  *ngIf="hintIsShow && question.hint !== '' && question.hint !== undefined" class="d-flex justifiy-content-center align-items-center flex-column">
