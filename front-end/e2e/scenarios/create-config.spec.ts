@@ -18,33 +18,51 @@ import { CreateConfigurationFixture } from 'src/app/manager/create-configuration
 test.describe('Configuration Feature', () => {
 
     test('Configuration Creation', async ({ page }) => {
+
+        // On commence sur la liste des profils 
         await page.goto(profilListUrl);
         await expect(page).toHaveURL("http://localhost:4200/profil-list");
-
         await ProfilListFixture.getProfilButton(page);
-        
-        await expect(page).toHaveURL("http://localhost:4200/profil");
 
+
+        // On continue sur le profil
+        await expect(page).toHaveURL("http://localhost:4200/profil");
         await page.locator("#chooseConfig").click();
 
-        await expect(page).toHaveURL("http://localhost:4200/configuration")
 
+        // On continue sur la liste des configurations
+        await expect(page).toHaveURL("http://localhost:4200/configuration")
         await page.locator("#addButton").click();
 
+
+        // On commence à créer la configuration
         await expect(page).toHaveURL("http://localhost:4200/create-configuration")
-
         const createConfigurationFixture = new CreateConfigurationFixture(page);
-
         const nameConfig = "TestConfig";
         const descriptionConfig = "Description de la config";
-
-
 
         const inputName = await createConfigurationFixture.getNameInput();
         await inputName.type(nameConfig);
 
         const inputDescription = await createConfigurationFixture.getDescriptionInput();
         await inputDescription.type(descriptionConfig);
+
+        await page.locator("#interface").click();
+        await expect(page).toHaveURL("http://localhost:4200/create-configuration")
+
+
+        // Ensuite on passe sur l'interface
+        await page.locator("#button3font").click();
+        await page.locator("#button3size").click();
+
+        await page.locator("#questions").click();
+        await expect(page).toHaveURL("http://localhost:4200/create-configuration")
+
+
+        // Désormais on passe aux questions
+        await page.check('#qcm');
+        await page.check(-)
+
 
 
 
