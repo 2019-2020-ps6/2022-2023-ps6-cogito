@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
-import { BehaviorSubject } from "rxjs";
+import { BehaviorSubject, Observable } from "rxjs";
 
 import { QUIZZES_ALL } from "../mocks/quiz.mock";
 import { Patient } from "../models/patient.model";
@@ -27,7 +27,8 @@ export class QuizService {
 
             this.selectedPatient = patient;
 
-            function patientQuizList(patient: Patient): Quiz[] {
+            console.log(this.selectedPatient);
+            /*function patientQuizList(patient: Patient): Quiz[] {
                 let quizList: Quiz[] = [];
 
                 for (let quizId of patient.quizIdList) {
@@ -44,10 +45,17 @@ export class QuizService {
             this.quizList = (this.selectedPatient == undefined || this.selectedPatient.stage !== 4)
                             ? [] : patientQuizList(this.selectedPatient);
             this.quizList$.next(this.quizList);
+            */
         });
 
         this.themeService.selectedTheme$.subscribe((theme?: Theme): void => {
+            console.log("this.themeservice selected theme")
             this.selectedTheme = theme;
+            const quizL = this.themeService.retrieveQuizOfTheme(this.selectedTheme?.id as number);
+            this.quizList$.next(quizL);
+            console.log(quizL);
+
+            /*this.selectedTheme = theme;
 
             function patientQuizList(patient: Patient, theme: Theme): Quiz[] {
                 let quizList: Quiz[] = [];
@@ -69,7 +77,7 @@ export class QuizService {
             } else if (this.selectedTheme != undefined) {
                 this.quizList = patientQuizList(this.selectedPatient, this.selectedTheme);
             }
-            this.quizList$.next(this.quizList);
+            this.quizList$.next(this.quizList);*/
         });
     }
 
@@ -77,6 +85,7 @@ export class QuizService {
         this.selectedQuiz$.next(quiz);
         console.log("Quiz selected : ", quiz.title);
     }
+
 
     leaveQuiz(): void {
         if (this.selectedPatient === undefined || this.selectedPatient.stage >= 4) {

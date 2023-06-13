@@ -124,7 +124,7 @@ export class ThemeService {
       this.selectedTheme = JSON.parse(JSON.stringify(this.oldSelectionTheme)) as Theme;
       //console.log(this.selectedTheme);
       for(let i = 0; i < this.selectedTheme?.quizzesList.length; i++){
-        this.quizService.updateQuizList(this.selectedTheme?.quizzesList[i]);
+        this.quizService.updateQuizList(this.selectedTheme?.quizzesList[i], this.selectedTheme.id);
       }
       this.selectionThemeSubject.next(this.selectedTheme as Theme);
       this.updateThemeList(this.selectedTheme);
@@ -151,7 +151,7 @@ export class ThemeService {
     this.selectedTheme = {...this.selectedTheme, quizzesList: updatedQuizList} as Theme;
     this.selectionThemeSubject.next(this.selectedTheme as Theme);
     this.updateThemeList(this.selectedTheme);
-    this.quizService.updateQuizList(quiz);
+    this.quizService.updateQuizList(quiz, this.selectedTheme.id);
   }
 
   addTheme(theme: Theme): void {

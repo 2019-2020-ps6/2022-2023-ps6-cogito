@@ -18,9 +18,13 @@ export class QuizPageComponent implements OnInit {
     private size!: number;
 
     constructor(private quizService: QuizService, private router: Router) {
+        const themeId = window.location.href.split('/')[4];
+        console.log(themeId);
+        //this.quizList = this.quizService.getQuizzesOfTheme(parseInt(themeId));
         this.quizService.quizList$.subscribe((quizList: Quiz[]): void => {
             this.quizList = quizList;
         });
+        console.log(this.quizList);
         this.maxMargin();
         this.currentSize();
         this.nbDisplayQuizzes = this.numberRowQuizzes() * this.numberColQuizzes();
