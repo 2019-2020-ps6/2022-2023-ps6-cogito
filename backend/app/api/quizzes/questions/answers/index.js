@@ -34,22 +34,6 @@ router.get('/question/:questionId', (req, res) => {
   }
 })
 
-router.post('/', (req, res) => {
-  try {
-    res.status(201).json(createAnswer({ ...req.body }))
-  } catch (err) {
-    manageAllErrors(res, err)
-  }
-})
-
-router.put('/:answerId', (req, res) => {
-  try {
-    res.status(200).json(updateAnswer(req.params.answerId, req.body))
-  } catch (err) {
-    manageAllErrors(res, err)
-  }
-})
-
 router.delete('/:answerId', (req, res) => {
   try {
     Answer.delete(req.params.answerId)
