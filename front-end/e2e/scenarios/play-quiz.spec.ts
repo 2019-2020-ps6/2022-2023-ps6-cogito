@@ -1,8 +1,7 @@
 import { test, expect } from '@playwright/test';
 import { patientPageUrl } from 'e2e/e2e.config';
 
-// This file is here to test the playwright integration.
-// test.describe('Play a quiz', () => {
+  test.describe('Play a quiz', () => {
 
 //   test('Go on quiz',async ({page}) => {
 //     await page.goto(patientPageUrl);
