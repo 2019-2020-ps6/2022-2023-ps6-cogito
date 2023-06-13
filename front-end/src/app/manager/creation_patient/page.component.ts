@@ -1,6 +1,5 @@
 import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
-import { Config } from "@playwright/test";
 
 import { PatientService } from "src/services/patient.service";
 import { CONFIG_DEFAULT_3, CONFIG_DEFAULT_4, CONFIG_DEFAULT_5 } from "../../../mocks/configuration.mock";
