@@ -6,6 +6,7 @@
     <div class="box">
         <ul>
             <li *ngFor="let config of configurationService.getListe()" routerLink="/create-configuration-with"
+                [ngClass]="{selectedLightGreen: selectedPatient.configuration.id === config.id}"
                 (click)="configurationService.setNewConfig(config)">{{config.name}}</li>
         </ul>
     </div>

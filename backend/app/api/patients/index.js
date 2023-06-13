@@ -2,12 +2,18 @@ const { Router } = require('express')
 
 const { Patient } = require('../../models')
 const manageAllErrors = require('../../utils/routes/error-management')
+const {
+  buildPatient,
+  getAllPatients,
+  createPatient,
+  updatePatient,
+} = require('./manager')
 
-const router = new Router()
+const router = new Router({ mergeParams: true })
 
 router.get('/', (req, res) => {
   try {
-    res.status(200).json(Patient.get())
+    res.status(200).json(getAllPatients())
   } catch (err) {
     manageAllErrors(res, err)
   }
@@ -15,7 +21,8 @@ router.get('/', (req, res) => {
 
 router.get('/:patientId', (req, res) => {
   try {
-    res.status(200).json(Patient.getById(req.params.patientId))
+    const patient = Patient.getById(req.params.patientId)
+    res.status(200).json(buildPatient(patient))
   } catch (err) {
     manageAllErrors(res, err)
   }
@@ -23,7 +30,7 @@ router.get('/:patientId', (req, res) => {
 
 router.post('/', (req, res) => {
   try {
-    res.status(201).json(Patient.create({ ...req.body }))
+    res.status(201).json(createPatient({ ...req.body }))
   } catch (err) {
     manageAllErrors(res, err)
   }
@@ -31,7 +38,7 @@ router.post('/', (req, res) => {
 
 router.put('/:patientId', (req, res) => {
   try {
-    res.status(200).json(Patient.update(req.params.patientId, req.body))
+    res.status(200).json(updatePatient(req.params.patientId, req.body))
   } catch (err) {
     manageAllErrors(res, err)
   }
