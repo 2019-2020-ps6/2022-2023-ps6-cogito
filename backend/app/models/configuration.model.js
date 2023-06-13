@@ -13,7 +13,7 @@ module.exports = new BaseModel('Configuration', {
   sounds: Joi.boolean().required(),
   multipleAnswers: Joi.boolean().required(),
   hints: Joi.boolean().required(),
-  timeDisplayHints: Joi.number(),
+  timeDisplayHint: Joi.number(),
   difficulty: Joi.number().min(1).max(3).required(),
   againFalseQuestion: Joi.boolean().required(),
 

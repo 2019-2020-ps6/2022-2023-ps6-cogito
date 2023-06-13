@@ -86,8 +86,8 @@ export class CreationPatientComponent implements OnInit {
 
     createPatient(): void {
         this.patient.stage = parseInt(this.patient.stage.toString(), 10);
-        this.patientService.addPatient(this.patient);
         this.addDefaultConfig();
+        this.patientService.addPatient(this.patient);
         this.router.navigateByUrl("/profil");
     }
 
@@ -102,6 +102,7 @@ export class CreationPatientComponent implements OnInit {
         } else {
             index = configList.findIndex(config => config.name === CONFIG_DEFAULT_5.name);
         }
+        console.log("index config: " + index);
 
         this.patient.configuration = configList[index];
     }
