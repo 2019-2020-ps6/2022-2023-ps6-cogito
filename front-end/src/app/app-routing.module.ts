@@ -50,6 +50,7 @@
         { path: "quiz-list", component: ManagerListComponent, data: { title: "Liste de quiz" } },
         { path: "theme-list", component: ManagerListComponent, data: { title: "Liste de thèmes" } },
         { path: "quiz-form/:id", component: ManagerFormComponent, data: { title: "Formulaire de quiz" } },
+        { path: "quiz-form/:id/:bool", component: ManagerFormComponent, data: { title: "Formulaire de quiz" } },
         { path: "theme-form/:id", component: ManagerFormComponent, data: { title: "Formulaire de thème" } },
         { path: "theme-form/:id", component: ManagerFormComponent, data: { title: "Formulaire de thème" } },
         { path: "theme-form/:id/:bool", component: ManagerFormComponent, data: { title: "Formulaire de thème" } },

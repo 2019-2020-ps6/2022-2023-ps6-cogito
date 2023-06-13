@@ -14,6 +14,14 @@ export class CreateThemeFixture extends E2EComponentFixture {
         return this.page.click('p#quizAndTheme');
     }
 
+    clickPatientAdd() {
+        return this.page.getByRole('button', { name: 'NOUVEAU' }).click();
+    }
+
+    clickPatientGestion() {
+        return this.page.click('p#profilList');
+    }
+
     clickaddObject() {
         return this.page.click('a#addObject');
     }
@@ -31,6 +39,10 @@ export class CreateThemeFixture extends E2EComponentFixture {
     }
 
     fillNameTheme() {
-        return this.page.fill('input#nameTheme', 'test');
+        return this.page.fill('input#nameTheme', 'La Photographie');
+    }
+
+    fillNameTheme2() {
+        return this.page.fill('input#nameTheme', 'Les Artistes du 21ème Siècle');
     }
 }
