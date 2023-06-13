@@ -6,6 +6,6 @@ module.exports = new BaseModel('Answer', {
   questionId: Joi.number().required(),
   value: Joi.string().min(1).required(),
   isCorrect: Joi.boolean().required(),
-  picture: Joi.string().min(2),
-  sound: Joi.string().min(2),
+  picture: Joi.string(),
+  sound: Joi.string(),
 })

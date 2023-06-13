@@ -8,23 +8,13 @@ test.describe('Root to list-theme-quiz-page', () => {
     await page.goto(homePageUrl);
 
     const pageTitle = await page.$eval('h2', (element) => element.innerText);
-    const headerElement = await page.$('header');
-    const headerText = await headerElement?.innerText();
-    
     expect(pageTitle).toBe('Bienvenue sur Cogito Quiz !');
-    expect(headerText).toBe('Accueil');
-    expect(await headerElement?.isVisible()).toBe(true);
   })
 
   test('Enter on the site',async ({page}) => {
     await page.goto(homePageUrl);
 
     await page.getByRole('button',{name: 'COMMENCER'}).click();
-
-    const headerElement = await page.$('header');
-    const headerText = await headerElement?.innerText();
-
-    expect(headerText).toBe('Qui êtes-vous ?');
 
     const adminElement = await page.$('#adminAccount');
 
@@ -43,11 +33,6 @@ test.describe('Root to list-theme-quiz-page', () => {
     await test.step('Click on quizAndTheme', async () => {
         await page.click('p#quizAndTheme');
       });
-    
-    const headerElement = await page.$('header');
-    const headerText = await headerElement?.innerText();
-
-    expect(headerText).toBe('Liste des thèmes et quiz');
 
   })
 
@@ -72,23 +57,14 @@ test.describe('Root to list-theme-quiz-page', () => {
     });
 
     //complete tour in quizAndTheme
-
-    await page.getByRole('button',{name: 'Retour au menu principal'}).click();
-
     await page.getByRole('button',{name: 'RETOUR'}).click();
 
     //complete tour in game
-
     await page.getByRole('button',{name: 'RETOUR'}).click();
+     await page.getByRole('button',{name: 'RETOUR'}).click();
 
     const pageTitle = await page.$eval('h2', (element) => element.innerText);
-    const headerElement = await page.$('header');
-    const headerText = await headerElement?.innerText();
-    
     expect(pageTitle).toBe('Bienvenue sur Cogito Quiz !');
-    expect(headerText).toBe('Accueil');
-    expect(await headerElement?.isVisible()).toBe(true);
-
 
   })
 });

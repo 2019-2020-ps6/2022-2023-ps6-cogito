@@ -8,7 +8,7 @@ module.exports = new BaseModel('Question', {
   difficulty: Joi.number().min(1).max(3).required(),
   defaultMediaType: Joi.number().min(0).max(2).required(),
   defaultAnswersMediaType: Joi.number().min(0).max(2).required(),
-  hint: Joi.string().min(2),
-  picture: Joi.string().min(2),
-  sound: Joi.string().min(2),
+  hint: Joi.string(),
+  picture: Joi.string(),
+  sound: Joi.string(),
 })
