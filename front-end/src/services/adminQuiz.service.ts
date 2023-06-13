@@ -1,7 +1,8 @@
+import { Question, Difficulty } from './../models/question.model';
 import { Injectable } from '@angular/core';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { Quiz } from 'src/models/quiz.model';
-import { MediaType, Question } from 'src/models/question.model';
+import { MediaType } from 'src/models/question.model';
 import {HttpClient} from '@angular/common/http';
 import { environment } from '../environments/environment';
 import { Router } from "@angular/router";
@@ -88,7 +89,63 @@ export class QuizService {
   }
 
   updateQuestion(question: Question): void {
-    const index = this.selectedQuiz?.questionList?.findIndex(q => q.id === question.id);
+    /*
+    const bodyQuestion = {
+      quizId : this.selectedQuiz?.id,
+      title: question.title,
+      difficulty: question.difficulty,
+      defaultMediaType: question.defaultMediaType,
+      defaultAnswerMediaType: question.defaultAnswersMediaType,
+      hint: question.hint,
+      picture: question.picture,
+      question: question.sound
+    }
+    const correcting = question.correcting;
+    const answer
+
+    /*
+      id: Joi.number().required(),
+  questionId: Joi.number().required(),
+  description: Joi.string().min(2).required(),
+  picture: Joi.string().min(2),
+  sound: Joi.string().min(2),
+    */
+   console.log(question);
+
+   let q = question as any;
+   q.quizId = this.selectedQuiz?.id;
+   q.defaultAnswersMediaType = 0;
+   if(question.sound === "") delete question.sound;
+   if(question.picture === "") delete question.picture;
+   question.answerList.forEach((answer) => {
+    if(answer.sound === "") delete answer.sound;
+    if(answer.picture === "") delete answer.picture;
+   })
+   this.http.post<Question>(this.urlApi+'/questions/', q).subscribe((e) => {
+    console.log(e);
+   })
+    /*if(question.id){ // put Question
+      this.http.put<Question>(this.urlApi + '/questions/' + question.id, question).subscribe((question) => {
+        // add question to selected quiz
+        const quiz = this.selectedQuiz;
+ 
+        const index = this.selectedQuiz?.questionList?.findIndex(q => q.id === question.id);
+        if (index !== undefined && index >= 0) {
+          if(this.selectedQuiz && this.selectedQuiz?.questionList){
+            this.selectedQuiz.questionList[index] = question as Question;
+            this.selectionQuizSubject.next(this.selectedQuiz);
+          }
+        }
+      })
+    }
+    else{ // post a question
+      this.http.post<Question>(this.urlApi + '/questions', {question, quizId: this.selectedQuiz?.id}).subscribe((question) => {
+
+      })
+    }
+    
+    
+    /*const index = this.selectedQuiz?.questionList?.findIndex(q => q.id === question.id);
     if (index !== undefined && index >= 0) {
       const updatedQuestionList = [...this.selectedQuiz?.questionList as Question[]];
       updatedQuestionList[index] = question;
@@ -96,7 +153,7 @@ export class QuizService {
       this.selectionQuizSubject.next(this.selectedQuiz as Quiz);
       this.updateQuizList(this.selectedQuiz);
       console.log(this.selectedQuiz);
-    }
+    }*/
   }
 
   resetSelectedQuestion(): void{
@@ -157,7 +214,6 @@ export class QuizService {
 
   createAndSelectNewQuestion(): void {
     const question = {} as Question;
-    question.id = this.getIdOfNewQuestion();
     question.title = "";
     question.answerList = [];
     question.sound = "";
@@ -190,7 +246,6 @@ export class QuizService {
         this.typeOfForm = "creation";
         this.router.navigate(["/quiz-form/"+ quiz.id + '/true']);
     });
-
   }
 
 
