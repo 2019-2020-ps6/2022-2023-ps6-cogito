@@ -126,13 +126,14 @@ router.delete('/:questionId', (req, res) => {
     Question.delete(req.params.questionId)
     const answers = findQuestionAnswers(req.params.questionId);
     const correcting = findQuestionCorrecting(req.params.questionId);
+
     if(answers){
       answers.forEach((answer) => {
         Answer.delete(answer.id)
       })
     }
     if(correcting)
-      Correcting.delete(correcting);
+      Correcting.delete(correcting.id);
     res.status(204).json(buildQuestions());
   } catch (err) {
     console.log(err);
