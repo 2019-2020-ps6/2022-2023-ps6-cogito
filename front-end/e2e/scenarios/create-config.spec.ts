@@ -61,11 +61,20 @@ test.describe('Configuration Feature', () => {
 
         // Désormais on passe aux questions
         await page.check('#qcm');
-        await page.check(-)
+        await page.check('#pic');
+        await page.check('#sound');
 
 
+        // Et pour finir, les réponses
+        await page.locator('#answers').click();
+        await page.check('#cwin');
+        await page.check('#cdesc');
+        await page.check('#cpic');
+        await page.check('#cson');
 
 
+        await page.locator('#save').click();
+        await expect(page).toHaveURL("http://localhost:4200/configuration")
 
     });
 
