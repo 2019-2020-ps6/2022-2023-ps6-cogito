@@ -14,7 +14,8 @@
 	  1686391656164,
 	  1686576480281
     ],
-    "quizToPlayList": []
+    "quizToPlayList": [],
+    "configurationId":1686667131989
   },
   {
     "id": 1686639862295,
@@ -29,7 +30,8 @@
       1686575561424,
 	  1686391656164
     ],
-    "quizToPlayList": []
+    "quizToPlayList": [],
+    "configurationId":1686667127683
   },
   {
     "id": 1686663805738,
@@ -46,7 +48,8 @@
 	  1686391620048,
 	  1686576480281
 	],
-    "quizToPlayList": []
+    "quizToPlayList": [],
+    "configurationId":1686667127683
   },
   {
     "id": 1686665111984,
@@ -64,11 +67,12 @@
       1686412162196,
 	  1686576480281
     ],
-    "quizToPlayList": []
+    "quizToPlayList": [],
+    "configurationId":1686667130115
   },
   {
     "id": 1686667127018,
-    "name": "alice",
+    "name": "Alice",
     "birthdate": "1111-11-11",
     "stage": 3,
     "picture": "https://picsum.photos/200",
@@ -81,6 +85,7 @@
 	  1686391620048,
 	  1686576480281
 	],
-    "quizToPlayList": []
+    "quizToPlayList": [],
+    "configurationId":1686667131989
   }
 ]

@@ -50,7 +50,7 @@ import { patientPageUrl } from 'e2e/e2e.config';
 
     await page.locator('.game-result-content button').click();
 
-    const headerElement = await page.locator('header');
+    const headerElement = await page.locator('header h1');
     const headerText = await headerElement?.innerText();
 
     expect(headerText).toBe('Choisissez un quiz');
