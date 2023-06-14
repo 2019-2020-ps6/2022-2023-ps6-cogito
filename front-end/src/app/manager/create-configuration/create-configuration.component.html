@@ -23,12 +23,12 @@
 
     <div class="navbuttons">
     <button type="submit" class="button {{state === 'general' ? 'active' : ''}}"  (click)="changeState('general')"> General </button>
-    <button type="submit" class="button {{state === 'interface' ? 'active' : ''}}" (click)="changeState('interface')"> Interface </button>
-    <button type="submit" class="button {{state === 'questions' ? 'active' : ''}}" (click)="changeState('questions')"> Questions </button>
-    <button type="submit" class="button {{state === 'answers' ? 'active' : ''}}" (click)="changeState('answers')"> Réponses </button>
+    <button id="interface" type="submit" class="button {{state === 'interface' ? 'active' : ''}}" (click)="changeState('interface')"> Interface </button>
+    <button id="questions" type="submit" class="button {{state === 'questions' ? 'active' : ''}}" (click)="changeState('questions')"> Questions </button>
+    <button id="answers" type="submit" class="button {{state === 'answers' ? 'active' : ''}}" (click)="changeState('answers')"> Réponses </button>
     </div>
 
-    <button type="submit" class="button-save" *ngIf="!displayButtonChoose" (click)="addNewConfig()" [routerLink]="['/configuration']">Sauvegarder </button>
+    <button id="save" type="submit" class="button-save" *ngIf="!displayButtonChoose" (click)="addNewConfig()" [routerLink]="['/configuration']">Sauvegarder </button>
     <button type="submit" class="button-back" (click)="this.configurationService.setConfigToDefault()" [routerLink]="['/configuration']"> Annuler </button>
     <button class="btn btn-primary accept" *ngIf="displayButtonChoose" (click)="updateConfiguration()" [routerLink]="['/configuration']"> Choisir cette configuration </button>
     <!-- On ne veut plus modifier la font family et la font size ici

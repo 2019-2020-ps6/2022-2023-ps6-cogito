@@ -3,6 +3,8 @@ import { Component, OnInit } from "@angular/core";
 import { Quiz } from "src/models/quiz.model";
 import { Question } from "src/models/question.model";
 import { QuizService } from "src/services/adminQuiz.service";
+import {ThemeService} from "src/services/adminTheme.service";
+import { Theme } from "src/models/theme.model";
 
 @Component({
     selector: "app-questions-list",
@@ -11,10 +13,10 @@ import { QuizService } from "src/services/adminQuiz.service";
 })
 export class QuestionsListComponent implements OnInit {
     public quiz?: Quiz;
-
+    public theme?: Theme;
     public questions?: Question[] = [];
 
-    constructor(private quizService: QuizService) {}
+    constructor(private quizService: QuizService, private themeService: ThemeService) {}
 
         ngOnInit(): void {
         this.quizService.getSelectedQuiz().subscribe(quiz => {
@@ -23,6 +25,10 @@ export class QuestionsListComponent implements OnInit {
             this.questions = questions;
           });
         });
+
+        this.themeService.getSelectedTheme().subscribe(theme => {
+          this.theme = theme;
+        })
       }
 
 
@@ -35,6 +41,6 @@ export class QuestionsListComponent implements OnInit {
     }
 
     createNewQuestion(): void {
-        this.quizService.createAndSelectNewQuestion();
+        this.quizService.createAndSelectNewQuestion(this.theme?.id as number);
     }
 }

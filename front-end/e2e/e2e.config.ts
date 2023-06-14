@@ -4,3 +4,5 @@ export const patientPageUrl = "http://localhost:4200/patient-page"
 export const themeQuizCreation = "http://localhost:4200/list-theme-quiz-page"
 export const createPatientUrl = 'http://localhost:4200/creation-patient-page';
 export const profilListUrl = 'http://localhost:4200/profil-list';
+export const createConfigUrl = 'http://localhost:4200/create-configuration';
+export const listConfigUrl = 'http://localhost:4200/configuration';

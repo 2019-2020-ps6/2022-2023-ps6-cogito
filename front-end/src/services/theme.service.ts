@@ -1,13 +1,14 @@
 import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
-import { BehaviorSubject } from "rxjs";
+import { BehaviorSubject, map, Observable, of } from "rxjs";
 import { HttpClient } from "@angular/common/http";
 
 import { Patient } from "../models/patient.model";
 import { Theme } from "../models/theme.model";
 import { PatientService } from "./patient.service";
 import { serverUrl, httpOptionsBase } from "../configs/server.config";
-
+import { Quiz } from "src/models/quiz.model";
+import {ThemeService as adminThemeService} from "./theme.service";
 
 @Injectable({
     providedIn: "root"
@@ -18,7 +19,8 @@ export class ThemeService {
     public selectedTheme$: BehaviorSubject<Theme | undefined> = new BehaviorSubject<Theme | undefined>(undefined);
     private baseURL: string = serverUrl + "/themes/";
 
-    constructor(private patientService: PatientService, private router: Router, private http: HttpClient) {
+    constructor(private patientService: PatientService, private router: Router, private http: HttpClient ) {
+
         this.patientService.selectedPatient$.subscribe((patient: Patient | undefined): void => {
             if (this.router.url.includes("/theme-page") && patient === undefined) {
                 this.router.navigateByUrl("/patient-page");
@@ -38,6 +40,14 @@ export class ThemeService {
             this.themeList$.next(themes);
         });
     }
+
+    retrieveQuizOfTheme(themeId: number): Observable<Quiz[]> {
+        return this.http.get<Quiz[]>(serverUrl+'/quizzes/theme/' + themeId).pipe(
+          map((quizzes) => {
+            return quizzes;
+          })
+        );
+      }
 
     retrievePThemes(patient: Patient): void {
         this.http.get<Theme[]>(this.baseURL + "patient/" + patient.id).subscribe(themes => {

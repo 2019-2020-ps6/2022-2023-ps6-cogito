@@ -21,9 +21,10 @@ export class ThemePageComponent implements OnInit {
     private size!: number;
     private patientSelected : Patient | undefined;
 
-    constructor(private themeService: ThemeService, private router: Router, private patientService: PatientService) {
+    constructor(private themeService: ThemeService, private router: Router, private patientService: PatientService) {      
         this.themeService.themeList$.subscribe((themeList: Theme[]): void => {
             this.themeList = themeList;
+            console.log(this.themeList);
         });
         this.maxMargin();
         this.currentSize();
@@ -56,6 +57,8 @@ export class ThemePageComponent implements OnInit {
     }
 
     ngOnInit(): void {
+
+        console.log("inti");
         this.patientService.selectedPatient$.subscribe(patient => {
             this.patientSelected = patient;
             document.documentElement.style.setProperty('--font-family', CONFIG_DEFAULT_3.fontFamily as string);
@@ -86,7 +89,6 @@ export class ThemePageComponent implements OnInit {
     }
 
     nextDisplayThemes(): void {
-        console.log("Themes retrieved : ", this.themeList);
         if (this.startDisplayInd == -1 || (this.startDisplayInd + this.nbDisplayThemes > this.themeList.length)) {
             this.startDisplayInd = 0;
         }
@@ -114,6 +116,6 @@ export class ThemePageComponent implements OnInit {
 
     selectTheme(theme: Theme): void {
         this.themeService.selectTheme(theme);
-        this.router.navigateByUrl("/quiz-page");
+        this.router.navigateByUrl("/quiz-page/" + theme.id);
     }
 }
