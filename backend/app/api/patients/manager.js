@@ -15,8 +15,6 @@ const getAllQuizzesOfPatient = (patientId) => {
     for(let i = 0 ; i < themeIds.length; i++){
         const q = Quiz.get().filter((q) => q.themeId === themeIds[i]);
         if(q.length > 0){
-            console.log(q[0]);
-            console.log(findQuizQuestions(q[0].id))
             q[0].questionList = findQuizQuestions(q[0].id);
             for(let question of q[0].questionList){
                 delete question.quizId;
