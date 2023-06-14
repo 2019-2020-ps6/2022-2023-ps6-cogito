@@ -34,10 +34,6 @@ export class QuizPageComponent implements OnInit {
                 this.displayQuizList = this.quizList;
             })
         }
-        /*this.quizService.quizList$.subscribe((quizList: Quiz[]): void => {
-            this.quizList = quizList;
-        });*/
-        console.log(this.quizList);
         this.maxMargin();
         this.currentSize();
         this.nbDisplayQuizzes = this.numberRowQuizzes() * this.numberColQuizzes();
