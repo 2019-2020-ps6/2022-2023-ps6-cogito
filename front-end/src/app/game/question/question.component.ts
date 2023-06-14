@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, Output } from "@angular/core";
 
 import { GameQuestion } from "src/models/gameQuestion.model";
-import { idList } from "src/services/game.service";
+import { gameService } from "src/services/game.service";
 import { Answer } from "../../../models/answer.model";
 
 @Component({
@@ -18,7 +18,7 @@ export class GameQuestionComponent {
     @Output()
     clickOncheckAnswer: EventEmitter<Answer> = new EventEmitter<Answer>();
 
-    constructor(private gameService: idList) {
+    constructor(private gameService: gameService) {
         this.gameService.currentQuestion$.subscribe((question?: GameQuestion): void => {
             this.question = question;
             this.lastQuestion = this.gameService.islastQuestion();

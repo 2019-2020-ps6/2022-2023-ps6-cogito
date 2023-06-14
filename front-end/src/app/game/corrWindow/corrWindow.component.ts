@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
-import { idList } from "../../../services/game.service";
+import { gameService } from "../../../services/game.service";
 import { GameQuestion } from "../../../models/gameQuestion.model";
 import { Configuration } from "../../../models/configuration.model";
 
@@ -9,7 +9,7 @@ import { Configuration } from "../../../models/configuration.model";
     styleUrls: ["./corrWindow.component.scss"]
 })
 export class GameQuestionResultComponent implements OnInit {
-    
+
     public config?: Configuration;
     public description?:string;
     public picture?: string;
@@ -24,7 +24,7 @@ export class GameQuestionResultComponent implements OnInit {
     clickOnContinue: EventEmitter<boolean> = new EventEmitter<boolean>();
 
 
-    constructor(private gameService: idList) {
+    constructor(private gameService: gameService) {
         this.gameService.currentQuestion$.subscribe((question?: GameQuestion): void => {
             this.config = this.gameService.getConfig();
             if (this.config && question) {
