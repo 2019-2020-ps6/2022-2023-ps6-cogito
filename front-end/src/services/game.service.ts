@@ -308,12 +308,12 @@ export class idList {
         patient.quizToPlayList = idList;
     }
 
-    leaveGame(): void {
+    leaveGame(themeId: number): void {
         if (this.selectedPatient === undefined || this.selectedPatient.stage >= 5) {
             this.router.navigateByUrl("/patient-page");
         }
         else {
-            this.router.navigateByUrl("/quiz-page");
+            this.router.navigateByUrl("/quiz-page/"+themeId);
         }
     }
 

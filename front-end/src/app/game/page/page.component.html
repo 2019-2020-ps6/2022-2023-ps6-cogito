@@ -6,7 +6,7 @@
     </div>
     <question-compo (clickOncheckAnswer)="clickOnCheckAnswer($event)"></question-compo>
     <div class="divButtons">
-        <button (click)="leavePage()">QUITTER</button>
+        <button (click)="leavePage(this.themeId === undefined ? 0 : this.themeId)">QUITTER</button>
         <button *ngIf="!lastQuestion; else finishButton" (click)="skipQuestion()">SUIVANT</button>
         <ng-template #finishButton>
             <button (click)="skipQuestion()">TERMINER</button>
