@@ -1,6 +1,12 @@
-const { Patient, Quiz } = require('../../models')
+
+const { Patient, Configuration, Quiz } = require('../../models')
 const {findQuizQuestions  } = require('../quizzes/questions/manager')
 
+const buildPatient = (patient) => {
+  const configuration = Configuration.getById(patient.configurationId)
+  const { configurationId, ...newPatient } = patient
+  return { ...newPatient, configuration }
+}
 
 /**
  * return all the quizzes as an array of quiz of the patient 
@@ -25,6 +31,32 @@ const getAllQuizzesOfPatient = (patientId) => {
     return quizzes
 }
 
+const getAllPatients = () => {
+  const patients = Patient.get()
+  return patients.map((patient) => buildPatient(patient))
+}
+
+const checkPatient = (patient) => {
+  // Remove properties that are not in backend Question
+  const configurationId = patient.configuration.id
+  const { configuration, ...newPatient } = patient
+  return { ...newPatient, configurationId }
+}
+
+const createPatient = (patient) => {
+  const newPatient = checkPatient(patient)
+  return buildPatient(Patient.create(newPatient))
+}
+
+const updatePatient = (patientId, patient) => {
+  const newPatient = checkPatient(patient)
+  return buildPatient(Patient.update(patientId, newPatient))
+}
+
 module.exports = {
-    getAllQuizzesOfPatient
+  buildPatient,
+  getAllPatients,
+  createPatient,
+  updatePatient,
+  getAllQuizzesOfPatient
 }

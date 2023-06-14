@@ -39,9 +39,8 @@ router.get('/:configurationId', (req, res) => {
 */
 router.post('/', (req, res) => {
     try {
-        const configuration = Configuration.create({ ...req.body })
-        console.log(configuration)
-        res.status(201).json(configuration)
+        Configuration.create({ ...req.body })
+        res.status(201).json(Configuration.get())
     } catch (err) {
         manageAllErrors(res, err)
     }
