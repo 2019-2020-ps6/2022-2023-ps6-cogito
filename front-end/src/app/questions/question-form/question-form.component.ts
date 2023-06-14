@@ -6,7 +6,7 @@ import { QuizService } from "src/services/adminQuiz.service";
 
 import { Correcting } from "src/models/correcting.model";
 import { GameQuestion } from "src/models/gameQuestion.model";
-import { gameService } from "src/services/game.service";
+import { GameService } from "src/services/game.service";
 
 
 @Component({
@@ -23,7 +23,7 @@ export class QuestionFormComponent implements OnInit {
     public corrDisplayed: boolean = false;
 
 
-    constructor(private quizService: QuizService,private gameService: gameService) {}
+    constructor(private quizService: QuizService,private gameService: GameService) {}
 
     ngOnInit(): void {
         this.quizService.getSelectedQuestion().subscribe(question => {

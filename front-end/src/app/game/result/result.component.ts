@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
-import { gameService } from "../../../services/game.service";
+import { GameService } from "../../../services/game.service";
 import { GameQuestion } from "../../../models/gameQuestion.model";
 import { Answer } from "../../../models/answer.model";
 import { Quiz } from "../../../models/quiz.model";
@@ -21,7 +21,7 @@ export class GameResultComponent implements OnInit {
     finalClick: EventEmitter<boolean> = new EventEmitter<boolean>();
 
 
-    constructor(private gameService: gameService) {
+    constructor(private gameService: GameService) {
         this.gameService.currentQuestion$.subscribe((): void => {
             let res = this.gameService.finalScore();
             this.questions = Array.from(res.keys());

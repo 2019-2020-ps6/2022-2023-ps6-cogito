@@ -1,7 +1,7 @@
 import { Component } from "@angular/core";
 
 import { GameQuestion } from "src/models/gameQuestion.model";
-import { gameService } from "src/services/game.service";
+import { GameService } from "src/services/game.service";
 import { Answer } from "../../../models/answer.model";
 
 @Component({
@@ -16,7 +16,7 @@ export class GamePageComponent {
     public lastAnswer: boolean = false;
     public result: boolean = false;
 
-    constructor(private gameService: gameService) {
+    constructor(private gameService: GameService) {
         this.gameService.currentQuestion$.subscribe((question?: GameQuestion): void => {
             this.question = question;
             this.lastQuestion = this.gameService.islastQuestion();

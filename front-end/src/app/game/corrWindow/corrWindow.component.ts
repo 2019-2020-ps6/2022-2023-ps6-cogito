@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
-import { gameService } from "../../../services/game.service";
+import { GameService } from "../../../services/game.service";
 import { GameQuestion } from "../../../models/gameQuestion.model";
 import { Configuration } from "../../../models/configuration.model";
 
@@ -24,7 +24,7 @@ export class GameQuestionResultComponent implements OnInit {
     clickOnContinue: EventEmitter<boolean> = new EventEmitter<boolean>();
 
 
-    constructor(private gameService: gameService) {
+    constructor(private gameService: GameService) {
         this.gameService.currentQuestion$.subscribe((question?: GameQuestion): void => {
             this.config = this.gameService.getConfig();
             if (this.config && question) {
