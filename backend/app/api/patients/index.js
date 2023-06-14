@@ -2,6 +2,7 @@ const { Router } = require('express')
 
 const { Patient } = require('../../models')
 const manageAllErrors = require('../../utils/routes/error-management')
+const {getAllQuizzesOfPatient} = require('./manager')
 
 const router = new Router()
 
@@ -34,6 +35,15 @@ router.put('/:patientId', (req, res) => {
     res.status(200).json(Patient.update(req.params.patientId, req.body))
   } catch (err) {
     manageAllErrors(res, err)
+  }
+})
+
+router.get('/:patientId/quizzes', (req, res) => {
+  try{
+    res.status(200).json(getAllQuizzesOfPatient(req.params.patientId));
+  }catch(err){
+    console.log(err);
+    manageAllErrors(res, err);
   }
 })
 
