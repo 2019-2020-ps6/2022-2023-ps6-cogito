@@ -19,7 +19,7 @@ import { QuizSoundService } from "./gameSound.service";
 @Injectable({
     providedIn: "root"
 })
-export class gameService {
+export class GameService {
     private gameQuiz?: GameQuiz;
     private selectedPatient?: Patient;
     private config: Configuration = {} as Configuration;
