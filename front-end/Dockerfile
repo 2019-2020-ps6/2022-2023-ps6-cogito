@@ -1,39 +1,26 @@
 FROM node:16.16.0-alpine as first-build
 
-ARG ENVIRONMENT
-ARG TEST_URL
-ARG DOMAIN
-
 WORKDIR /usr/local/app
 
-COPY ./ /usr/local/app/
-
-# Check les environnements
-
-RUN apk add sed
-RUN sed -i "s/<TEST_URL>/$.{TEST_URL}/g" /usr/local/app/src/environments/environment.ts
-RUN cat /usr/local/app/src/environments/environment.ts
-
-COPY ./editorconfig /usr/local/app/editorconfig
-RUN sed -i "s/<DOMAIN>/${DOMAIN:-localhost}/g" /usr/local/app/editorconfig
-RUN cat /usr/local/app/editorconfig
+COPY package.json .
+COPY package-lock.json .
+COPY angular.json .
+COPY tsconfig.app.json .
+COPY tsconfig.json .
+COPY tsconfig.spec.json .
 
 RUN npm install
-RUN npm run build:$ENVIRONMENT
 
-# On passe à la deuxième partie
+COPY . .
 
-FROM nginxinc/nginx-unprivileged:latest
+RUN npm run build
 
-USER nginx
+# Path: front-end\Dockerfile
 
-COPY --from=first-build /usr/local/app/dist/starter-quiz-two /usr/share/nginx/html
-COPY --from=first-build /usr/local/app/editorconfig /etc/nginx/conf.d/editorconfig
+FROM nginx:1.21.1-alpine
 
-EXPOSE 80
+COPY --from=first-build /usr/local/app/dist/front-end  /usr/share/nginx/html
 
-ENTRYPOINT ["nginx", "-g", "daemon off;"]
+EXPOSE 8080
 
-
-
-
+CMD ["nginx", "-g", "daemon off;"]  
