@@ -22,10 +22,18 @@ export class QuizPageComponent implements OnInit {
     constructor(private quizService: QuizService, private router: Router, private themeService : ThemeService) {
         const themeId = window.location.href.split('/')[4];
         console.log(themeId);
-        this.themeService.retrieveQuizOfTheme(parseInt(themeId)).subscribe((quizzes) => {
-            this.quizList = quizzes;
-            this.displayQuizList = this.quizList;
-        });
+        if(themeId){
+            this.themeService.retrieveQuizOfTheme(parseInt(themeId)).subscribe((quizzes) => {
+                this.quizList = quizzes;
+                this.displayQuizList = this.quizList;
+            });
+        }
+        else{
+            this.quizService.setQuizzesListStade4().subscribe((quizzes) => {
+                this.quizList = quizzes;
+                this.displayQuizList = this.quizList;
+            })
+        }
         /*this.quizService.quizList$.subscribe((quizList: Quiz[]): void => {
             this.quizList = quizList;
         });*/

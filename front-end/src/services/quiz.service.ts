@@ -8,6 +8,11 @@ import { Quiz } from "../models/quiz.model";
 import { Theme } from "../models/theme.model";
 import { PatientService } from "./patient.service";
 import { ThemeService } from "./theme.service";
+import {environment} from "../environments/environment"
+import { HttpClient } from "@angular/common/http";
+
+
+
 
 @Injectable({
     providedIn: "root"
@@ -19,7 +24,7 @@ export class QuizService {
     private selectedTheme?: Theme;
     public selectedQuiz$: BehaviorSubject<Quiz | undefined> = new BehaviorSubject<Quiz | undefined>(undefined);
 
-    constructor(private patientService: PatientService, private themeService: ThemeService, private router: Router) {
+    constructor(private patientService: PatientService, private themeService: ThemeService, private router: Router, private http : HttpClient) {
         this.patientService.selectedPatient$.subscribe((patient?: Patient): void => {
             if (this.router.url.includes("/quiz-page") && patient === undefined) {
                 this.router.navigateByUrl("/patient-page");
@@ -86,6 +91,14 @@ export class QuizService {
     selectQuiz(quiz: Quiz): void {
         this.selectedQuiz$.next(quiz);
         console.log("Quiz selected : ", quiz.title);
+    }
+
+    setQuizzesListStade4(): Observable<Quiz[]>{
+        this.http.get<Quiz[]>(environment.apiUrl + '/patients/' + this.selectedPatient?.id + '/quizzes').subscribe((e) => {
+            this.quizList$.next(e);
+        })
+
+        return this.quizList$;
     }
 
 
