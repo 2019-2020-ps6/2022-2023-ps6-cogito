@@ -1,7 +1,12 @@
 services:
-  web:
-    build: .
+  backend:
+    build: ../backend/
     ports:
       - "8000:9428"
-  backend:
     image: "backend:16.16.0"
+
+  frontend:
+    build: ../front-end/
+    ports:
+      - "8080:4200"
+    image: "frontend:16.16.0"
