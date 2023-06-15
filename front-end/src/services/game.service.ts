@@ -41,12 +41,12 @@ export class idList {
             this.selectedPatient = patient;
 
             this.emptyGame();
+            console.log(this.selectedPatient);
             if (this.selectedPatient != undefined && this.selectedPatient.stage >= 5) {
-                if (this.selectedPatient.quizToPlayList.length === 0) {
-                    // Add list of possible quizId from the patient
-                    this.selectedPatient.quizToPlayList = this.selectedPatient.quizIdList.slice();
-                }
-                this.chooseQuiz();
+                // Add list of possible quizId from the patient
+                this.quizService.setQuizzesListStade4().subscribe((quizzes) => {
+                    this.chooseQuiz(quizzes as Quiz[]);
+                })
             }
         });
 
@@ -65,14 +65,8 @@ export class idList {
         });
     }
 
-    private chooseQuiz(): void {
-        if (this.selectedPatient != undefined) {
-            let idList: number[] = this.selectedPatient.quizToPlayList;
-            if (this.gameQuiz == undefined || this.gameQuiz.endTime != undefined) {
-                let ind: number = Math.floor(Math.random() * idList.length);
-                this.quizService.selectQuiz(this.findQuizFromAll(idList[ind]));
-            }
-        }
+    private chooseQuiz(quizzes : Quiz[]): void {
+        this.quizService.selectQuiz(quizzes[Math.floor(Math.random() * quizzes.length)]);
     }
 
     private findQuizFromAll(quizId: number): Quiz {
@@ -308,12 +302,12 @@ export class idList {
         patient.quizToPlayList = idList;
     }
 
-    leaveGame(): void {
+    leaveGame(themeId: number): void {
         if (this.selectedPatient === undefined || this.selectedPatient.stage >= 5) {
             this.router.navigateByUrl("/patient-page");
         }
         else {
-            this.router.navigateByUrl("/quiz-page");
+            this.router.navigateByUrl("/quiz-page/"+themeId);
         }
     }
 
