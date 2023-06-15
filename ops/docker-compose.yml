@@ -1,12 +1,16 @@
 services:
   backend:
-    build: ../backend/
+    build:
+      context: ../backend/
     ports:
       - "8000:9428"
     image: "backend:16.16.0"
 
   frontend:
-    build: ../front-end/
+    build:
+      context: ../front-end/
+      args:
+        - BACKEND_PORT=8000
     ports:
       - "8080:4200"
     image: "frontend:16.16.0"
