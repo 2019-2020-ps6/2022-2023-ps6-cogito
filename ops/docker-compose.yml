@@ -5,6 +5,8 @@ services:
     ports:
       - "8000:9428"
     image: "backend:16.16.0"
+    volumes:
+      - database:/home/node/database
 
   frontend:
     build:
@@ -18,3 +20,7 @@ services:
     image: "frontend:16.16.0"
     depends_on:
       - backend
+
+volumes:
+  database:
+
