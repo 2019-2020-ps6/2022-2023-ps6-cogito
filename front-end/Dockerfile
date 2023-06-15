@@ -1,5 +1,7 @@
 FROM node:16.16.0-alpine as build
 
+ARG FRONTEND_DOMAIN
+ARG BACKEND_DOMAIN
 ARG BACKEND_PORT
 
 WORKDIR /usr/local/app
@@ -9,6 +11,7 @@ COPY ./src src/
 
 RUN apk add sed
 RUN sed -i "s/<BACKEND_PORT>/${BACKEND_PORT:-9428}/g" /usr/local/app/src/environments/environment.prod.ts
+RUN sed -i "s/<BACKEND_DOMAIN>/${BACKEND_DOMAIN:-localhost}/g"  /usr/local/app/src/environments/environment.prod.ts
 
 RUN npm install
 RUN npm run build:production
