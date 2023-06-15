@@ -1,12 +1,17 @@
 FROM node:16.16.0-alpine as build
 
+ARG BACKEND_PORT
+
 WORKDIR /usr/local/app
 
 COPY .editorconfig angular.json default.conf package*.json tsconfig*.json ./
 COPY ./src src/
 
+RUN apk add sed
+RUN sed -i "s/<BACKEND_PORT>/${BACKEND_PORT:-9428}/g" /usr/local/app/src/environments/environment.prod.ts
+
 RUN npm install
-RUN npm run build
+RUN npm run build:production
 
 FROM nginxinc/nginx-unprivileged:latest
 
