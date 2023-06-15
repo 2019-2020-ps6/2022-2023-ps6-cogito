@@ -5,5 +5,3 @@ export const httpOptionsBase = {
     'Content-Type': 'application/json'
   })
 };
-
-export const serverUrl = 'http://localhost:8000/api';

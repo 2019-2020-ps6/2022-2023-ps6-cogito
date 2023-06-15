@@ -20,7 +20,7 @@ test.describe('Root to list-theme-quiz-page', () => {
 
     expect(await adminElement?.isVisible()).toBe(true);
 
-    const patientList = await page.$('.rowList');
+    const patientList = await page.$('.rowListContainer');
 
     expect(await patientList?.isVisible()).toBe(true);
   })

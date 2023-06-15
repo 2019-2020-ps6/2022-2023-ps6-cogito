@@ -48,6 +48,7 @@ export class ThemeService {
       }
 
     retrievePThemes(patient: Patient): void {
+
         this.http.get<Theme[]>(environment.apiUrl + "/themes/patient/" + patient.id).subscribe(themes => {
             themes.sort((a, b) => a.title.localeCompare(b.title));
             this.themeList$.next(themes);

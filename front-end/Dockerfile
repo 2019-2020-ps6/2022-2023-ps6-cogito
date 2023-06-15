@@ -1,26 +1,18 @@
-FROM node:16.16.0-alpine as first-build
+FROM node:16.16.0-alpine as build
 
 WORKDIR /usr/local/app
 
-COPY package.json .
-COPY package-lock.json .
-COPY angular.json .
-COPY tsconfig.app.json .
-COPY tsconfig.json .
-COPY tsconfig.spec.json .
+COPY .editorconfig angular.json default.conf package*.json tsconfig*.json ./
+COPY ./src src/
 
 RUN npm install
-
-COPY . .
-
 RUN npm run build
 
-# Path: front-end\Dockerfile
+FROM nginxinc/nginx-unprivileged:latest
 
-FROM nginx:1.21.1-alpine
+COPY --from=build /usr/local/app/dist/front-end /usr/share/nginx/html/
+COPY --from=build /usr/local/app/default.conf /etc/nginx/conf.d/
 
-COPY --from=first-build /usr/local/app/dist/front-end  /usr/share/nginx/html
+EXPOSE 4200
 
-EXPOSE 8080
-
-CMD ["nginx", "-g", "daemon off;"]  
+CMD ["nginx", "-g", "daemon off;"]
