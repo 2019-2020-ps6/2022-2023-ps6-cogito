@@ -6,7 +6,7 @@ USER node
 
 WORKDIR /home/node
 
-COPY --chown=node:node package.json package-lock.json ./
+COPY --chown=node:node package*.json ./
 COPY --chown=node:node ./app app/
 COPY --chown=node:node ./database database/
 
