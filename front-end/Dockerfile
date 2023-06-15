@@ -16,3 +16,6 @@ COPY --from=build /usr/local/app/default.conf /etc/nginx/conf.d/
 EXPOSE 4200
 
 CMD ["nginx", "-g", "daemon off;"]
+
+# docker build -t frontend:16.16.0
+# docker run -p 8080:4200 frontend:16.16.0
