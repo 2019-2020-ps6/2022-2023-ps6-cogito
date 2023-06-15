@@ -1,0 +1,7 @@
+services:
+  web:
+    build: .
+    ports:
+      - "8000:9428"
+  backend:
+    image: "backend:16.16.0"
