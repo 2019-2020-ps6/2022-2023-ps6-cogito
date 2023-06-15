@@ -12,7 +12,7 @@ test.describe('Configuration Feature', () => {
         // On commence sur la liste des profils 
         await page.goto(profilListUrl);
         await expect(page).toHaveURL("http://localhost:4200/profil-list");
-        await ProfilListFixture.getProfilButton(page);
+        await ProfilListFixture.getProfilButton(page)
 
 
         // On continue sur le profil
