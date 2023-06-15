@@ -1,0 +1,40 @@
+[
+  {
+    "questionId": 1686398735627,
+    "value": "vrai",
+    "isCorrect": true,
+    "id": 1686405720692
+  },
+  {
+    "questionId": 1686398735627,
+    "value": "valeur",
+    "isCorrect": false,
+    "id": 1686405861258
+  },
+  {
+    "questionId": 1686576510408,
+    "value": "1",
+    "isCorrect": true,
+    "picture": "https://jardinage.lemonde.fr/images/dossiers/historique/tournesol-175148.jpg",
+    "id": 1686576755395
+  },
+  {
+    "questionId": 1686576510408,
+    "value": "2",
+    "isCorrect": false,
+    "picture": "https://jardinage.lemonde.fr/images/dossiers/historique/marguerites-181234.jpg",
+    "id": 1686576797604
+  },
+  {
+    "questionId": 1686577450606,
+    "value": "Le bananier",
+    "isCorrect": false,
+    "id": 1686577521781
+  },
+  {
+    "questionId": 1686577450606,
+    "value": "Le palmier",
+    "isCorrect": true,
+    "id": 1686577555603
+  }
+]
