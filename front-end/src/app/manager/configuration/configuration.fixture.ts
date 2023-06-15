@@ -1,3 +1,4 @@
+import { Page } from "@playwright/test";
 import { E2EComponentFixture } from "e2e/e2e-component.fixture";
 
 export class ConfigurationFixture extends E2EComponentFixture {
