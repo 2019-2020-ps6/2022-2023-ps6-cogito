@@ -28,7 +28,7 @@ test.describe('Configuration Feature', () => {
         // On commence à créer la configuration
         await expect(page).toHaveURL("http://localhost:4200/create-configuration")
         const createConfigurationFixture = new CreateConfigurationFixture(page);
-        const nameConfig = "TestConfig";
+        const nameConfig = "aaaaa";
         const descriptionConfig = "Description de la config";
 
         const inputName = await createConfigurationFixture.getNameInput();

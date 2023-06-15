@@ -13,7 +13,7 @@ export class ProfilListFixture extends E2EComponentFixture {
 
         for (const element of deleteElements) {
             const elementText = await element.textContent();
-            if (elementText?.includes("John")) {
+            if (elementText?.includes("Alice")) {
                 await element.click();
                 break;
             }
