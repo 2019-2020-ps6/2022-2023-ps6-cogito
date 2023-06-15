@@ -11,6 +11,7 @@ services:
       context: ../front-end/
       args:
         - FRONTEND_DOMAIN=frontend
+        - BACKEND_DOMAIN=backend
         - BACKEND_PORT=8000
     ports:
       - "8080:4200"
