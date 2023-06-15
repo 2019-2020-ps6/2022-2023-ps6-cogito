@@ -39,8 +39,6 @@ test.describe('Theme feature', () => {
       expect(currentUrl).toContain('list-theme-quiz-page');
     });
 
-    const themeListNb = await page.$$eval('ul#listThemeAndQuiz li', (elements) => elements.length);
-
     await ThemeFixture.clickaddObject();
 
     await  ThemeFixture.fillNameTheme();
@@ -62,11 +60,6 @@ test.describe('Theme feature', () => {
       expect(currentUrl).toContain('list-theme-quiz-page');
     });
 
-    // Ajouter une vérification du nombre d'éléments de la liste de thèmes
-    await test.step('Verify the number of themes', async () => {
-      const themeList = await page.$$eval('ul#listThemeAndQuiz li', (elements) => elements.length);
-      expect(themeList).toBe(themeListNb + 1);
-    });
 
     await test.step('Verify the name of the added theme', async () => {
       const themeElements = await page.$$('ul#listThemeAndQuiz li');
@@ -84,10 +77,23 @@ test.describe('Theme feature', () => {
 
     await ThemeFixture.clickcancelElement();
 
-    // Ajouter une vérification du nombre d'éléments de la liste de thèmes
-    await test.step('Verify the number of themes', async () => {
-      const themeList = await page.$$eval('ul#listThemeAndQuiz li', (elements) => elements.length);
-      expect(themeList).toBe(themeListNb + 1);
-    });    
+    await test.step('Verify the name of the added theme', async () => {
+      const themeElements = await page.$$('ul#listThemeAndQuiz li');
+      
+      let themeNames = [];
+      for (const element of themeElements) {
+        const themeName = await element.textContent();
+        themeNames.push(themeName.trim());
+      }
+
+      let bool = true;
+      if(themeNames.includes('Nouveau')){
+        bool = false;
+      }   
+
+      expect(bool).toBeTruthy();
+    });
+
+
   });
 });

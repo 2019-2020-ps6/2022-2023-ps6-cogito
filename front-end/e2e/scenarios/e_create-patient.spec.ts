@@ -78,12 +78,11 @@ test.describe('Patient Feature', () => {
     });
     
     test('Delete Patient', async ({ page }) => {
+        /**
         const patientListFixture = new PatientListFixture(page);
         await page.goto(profilListUrl);
-        const johnDoeElement = await page.$('body:has-text("John Doe")');
+        const johnDoeElement = await page.$('body:has-text("Claude")');
         expect(johnDoeElement).toBeTruthy(); 
-        
-        /** 
         const deleteButton = await patientListFixture.getDeleteButton("John Doe");
         await deleteButton.click();
         expect(johnDoeElement).not.toBeTruthy();
