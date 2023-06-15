@@ -15,3 +15,5 @@ services:
     ports:
       - "8080:4200"
     image: "frontend:16.16.0"
+    depends_on:
+      - backend
