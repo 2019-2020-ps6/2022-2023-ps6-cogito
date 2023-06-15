@@ -41,21 +41,19 @@ export class GameService {
             this.selectedPatient = patient;
 
             this.emptyGame();
+            console.log(this.selectedPatient);
             if (this.selectedPatient != undefined && this.selectedPatient.stage >= 5) {
-                if (this.selectedPatient.quizToPlayList.length === 0) {
-                    // Add list of possible quizId from the patient
-                    this.selectedPatient.quizToPlayList = this.selectedPatient.quizIdList.slice();
-                }
-                this.chooseQuiz();
+                // Add list of possible quizId from the patient
+                this.quizService.setQuizzesListStade4().subscribe((quizzes) => {
+                    this.chooseQuiz(quizzes as Quiz[]);
+                })
             }
         });
 
         this.quizService.selectedQuiz$.subscribe((quiz?: Quiz): void => {
             this.selectedQuiz = quiz;
-
             if (quiz != undefined && this.selectedPatient != undefined) {
                 this.config = this.selectedPatient.configuration
-                console.log("gameQuiz: " + this.gameQuiz);
                 if (this.gameQuiz == undefined || this.gameQuiz.quizId !== quiz.id) {
                     this.emptyGame();
                     this.gameQuizInit(quiz.id, this.selectedPatient.id);
@@ -66,14 +64,8 @@ export class GameService {
         });
     }
 
-    private chooseQuiz(): void {
-        if (this.selectedPatient != undefined) {
-            let idList: number[] = this.selectedPatient.quizToPlayList;
-            if (this.gameQuiz == undefined || this.gameQuiz.endTime != undefined) {
-                let ind: number = Math.floor(Math.random() * idList.length);
-                this.quizService.selectQuiz(this.findQuizFromAll(idList[ind]));
-            }
-        }
+    private chooseQuiz(quizzes : Quiz[]): void {
+        this.quizService.selectQuiz(quizzes[Math.floor(Math.random() * quizzes.length)]);
     }
 
     private findQuizFromAll(quizId: number): Quiz {
@@ -282,7 +274,6 @@ export class GameService {
                 this.removeQuizToPlay(this.gameQuiz.quizId, this.selectedPatient);
             }
             this.emptyGame();
-            console.log("Game finished");
             if (this.selectedPatient.stage < 5) {
                 this.router.navigateByUrl("/quiz-page");
             }
@@ -309,12 +300,12 @@ export class GameService {
         patient.quizToPlayList = idList;
     }
 
-    leaveGame(): void {
+    leaveGame(themeId: number): void {
         if (this.selectedPatient === undefined || this.selectedPatient.stage >= 5) {
             this.router.navigateByUrl("/patient-page");
         }
         else {
-            this.router.navigateByUrl("/quiz-page");
+            this.router.navigateByUrl("/quiz-page/"+themeId);
         }
     }
 

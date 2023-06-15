@@ -1,5 +1,4 @@
-import { ThemeService } from './adminTheme.service';
-import { Question, Difficulty } from './../models/question.model';
+import { Question } from './../models/question.model';
 import { Injectable } from '@angular/core';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { Quiz } from 'src/models/quiz.model';
@@ -33,21 +32,17 @@ export class QuizService {
 
   constructor(private http: HttpClient, private router: Router) { 
     this.http.get<Quiz[]>(this.urlApi+'/quizzes').subscribe((quizzes)=> {
-      console.log("quizzes", quizzes)
       this.quizList=quizzes;
       this.quizListSubject.next(this.quizList);
-      console.log("selectionQuizSubject", this.quizList)
     })
   }
 
   getQuizList(): Observable<Quiz[]> {
-    console.log("getQuizList", this.quizList);
     return this.quizListSubject.asObservable();
   }
 
   selectQuizById(id: number): void {
     const urlWithId = this.urlApi+'/quizzes/' + id;
-    console.log("urlWithId : " + urlWithId);
     this.http.get<Quiz>(urlWithId).subscribe((quiz) => {
       this.selectedQuiz=quiz;
       this.oldSelectedQuiz = JSON.parse(JSON.stringify(this.selectedQuiz)) as Quiz;
@@ -100,21 +95,16 @@ export class QuizService {
       if(answer.picture === "") delete answer.picture;
     })
     if(question.id){ // put question
-      console.log("put a question");
       this.http.put<Question>(this.urlApi+'/questions/'+question.id, q).subscribe((e) => {
-        console.log(e);
       })
     }
     else{
-      console.log("post a question");
       this.http.post<Question>(this.urlApi+'/questions/', q).subscribe((e) => {
-        console.log(e);
       })
     }
   }
 
   resetSelectedQuestion(): void{
-    console.log("resetSelectedQuestion");
     this.selectedQuestion = JSON.parse(JSON.stringify(this.oldSelectedQuestion)) as Question;
     this.selectionQuestionSubject?.next(this.selectedQuestion as Question);
   }
@@ -152,7 +142,6 @@ export class QuizService {
 
   removeQuestion(question: Question): void {
     this.http.delete<Question>(this.urlApi+'/questions/'+question.id).subscribe((e) => {
-      console.log(e);
       this.http.get<Question[]>(this.urlApi+'/questions/quiz/' + this.selectedQuiz?.id).subscribe((questions) => {
         if(this.selectedQuiz && this.selectedQuiz.questionList){
           this.selectedQuiz.questionList = questions;
@@ -167,7 +156,6 @@ export class QuizService {
     updatedQuestionList.push(question);
     this.selectedQuiz = {...this.selectedQuiz, questionList: updatedQuestionList} as Quiz;
     this.selectionQuizSubject.next(this.selectedQuiz as Quiz);
-    console.log(this.selectedQuiz);
     this.updateQuizList(this.selectedQuiz, themeId);
   }
 
@@ -181,7 +169,6 @@ export class QuizService {
     this.addQuestion(question, themeId);
     this.selectQuestion(question);
     this.typeOfForm = "creation";
-    console.log(question)
   }
 
   createAndSelectNewQuiz() : void{
@@ -211,10 +198,8 @@ export class QuizService {
   }
 
   updateQuizList(quiz: Quiz, themeId: number): void {
-    console.log(quiz);
     let qu : any = quiz;
     qu.themeId = themeId;
-    console.log(qu);
     if(qu.title ==='')
       qu.title = 'Nouveau quiz';
     if (qu.id !== undefined && qu.id >= 0) {
@@ -222,7 +207,6 @@ export class QuizService {
         const index = this.quizList.findIndex((e) => e.id === q.id);
         this.quizList[index] = q;
         this.quizListSubject.next(this.quizList);
-        console.log(q);
       }
         
       );
@@ -240,9 +224,7 @@ export class QuizService {
   removeQuiz(quiz: Quiz): void {
     const index = this.quizList.findIndex(q => q.id === quiz.id);
     if (quiz.id !== undefined && quiz.id >= 0) {
-      console.log("remove quiz", quiz);
       this.http.delete<Quiz>(this.urlApi+'/quizzes/'+quiz.id).subscribe((e) => {
-        console.log("delete", e);
       });
       const updatedQuizList = [...this.quizList];
       updatedQuizList.splice(index, 1);
@@ -252,13 +234,11 @@ export class QuizService {
   }
 
   resetSelectedQuiz(themeId: number): void {
-    console.log(this.typeOfForm)
     if(this.oldSelectedQuiz?.title === ''){
       this.removeQuiz(this.selectedQuiz as Quiz);
     }
     else{
       this.selectedQuiz = this.oldSelectedQuiz as Quiz;
-      console.log(this.selectedQuiz);
       this.selectionQuizSubject.next(this.selectedQuiz as Quiz);
       this.updateQuizList(this.selectedQuiz as Quiz, themeId);
     }
@@ -266,10 +246,8 @@ export class QuizService {
 
 
   getAllQuestionsOfAQuiz(quiz : Quiz){
-    console.log(quiz);
     const url = `${this.urlApi}/questions/quiz/${quiz.id}`;
     const questions = this.http.get<Question[]>(url);
-    console.log(questions);
     return questions ;
   }
 

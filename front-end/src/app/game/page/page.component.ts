@@ -1,8 +1,9 @@
-import { Component } from "@angular/core";
+import { Component, Input } from "@angular/core";
 
 import { GameQuestion } from "src/models/gameQuestion.model";
 import { GameService } from "src/services/game.service";
 import { Answer } from "../../../models/answer.model";
+import {ThemeService} from "src/services/theme.service";
 
 @Component({
     selector: "app-game-page",
@@ -10,13 +11,16 @@ import { Answer } from "../../../models/answer.model";
     styleUrls: ["./page.component.scss"]
 })
 export class GamePageComponent {
+    public themeId : number = 0;
     public question?: GameQuestion;
     public lastQuestion: boolean = false;
     public corrDisplayed: boolean = false;
     public lastAnswer: boolean = false;
     public result: boolean = false;
-
-    constructor(private gameService: GameService) {
+    constructor(private gameService: GameService, private themeService: ThemeService) {
+        this.themeService.selectedTheme$.subscribe((theme) => {
+            this.themeId = theme?.id as number;
+        })
         this.gameService.currentQuestion$.subscribe((question?: GameQuestion): void => {
             this.question = question;
             this.lastQuestion = this.gameService.islastQuestion();
@@ -43,9 +47,9 @@ export class GamePageComponent {
         }
     }
 
-    leavePage(): void {
+    leavePage(themeId : number): void {
         this.gameService.stopSound();
-        this.gameService.leaveGame();
+        this.gameService.leaveGame(themeId);
     }
 
     clickOnCheckAnswer(answer: Answer): void{

@@ -1,11 +1,8 @@
-import { createEnvironmentInjector } from '@angular/core';
 import { test, expect } from '@playwright/test';
 import { testUrl } from 'e2e/e2e.config';
 import { createPatientUrl, profilListUrl } from 'e2e/e2e.config';
 import { CreatePatientFixture } from 'src/app/manager/creation_patient/create-patient.fixture';
-import { ProfilListFixture } from 'src/app/manager/profil_list/profil-list.fixture';
 import { PatientListFixture } from 'src/app/manager/profil_list/patient/patient-list.fixture';
-import { CreationPatientComponent } from 'src/app/manager/creation_patient/page.component';
 const { CreateThemeFixture } = require('src/app/theme/e2e-component.fixture Theme');
 
 

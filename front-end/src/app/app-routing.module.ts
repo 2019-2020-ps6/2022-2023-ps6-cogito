@@ -35,6 +35,7 @@
         { path: "quiz-page/:themeId", component: QuizPageComponent, data: { title: "Choisissez un quiz" }},
         { path: "quiz-page", component: QuizPageComponent, data: { title: "Choisissez un quiz" } },
         { path: "game-page", component: GamePageComponent },
+        { path: "game-page/:themeId", component: GamePageComponent },
         { path: "questions-list", component: QuestionsListComponent, data: { title: "Modification de question" } },
         { path: "question-form", component: QuestionFormComponent, data: { title: "Liste des questions" } },
         { path: "menu", component: MenuComponent, data: { title: "Menu" } },

@@ -2,11 +2,11 @@ import { Injectable } from '@angular/core';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { Quiz } from 'src/models/quiz.model';
 import { Theme } from 'src/models/theme.model';
-import {THEME_LIST} from 'src/mocks/theme.mock';
 import { QuizService } from './adminQuiz.service';
-import { serverUrl, httpOptionsBase } from "../configs/server.config";
+import { httpOptionsBase } from "../configs/server.config";
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute, Router } from "@angular/router";
+import { environment } from 'src/environments/environment';
 
 
 @Injectable({
@@ -68,18 +68,12 @@ export class ThemeService {
 
 
   selectThemeById(id: number): void {
-    console.log("selectThemeById");
-    console.log(id);
-    console.log(this.themeList);
     for(let i = 0; i < this.themeList.length; i++){
-      console.log(this.themeList[i].id);
-      console.log(id);
       if(this.themeList[i].id.toString() === id.toString()){
         this.selectedTheme = this.themeList[i];
         break;
       }
     }
-    console.log(this.selectedTheme);
     this.oldSelectionTheme = JSON.parse(JSON.stringify(this.selectedTheme)) as Theme;
     this.selectionThemeSubject?.next(this.selectedTheme as Theme);
   }
@@ -109,9 +103,7 @@ export class ThemeService {
   }
 
   resetSelectedQuiz(): void{
-    //console.log("resetSelectedQuiz");
     this.selectedQuiz = JSON.parse(JSON.stringify(this.oldSelectionQuiz)) as Quiz;
-    //console.log(this.selectedQuiz);
     this.quizService.selectQuiz(this.selectedQuiz);
   }
 
@@ -122,7 +114,6 @@ export class ThemeService {
     }
     else{
       this.selectedTheme = JSON.parse(JSON.stringify(this.oldSelectionTheme)) as Theme;
-      //console.log(this.selectedTheme);
       for(let i = 0; i < this.selectedTheme?.quizzesList.length; i++){
         this.quizService.updateQuizList(this.selectedTheme?.quizzesList[i], this.selectedTheme.id);
       }
@@ -162,13 +153,12 @@ export class ThemeService {
   }
 
   addThemeB(theme: {}): void {
-    const urlWithId = serverUrl + "/themes/";
+    const urlWithId = environment.apiUrl + "/themes/";
     this.http.post<Theme>(urlWithId, theme, httpOptionsBase).subscribe(themeb => {
         this.themeList.push(themeb);
         this.themeAdded$.next(themeb);
         this.selectionThemeSubject.next(themeb);
         this.typeOfForm = "creation";
-        console.log("/theme-form/"+ themeb.id);
         this.router.navigate(["/theme-form/"+ themeb.id + "/"+"true"]);
     });
 }
@@ -182,7 +172,6 @@ export class ThemeService {
     this.addQuiz(quiz);
     this.selectQuiz(quiz);
     this.typeOfForm = "creation";
-    //console.log(quiz);
   }
 
   getTypeOfForm(): string{
@@ -206,7 +195,7 @@ export class ThemeService {
   removeTheme(theme: Theme): void {
     const index = this.themeList.findIndex(q => q.id === theme.id);
     if (index !== undefined && index >= 0) {
-      const urlWithId = serverUrl + "/themes/";
+      const urlWithId = environment.apiUrl + "/themes/";
         this.http.delete(urlWithId + theme.id).subscribe(() =>
             this.retrieveThemeList()
         );
@@ -230,13 +219,12 @@ export class ThemeService {
     let index: string = this.themeList[this.themeList.findIndex(
         (themeInList: Theme): boolean => themeInList.id === theme.id)].id.toString();
     if (index !== "") {
-      const urlWithId = serverUrl + "/themes/"+index;
+      const urlWithId = environment.apiUrl + "/themes/"+index;
       this.http.put<Theme>(urlWithId, theme, httpOptionsBase).subscribe(() =>
       this.retrieveThemeList()
   );
         this.themeList.sort((a, b) => a.title.localeCompare(b.title));
         this.themeListSubject.next(this.themeList);
-        //console.log("Patient updated : ", theme);
     }
 
 }
@@ -247,7 +235,7 @@ export class ThemeService {
   }
 
   retrieveThemeList(): void {
-    const urlWithId = serverUrl + "/themes/";
+    const urlWithId = environment.apiUrl + "/themes/";
     this.http.get<Theme[]>(urlWithId).subscribe(themes => {       
         themes.sort((a, b) => a.title.localeCompare(b.title)); 
         this.themeList = themes;

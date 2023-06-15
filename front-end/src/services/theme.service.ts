@@ -6,9 +6,8 @@ import { HttpClient } from "@angular/common/http";
 import { Patient } from "../models/patient.model";
 import { Theme } from "../models/theme.model";
 import { PatientService } from "./patient.service";
-import { serverUrl, httpOptionsBase } from "../configs/server.config";
 import { Quiz } from "src/models/quiz.model";
-import {ThemeService as adminThemeService} from "./theme.service";
+import { environment } from "src/environments/environment";
 
 @Injectable({
     providedIn: "root"
@@ -17,7 +16,7 @@ export class ThemeService {
     public themeList$: BehaviorSubject<Theme[]> = new BehaviorSubject<Theme[]>([]);
     private selectedPatient?: Patient;
     public selectedTheme$: BehaviorSubject<Theme | undefined> = new BehaviorSubject<Theme | undefined>(undefined);
-    private baseURL: string = serverUrl + "/themes/";
+    private baseURL: string = environment.apiUrl + "/themes/";
 
     constructor(private patientService: PatientService, private router: Router, private http: HttpClient ) {
 
@@ -31,7 +30,6 @@ export class ThemeService {
 
     selectTheme(theme: Theme): void {
         this.selectedTheme$.next(theme);
-        console.log("Theme selected : ", theme.title);
     }
 
     retrieveAllThemes(): void {
@@ -42,7 +40,7 @@ export class ThemeService {
     }
 
     retrieveQuizOfTheme(themeId: number): Observable<Quiz[]> {
-        return this.http.get<Quiz[]>(serverUrl+'/quizzes/theme/' + themeId).pipe(
+        return this.http.get<Quiz[]>(environment.apiUrl+'/quizzes/theme/' + themeId).pipe(
           map((quizzes) => {
             return quizzes;
           })
@@ -50,7 +48,7 @@ export class ThemeService {
       }
 
     retrievePThemes(patient: Patient): void {
-        this.http.get<Theme[]>(this.baseURL + "patient/" + patient.id).subscribe(themes => {
+        this.http.get<Theme[]>(environment.apiUrl + "/patient/" + patient.id).subscribe(themes => {
             themes.sort((a, b) => a.title.localeCompare(b.title));
             this.themeList$.next(themes);
         });
