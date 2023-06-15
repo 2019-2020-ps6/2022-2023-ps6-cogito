@@ -16,5 +16,5 @@ EXPOSE 9428
 
 ENTRYPOINT ["npm", "run", "start"]
 
-# docker build -t backend:16.16.0
+# docker build -t backend:16.16.0 .
 # docker run -p 8000:9428 backend:16.16.0
