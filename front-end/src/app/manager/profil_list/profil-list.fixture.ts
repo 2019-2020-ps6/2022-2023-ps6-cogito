@@ -10,13 +10,13 @@ export class ProfilListFixture extends E2EComponentFixture {
 
     static async getProfilButton(page: Page) {
         const deleteElements = await page.$$('app-patient-patient-delete');
+        // Je prend le premier élément de deleteElements et je clique dessus
 
-        for (const element of deleteElements) {
-            const elementText = await element.textContent();
-            if (elementText?.includes("Alice")) {
-                await element.click();
-                break;
-            }
-        }
+        await deleteElements[0].click();
+
+        // Avant je cherchais la balise ci dessus qui contenait Alice
+        // Puis je cliquais dessus
+        // Mais je pense qu'il y a des problèmes avec la parallélisation
+        
     }
 }
