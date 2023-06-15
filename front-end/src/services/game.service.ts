@@ -52,9 +52,7 @@ export class idList {
 
         this.quizService.selectedQuiz$.subscribe((quiz?: Quiz): void => {
             this.selectedQuiz = quiz;
-
             if (quiz != undefined && this.selectedPatient != undefined) {
-                console.log("gameQuiz: " + this.gameQuiz);
                 if (this.gameQuiz == undefined || this.gameQuiz.quizId !== quiz.id) {
                     this.emptyGame();
                     this.gameQuizInit(quiz.id, this.selectedPatient.id);
@@ -275,7 +273,6 @@ export class idList {
                 this.removeQuizToPlay(this.gameQuiz.quizId, this.selectedPatient);
             }
             this.emptyGame();
-            console.log("Game finished");
             if (this.selectedPatient.stage < 5) {
                 this.router.navigateByUrl("/quiz-page");
             }

@@ -1,10 +1,11 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { BehaviorSubject, Observable } from "rxjs";
+import { environment } from "src/environments/environment";
 
 import { ALL_CONFIGS, CONFIG_DEFAULT_3, CONFIG_DEFAULT_4, CONFIG_DEFAULT_5 } from "src/mocks/configuration.mock";
 import { Configuration } from "src/models/configuration.model";
-import { httpOptionsBase, serverUrl } from "../configs/server.config";
+import { httpOptionsBase } from "../configs/server.config";
 
 
 @Injectable({
@@ -45,7 +46,7 @@ export class ConfigurationService {
     liste: Configuration[] = ALL_CONFIGS
     liste$: BehaviorSubject<Configuration[]> = new BehaviorSubject(ALL_CONFIGS);
 
-    private configurationUrl = serverUrl + "/configuration";
+    private configurationUrl = environment.apiUrl + "/configuration";
 
     private httpOptions = httpOptionsBase;
 
