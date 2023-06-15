@@ -5,6 +5,7 @@ const findQuestionAnswers = (questionId) => {
   const newQuestionId = (typeof questionId === 'string') ? parseInt(questionId, 10) : questionId
 
   const answerList = Answer.get()
+  console.log(answerList);
   return answerList.filter((answer) => answer.questionId === newQuestionId)
 }
 

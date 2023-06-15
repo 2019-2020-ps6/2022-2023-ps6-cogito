@@ -17,6 +17,7 @@ module.exports = class BaseModel {
   }
 
   load() {
+    console.log(this.name);
     try {
       this.items = JSON.parse(fs.readFileSync(this.filePath, 'utf8'))
     } catch (err) {
