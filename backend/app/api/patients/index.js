@@ -7,6 +7,7 @@ const {
   getAllPatients,
   createPatient,
   updatePatient,
+  getAllQuizzesOfPatient
 } = require('./manager')
 
 const router = new Router({ mergeParams: true })
@@ -41,6 +42,15 @@ router.put('/:patientId', (req, res) => {
     res.status(200).json(updatePatient(req.params.patientId, req.body))
   } catch (err) {
     manageAllErrors(res, err)
+  }
+})
+
+router.get('/:patientId/quizzes', (req, res) => {
+  try{
+    res.status(200).json(getAllQuizzesOfPatient(req.params.patientId));
+  }catch(err){
+    console.log(err);
+    manageAllErrors(res, err);
   }
 })
 

@@ -1,7 +1,6 @@
 import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
 import { BehaviorSubject } from "rxjs";
-import { CONFIG_DEFAULT_3 } from "../mocks/configuration.mock";
 
 import { QUIZZES_ALL } from "../mocks/quiz.mock";
 import { STAT_GOOD_3 } from "../mocks/statistics.mock";
@@ -20,9 +19,10 @@ import { QuizSoundService } from "./gameSound.service";
 @Injectable({
     providedIn: "root"
 })
-export class idList {
+export class GameService {
     private gameQuiz?: GameQuiz;
     private selectedPatient?: Patient;
+    private config: Configuration = {} as Configuration;
     private selectedQuiz?: Quiz;
     private questionList: GameQuestion[] = [];
     public currentQuestion$: BehaviorSubject<GameQuestion | undefined>
@@ -41,38 +41,31 @@ export class idList {
             this.selectedPatient = patient;
 
             this.emptyGame();
+            console.log(this.selectedPatient);
             if (this.selectedPatient != undefined && this.selectedPatient.stage >= 5) {
-                if (this.selectedPatient.quizToPlayList.length === 0) {
-                    // Add list of possible quizId from the patient
-                    this.selectedPatient.quizToPlayList = this.selectedPatient.quizIdList.slice();
-                }
-                this.chooseQuiz();
+                // Add list of possible quizId from the patient
+                this.quizService.setQuizzesListStade4().subscribe((quizzes) => {
+                    this.chooseQuiz(quizzes as Quiz[]);
+                })
             }
         });
 
         this.quizService.selectedQuiz$.subscribe((quiz?: Quiz): void => {
             this.selectedQuiz = quiz;
-
             if (quiz != undefined && this.selectedPatient != undefined) {
-                console.log("gameQuiz: " + this.gameQuiz);
+                this.config = this.selectedPatient.configuration
                 if (this.gameQuiz == undefined || this.gameQuiz.quizId !== quiz.id) {
                     this.emptyGame();
                     this.gameQuizInit(quiz.id, this.selectedPatient.id);
-                    this.getQuestionsList(CONFIG_DEFAULT_3, quiz); // change by back-end config
+                    this.getQuestionsList(this.config, quiz); // change by back-end config
                     this.nextQuestion();
                 }
             }
         });
     }
 
-    private chooseQuiz(): void {
-        if (this.selectedPatient != undefined) {
-            let idList: number[] = this.selectedPatient.quizToPlayList;
-            if (this.gameQuiz == undefined || this.gameQuiz.endTime != undefined) {
-                let ind: number = Math.floor(Math.random() * idList.length);
-                this.quizService.selectQuiz(this.findQuizFromAll(idList[ind]));
-            }
-        }
+    private chooseQuiz(quizzes : Quiz[]): void {
+        this.quizService.selectQuiz(quizzes[Math.floor(Math.random() * quizzes.length)]);
     }
 
     private findQuizFromAll(quizId: number): Quiz {
@@ -249,19 +242,19 @@ export class idList {
     }
 
     activeCorrWindow(): boolean {
-        return CONFIG_DEFAULT_3.correctAnswerWindow || CONFIG_DEFAULT_3.wrongAnswerWindow || false;
+        return this.config.correctAnswerWindow || this.config.wrongAnswerWindow || false;
     }
 
     activeCorrTrueWindow(): boolean {
-        return CONFIG_DEFAULT_3.correctAnswerWindow || false;
+        return this.config.correctAnswerWindow || false;
     }
 
     activeCorrFalseWindow(): boolean {
-        return CONFIG_DEFAULT_3.wrongAnswerWindow || false;
+        return this.config.wrongAnswerWindow || false;
     }
 
     getConfig(): Configuration | undefined {
-        return CONFIG_DEFAULT_3 || undefined;
+        return this.config || undefined;
     }
 
     finishGame(): void {
@@ -281,7 +274,6 @@ export class idList {
                 this.removeQuizToPlay(this.gameQuiz.quizId, this.selectedPatient);
             }
             this.emptyGame();
-            console.log("Game finished");
             if (this.selectedPatient.stage < 5) {
                 this.router.navigateByUrl("/quiz-page");
             }
@@ -308,12 +300,12 @@ export class idList {
         patient.quizToPlayList = idList;
     }
 
-    leaveGame(): void {
+    leaveGame(themeId: number): void {
         if (this.selectedPatient === undefined || this.selectedPatient.stage >= 5) {
             this.router.navigateByUrl("/patient-page");
         }
         else {
-            this.router.navigateByUrl("/quiz-page");
+            this.router.navigateByUrl("/quiz-page/"+themeId);
         }
     }
 

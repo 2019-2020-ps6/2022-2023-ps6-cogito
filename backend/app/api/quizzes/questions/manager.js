@@ -13,10 +13,15 @@ const buildQuestions = () => {
   return questions.map((question) => buildQuestion(question))
 }
 
+const getAllQuestionsOfQuiz = (quizId) => {
+  const questions = Question.get().filter((question) => question.quizId === quizId);
+  return questions;
+}
+
 const findQuizQuestions = (quizId) => {
   // Check parameters type
   const newQuizId = (typeof quizId === 'string') ? parseInt(quizId, 10) : quizId
-
+  console.log("quizId : " + quizId);
   const questionList = Question.get()
   const questions = questionList.filter((question) => question.quizId === newQuizId)
   return questions.map((question) => buildQuestion(question))

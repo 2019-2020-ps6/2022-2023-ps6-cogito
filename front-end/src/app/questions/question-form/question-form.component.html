@@ -36,7 +36,7 @@
                   </span>
                 </div>
               </div>
-              
+
               <div class="row g-3 align-items-center mb-1">
                 <div class="col-auto">
                   <label class="form-label">Difficulté :</label>
@@ -52,25 +52,7 @@
                   <span class="form-text">Choisir la difficulté de la question</span>
                 </div>
               </div>
-              
-            <!--<div class="row g-3 align-items-center mb-1">
-                <div class="col-auto">
-                    <label class="col-form-label">Type de question par défaut :</label>
-                </div>
-                <div class="col-auto">
-                    <select name="type" class="form-select" [(ngModel)]="question === undefined ? '' : question.defaultMediaType">
-                        <option value="0">Texte</option>
-                        <option value="1">Son</option>
-                        <option value="2">Image</option>
-                    </select>
-                </div>
-                <div class="col-auto">
-                  <span class="form-text">
-                    Choisir si la question est par défaut en texte, son ou image
-                  </span>
-                </div>
-              </div>
-            -->
+
             <div class="row g-3 align-items-center mb-3">
                 <div class="col-auto">
                     <label class="col-form-label">Indice :</label>
@@ -83,24 +65,8 @@
 
         <div class="answer-part mb-3 border-bottom">
             <h3>Réponses</h3>
-            <!--<div class="row g-3 align-items-center mb-3">
-                <div class="col-auto">
-                    <label class="col-form-label">Type de réponses par défaut :</label>
-                </div>
-                <div class="col-auto">
-                    <select name="answerType" class="form-select" [(ngModel)]="question === undefined ? '' : question.defaultAnswersMediaType">
-                        <option value="0">Texte</option>
-                        <option value="1">Son</option>
-                        <option value="2">Image</option>
-                    </select>
-                </div>
-                <div class="col-auto">
-                    <span class="form-text">
-                        Choisir si les réponses sont par défaut en texte, son ou image.
-                    </span>
-                </div>
-            </div>-->
-            <button class="btn btn-primary mb-3" (click)="addAnswerToForm()">Ajouter une réponse</button>
+
+            <button class="chooseButton" (click)="addAnswerToForm()">Ajouter une réponse</button>
             <ul>
                 <li *ngFor="let answer of question?.answerList; let i = index" id="answer-{{answer.id}}">
                     <div class="card answer" >
@@ -117,7 +83,7 @@
                             </div>
                             <div class="mb-0 answer-picture">
                                 <label class="form-label">
-                                    Image associée : 
+                                    Image associée :
                                 </label>
                                 <input type="text" class="form-control" name="{{answer.id}}-picture" [(ngModel)]="answer === undefined ? 'undefined' : answer.picture">
                                 <img *ngIf="answer?.picture" src="{{answer.picture}}">
@@ -132,7 +98,7 @@
                             <div class="btn-group" role="group" [attr.aria-labelledby]="'btnradio-' + answer.id">
                                 <input type="radio" class="btn-check" name="btnradio-{{answer.id}}" id="btnradio-{{answer.id}}-1" autocomplete="off" checked [checked]="answer.isCorrect" (change)="answer.isCorrect = true">
                                 <label class="btn btn-outline-{{answer.isCorrect ? 'success' : 'danger'}}" for="btnradio-{{answer.id}}-1">Réponse correcte</label>
-                            
+
                                 <input type="radio" class="btn-check" name="btnradio-{{answer.id}}" id="btnradio-{{answer.id}}-2" autocomplete="off" [checked]="!answer.isCorrect" (change)="answer.isCorrect = false">
                                 <label class="btn btn-outline-{{answer.isCorrect ? 'success' : 'danger'}}" for="btnradio-{{answer.id}}-2">Réponse fausse</label>
                             </div>
@@ -192,9 +158,11 @@
     </div>
 
     <div class="side-content">
-        <button (click)="saveQuestion()" [routerLink]="['/quiz-form',getIdOfQuiz()]" [disabled]="!checkQuestionValidity()" [ngClass]="{'invalid-question': !checkQuestionValidity()}">Enregistrer</button>
-        <button (click)="displayPopUp()">Afficher</button>
-        <button (click)="cancelQuestion()" [routerLink]="['/quiz-form',getIdOfQuiz()]">Annuler</button>
+        <button class="chooseButton" (click)="displayPopUp()">Afficher</button>
+        <button class="addButton" (click)="saveQuestion()" [routerLink]="['/quiz-form', getIdOfQuiz()]"
+                 [disabled]="!checkQuestionValidity()" [ngClass]="{'invalid-question': !checkQuestionValidity()}">Enregistrer</button>
+        <button class="backButton" (click)="cancelQuestion()" [routerLink]="['/quiz-form', getIdOfQuiz()]">Annuler
+        </button>
     </div>
 </form>
 
