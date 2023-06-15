@@ -1,7 +1,6 @@
 import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
 import { BehaviorSubject } from "rxjs";
-import { CONFIG_DEFAULT_3 } from "../mocks/configuration.mock";
 
 import { QUIZZES_ALL } from "../mocks/quiz.mock";
 import { STAT_GOOD_3 } from "../mocks/statistics.mock";
@@ -20,9 +19,10 @@ import { QuizSoundService } from "./gameSound.service";
 @Injectable({
     providedIn: "root"
 })
-export class idList {
+export class GameService {
     private gameQuiz?: GameQuiz;
     private selectedPatient?: Patient;
+    private config: Configuration = {} as Configuration;
     private selectedQuiz?: Quiz;
     private questionList: GameQuestion[] = [];
     public currentQuestion$: BehaviorSubject<GameQuestion | undefined>
@@ -53,10 +53,11 @@ export class idList {
         this.quizService.selectedQuiz$.subscribe((quiz?: Quiz): void => {
             this.selectedQuiz = quiz;
             if (quiz != undefined && this.selectedPatient != undefined) {
+                this.config = this.selectedPatient.configuration
                 if (this.gameQuiz == undefined || this.gameQuiz.quizId !== quiz.id) {
                     this.emptyGame();
                     this.gameQuizInit(quiz.id, this.selectedPatient.id);
-                    this.getQuestionsList(CONFIG_DEFAULT_3, quiz); // change by back-end config
+                    this.getQuestionsList(this.config, quiz); // change by back-end config
                     this.nextQuestion();
                 }
             }
@@ -241,19 +242,19 @@ export class idList {
     }
 
     activeCorrWindow(): boolean {
-        return CONFIG_DEFAULT_3.correctAnswerWindow || CONFIG_DEFAULT_3.wrongAnswerWindow || false;
+        return this.config.correctAnswerWindow || this.config.wrongAnswerWindow || false;
     }
 
     activeCorrTrueWindow(): boolean {
-        return CONFIG_DEFAULT_3.correctAnswerWindow || false;
+        return this.config.correctAnswerWindow || false;
     }
 
     activeCorrFalseWindow(): boolean {
-        return CONFIG_DEFAULT_3.wrongAnswerWindow || false;
+        return this.config.wrongAnswerWindow || false;
     }
 
     getConfig(): Configuration | undefined {
-        return CONFIG_DEFAULT_3 || undefined;
+        return this.config || undefined;
     }
 
     finishGame(): void {

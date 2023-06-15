@@ -1,7 +1,7 @@
 import { Component, Input } from "@angular/core";
 
 import { GameQuestion } from "src/models/gameQuestion.model";
-import { idList } from "src/services/game.service";
+import { GameService } from "src/services/game.service";
 import { Answer } from "../../../models/answer.model";
 import {ThemeService} from "src/services/theme.service";
 
@@ -17,7 +17,7 @@ export class GamePageComponent {
     public corrDisplayed: boolean = false;
     public lastAnswer: boolean = false;
     public result: boolean = false;
-    constructor(private gameService: idList, private themeService: ThemeService) {
+    constructor(private gameService: GameService, private themeService: ThemeService) {
         this.themeService.selectedTheme$.subscribe((theme) => {
             this.themeId = theme?.id as number;
         })
@@ -91,9 +91,6 @@ export class GamePageComponent {
         this.nextQuestion();
         else {
             this.result=true;
-
         }
-
     }
-
 }
