@@ -26,66 +26,19 @@ export class QuizService {
             }
 
             this.selectedPatient = patient;
-
-            console.log(this.selectedPatient);
-            /*function patientQuizList(patient: Patient): Quiz[] {
-                let quizList: Quiz[] = [];
-
-                for (let quizId of patient.quizIdList) {
-                    let index: number = QUIZZES_ALL.findIndex((quiz: Quiz): boolean => quiz.id === quizId);
-                    if (index !== -1) {
-                        quizList.push(QUIZZES_ALL[index]);
-                    }
-                }
-
-                quizList.sort((a, b): number => a.title.localeCompare(b.title));
-                return quizList;
-            }
-
-            this.quizList = (this.selectedPatient == undefined || this.selectedPatient.stage !== 4)
-                            ? [] : patientQuizList(this.selectedPatient);
-            this.quizList$.next(this.quizList);
-            */
         });
 
         this.themeService.selectedTheme$.subscribe((theme?: Theme): void => {
-            console.log("this.themeservice selected theme")
             this.selectedTheme = theme;
 
             this.themeService.retrieveQuizOfTheme(this.selectedTheme?.id as number).subscribe((quizzes) => {
                 this.quizList$.next(quizzes);
             })
-
-
-            /*this.selectedTheme = theme;
-
-            function patientQuizList(patient: Patient, theme: Theme): Quiz[] {
-                let quizList: Quiz[] = [];
-                let themeQuizzes: Quiz[] = theme.quizzesList;
-
-                for (let quizId of patient.quizIdList) {
-                    let index: number = themeQuizzes.findIndex((quiz: Quiz): boolean => quiz.id === quizId);
-                    if (index != -1) {
-                        quizList.push(themeQuizzes[index]);
-                    }
-                }
-
-                quizList.sort((a, b) => a.title.localeCompare(b.title));
-                return quizList;
-            }
-
-            if (this.selectedPatient === undefined) {
-                this.quizList = [];
-            } else if (this.selectedTheme != undefined) {
-                this.quizList = patientQuizList(this.selectedPatient, this.selectedTheme);
-            }
-            this.quizList$.next(this.quizList);*/
         });
     }
 
     selectQuiz(quiz: Quiz): void {
         this.selectedQuiz$.next(quiz);
-        console.log("Quiz selected : ", quiz.title);
     }
 
 
@@ -96,12 +49,6 @@ export class QuizService {
         else {
             this.router.navigateByUrl("/theme-page");
         }
-    }
-
-    // par rapport à quizzesALL
-    getQuizById(id: number): Quiz | undefined {
-        let index: number = QUIZZES_ALL.findIndex((quiz: Quiz): boolean => quiz.id === id);
-        return (index === -1) ? undefined : QUIZZES_ALL[index];
     }
 
 }
