@@ -3,6 +3,7 @@ FROM node:16.16.0-alpine as build
 ARG FRONTEND_DOMAIN
 ARG BACKEND_DOMAIN
 ARG BACKEND_PORT
+ARG ENVIRONMENT
 
 WORKDIR /usr/local/app
 
@@ -15,7 +16,7 @@ RUN sed -i "s/<BACKEND_DOMAIN>/${BACKEND_DOMAIN:-localhost}/g"  /usr/local/app/s
 RUN sed -i "s/<FRONTEND_DOMAIN>/${FRONTEND_DOMAIN:-localhost}/g"  /usr/local/app/default.conf
 
 RUN npm install
-RUN npm run build:production
+RUN npm run build:$ENVIRONMENT
 
 FROM nginxinc/nginx-unprivileged:latest
 
