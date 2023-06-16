@@ -26,8 +26,7 @@ services:
       - "8080:4200"
     image: "frontend:16.16.0"
     depends_on:
-      backend:
-        condition: service_healthy
+      - backend
     healthcheck:
       test: [ "CMD-SHELL", "curl -f http://localhost:4200 || exit 1" ]
       interval: 10s
