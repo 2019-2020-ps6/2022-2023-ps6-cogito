@@ -10,7 +10,7 @@ services:
       - database:/home/node/database
     healthcheck:
       test: [ "CMD-SHELL", "curl -f http://localhost:9428/api/status || exit 1" ]
-      interval: 30s
+      interval: 10s
       timeout: 5s
       retries: 3
 
@@ -30,7 +30,7 @@ services:
         condition: service_healthy
     healthcheck:
       test: [ "CMD-SHELL", "curl -f http://localhost:4200 || exit 1" ]
-      interval: 30s
+      interval: 10s
       timeout: 5s
       retries: 3
 
