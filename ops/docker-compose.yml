@@ -8,7 +8,7 @@ services:
     volumes:
       - database:/home/node/database
     healthcheck:
-      test: [ "CMD", "curl", "--fail", "-s", "-o", "/dev/null", "http://localhost:8000/api/status" ]
+      test: [ "CMD-SHELL", "curl -f http://localhost:9428/api/status || exit 1" ]
       interval: 10s
       timeout: 5s
       retries: 3
@@ -27,9 +27,9 @@ services:
     depends_on:
       - backend
     healthcheck:
-      test: [ "CMD", "curl http://localhost:8000/api/status | grep \"ok\" || exit 1" ]
+      test: [ "CMD-SHELL", "curl -f http://localhost:4200 || exit 1" ]
       interval: 10s
-      timeout: 10s
+      timeout: 5s
       retries: 3
 
 volumes:
