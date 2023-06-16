@@ -9,3 +9,4 @@ COPY ./e2e e2e/
 ENTRYPOINT ["npm", "run", "test:e2e"]
 
 # docker build -t test_playwright:1.34.0 .
+# docker run test_playwright:1.34.0
