@@ -5,8 +5,8 @@ services:
     ports:
       - "8000:9428"
     image: "backend:16.16.0"
-    volumes:
-      - database:/home/node/database
+    environment:
+      - DB_FOLDER="database/e2e-starter"
     healthcheck:
       test: [ "CMD", "curl", "--fail", "-s", "-o", "/dev/null", "http://localhost:8000/api/status" ]
       interval: 10s
@@ -20,6 +20,7 @@ services:
         - FRONTEND_DOMAIN=localhost
         - BACKEND_DOMAIN=localhost
         - BACKEND_PORT=8000
+        - ENVIRONMENT=e2e
     ports:
       - "8080:4200"
     image: "frontend:16.16.0"
@@ -32,6 +33,8 @@ services:
       retries: 3
 
   playwright:
+    build:
+      context: ../playwright/
     image: "mcr.microsoft.com/playwright:v1.34.0-jammy"
     depends_on:
       - frontend
@@ -44,4 +47,4 @@ services:
       retries: 3
 
 volumes:
-  database:
+  test_results:
