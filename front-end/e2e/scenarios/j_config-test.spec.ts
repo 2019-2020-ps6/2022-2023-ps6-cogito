@@ -89,15 +89,21 @@ test.describe('Configuration Testing', () => {
 
         await page.goto(patientPageUrl);
 
-        
+        await page.locator("app-patient-patient:first-child").click();
+        await page.locator("app-theme-theme:first-child").click();
+        await page.locator("app-quiz-quiz:first-child").click();
 
 
+        await page.locator("button#false").click();
 
+        await page.locator("button#true").click();
+        // Verification of right answer correcting display
+        expect(page.locator('corrwindow section')).toHaveClass('content green-background');
+        await page.locator("corrwindow button").click();
 
-
-
-
-
+        await page.locator("button#true").click();
+        expect(page.locator('corrwindow section')).toHaveClass('content green-background');
+        const corrTrue = await page.locator('corrwindow h3');
 
 
 
