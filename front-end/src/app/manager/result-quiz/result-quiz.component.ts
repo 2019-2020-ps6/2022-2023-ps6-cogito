@@ -52,6 +52,21 @@ export class ResultQuizComponent implements OnInit {
             this.printMessage = true;
         }
 
+        const stad = this.patient.stage;
+        this.data = [];
+
+        switch (stad) {
+            case 3 : 
+                this.data = [80,85,85,90,95];
+                break;
+            case 4 : 
+                this.data = [70,70,80,70,75,80];
+                break;
+            case 5 :
+                this.data = [50,40,40,30,20];
+                break;
+        }
+
         var myChart = new Chart("myChart", {
             type: "line",
             data: {
