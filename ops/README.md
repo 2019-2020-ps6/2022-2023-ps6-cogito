@@ -27,3 +27,7 @@ et le domaine du compose.
 Et le script de configuration de playwright envoie les logs des test dans un fichiers json
 dans le dossier playwright-report et on active les screenshot et video tout le temps et donc pas que en cas d'erreurs
 
+Nous avons 2 fichiers de scripts shells
+run.sh qui lance le compose de base
+et run-e2e.sh qui lance le compose des tests
+
