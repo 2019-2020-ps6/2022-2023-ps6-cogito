@@ -24,7 +24,6 @@ services:
         - FRONTEND_DOMAIN=frontend
         - BACKEND_DOMAIN=backend
         - BACKEND_PORT=8000
-        - ENVIRONMENT=e2e
     ports:
       - "8080:4200"
     image: "frontend:16.16.0"
@@ -45,7 +44,7 @@ services:
       - frontend
     volumes:
       - test_results:/playwright/test-results
-      - test_results:/playwright/playwright-report
+      - test_reports:/playwright/playwright-report
     healthcheck:
       test: [ "CMD", "curl http://localhost:8000/api/status | grep \"ok\" || exit 1" ]
       interval: 10s
