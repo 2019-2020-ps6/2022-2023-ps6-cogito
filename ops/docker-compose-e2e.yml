@@ -1,0 +1,50 @@
+services:
+  backend:
+    build:
+      context: ../backend/
+    ports:
+      - "8000:9428"
+    image: "backend:16.16.0"
+    environment:
+      - DB_FOLDER="database/e2e-starter"
+    healthcheck:
+      test: [ "CMD", "curl", "--fail", "-s", "-o", "/dev/null", "http://localhost:8000/api/status" ]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+  frontend:
+    build:
+      context: ../front-end/
+      args:
+        - FRONTEND_DOMAIN=localhost
+        - BACKEND_DOMAIN=localhost
+        - BACKEND_PORT=8000
+        - ENVIRONMENT=e2e
+    ports:
+      - "8080:4200"
+    image: "frontend:16.16.0"
+    depends_on:
+      - backend
+    healthcheck:
+      test: [ "CMD", "curl http://localhost:8000/api/status | grep \"ok\" || exit 1" ]
+      interval: 10s
+      timeout: 10s
+      retries: 3
+
+  playwright:
+    build:
+      context: ../playwright/
+    image: "mcr.microsoft.com/playwright:v1.34.0-jammy"
+    depends_on:
+      - frontend
+    volumes:
+      - test_results:/bin/bash
+    healthcheck:
+      test: [ "CMD", "curl http://localhost:8000/api/status | grep \"ok\" || exit 1" ]
+      interval: 10s
+      timeout: 10s
+      retries: 3
+
+volumes:
+  test_results:

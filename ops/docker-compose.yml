@@ -20,6 +20,7 @@ services:
         - FRONTEND_DOMAIN=localhost
         - BACKEND_DOMAIN=localhost
         - BACKEND_PORT=8000
+        - ENVIRONMENT=production
     ports:
       - "8080:4200"
     image: "frontend:16.16.0"
