@@ -20,6 +20,8 @@ RUN npm run build:production
 
 FROM nginxinc/nginx-unprivileged:latest
 
+USER nginx
+
 COPY --from=build /usr/local/app/dist/front-end /usr/share/nginx/html/
 COPY --from=build /usr/local/app/default.conf /etc/nginx/conf.d/
 
