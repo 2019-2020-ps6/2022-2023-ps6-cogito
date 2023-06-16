@@ -14,7 +14,7 @@ RUN npm install
 
 EXPOSE 9428
 
-ENTRYPOINT ["npm", "run", "start"]
+ENTRYPOINT ["npm", "run", "start:e2e"]
 
 # docker build -t backend:16.16.0 .
 # docker run -p 8000:9428 backend:16.16.0

@@ -1,6 +1,6 @@
 import { environment } from "../src/environments/environment.prod";
 
-const testUrl = "http://" + environment.frontDomain + ":4200/"
+export const testUrl = environment.frontUrl
 
 export const homePageUrl = testUrl + "home-page";
 export const patientPageUrl = testUrl + "patient-page";

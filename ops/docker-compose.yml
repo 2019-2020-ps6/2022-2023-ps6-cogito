@@ -25,6 +25,8 @@ services:
     ports:
       - "8080:4200"
     image: "frontend:16.16.0"
+    environment:
+      - DB_FOLDER="database"
     depends_on:
       backend:
         condition: service_healthy

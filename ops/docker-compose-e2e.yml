@@ -7,7 +7,7 @@ services:
       - "8000:9428"
     image: "backend:16.16.0"
     environment:
-      - DB_FOLDER="database/e2e-starter"
+      - DB_FOLDER="database/e2e"
     volumes:
       - database:/home/node/database
     healthcheck:
@@ -29,7 +29,7 @@ services:
     image: "frontend:16.16.0"
     depends_on:
       backend:
-        - backend
+        condition: service_healthy
     healthcheck:
       test: [ "CMD-SHELL", "curl -f http://frontend:4200 || exit 1" ]
       interval: 10s
@@ -40,9 +40,14 @@ services:
     build:
       context: ../front-end/
       dockerfile: Dockerfile.playwright
+      args:
+        - FRONTEND_DOMAIN=frontend
+        - BACKEND_DOMAIN=backend
+        - BACKEND_PORT=8000
     image: "test_playwright:1.34.0"
     depends_on:
-      - frontend
+      frontend:
+        condition: service_healthy
     volumes:
       - test_results:/playwright/test-results
       - test_reports:/playwright/playwright-report

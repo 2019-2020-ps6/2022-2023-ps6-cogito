@@ -1,5 +1,9 @@
 FROM mcr.microsoft.com/playwright:v1.34.0-jammy
 
+ARG FRONTEND_DOMAIN
+ARG BACKEND_DOMAIN
+ARG BACKEND_PORT
+
 USER pwuser
 
 WORKDIR /playwright
@@ -7,6 +11,12 @@ WORKDIR /playwright
 COPY --chown=pwuser:pwuser *.json ./
 COPY --chown=pwuser:pwuser ./src src/
 COPY --chown=pwuser:pwuser ./e2e e2e/
+
+RUN apk add sed
+RUN sed -i "s/<BACKEND_PORT>/${BACKEND_PORT:-9428}/g" /usr/local/app/src/environments/environment.prod.ts
+RUN sed -i "s/<BACKEND_DOMAIN>/${BACKEND_DOMAIN:-localhost}/g"  /usr/local/app/src/environments/environment.prod.ts
+RUN sed -i "s/<FRONTEND_DOMAIN>/${FRONTEND_DOMAIN:-localhost}/g"  /usr/local/app/src/environments/environment.prod.ts
+RUN sed -i "s/<FRONTEND_DOMAIN>/${FRONTEND_DOMAIN:-localhost}/g"  /usr/local/app/default.conf
 
 RUN mkdir "test-results"
 RUN mkdir "playwright-report"
