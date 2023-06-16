@@ -2,6 +2,7 @@ services:
   backend:
     build:
       context: ../backend/
+      dockerfile: Dockerfile.backend
     ports:
       - "8000:9428"
     image: "backend:16.16.0"
@@ -16,6 +17,7 @@ services:
   frontend:
     build:
       context: ../front-end/
+      dockerfile: Dockerfile.frontend
       args:
         - FRONTEND_DOMAIN=localhost
         - BACKEND_DOMAIN=localhost
