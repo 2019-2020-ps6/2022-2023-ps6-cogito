@@ -1,4 +1,5 @@
 export const environment = {
   production: true,
-  apiUrl: "http://<BACKEND_DOMAIN>:<BACKEND_PORT>/api"
+  apiUrl: "http://<BACKEND_DOMAIN>:<BACKEND_PORT>/api",
+  frontDomain: "<FRONTEND_DOMAIN>"
 };
