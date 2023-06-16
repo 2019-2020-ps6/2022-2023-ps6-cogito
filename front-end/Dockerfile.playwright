@@ -4,9 +4,9 @@ USER pwuser
 
 WORKDIR /playwright
 
-COPY *.json ./
-COPY ./src src/
-COPY ./e2e e2e/
+COPY --chown=pwuser:pwuser *.json ./
+COPY --chown=pwuser:pwuser ./src src/
+COPY --chown=pwuser:pwuser ./e2e e2e/
 
 RUN mkdir "test-results"
 RUN mkdir "playwright-report"
