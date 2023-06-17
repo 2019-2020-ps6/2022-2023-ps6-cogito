@@ -1,9 +1,9 @@
 <section>
     <h5>Résultat du dernier essai du quiz : {{this.quiztitle}}  </h5>
     <br> <br>
-    <div id="boucle" *ngFor="let result of questionStats;"
-         [ngStyle]="getStyle(result)">
-        {{result.title}} : {{(result.selectedAnswer?.isCorrect) ? "Vrai" : "Faux"}}
+    <div id="boucle" *ngFor="let element of answers;"
+        [ngStyle]="getStyle(element)">
+        {{(element === true) ? "Vrai" : "Faux"}}
         <br>
         <br>
     </div>

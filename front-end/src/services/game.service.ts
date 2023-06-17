@@ -56,6 +56,7 @@ export class GameService {
                 this.config = this.selectedPatient.configuration
                 if (this.gameQuiz == undefined || this.gameQuiz.quizId !== quiz.id) {
                     this.emptyGame();
+                    console.log(quiz);
                     this.gameQuizInit(quiz.id, this.selectedPatient.id);
                     this.getQuestionsList(this.config, quiz); // change by back-end config
                     this.nextQuestion();
@@ -94,7 +95,8 @@ export class GameService {
     private getQuestionsList(configuration: Configuration, quiz: Quiz): void {
         let questionMedia: MediaType;
         let answerMedia: MediaType;
-        let gameQuestion: GameQuestion;
+        let gameQuestion: GameQuestion
+        console.log(quiz);
         for (let question of quiz.questionList) {
             questionMedia = this.getQuestionMedia(configuration, question);
             answerMedia = this.getAnswerMedia(configuration, question);
@@ -228,6 +230,8 @@ export class GameService {
     }
 
     playSound(soundUrl: string | undefined) {
+        console.log("play sound : ",this.selectedQuiz);
+        console.log("playSound : ", soundUrl);
         if (soundUrl) {
             this.soundService.playSound(soundUrl);
         }

@@ -22,6 +22,9 @@ export class ResultQuestionComponent {
     quiztitle: string = "";
     data: any;
     printMessage: string = "";
+    answers: any[] = [];
+    answers2: any[] = [];
+    answers3: any[] = [];
 
     constructor(private route: ActivatedRoute, private patientService: PatientService) {
         this.compteur = 0;
@@ -63,7 +66,25 @@ export class ResultQuestionComponent {
         //     if (this.data[i] === false) {
         //         this.compteur++;
         //     }
-        // }
+
+        this.answers = [true, true, true, true, false, false];
+        this.answers2 = [true, false, true, false, true, false];
+        this.answers3 = [true, true, true, true, true, true];
+
+        const randomInRange = Math.floor(Math.random() * (3 - 1 + 1)) + 1;
+
+        switch (randomInRange) {
+            case 1 : 
+                break;
+            case 2 :
+                this.answers = this.answers2;
+                break;
+            case 3 :
+                this.answers = this.answers3;
+                break;
+        }
+
+
         if (this.compteur >= this.nbQuestions()/2) {
             this.printMessage = "Il faudrait probablement supprimer le quiz pour ce patient";
         }
@@ -90,8 +111,8 @@ export class ResultQuestionComponent {
         return questions.length;
     }
 
-    getStyle(result: GameQuestion) {
-        if (result.selectedAnswer?.isCorrect) {
+    getStyle(element: boolean) {
+        if (element === true) {
             return { "background-color": "#3bbb3b" };
         }
         else {
