@@ -22,8 +22,8 @@ FROM nginxinc/nginx-unprivileged:latest
 
 USER nginx
 
-COPY --from=build /usr/local/app/dist/front-end /usr/share/nginx/html/
-COPY --from=build /usr/local/app/default.conf /etc/nginx/conf.d/
+COPY --chown=nginx:nginx --from=build /usr/local/app/dist/front-end /usr/share/nginx/html/
+COPY --chown=nginx:nginx --from=build /usr/local/app/default.conf /etc/nginx/conf.d/
 
 EXPOSE 4200
 
