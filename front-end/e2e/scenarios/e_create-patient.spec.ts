@@ -1,11 +1,7 @@
 import { test, expect } from '@playwright/test';
 import { testUrl } from 'e2e/e2e.config';
-import { createPatientUrl, profilListUrl } from 'e2e/e2e.config';
 import { CreatePatientFixture } from 'src/app/manager/creation_patient/create-patient.fixture';
-import { PatientListFixture } from 'src/app/manager/profil_list/patient/patient-list.fixture';
 const { CreateThemeFixture } = require('src/app/theme/e2e-component.fixture Theme');
-
-
 
 
 // test.describe is a hook that creates a test group and lets you define lifecycle stages such as beforeEach.
@@ -17,33 +13,32 @@ test.describe('Patient Feature', () => {
         const createPatientFixture = new CreatePatientFixture(page);
         const ThemeFixture = new CreateThemeFixture(page);
 
-
-            // Vérifier que vous êtes sur la page "home"
+        // Vérifier que vous êtes sur la page "home"
         await test.step('Verify current page is home-page', async () => {
             const currentUrl = await page.url();
             expect(currentUrl).toContain('home-page');
         });
-    
+
         await ThemeFixture.clickCommencer();
-    
+
         // Vérifier que vous êtes sur la page "patient"
         await test.step('Verify current page is patient-page', async () => {
             const currentUrl = await page.url();
             expect(currentUrl).toContain('patient-page');
         });
-    
+
         await ThemeFixture.clickErgo();
-    
+
         // Vérifier que vous êtes sur la page "menu"
         await test.step('Verify current page is menu-page', async () => {
             const currentUrl = await page.url();
             expect(currentUrl).toContain('menu');
         });
-    
+
         await ThemeFixture.clickPatientGestion();
         await ThemeFixture.clickPatientAdd();
 
-        await expect(page).toHaveURL("http://localhost:4200/creation-patient-page");
+        await expect(page).toHaveURL(testUrl + "creation-patient-page");
 
         await test.step("should create a new patient", async () => {
             // Set patient information
@@ -64,32 +59,28 @@ test.describe('Patient Feature', () => {
 
             // Create patient
             await createPatientFixture.createPatient();
-    
+
             // Verify patient creation
             const patient = await page.getByRole('heading', { name: patientName });
             expect(patient).toBeTruthy();
             await createPatientFixture.getAddButton();
 
-            await expect(page).toHaveURL("http://localhost:4200/profil");
+            await expect(page).toHaveURL(testUrl + "profil");
 
             // Need to check if the patient created contains the good informations
 
         });
     });
-    
+
     test('Delete Patient', async ({ page }) => {
         /**
         const patientListFixture = new PatientListFixture(page);
         await page.goto(profilListUrl);
         const johnDoeElement = await page.$('body:has-text("Claude")');
-        expect(johnDoeElement).toBeTruthy(); 
+        expect(johnDoeElement).toBeTruthy();
         const deleteButton = await patientListFixture.getDeleteButton("John Doe");
         await deleteButton.click();
         expect(johnDoeElement).not.toBeTruthy();
         */
-        
-
-
-
     });
-}); 
+});
