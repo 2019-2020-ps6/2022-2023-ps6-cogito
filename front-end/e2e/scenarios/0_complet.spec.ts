@@ -1,5 +1,6 @@
 import { test, expect } from '@playwright/test';
 import { testUrl, homePageUrl, patientPageUrl, themeQuizCreation, createPatientUrl, profilListUrl, createConfigUrl, listConfigUrl} from 'e2e/e2e.config';
+import { ConfigurationFixture } from 'src/app/manager/configuration/configuration.fixture';
 import { CreateConfigurationFixture } from 'src/app/manager/create-configuration/create-configuration.fixture';
 import { CreatePatientFixture } from 'src/app/manager/creation_patient/create-patient.fixture';
 import { ProfilListFixture } from 'src/app/manager/profil_list/profil-list.fixture';
@@ -333,4 +334,236 @@ test.describe('Complete test', () => {
     
         await ThemeFixture.clicksaveElement();    
       });
+
+
+      test('Play a quiz 2q with only good respond without correcting',async ({page}) => {
+        // Go to patient profil
+        await page.goto(patientPageUrl);
+    
+        // Select first patient and first quiz
+        await page.locator("app-patient-patient:first-child").click();
+    
+        await page.locator("app-theme-theme:first-child").click();
+    
+        await page.locator("app-quiz-quiz:first-child").click();
+    
+        // Select wrong answer
+        await page.locator("button#false").click();
+    
+        const corrFalse = await page.locator('corrwindow h3');
+        // Verification of wrong answer correcting display
+        expect(page.locator('corrwindow section')).toHaveClass('content wrong-background');
+        const corrFalseText = await corrFalse?.innerHTML();
+    
+        await page.locator("corrwindow button").click();
+    
+        // Select right answer
+        await page.locator("button#true").click();
+        // Verification of right answer correcting display
+        expect(page.locator('corrwindow section')).toHaveClass('content green-background');
+        await page.locator("corrwindow button").click();
+    
+        await page.locator("button#true").click();
+        // Verification of right answer correcting display
+        expect(page.locator('corrwindow section')).toHaveClass('content green-background');
+        const corrTrue = await page.locator('corrwindow h3');
+        // Verification of question repeat
+        const corrTrueText = await corrFalse?.innerHTML();
+    
+        expect(corrTrueText).toBe(corrFalseText);
+    
+        await page.locator("corrwindow button").click();
+    
+        // Display question recap
+        const resultElement = await page.locator('quizresult .game-result-content h1');
+        const resulText = await resultElement?.innerText();
+    
+        expect(resulText).toBe('Félicitations vous avez fini le quiz !');
+    
+        await page.locator('.game-result-content button').click();
+    
+        const headerElement = await page.locator('header h1');
+        const headerText = await headerElement?.innerText();
+    
+        // Verification of quiz end
+        expect(headerText).toBe('Choisissez un quiz');
+      })
+
+
+      test.describe('Initial test display', () => {
+        test('Basic test', async ({ page }) => {
+          await page.goto(testUrl);
+          // Let's try with something you don't have in your page.
+          const pageTitle = await page.getByRole('heading', { name: 'AGreatHeadingNameYouDontHave' });
+          // It should not be visible as you don't have it in your page.
+          expect(pageTitle).not.toBeVisible();
+          // Test case pass? Means the playwright setup is done! Congrats!
+        });
+      })
+
+
+      test.describe('Root to list-theme-quiz-page', () => {
+
+        test('Home page',async ({page}) => {
+          await page.goto(homePageUrl);
+      
+          const pageTitle = await page.$eval('h2', (element) => element.innerText);
+          expect(pageTitle).toBe('Bienvenue sur Cogito Quiz !');
+        })
+      
+        test('Enter on the site',async ({page}) => {
+          await page.goto(homePageUrl);
+      
+          await page.getByRole('button',{name: 'COMMENCER'}).click();
+      
+          const adminElement = await page.$('#adminAccount');
+      
+          expect(await adminElement?.isVisible()).toBe(true);
+      
+          const patientList = await page.$('.rowListContainer');
+      
+          expect(await patientList?.isVisible()).toBe(true);
+        })
+      
+        test('Go to admin + gerer les quiz',async ({page}) => {
+          await page.goto(patientPageUrl);
+          await page.click("figure#adminAccount");
+          
+      
+          await test.step('Click on quizAndTheme', async () => {
+              await page.click('p#quizAndTheme');
+            });
+      
+        })
+      
+        test('Site tour',async ({page}) => {
+          await page.goto(testUrl);
+          
+          // Go to menu page
+      
+          await page.getByRole('button',{name: 'COMMENCER'}).click();
+          await page.click("figure#adminAccount");
+      
+          await test.step('Click on profilList', async () => {
+            await page.click('p#profilList');
+          });
+      
+          //complete tour in profil
+      
+          await page.getByRole('button',{name: 'RETOUR'}).click();
+      
+          await test.step('Click on quizAndTheme', async () => {
+            await page.click('p#quizAndTheme');
+          });
+      
+          //complete tour in quizAndTheme
+          await page.getByRole('button',{name: 'RETOUR'}).click();
+      
+          //complete tour in game
+          await page.getByRole('button',{name: 'RETOUR'}).click();
+           await page.getByRole('button',{name: 'RETOUR'}).click();
+      
+          const pageTitle = await page.$eval('h2', (element) => element.innerText);
+          expect(pageTitle).toBe('Bienvenue sur Cogito Quiz !');
+      
+        })
+      })
+
+
+
+      test('Configuration Creation 2', async ({ page }) => {
+
+        // On commence sur la liste des profils 
+        await page.goto(profilListUrl);
+        await expect(page).toHaveURL("http://localhost:4200/profil-list");
+        await ProfilListFixture.getProfilButton(page)
+
+
+        // On continue sur le profil
+        await expect(page).toHaveURL("http://localhost:4200/profil");
+        await page.locator("#chooseConfig").click();
+
+
+        // On continue sur la liste des configurations
+        await expect(page).toHaveURL("http://localhost:4200/configuration")
+        await page.locator("#addButton").click();
+
+
+        // On commence à créer la configuration
+        await expect(page).toHaveURL("http://localhost:4200/create-configuration")
+        const createConfigurationFixture = new CreateConfigurationFixture(page);
+        const nameConfig = "nobadresponse";
+        const descriptionConfig = "Description de la config";
+
+        const inputName = await createConfigurationFixture.getNameInput();
+        await inputName.type(nameConfig);
+
+        const inputDescription = await createConfigurationFixture.getDescriptionInput();
+        await inputDescription.type(descriptionConfig);
+
+        await page.locator("#interface").click();
+        await expect(page).toHaveURL("http://localhost:4200/create-configuration")
+
+
+        // Ensuite on passe sur l'interface
+        await page.locator("#button3font").click();
+        await page.locator("#button3size").click();
+
+        await page.locator("#questions").click();
+        await expect(page).toHaveURL("http://localhost:4200/create-configuration")
+
+
+        // Désormais on passe aux questions
+        await page.check('#qcm');
+        await page.check('#pic');
+        await page.check('#sound');
+
+
+        // Et pour finir, les réponses
+        await page.locator('#answers').click();
+        await page.check('#cwin');
+        await page.check('#cdesc');
+        await page.check('#cpic');
+        await page.check('#cson');
+
+        await page.uncheck('#wwin');
+
+        await page.locator('#save').click();
+        await expect(page).toHaveURL("http://localhost:4200/configuration")
+
+
+        // Quiz crée, on passe au jeu du patient
+
+        await page.goto(profilListUrl);
+
+        await page.locator("app-patient-patient-delete:first-child").click();
+        await expect(page).toHaveURL("http://localhost:4200/profil");
+
+        await page.locator("#chooseConfig").click();
+        await expect(page).toHaveURL("http://localhost:4200/configuration");
+
+        await ConfigurationFixture.getRightConfig(page);
+        await expect(page).toHaveURL("http://localhost:4200/create-configuration-with");
+
+        await page.locator('#accept').click();
+        await expect(page).toHaveURL("http://localhost:4200/configuration");
+
+        await page.goto(patientPageUrl);
+
+        await page.locator("app-patient-patient:first-child").click();
+        await page.locator("app-theme-theme:first-child").click();
+        await page.locator("app-quiz-quiz:first-child").click();
+
+
+        await page.locator("button#false").click();
+
+        await page.locator("button#true").click();
+        // Verification of right answer correcting display
+        expect(page.locator('corrwindow section')).toHaveClass('content green-background');
+        await page.locator("corrwindow button").click();
+
+        await page.locator("button#true").click();
+        expect(page.locator('corrwindow section')).toHaveClass('content green-background');
+        const corrTrue = await page.locator('corrwindow h3');
+    });
 });
