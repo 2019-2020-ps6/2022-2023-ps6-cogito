@@ -52,4 +52,20 @@ export class CreateThemeFixture extends E2EComponentFixture {
     fillNameTheme2() {
         return this.page.fill('input#nameTheme', 'Les Artistes du 21ème Siècle');
     }
+
+    getNameInput() {
+        return this.page.waitForSelector('input#nameTheme');
+    }
+
+    static async searchNameTheme(page: Page) {
+        const deleteElements = await page.$$('li');
+        // Je prend le premier élément de deleteElements et je clique dessus
+
+        for (const element of deleteElements) {
+            const elementText = await element.textContent();
+            if (elementText?.includes("Photographie")) {
+                break;
+            }
+        }
+    }
 }
