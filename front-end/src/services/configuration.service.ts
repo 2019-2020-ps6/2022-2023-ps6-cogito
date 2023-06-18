@@ -1,106 +1,132 @@
-import { Injectable } from '@angular/core';
-import { Configuration } from 'src/models/configuration.model';
-import { CONFIG_DEFAULT_3, CONFIG_DEFAULT_4, CONFIG_DEFAULT_5} from 'src/mocks/configuration.mock';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { HttpClient } from "@angular/common/http";
+import { Injectable } from "@angular/core";
+import { BehaviorSubject, Observable } from "rxjs";
+import { environment } from "src/environments/environment";
+
+import { ALL_CONFIGS, CONFIG_DEFAULT_3, CONFIG_DEFAULT_4, CONFIG_DEFAULT_5 } from "src/mocks/configuration.mock";
+import { Configuration } from "src/models/configuration.model";
+import { httpOptionsBase } from "../configs/server.config";
+
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: "root"
 })
 export class ConfigurationService {
-  selectedConfig: BehaviorSubject<Configuration> = new BehaviorSubject<Configuration>({} as Configuration);
-  newConfig: BehaviorSubject<Configuration> = new BehaviorSubject<Configuration>({} as Configuration);
+    globalFont: string = "Arial";
+    globalSize: number = 20;
 
-  globalFont: string = 'Arial';
-  globalSize: number = 20;
+    defaultConfig: Configuration = {
+        id: 0,
+        name: "Defaut",
+        description: "Aucune",
 
-  emptyConfig: Configuration = {
-    id: 0,
-    name: '',
-    description: '',
+        fontFamily: "Arial",
+        fontSize: 20,
 
-    fontFamily: 'Arial',
-    fontSize: 20,
-    theme: '',
+        pictures: true,
+        sounds: false,
+        multipleAnswers: true,
+        hints: false,
+        timeDisplayHint: 10,
+        difficulty: 3,
+        againFalseQuestion: false,
 
-    pictures: false,
-    sounds: false,
-    multipleAnswers: false,
-    hints: false,
-    timeDisplayHint: 10,
-    difficulty: 3,
-    againFalseQuestion: false,
+        correctAnswerWindow: true,
+        correctDescription: true,
+        correctPicture: true,
+        correctSound: true,
 
-    correctAnswerWindow: false,
-    correctDescription: false,
-    correctImage: false,
-    correctSound: false,
+        wrongAnswerWindow: true,
+        wrongDescription: false,
+        wrongPicture: false,
+        wrongSound: false
 
-    falseAnswerWindow: false,
-    falseDescription: false,
-    falseImage: false,
-    falseSound: false
+    };
+    newConfig: BehaviorSubject<Configuration> = new BehaviorSubject<Configuration>(this.defaultConfig);
+    liste: Configuration[] = ALL_CONFIGS
+    liste$: BehaviorSubject<Configuration[]> = new BehaviorSubject(ALL_CONFIGS);
 
-  } as Configuration;
+    private configurationUrl = environment.apiUrl + "/configuration";
 
-  public static liste : Configuration[] = [CONFIG_DEFAULT_3, CONFIG_DEFAULT_4, CONFIG_DEFAULT_5];
+    private httpOptions = httpOptionsBase;
 
-  constructor() {
-    this.setConfigToDefault();
-  }
+    constructor(private http: HttpClient) {
+        this.retrieveAllConfigurations();
+        this.setConfigToDefault();
+    }
 
-  getSelectedConfig(): Observable<Configuration> {
-    return this.selectedConfig.asObservable();
-  }
+    retrieveAllConfigurations() {
+        this.http.get<Configuration[]>(this.configurationUrl).subscribe((configurationList: Configuration[]) => {
+            this.liste = configurationList;
+            this.liste$.next(configurationList);
+        });
+        this.checkDefaultConfigs();
+        return this.liste;
+    }
 
-  getNewConfig(): Observable<Configuration> {
-    return this.newConfig.asObservable();
-  }
+    checkDefaultConfigs(): void {
+        let index3 = this.liste.findIndex((config: Configuration) => config.name === CONFIG_DEFAULT_3.name);
 
-  setNewConfig(newConfig: Configuration) {
-    this.newConfig.next(JSON.parse(JSON.stringify(newConfig)));
-  }
+        if (index3 === -1) {
+            this.addConfig(CONFIG_DEFAULT_3);
+        }
 
-  setConfigToDefault() {
-    this.newConfig = new BehaviorSubject<Configuration>(this.emptyConfig);
-  }
+        let index4 = this.liste.findIndex((config: Configuration) => config.name === CONFIG_DEFAULT_4.name);
+        if (index4 === -1) {
+            this.addConfig(CONFIG_DEFAULT_4);
+        }
 
-  updateConfig(){};
+        let index5 = this.liste.findIndex((config: Configuration) => config.name === CONFIG_DEFAULT_5.name);
+        if (index5 === -1) {
+            this.addConfig(CONFIG_DEFAULT_5);
+        }
+    }
 
-  addNewConfig(){
-    ConfigurationService.liste.push(this.newConfig.value);
-    this.newConfig = new BehaviorSubject<Configuration>({} as Configuration);
-  }
+    addNewConfig(): void {
+        this.addConfig(this.newConfig.value);
+        this.setConfigToDefault();
+    }
 
-  getListe(){
-    return ConfigurationService.liste;
-  }
-  
-  setNewFontFamily(s: string){
-   this.newConfig.value.fontFamily = s;
-  }
+    addConfig(config: Configuration): void {
+        this.http.post<Configuration[]>(this.configurationUrl, config, this.httpOptions)
+            .subscribe((configList) => {
+                this.liste = configList;
+                this.liste$.next(configList);
+            });
+    }
 
-  setNewFontSize(s: number){
-   this.newConfig.value.fontSize = s;
-  }
+    getNewConfig(): Observable<Configuration> {
+        return this.newConfig.asObservable();
+    }
 
-  getNewFontFamily(){
-    return this.newConfig.value.fontFamily;
-  }
+    setNewConfig(newConfig: Configuration): void {
+        this.newConfig.next(JSON.parse(JSON.stringify(newConfig)));
+    }
 
-  getNewFontSize(){
-    return this.newConfig.value.fontSize;
-  }
+    setConfigToDefault(): void {
+        this.newConfig.next(this.defaultConfig);
+    }
 
+    getListe(): Configuration[] {
+        return this.liste;
+    }
 
-  // Directive globale pour l'entièreté de l'application
+    setNewFontFamily(s: string) {
+        this.newConfig.value.fontFamily = s;
+    }
 
-  setGlobalFont (fontName: string) {
-    this.globalFont = fontName;
-    document.documentElement.style.setProperty('--font-family', fontName);
-  }
+    setNewFontSize(s: number) {
+        this.newConfig.value.fontSize = s;
+    }
 
-  setGlobalSize (fontSize: number) {
-    this.globalSize = fontSize;
-    document.documentElement.style.setProperty('--font-size', fontSize + 'px');
-  }
+    // Directive globale pour l'entièreté de l'application
+    setGlobalFont(fontName: string) {
+        this.globalFont = fontName;
+        document.documentElement.style.setProperty("--font-family", fontName);
+    }
+
+    setGlobalSize(fontSize: number) {
+        this.globalSize = fontSize;
+        document.documentElement.style.setProperty("--font-size", fontSize + "px");
+    }
 }

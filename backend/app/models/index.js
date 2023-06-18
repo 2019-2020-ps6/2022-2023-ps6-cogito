@@ -1,11 +1,21 @@
-const Answer = require('./answer.model.js')
-const Question = require('./question.model.js')
-const Quiz = require('./quiz.model.js')
-const User = require('./user.model.js')
+const Question = require('./question.model')
+const Quiz = require('./quiz.model')
+const Configuration = require('./configuration.model')
+const Theme = require('./theme.model')
+const Answer = require('./answer.model')
+const Patient = require('./patient.model')
+const GameQuiz = require('./gameQuiz.model')
+const GameQuestion = require('./gameQuestion.model')
+const Correcting = require('./correcting.model')
 
 module.exports = {
-  Answer,
-  Question,
+  Theme,
+  Configuration,
   Quiz,
-  User,
+  Question,
+  Answer,
+  Patient,
+  GameQuiz,
+  GameQuestion,
+  Correcting,
 }

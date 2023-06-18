@@ -9,6 +9,7 @@ import { ConfigurationService } from 'src/services/configuration.service';
 })
 export class QuestionConfigurationComponent {
   configuration: Configuration | undefined;
+  difficulty: number | undefined;
 
   constructor(public configurationService : ConfigurationService) {
   };
@@ -20,4 +21,9 @@ export class QuestionConfigurationComponent {
       this.configuration = config;
     });
   }
+
+  public get difficultyAsNumber(): number {
+    return this.difficulty as number;
+  }
+  
 }

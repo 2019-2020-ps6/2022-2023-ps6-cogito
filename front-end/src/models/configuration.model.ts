@@ -7,7 +7,6 @@ export interface Configuration {
 
     fontFamily: string;
     fontSize: number;
-    theme: string;
 
     pictures: boolean;
     sounds: boolean;
@@ -19,11 +18,11 @@ export interface Configuration {
 
     correctAnswerWindow: boolean;
     correctDescription: boolean;
-    correctImage: boolean;
+    correctPicture: boolean;
     correctSound: boolean;
 
-    falseAnswerWindow: boolean;
-    falseDescription: boolean;
-    falseImage: boolean;
-    falseSound: boolean;
+    wrongAnswerWindow: boolean;
+    wrongDescription: boolean;
+    wrongPicture: boolean;
+    wrongSound: boolean;
 }

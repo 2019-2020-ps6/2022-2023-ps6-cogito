@@ -12,11 +12,12 @@ module.exports = class BaseModel {
     this.schema = Joi.object().keys({ ...schema, id: Joi.number().required() })
     this.items = []
     this.name = name
-    this.filePath = `${__dirname}/../../database/${this.name.toLowerCase()}.data.json`
+    this.filePath = `${__dirname}/../../database/${process.env.DB_FOLDER ?? ''}${this.name.toLowerCase()}.data.json`
     this.load()
   }
 
   load() {
+    console.log(this.name);
     try {
       this.items = JSON.parse(fs.readFileSync(this.filePath, 'utf8'))
     } catch (err) {
@@ -44,7 +45,7 @@ module.exports = class BaseModel {
   }
 
   create(obj = {}) {
-    const item = { ...obj, id: Date.now() }
+    const item = { ...obj, id: parseInt(Date.now() + Math.floor(Math.random() * 10000)) }
     const { error } = Joi.validate(item, this.schema)
     if (error) throw new ValidationError(`Create Error : Object ${JSON.stringify(obj)} does not match schema of model ${this.name}`, error)
     this.items.push(item)

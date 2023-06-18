@@ -3,6 +3,7 @@ import { Router } from "@angular/router";
 
 import { ThemeService } from "src/services/theme.service";
 import { Theme } from "src/models/theme.model";
+import { CONFIG_DEFAULT_3 } from "../../../mocks/configuration.mock";
 import { Patient } from "../../../models/patient.model";
 import { PatientService } from "../../../services/patient.service";
 
@@ -20,9 +21,10 @@ export class ThemePageComponent implements OnInit {
     private size!: number;
     private patientSelected : Patient | undefined;
 
-    constructor(private themeService: ThemeService, private router: Router, private patientService: PatientService) {
+    constructor(private themeService: ThemeService, private router: Router, private patientService: PatientService) {      
         this.themeService.themeList$.subscribe((themeList: Theme[]): void => {
             this.themeList = themeList;
+            console.log(this.themeList);
         });
         this.maxMargin();
         this.currentSize();
@@ -55,14 +57,22 @@ export class ThemePageComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.nextDisplayThemes();
-        this.patientService.getSelectedPatient().subscribe(patient => {
-            this.patientSelected = patient;
-            document.documentElement.style.setProperty('--font-family', this.patientSelected?.configuration?.fontFamily as string);
-            document.documentElement.style.setProperty('--font-size', this.patientSelected?.configuration?.fontSize as number + "px");
-        }
-        );
 
+        console.log("inti");
+        this.patientService.selectedPatient$.subscribe(patient => {
+            this.patientSelected = patient;
+            document.documentElement.style.setProperty('--font-family', CONFIG_DEFAULT_3.fontFamily as string);
+            document.documentElement.style.setProperty('--font-size', CONFIG_DEFAULT_3.fontSize as number + "px");
+            /*this.themeService.retrievePatientThemes(this.patientSelected as Patient).subscribe((themes: Theme[]) => {
+                this.themeList = themes;
+            });*/
+            this.themeService.retrievePThemes(this.patientSelected as Patient);
+        });
+        this.themeService.themeList$.subscribe((themeList: Theme[]): void => {
+            this.themeList = themeList;
+            this.nextDisplayThemes();
+        });
+        this.nextDisplayThemes();
     }
 
     @HostListener("window:resize")
@@ -106,6 +116,6 @@ export class ThemePageComponent implements OnInit {
 
     selectTheme(theme: Theme): void {
         this.themeService.selectTheme(theme);
-        this.router.navigateByUrl("/quiz-page");
+        this.router.navigateByUrl("/quiz-page/" + theme.id);
     }
 }

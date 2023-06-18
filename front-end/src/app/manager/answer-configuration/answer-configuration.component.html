@@ -10,7 +10,7 @@ Pour les réponses correctes, afficher :
 <br>   
 
 <label id="custom-dropdown-label">L'image : </label>
-<input type="checkbox" id="cpic"  [(ngModel)]="configuration === undefined ? '' : configuration.correctImage">
+<input type="checkbox" id="cpic"  [(ngModel)]="configuration === undefined ? '' : configuration.correctPicture">
 <br>  
 
 <label id="custom-dropdown-label">Le son : </label>
@@ -23,17 +23,17 @@ Pour les réponses fausses, afficher :
 <br>
 
 <label id="custom-dropdown-label">La fenêtre : </label>
-<input type="checkbox" id="cwin"  [(ngModel)]="configuration === undefined ? '' : configuration.falseAnswerWindow">
+<input type="checkbox" id="wwin"  [(ngModel)]="configuration === undefined ? '' : configuration.wrongAnswerWindow">
 <br>    
 
 <label id="custom-dropdown-label">La description : </label>
-<input type="checkbox" id="cdesc"  [(ngModel)]="configuration === undefined ? '' : configuration.falseDescription">
+<input type="checkbox" id="wdesc"  [(ngModel)]="configuration === undefined ? '' : configuration.wrongDescription">
 <br>   
 
 <label id="custom-dropdown-label">L'image : </label>
-<input type="checkbox" id="cpic"  [(ngModel)]="configuration === undefined ? '' : configuration.falseImage">
+<input type="checkbox" id="wpic"  [(ngModel)]="configuration === undefined ? '' : configuration.wrongPicture">
 <br>  
 
 <label id="custom-dropdown-label">Le son : </label>
-<input type="checkbox" id="cson"  [(ngModel)]="configuration === undefined ? '' : configuration.falseSound">
+<input type="checkbox" id="wson"  [(ngModel)]="configuration === undefined ? '' : configuration.wrongSound">
 <br>    

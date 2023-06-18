@@ -1,9 +1,7 @@
-<body>
+<div>
     <div class="box">
-        <br>
         <canvas id="myChart"></canvas>
-        <p>{{this.printMessage}} </p>
+        <p *ngIf="printMessage">Il faudrait probablement supprimer le quiz pour ce patient</p>
     </div>
-    <button type="submit" class="button-back" [routerLink]="['/results']" > RETOUR </button>
-
- </body>
+    <button class="backButton" [routerLink]="['/results']">RETOUR</button>
+ </div>

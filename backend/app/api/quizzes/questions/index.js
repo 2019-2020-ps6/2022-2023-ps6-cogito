@@ -1,17 +1,24 @@
 const { Router } = require('express')
 
-const { Answer, Quiz, Question } = require('../../../models')
+const { Question, Correcting, Answer } = require('../../../models')
 const manageAllErrors = require('../../../utils/routes/error-management')
-const AnswersRouter = require('./answers')
-const { filterQuestionsFromQuizz, getQuestionFromQuiz } = require('./manager')
+const { createAnswer, updateAnswer, findQuestionAnswers } = require('./answers/manager')  
+const { createCorrecting, updateCorrecting, findQuestionCorrecting } = require('./correctings/manager')
+
+const {
+  buildQuestion,
+  buildQuestions,
+  findQuizQuestions,
+  createQuestion,
+  updateQuestion,
+
+} = require('./manager')
 
 const router = new Router({ mergeParams: true })
 
 router.get('/', (req, res) => {
   try {
-    // Check if quizId exists, if not it will throw a NotFoundError
-    Quiz.getById(req.params.quizId)
-    res.status(200).json(filterQuestionsFromQuizz(req.params.quizId))
+    res.status(200).json(buildQuestions())
   } catch (err) {
     manageAllErrors(res, err)
   }
@@ -19,51 +26,120 @@ router.get('/', (req, res) => {
 
 router.get('/:questionId', (req, res) => {
   try {
-    const question = getQuestionFromQuiz(req.params.quizId, req.params.questionId)
-    res.status(200).json(question)
+    const question = Question.getById(req.params.questionId)
+    res.status(200).json(buildQuestion(question))
   } catch (err) {
     manageAllErrors(res, err)
   }
 })
 
+router.get('/quiz/:quizId', (req, res) => {
+  try {
+    res.status(200).json(findQuizQuestions(req.params.quizId))
+  } catch (err) {
+    manageAllErrors(res, err)
+  }
+})
+
+/***
+ * The front just has to send an object with all the requirements (question's body, correcting, answers) and a quizId
+ */
+
 router.post('/', (req, res) => {
   try {
-    // Check if quizId exists, if not it will throw a NotFoundError
-    Quiz.getById(req.params.quizId)
-    const quizId = parseInt(req.params.quizId, 10)
-    let question = Question.create({ label: req.body.label, quizId })
-    // If answers have been provided in the request, we create the answer and update the response to send.
-    if (req.body.answers && req.body.answers.length > 0) {
-      const answers = req.body.answers.map((answer) => Answer.create({ ...answer, questionId: question.id }))
-      question = { ...question, answers }
+    const question = {
+      quizId: req.body.quizId,
+      title: req.body.title,
+      difficulty: req.body.difficulty,
+      defaultMediaType: req.body.defaultMediaType,
+      defaultAnswersMediaType: req.body.defaultAnswersMediaType,
+      hint: req.body.hint,
+      picture: req.body.picture,
+      sound: req.body.sound,
+    };
+    const resQuestion = createQuestion(question);
+    const answers = req.body.answerList.map((answer) => {
+      answer.questionId = resQuestion.id;
+      return answer;
+    });
+    const resAnswers = [];
+
+    answers.forEach(answer => {
+      console.log(answer)
+      resAnswers.push(createAnswer(answer));
+    });
+
+    resQuestion.answerList = resAnswers;
+    if(req.body.correcting){
+      const correcting = req.body.correcting;
+      correcting.questionId = resQuestion.id
+      const resCorrecting = createCorrecting(correcting);
+      resQuestion.correcting = resCorrecting;
     }
-    res.status(201).json(question)
+    res.status(201).json(resQuestion);
   } catch (err) {
+    console.log(err);
     manageAllErrors(res, err)
   }
 })
 
 router.put('/:questionId', (req, res) => {
   try {
-    const question = getQuestionFromQuiz(req.params.quizId, req.params.questionId)
-    const updatedQuestion = Question.update(req.params.questionId, { label: req.body.label, quizId: question.quizId })
-    res.status(200).json(updatedQuestion)
+    const question = {
+      quizId: req.body.quizId,
+      title: req.body.title,
+      difficulty: req.body.difficulty,
+      defaultMediaType: req.body.defaultMediaType,
+      defaultAnswersMediaType: req.body.defaultAnswersMediaType,
+      hint: req.body.hint,
+      picture: req.body.picture,
+      sound: req.body.sound,
+    };
+    const resQuestion = updateQuestion(req.params.questionId, question);
+    const answers = req.body.answerList.map((answer) => {
+      answer.questionId = resQuestion.id;
+      return answer;
+    });
+    const resAnswers = [];
+
+    answers.forEach(answer => {
+      console.log(answer)
+      resAnswers.push(updateAnswer(answer.id, answer));
+    });
+
+    resQuestion.answerList = resAnswers;
+    if(req.body.correcting){
+      const correcting = req.body.correcting;
+      correcting.questionId = resQuestion.id
+      const resCorrecting = updateCorrecting(correcting.id, correcting);
+      resQuestion.correcting = resCorrecting;
+    }
+    res.status(200).json(resQuestion)
   } catch (err) {
+    console.log(err);
     manageAllErrors(res, err)
   }
 })
 
 router.delete('/:questionId', (req, res) => {
   try {
-    // Check if the question id exists & if the question has the same quizId as the one provided in the url.
-    getQuestionFromQuiz(req.params.quizId, req.params.questionId)
     Question.delete(req.params.questionId)
-    res.status(204).end()
+    const answers = findQuestionAnswers(req.params.questionId);
+    const correcting = findQuestionCorrecting(req.params.questionId);
+
+    if(answers){
+      answers.forEach((answer) => {
+        Answer.delete(answer.id)
+      })
+    }
+    if(correcting)
+      Correcting.delete(correcting.id);
+    console.log(Question.get());
+    res.status(204).end();
   } catch (err) {
+    console.log(err);
     manageAllErrors(res, err)
   }
 })
-
-router.use('/:questionId/answers', AnswersRouter)
 
 module.exports = router

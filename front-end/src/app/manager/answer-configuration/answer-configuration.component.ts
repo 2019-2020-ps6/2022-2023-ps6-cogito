@@ -14,8 +14,6 @@ export class AnswerConfigurationComponent {
   };
 
   ngOnInit() {
-    // subscribe to configurationService
-    //this.configurationService.setConfigToDefault();
     this.configurationService.getNewConfig().subscribe((config: Configuration) => {
       this.configuration = config;
     });

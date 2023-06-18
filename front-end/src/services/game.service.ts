@@ -3,6 +3,7 @@ import { Router } from "@angular/router";
 import { BehaviorSubject } from "rxjs";
 
 import { QUIZZES_ALL } from "../mocks/quiz.mock";
+import { STAT_GOOD_3 } from "../mocks/statistics.mock";
 import { Answer } from "../models/answer.model";
 import { Configuration } from "../models/configuration.model";
 import { GameQuestion } from "../models/gameQuestion.model";
@@ -14,24 +15,24 @@ import { Statistics } from "../models/statistics.model";
 import { PatientService } from "./patient.service";
 import { QuizService } from "./quiz.service";
 import { QuizSoundService } from "./gameSound.service";
-import { read } from "fs-extra";
-import { GameQuestionComponent } from "src/app/game/question/question.component";
 
 @Injectable({
     providedIn: "root"
 })
-export class idList {
+export class GameService {
     private gameQuiz?: GameQuiz;
     private selectedPatient?: Patient;
+    private config: Configuration = {} as Configuration;
     private selectedQuiz?: Quiz;
     private questionList: GameQuestion[] = [];
     public currentQuestion$: BehaviorSubject<GameQuestion | undefined>
         = new BehaviorSubject<GameQuestion | undefined>(undefined);
     private currentQuestion?: GameQuestion;
     private currentInd: number = -1;
-    public resultQuiz: Map<GameQuestion,boolean> = new Map();
+    public resultQuiz: Map<GameQuestion, boolean> = new Map();
 
-    constructor(private patientService: PatientService, private quizService: QuizService, private soundService: QuizSoundService, private router: Router) {
+    constructor(private patientService: PatientService, private quizService: QuizService,
+                private soundService: QuizSoundService, private router: Router) {
         this.patientService.selectedPatient$.subscribe((patient?: Patient): void => {
             if (this.router.url.includes("/game-page") && patient === undefined) {
                 this.router.navigateByUrl("/patient-page");
@@ -40,37 +41,32 @@ export class idList {
             this.selectedPatient = patient;
 
             this.emptyGame();
+            console.log(this.selectedPatient);
             if (this.selectedPatient != undefined && this.selectedPatient.stage >= 5) {
-                if (this.selectedPatient.quizToPlayList.length === 0) {
-                    // Add list of possible quizId from the patient
-                    this.selectedPatient.quizToPlayList = this.selectedPatient.quizIdList.slice();
-                }
-                this.chooseQuiz();
+                // Add list of possible quizId from the patient
+                this.quizService.setQuizzesListStade4().subscribe((quizzes) => {
+                    this.chooseQuiz(quizzes as Quiz[]);
+                })
             }
         });
 
         this.quizService.selectedQuiz$.subscribe((quiz?: Quiz): void => {
             this.selectedQuiz = quiz;
-
             if (quiz != undefined && this.selectedPatient != undefined) {
+                this.config = this.selectedPatient.configuration
                 if (this.gameQuiz == undefined || this.gameQuiz.quizId !== quiz.id) {
                     this.emptyGame();
-                    this.getQuestionsList(this.selectedPatient.configuration, quiz);
-                    this.gameQuizInit(quiz.id);
+                    console.log(quiz);
+                    this.gameQuizInit(quiz.id, this.selectedPatient.id);
+                    this.getQuestionsList(this.config, quiz); // change by back-end config
                     this.nextQuestion();
                 }
             }
         });
     }
 
-    private chooseQuiz(): void {
-        if (this.selectedPatient != undefined) {
-            let idList: number[] = this.selectedPatient.quizToPlayList;
-            if (this.gameQuiz == undefined || this.gameQuiz.endTime != undefined) {
-                let ind: number = Math.floor(Math.random() * idList.length);
-                this.quizService.selectQuiz(this.findQuizFromAll(idList[ind]));
-            }
-        }
+    private chooseQuiz(quizzes : Quiz[]): void {
+        this.quizService.selectQuiz(quizzes[Math.floor(Math.random() * quizzes.length)]);
     }
 
     private findQuizFromAll(quizId: number): Quiz {
@@ -78,9 +74,10 @@ export class idList {
         return QUIZZES_ALL[ind];
     }
 
-    private gameQuizInit(quizId: number): void {
+    private gameQuizInit(quizId: number, patientId: number): void {
         this.gameQuiz = {
             id: -1,
+            patientId: patientId,
             quizId: quizId,
             questionList: [],
             startTime: new Date()
@@ -98,7 +95,8 @@ export class idList {
     private getQuestionsList(configuration: Configuration, quiz: Quiz): void {
         let questionMedia: MediaType;
         let answerMedia: MediaType;
-        let gameQuestion: GameQuestion;
+        let gameQuestion: GameQuestion
+        console.log(quiz);
         for (let question of quiz.questionList) {
             questionMedia = this.getQuestionMedia(configuration, question);
             answerMedia = this.getAnswerMedia(configuration, question);
@@ -109,7 +107,7 @@ export class idList {
                     questionId: question.id,
                     title: question.title,
                     answersMediaType: answerMedia,
-                    answerList: this.getAnswerList(configuration.multipleAnswers, question), // faire fonction pour mettre les réponses acceptées par le patient
+                    answerList: this.getAnswerList(configuration.multipleAnswers, question),
                     correcting: question.correcting,
                     hint: (configuration.hints) ? question.hint : undefined,
                     picture: (questionMedia === MediaType.picture) ? question.picture : undefined,
@@ -199,10 +197,6 @@ export class idList {
 
     nextQuestion(): void {
         if (!this.islastQuestion() && this.gameQuiz != undefined) {
-            if (this.currentQuestion != undefined) {
-                this.currentQuestion.endTime = new Date();
-                this.gameQuiz.questionList.push(this.currentQuestion);
-            }
             this.currentQuestion = this.questionList[++this.currentInd];
             this.fisherYatesShuffle(this.currentQuestion.answerList);
             this.currentQuestion.startTime = new Date();
@@ -211,30 +205,39 @@ export class idList {
     }
 
     checkAnswer(answer?: Answer, question?: GameQuestion): void {
-        if (question){
-            if (answer && answer.isCorrect){
-                this.resultQuiz.set(question,answer.isCorrect);
-            }
-            else {
-                this.resultQuiz.set(question,false);
-                let occur = this.questionList.reduce((acc, curr) => curr === question ? acc + 1 : acc, 0);
-                if (occur && occur <2)
-                    this.questionList.push(question);
+        if (question) {
+            question.selectedAnswer = answer;
+            this.currentQuestion = question;
+            this.currentQuestion.endTime = new Date();
+            this.gameQuiz?.questionList.push(this.currentQuestion);
+
+            if (answer) {
+                this.resultQuiz.set(question, answer.isCorrect);
+
+                if (!answer.isCorrect) {
+                    let occur = this.questionList.reduce((acc, curr) => curr === question ? acc + 1 : acc, 0);
+                    if (occur && occur < 2) {
+                        this.questionList.push(question);
+                    }
                 }
             }
-            console.log(this.questionList);
+        }
     }
 
-    finalScore():  Map<GameQuestion,boolean> {
+    finalScore(): Map<GameQuestion, boolean> {
         return this.resultQuiz;
 
     }
 
-    playSound(soundUrl: string| undefined){
-        if (soundUrl)
-        this.soundService.playSound(soundUrl);
+    playSound(soundUrl: string | undefined) {
+        console.log("play sound : ",this.selectedQuiz);
+        console.log("playSound : ", soundUrl);
+        if (soundUrl) {
+            this.soundService.playSound(soundUrl);
+        }
     }
-    stopSound(){
+
+    stopSound() {
         this.soundService.stopAllSounds();
     }
 
@@ -243,31 +246,26 @@ export class idList {
     }
 
     activeCorrWindow(): boolean {
-        return this.selectedPatient?.configuration.correctAnswerWindow||this.selectedPatient?.configuration.falseAnswerWindow||false;
+        return this.config.correctAnswerWindow || this.config.wrongAnswerWindow || false;
     }
 
     activeCorrTrueWindow(): boolean {
-        return this.selectedPatient?.configuration.correctAnswerWindow||false;
+        return this.config.correctAnswerWindow || false;
     }
 
     activeCorrFalseWindow(): boolean {
-        return this.selectedPatient?.configuration.falseAnswerWindow||false;
+        return this.config.wrongAnswerWindow || false;
     }
 
-    getConfig(): Configuration|undefined {
-        return this.selectedPatient?.configuration||undefined;
-    }
-
-    getQuiz() : GameQuiz|undefined {
-        return this.gameQuiz;
+    getConfig(): Configuration | undefined {
+        return this.config || undefined;
     }
 
     finishGame(): void {
         if (this.currentQuestion != undefined && this.gameQuiz != undefined && this.selectedPatient != undefined) {
-            this.currentQuestion.endTime = new Date();
-            this.gameQuiz.questionList.push(this.currentQuestion);
+            this.gameQuiz.endTime = new Date();
 
-            let stats: Statistics = this.selectedPatient.statistics;
+            let stats: Statistics = STAT_GOOD_3;
             if (stats.playedQuizList.has(this.gameQuiz.quizId)) {
                 // @ts-ignore
                 stats.playedQuizList.get(this.gameQuiz.quizId).push(this.gameQuiz);
@@ -280,8 +278,12 @@ export class idList {
                 this.removeQuizToPlay(this.gameQuiz.quizId, this.selectedPatient);
             }
             this.emptyGame();
-            console.log("Game finished");
-            this.router.navigateByUrl("/patient-page");
+            if (this.selectedPatient.stage < 5) {
+                this.router.navigateByUrl("/quiz-page");
+            }
+            else {
+                this.router.navigateByUrl("/patient-page");
+            }
         }
     }
 
@@ -302,37 +304,29 @@ export class idList {
         patient.quizToPlayList = idList;
     }
 
-    leaveGame(): void {
+    leaveGame(themeId: number): void {
         if (this.selectedPatient === undefined || this.selectedPatient.stage >= 5) {
             this.router.navigateByUrl("/patient-page");
         }
         else {
-            this.router.navigateByUrl("/quiz-page");
+            this.router.navigateByUrl("/quiz-page/"+themeId);
         }
     }
 
-    selectQuestionForExample(question : Question){
-        let q : GameQuestion = {
+    selectQuestionForExample(question: Question): void {
+        let q: GameQuestion = {
             id: question.id,
             questionId: question.id,
             title: question.title,
             answersMediaType: question.defaultAnswersMediaType,
             displayedHint: false,
-            startTime: new Date(),
-            endTime: new Date(),
+            startTime: undefined,
+            endTime: undefined,
             answerList: question.answerList,
             picture: question.picture,
             sound: question.sound,
         }
         this.currentQuestion$.next(q);
-    }
-
-    exampleNoMore(){
-        this.currentQuestion = undefined;
-    }
-
-    getCurrentQuestion(): GameQuestion|undefined{
-        return this.currentQuestion;
     }
 
 }

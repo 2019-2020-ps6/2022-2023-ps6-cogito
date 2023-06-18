@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, Output } from "@angular/core";
 
 import { GameQuestion } from "src/models/gameQuestion.model";
-import { idList } from "src/services/game.service";
+import { GameService } from "src/services/game.service";
 import { Answer } from "../../../models/answer.model";
 
 @Component({
@@ -18,7 +18,7 @@ export class GameQuestionComponent {
     @Output()
     clickOncheckAnswer: EventEmitter<Answer> = new EventEmitter<Answer>();
 
-    constructor(private gameService: idList) {
+    constructor(private gameService: GameService) {
         this.gameService.currentQuestion$.subscribe((question?: GameQuestion): void => {
             this.question = question;
             this.lastQuestion = this.gameService.islastQuestion();
@@ -44,7 +44,7 @@ export class GameQuestionComponent {
             this.imageUrl="./assets/pictures/audio-on.png"
         }
     }
-    
+
     setAudioOff(): void {
         this.gameService.stopSound();
         this.imageUrl="./assets/pictures/audio-off.png";
@@ -70,7 +70,6 @@ export class GameQuestionComponent {
                 console.log(this.hintIsShow)
                 this.hintIsShow = true;
             }
-            console.log(this.gameService.finalScore())
         }
     }
 }

@@ -1,0 +1,111 @@
+[
+  {
+    "quizId": 1686391620048,
+    "title": "Le carillon est composé de cloches",
+    "difficulty": 1,
+    "defaultMediaType": 0,
+    "defaultAnswersMediaType": 0,
+    "id": 1686398735627
+  },
+  {
+    "quizId": 1686391620048,
+    "title": "Le violon possède ...",
+    "difficulty": 2,
+    "defaultMediaType": 2,
+    "defaultAnswersMediaType": 0,
+    "hint": "Ce n'est pas 3 !",
+    "picture": "https://www.guillaume-kessler.fr/wp-content/uploads/2017/11/violon-passion-tradition-mirecourt-trois-quart-carre.jpg",
+    "id": 1686398912882
+  },
+  {
+    "quizId": 1686391620048,
+    "title": "La guitare est un instrument à ...",
+    "difficulty": 3,
+    "defaultMediaType": 0,
+    "defaultAnswersMediaType": 0,
+    "id": 1686412365864
+  },
+  {
+    "quizId": 1686391620048,
+    "title": "Qui a chanté \"Ne me quitte pas\" ?",
+    "difficulty": 1,
+    "defaultMediaType": 1,
+    "defaultAnswersMediaType": 2,
+    "hint": "Il est né en 1929",
+    "sound": "/assets/sounds/neMeQuittePas.mp3",
+    "id": 1686412521928
+  },
+  {
+    "quizId": 1686391656164,
+    "title": "Chanteur de \"Ne me quitte pas\" de 1959",
+    "difficulty": 3,
+    "defaultMediaType": 0,
+    "defaultAnswersMediaType": 0,
+    "hint": "Il est né en 1929",
+    "id": 1686412643309
+  },
+  {
+    "quizId": 1686412016016,
+    "title": "Magnus Carlsen est champion du monde depuis...",
+    "difficulty": 3,
+    "defaultMediaType": 0,
+    "defaultAnswersMediaType": 0,
+    "id": 1686412725366
+  },
+  {
+    "quizId": 1686412016016,
+    "title": "Combien y a-t-il de pions pour une seule couleur ?",
+    "difficulty": 2,
+    "defaultMediaType": 0,
+    "defaultAnswersMediaType": 0,
+    "id": 1686412757192
+  },
+  {
+    "quizId": 1686412032373,
+    "title": "Qui a gagné la coupe du monde 2018 ?",
+    "difficulty": 1,
+    "defaultMediaType": 0,
+    "defaultAnswersMediaType": 0,
+    "id": 1686412856260
+  },
+  {
+    "quizId": 1686412032373,
+    "title": "Qui a gagné la coupe du monde 2014 ?",
+    "difficulty": 1,
+    "defaultMediaType": 0,
+    "defaultAnswersMediaType": 0,
+    "id": 1686412878211
+  },
+  {
+    "quizId": 1686412162196,
+    "title": "Quel est le signe des anglais au rugby ?",
+    "difficulty": 1,
+    "defaultMediaType": 0,
+    "defaultAnswersMediaType": 0,
+    "id": 1686412954238
+  },
+  {
+    "quizId": 1686412162196,
+    "title": "Quel est l'équipe la plus titrée ?",
+    "difficulty": 1,
+    "defaultMediaType": 0,
+    "defaultAnswersMediaType": 0,
+    "id": 1686412964837
+  },
+  {
+    "quizId": 1686576480281,
+    "title": "Ou est le tournesol ?",
+    "difficulty": 1,
+    "defaultMediaType": 0,
+    "defaultAnswersMediaType": 1,
+    "id": 1686576510408
+  },
+  {
+    "quizId": 1686576480281,
+    "title": "Qui n'est pas une plante ?",
+    "difficulty": 2,
+    "defaultMediaType": 0,
+    "defaultAnswersMediaType": 0,
+    "id": 1686577450606
+  }
+]

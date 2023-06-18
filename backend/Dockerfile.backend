@@ -1,0 +1,20 @@
+FROM node:16.16.0-alpine as build
+
+RUN apk add curl
+
+USER node
+
+WORKDIR /home/node
+
+COPY --chown=node:node package*.json ./
+COPY --chown=node:node ./app app/
+COPY --chown=node:node ./database database/
+
+RUN npm install
+
+EXPOSE 9428
+
+ENTRYPOINT ["npm", "run", "start:e2e"]
+
+# docker build -t backend:16.16.0 .
+# docker run -p 8000:9428 backend:16.16.0

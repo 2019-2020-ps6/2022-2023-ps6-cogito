@@ -5,5 +5,9 @@ section#homePage {
 }
 
 button#begin {
+    height: calc($button_height + 2vh);
     width: calc($button_width + 3vw);
+    border-width: 2px;
+    font-size: $normal_size;
+    font-weight: 550;
 }
