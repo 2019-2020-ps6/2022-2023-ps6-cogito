@@ -1,0 +1,36 @@
+FROM alpine:3.17.3 as build_sed
+
+RUN apk add sed
+
+ARG FRONTEND_DOMAIN
+ARG BACKEND_DOMAIN
+ARG BACKEND_PORT
+
+WORKDIR /alpine
+
+COPY *.json ./
+COPY ./src src/
+COPY ./e2e e2e/
+
+RUN sed -i "s/<BACKEND_PORT>/${BACKEND_PORT:-9428}/g" src/environments/environment.prod.ts
+RUN sed -i "s/<BACKEND_DOMAIN>/${BACKEND_DOMAIN:-localhost}/g"  src/environments/environment.prod.ts
+RUN sed -i "s/<FRONTEND_DOMAIN>/${FRONTEND_DOMAIN:-localhost}/g"  src/environments/environment.prod.ts
+
+FROM mcr.microsoft.com/playwright:v1.34.0-jammy
+
+USER pwuser
+
+WORKDIR /playwright
+
+COPY --chown=pwuser:pwuser --from=build_sed /alpine/*.json ./
+COPY --chown=pwuser:pwuser --from=build_sed /alpine/src src/
+COPY --chown=pwuser:pwuser --from=build_sed /alpine/e2e e2e/
+
+RUN mkdir "test-results"
+RUN mkdir "playwright-report"
+RUN npm install
+
+ENTRYPOINT ["npx", "playwright", "test", "--config", "e2e/playwright.config.e2e.ts"]
+
+# docker build -t test_playwright:1.34.0 .
+# docker run test_playwright:1.34.0

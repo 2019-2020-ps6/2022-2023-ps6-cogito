@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test';
-import { createPatientUrl, profilListUrl, listConfigUrl } from 'e2e/e2e.config';
+import { testUrl, profilListUrl } from 'e2e/e2e.config';
 import { ProfilListFixture } from 'src/app/manager/profil_list/profil-list.fixture';
 import { CreateConfigurationFixture } from 'src/app/manager/create-configuration/create-configuration.fixture';
 
@@ -9,24 +9,24 @@ test.describe('Configuration Feature', () => {
 
     test('Configuration Creation', async ({ page }) => {
 
-        // On commence sur la liste des profils 
+        // On commence sur la liste des profils
         await page.goto(profilListUrl);
-        await expect(page).toHaveURL("http://localhost:4200/profil-list");
+        await expect(page).toHaveURL(testUrl + "profil-list");
         await ProfilListFixture.getProfilButton(page)
 
 
         // On continue sur le profil
-        await expect(page).toHaveURL("http://localhost:4200/profil");
+        await expect(page).toHaveURL(testUrl + "profil");
         await page.locator("#chooseConfig").click();
 
 
         // On continue sur la liste des configurations
-        await expect(page).toHaveURL("http://localhost:4200/configuration")
+        await expect(page).toHaveURL(testUrl + "configuration")
         await page.locator("#addButton").click();
 
 
         // On commence à créer la configuration
-        await expect(page).toHaveURL("http://localhost:4200/create-configuration")
+        await expect(page).toHaveURL(testUrl + "create-configuration")
         const createConfigurationFixture = new CreateConfigurationFixture(page);
         const nameConfig = "aaaaa";
         const descriptionConfig = "Description de la config";
@@ -38,7 +38,7 @@ test.describe('Configuration Feature', () => {
         await inputDescription.type(descriptionConfig);
 
         await page.locator("#interface").click();
-        await expect(page).toHaveURL("http://localhost:4200/create-configuration")
+        await expect(page).toHaveURL(testUrl + "create-configuration")
 
 
         // Ensuite on passe sur l'interface
@@ -46,7 +46,7 @@ test.describe('Configuration Feature', () => {
         await page.locator("#button3size").click();
 
         await page.locator("#questions").click();
-        await expect(page).toHaveURL("http://localhost:4200/create-configuration")
+        await expect(page).toHaveURL(testUrl + "create-configuration")
 
 
         // Désormais on passe aux questions
@@ -64,8 +64,8 @@ test.describe('Configuration Feature', () => {
 
 
         await page.locator('#save').click();
-        await expect(page).toHaveURL("http://localhost:4200/configuration")
+        await expect(page).toHaveURL(testUrl + "configuration")
 
     });
 
-}); 
+});
